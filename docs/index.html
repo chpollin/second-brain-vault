@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Brain Vault explorer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="page-head">
+  <h1>Second Brain Vault, and how an agent reads it</h1>
+  <p class="picker">
+    <label for="task">Trace an agent task</label>
+    <select id="task">
+      <option value="">no task</option>
+    </select>
+  </p>
+</header>
+
+<div class="columns">
+  <nav id="tree" aria-label="Files by how they reach an agent"></nav>
+
+  <main>
+    <h2 id="doc-title" tabindex="-1"></h2>
+    <dl id="doc-fields" class="frontmatter" hidden></dl>
+    <div id="doc-body" class="prose"></div>
+    <section id="doc-inbound" class="inbound"></section>
+  </main>
+
+  <aside id="trace" aria-labelledby="trace-title" hidden>
+    <h2 id="trace-title"></h2>
+    <ol id="trace-steps"></ol>
+  </aside>
+</div>
+</body>
+</html>

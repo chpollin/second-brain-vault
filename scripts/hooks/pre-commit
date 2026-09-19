@@ -1,0 +1,10 @@
+#!/bin/sh
+# Hard rules of the vault, see "Rule tiers" in CLAUDE.md. Measured findings never block.
+# Enable once per clone: git config core.hooksPath scripts/hooks
+# The hook resolves the vault from its own location, so it also works when the vault is a
+# subfolder of a larger repository.
+vault="$(cd "$(dirname "$0")/../.." && pwd)"
+python "$vault/scripts/check_vault.py" --hard || {
+  echo "Commit rejected by the hard rules of the vault. Fix the findings above." >&2
+  exit 1
+}
