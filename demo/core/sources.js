@@ -32,6 +32,30 @@ window.VAULT_SOURCES = (() => {
     return `/api/catalog?${new URLSearchParams({ q: state.suche || '', project: state.projekt || '',
       mode: state.mode === 'headings' ? 'headings' : 'fulltext', offset: String(offset) })}`;
   }
+  function filterResults(items, model, state) {
+    return items.filter(item => {
+      const metadata = model?.nodes.get(item.path);
+      return (!state.ordner || (state.ordner === '/' ? !item.path.includes('/') : item.path.startsWith(`${state.ordner}/`)))
+        && (!state.wissensform || (state.wissensform === 'untyped' ? metadata?.type === '' : metadata?.type === state.wissensform));
+    });
+  }
+  function folderTree(paths) {
+    const root = { path: '', name: '', children: new Map() };
+    for (const path of paths) {
+      let parent = root;
+      const parts = path.split('/').slice(0, -1);
+      parts.forEach((name, index) => {
+        const key = parts.slice(0, index + 1).join('/');
+        if (!parent.children.has(name)) parent.children.set(name, { path: key, name, children: new Map() });
+        parent = parent.children.get(name);
+      });
+    }
+    return root;
+  }
+  function loadedTarget(value) {
+    const count = Number(value);
+    return Number.isSafeInteger(count) && count > 0 ? Math.min(count, 10000) : 30;
+  }
   function selectedRange(record, range, body) {
     const blockFor = node => (node.nodeType === 3 ? node.parentElement : node).closest('[data-source-start]');
     const startBlock = blockFor(range.startContainer), endBlock = blockFor(range.endContainer);
@@ -51,8 +75,9 @@ window.VAULT_SOURCES = (() => {
     let adding = false;
     let results = [];
     let nextOffset = null;
-    let state = {};
+    let state = { ordner: '', darstellung: 'list' };
     let mapController = null;
+    let model = null;
     let mapRequest = null;
     let mapSerial = 0;
     let mapUnavailable = false;
@@ -63,18 +88,20 @@ window.VAULT_SOURCES = (() => {
     function fail(message) { error.textContent = message; error.hidden = false; }
     function save(push = false) {
       const hash = new URLSearchParams(state).toString();
-      if (push && location.hash !== `#${hash}`) history.pushState(null, '', `#${hash}`);
+      if (location.hash !== `#${hash}`) history[push ? 'pushState' : 'replaceState'](null, '', `#${hash}`);
       window.ARBEITSKONTEXT.schreibe('quellen', state);
     }
     function renderSource() {
       if (!current) return;
       const raw = state.ansicht === 'original';
-      const changed = Boolean(state.kartenrevision && state.kartenrevision !== current.revision);
+      const knownMetadata = model?.nodes.get(current.path);
+      const changed = Boolean((state.kartenrevision && state.kartenrevision !== current.revision)
+        || (knownMetadata && knownMetadata.revision !== current.revision));
       const sourceUrl = typeof current.sourceUrl === 'string' && current.sourceUrl.startsWith('https://github.com/chpollin/second-brain-vault/blob/') ? current.sourceUrl : null;
       const actions = el('div', { class: 'source-actions' },
         sourceUrl && el('a', { href: sourceUrl }, 'Quelldatei auf GitHub'),
         el('a', { href: `#${new URLSearchParams({ ...state, ansicht: raw ? 'lesen' : 'original' })}`, 'data-source-view': raw ? 'lesen' : 'original' }, raw ? 'Lesefassung' : 'Markdown-Quelltext'),
-        el('a', { href: `#${new URLSearchParams({ ...state, path: '', anchor: '' })}`, 'data-source-close': '' }, state.darstellung === 'map' ? 'Zur Wissenskarte' : 'Zur Dokumentübersicht'));
+        el('a', { href: `#${new URLSearchParams({ ...state, path: '', anchor: '' })}`, 'data-source-close': '' }, 'Lesebereich schließen'));
       const review = el('button', { type: 'button', class: 'knopf', id: 'source-review-add', disabled: true }, 'Passage prüfen');
       const selectionStatus = el('small', { id: 'source-selection-status', role: 'status' });
       if (window.crypto?.subtle && window.getSelection) actions.append(review, selectionStatus);
@@ -115,9 +142,15 @@ window.VAULT_SOURCES = (() => {
           }
         }
       }
+      const metadata = knownMetadata?.revision === current.revision ? knownMetadata : null;
+      const properties = metadata && el('dl', { class: 'source-properties' },
+        el('dt', {}, 'Dokumentart'), el('dd', {}, window.KNOWLEDGE_MAP.typeName(metadata)),
+        el('dt', {}, 'Dokumentreife'), el('dd', {}, window.KNOWLEDGE_MAP.maturityName?.(metadata) || metadata.status || 'Nicht angegeben'),
+        ...(metadata.tags.length ? [el('dt', {}, 'Tags'), el('dd', {}, metadata.tags.join(', '))] : []),
+        ...(metadata.aliases.length ? [el('dt', {}, 'Aliasse'), el('dd', {}, metadata.aliases.join(', '))] : []));
       $('source-content').replaceChildren(el('h2', { id: 'source-title', 'data-anchor': current.title }, current.title),
-        el('p', { class: 'source-meta', title: `Quellenrevision ${current.revision}` }, current.path), actions,
-        ...(changed ? [el('p', { class: 'stoerung', role: 'status' }, 'Die Quelle hat sich seit dem Laden der Wissenskarte geändert. Die frühere Verweisstelle muss erneut geprüft werden.')] : []), body);
+        el('p', { class: 'source-meta', title: `Quellenrevision ${current.revision}` }, current.path), properties || '', actions,
+        ...(changed ? [el('p', { class: 'stoerung', role: 'status' }, 'Die Quelle hat sich seit dem Laden der Übersicht geändert. Die frühere Verweisstelle muss erneut geprüft werden.')] : []), body);
       for (const link of $('source-results').querySelectorAll('[data-source-path]')) {
         if (link.dataset.sourcePath === current.path) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
       }
@@ -163,11 +196,13 @@ window.VAULT_SOURCES = (() => {
     function renderResults() {
       $('source-results').replaceChildren(el('ul', { class: 'source-results', role: 'list' }, ...results.map((item) => el('li', {},
         el('a', { class: 'source-hit', href: `#${new URLSearchParams({ ...state, path: item.path, anchor: '' })}`,
-          'data-source-path': item.path, 'aria-current': current?.path === item.path ? 'page' : null },
-        el('span', {}, item.title), el('small', {}, item.path),
-        item.excerpt?.text && el('span', { class: 'source-excerpt' }, item.excerpt.text))))));
+          'data-source-path': item.path, 'aria-current': (current?.path || state.knoten) === item.path ? 'true' : null },
+        el('span', { class: 'source-hit-title' }, item.title),
+        el('span', { class: 'source-hit-type' }, model?.nodes.has(item.path) ? window.KNOWLEDGE_MAP.typeName(model.nodes.get(item.path)) : 'Dokument'),
+        results.some(other => other.path !== item.path && other.title === item.title) && el('small', { class: 'source-hit-path' }, item.path),
+        state.suche && item.excerpt?.text && el('span', { class: 'source-excerpt' }, item.excerpt.text))))));
       if (!results.length) $('source-results').append(el('p', {}, 'Keine Dokumente für diese Auswahl.'));
-      $('source-more').hidden = nextOffset === null;
+      $('source-more').hidden = nextOffset === null || (state.darstellung === 'map' && !(state.suche || state.projekt || state.ordner || state.wissensform));
     }
     async function search(offset = 0) {
       const serial = ++searchSerial;
@@ -179,21 +214,36 @@ window.VAULT_SOURCES = (() => {
       $('source-results').setAttribute('aria-busy', 'true');
       $('source-more').disabled = true;
       try {
-        const data = await window.SECOND_BRAIN.json(catalogRequest(state, offset));
-        if (serial !== searchSerial) return;
-        if (!Array.isArray(data.results) || !data.results.every(item => typeof item.path === 'string' && typeof item.title === 'string')
-          || !(data.nextOffset === null || Number.isInteger(data.nextOffset) && data.nextOffset > offset)) throw new Error('Ungültige Dokumentliste');
-        results = offset ? [...results, ...data.results] : data.results;
-        nextOffset = data.nextOffset;
+        let cursor = offset;
+        let data;
+        const page = [], warnings = new Set();
+        let truncated = false;
+        const target = offset ? 30 : loadedTarget(state.geladen);
+        // Filter across catalog pages so a type or folder never hides later matches behind an empty page.
+        do {
+          data = await window.SECOND_BRAIN.json(catalogRequest(state, cursor));
+          if (serial !== searchSerial) return;
+          if (!Array.isArray(data.results) || !data.results.every(item => typeof item.path === 'string' && typeof item.title === 'string')
+            || !(data.nextOffset === null || Number.isInteger(data.nextOffset) && data.nextOffset > cursor)) throw new Error('Ungültige Dokumentliste');
+          page.push(...filterResults(data.results, model, state));
+          (data.warnings || []).forEach(message => warnings.add(message));
+          truncated ||= data.truncated;
+          cursor = data.nextOffset;
+        } while (cursor !== null && page.length < target);
+        results = offset ? [...results, ...page] : page;
+        nextOffset = cursor;
+        state.geladen = String(results.length); save();
         renderResults();
-        const scoped = Boolean(state.suche || state.projekt);
+        const scoped = Boolean(state.suche || state.projekt || state.ordner || state.wissensform);
         status.textContent = [scoped ? `${results.length} ${nextOffset === null ? 'Treffer' : 'Treffer angezeigt'}` : '',
-          data.scope ? `Ordner ${data.scope}` : '', data.truncated ? 'Auswahl begrenzt, Filter enger fassen' : ''].filter(Boolean).join(' · ');
-        if (data.warnings?.length) fail(data.warnings.join(' '));
+          truncated ? 'Auswahl begrenzt, Filter enger fassen' : ''].filter(Boolean).join(' · ');
+        if (state.darstellung === 'map') renderMap();
+        if (warnings.size) fail([...warnings].join(' '));
       } catch {
         if (serial !== searchSerial) return;
         $('source-results').replaceChildren(); status.textContent = '';
         nextOffset = null; $('source-more').hidden = true;
+        if (state.darstellung === 'map') $('knowledge-map').replaceChildren();
         fail('Die Dokumentübersicht konnte nicht geladen werden. Prüfe den lokalen Dienst oder setze die Filter zurück.');
       } finally {
         if (serial === searchSerial) { $('source-results').removeAttribute('aria-busy'); $('source-more').disabled = false; }
@@ -214,58 +264,105 @@ window.VAULT_SOURCES = (() => {
       return { ...state, open, more };
     }
     function controls() {
-      const map = state.darstellung === 'map';
       $('source-view').value = state.darstellung;
-      $('source-type-control').hidden = !map;
-      $('source-project-control').hidden = map;
-      $('source-mode-control').hidden = map;
-      $('source-query').placeholder = map ? 'Titel, Thema oder Begriff' : '';
+      $('source-type-control').hidden = !model;
+      $('source-query').placeholder = 'Wissen durchsuchen';
       $('source-type').value = state.wissensform;
-      $('source-reset').hidden = !(state.suche || state.wissensform || (!map && state.projekt));
+      $('source-reset').hidden = !(state.suche || state.wissensform || state.projekt || state.ordner);
       document.querySelector('.sources').dataset.view = state.darstellung;
     }
-    async function showOverview(focusMap = false) {
-      controls();
-      const map = state.darstellung === 'map';
-      $('knowledge-map').hidden = !map;
-      document.querySelector('.source-overview').hidden = map;
-      const serial = ++mapSerial;
-      if (!map) { search(); return; }
-      searchSerial++; status.textContent = '';
-      if (mapController) { mapController.render(mapState()); if (focusMap) mapController.focus(); return; }
-      $('knowledge-map').setAttribute('aria-busy', 'true');
-      $('knowledge-map').textContent = 'Wissenskarte wird geladen';
+    function renderMap() {
+      if (!mapController) return;
+      const filtered = Boolean(state.suche || state.projekt || state.ordner || state.wissensform);
+      mapController.render({ ...mapState(), allowedIds: filtered ? results.map(item => item.path) : undefined });
+    }
+    function renderNavigation() {
+      const button = (name, path) => el('button', { type: 'button', 'data-source-folder': path,
+        'aria-current': state.ordner === path ? 'true' : null }, name);
+      const folders = model ? folderTree([...model.nodes.keys()]) : folderTree(results.map(item => item.path));
+      const opened = new Set();
+      try { JSON.parse(state.ordnerOffen || '[]').forEach(path => opened.add(path)); } catch { /* Folder UI state has no effect on source access. */ }
+      const ancestor = state.ordner.split('/');
+      ancestor.slice(0, -1).forEach((_, index) => opened.add(ancestor.slice(0, index + 1).join('/')));
+      function branch(parent) {
+        return el('ul', { class: 'source-folder-list', role: 'list' }, ...[...parent.children.values()]
+          .sort((a, b) => a.name.localeCompare(b.name, 'de')).map(folder => {
+            const children = folder.children.size ? branch(folder) : null;
+            const toggle = children ? el('button', { type: 'button', class: 'source-folder-toggle',
+              'aria-expanded': opened.has(folder.path), 'aria-label': `Unterordner von ${folder.name}` }, opened.has(folder.path) ? '▾' : '▸') : el('span', { class: 'source-folder-spacer' });
+            if (children) {
+              children.hidden = !opened.has(folder.path);
+              toggle.addEventListener('click', () => {
+                children.hidden = !children.hidden;
+                toggle.textContent = children.hidden ? '▸' : '▾';
+                toggle.setAttribute('aria-expanded', String(!children.hidden));
+                if (children.hidden) opened.delete(folder.path); else opened.add(folder.path);
+                state.ordnerOffen = JSON.stringify([...opened]); save();
+              });
+            }
+            return el('li', {}, el('div', { class: 'source-folder-row' }, toggle, button(folder.name, folder.path)), children || '');
+          }));
+      }
+      $('source-folders').replaceChildren(button('Alle Ordner', ''), button('Dateien im Hauptordner', '/'), branch(folders));
+      const crumbs = [button('Alle Ordner', '')];
+      if (state.ordner === '/') crumbs.push(el('span', {}, 'Hauptordner'));
+      else state.ordner.split('/').filter(Boolean).forEach((part, index, parts) => {
+        crumbs.push(el('span', { 'aria-hidden': 'true' }, '›'), button(part, parts.slice(0, index + 1).join('/')));
+      });
+      $('source-breadcrumb').replaceChildren(...crumbs);
+      $('source-breadcrumb').hidden = !state.ordner;
+      const hubs = model ? window.KNOWLEDGE_MAP.neighbors(model, model.root, 'out') : [];
+      $('source-hubs').replaceChildren(...hubs.map(hub => el('button', { type: 'button', 'data-source-hub': hub.id }, hub.title)));
+      document.querySelector('.source-hubs').hidden = !hubs.length;
+    }
+    async function loadModel() {
+      if (model || mapUnavailable) return;
       try {
         mapRequest ||= window.SECOND_BRAIN.json('/api/knowledge').then(window.KNOWLEDGE_MAP.build);
-        const model = await mapRequest;
-        if (serial !== mapSerial) return;
+        model = await mapRequest;
+        if (mapController) return;
         mapController = window.KNOWLEDGE_MAP.create($('knowledge-map'), model, {
           expand: open => { state.offen = JSON.stringify(open); save(); },
           more: more => { state.mehr = JSON.stringify(more); save(); },
           home: () => {
-            state.knoten = ''; state.suche = ''; state.wissensform = ''; state.rueckfokus = '';
+            state.knoten = ''; state.offen = '[]'; state.mehr = '{}'; state.rueckfokus = '';
             state.einstieg = 'themen'; state.kartenrevision = ''; state.zeile = '';
-            $('source-query').value = ''; clearSource(); state.path = ''; state.anchor = '';
-            save(true); showOverview(); $('source-query').focus();
+            clearSource(); state.path = ''; state.anchor = '';
+            save(true); renderMap(); $('source-view').focus();
           },
           select: id => {
             state.rueckfokus = id; save();
             state.einstieg = 'notiz'; state.kartenrevision = ''; state.zeile = '';
-            state.knoten = id; state.suche = ''; state.wissensform = ''; state.path = ''; state.anchor = '';
-            $('source-query').value = ''; clearSource(); save(true); showOverview(true);
+            state.knoten = id; state.anchor = '';
+            if (state.path) { state.path = id; read(id); }
+            save(true); renderMap(); mapController.focus();
           }
         });
         $('source-type').replaceChildren(el('option', { value: '' }, 'Alle Dokumentarten'),
           ...mapController.types.map(type => el('option', { value: type.value }, type.label)));
-        controls(); mapController.render(mapState()); if (focusMap) mapController.focus();
       } catch {
-        if (serial !== mapSerial) return;
         mapUnavailable = true; state.darstellung = 'list';
-        $('source-view').querySelector('option[value="map"]').remove();
-        $('source-view').closest('label').hidden = true;
-        save(); await showOverview();
-        fail('Die Wissenskarte ist nicht verfügbar. Die Dokumentliste bleibt nutzbar.');
-      } finally { if (serial === mapSerial) $('knowledge-map').removeAttribute('aria-busy'); }
+        $('source-view').querySelector('option[value="map"]')?.remove();
+        state.wissensform = '';
+        fail('Die Verbindungen sind nicht verfügbar. Der Explorer bleibt nutzbar.');
+      }
+    }
+    async function showOverview(focusMap = false) {
+      const serial = ++mapSerial;
+      await loadModel();
+      if (serial !== mapSerial) return;
+      controls(); renderNavigation();
+      const map = state.darstellung === 'map';
+      $('knowledge-map').hidden = !map;
+      document.querySelector('.source-overview').hidden = map;
+      if (map && !(state.suche || state.projekt || state.ordner || state.wissensform)) {
+        searchSerial++; status.textContent = ''; $('source-more').hidden = true; renderMap();
+      } else await search();
+      if (serial !== mapSerial) return;
+      if (!model) renderNavigation();
+      if (current) renderSource();
+      if (mapUnavailable) fail('Die Verbindungen sind nicht verfügbar. Der Explorer bleibt nutzbar.');
+      if (map && focusMap) mapController?.focus();
     }
     function restore() {
       const serial = ++restoreSerial;
@@ -274,17 +371,20 @@ window.VAULT_SOURCES = (() => {
       state = { projekt: saved.projekt || '', suche: saved.suche || '', path: saved.path || '', anchor: saved.anchor || '',
         bezug: saved.projekt || saved.bezug || '',
         mode: saved.mode === 'headings' ? 'headings' : 'fulltext', ansicht: saved.ansicht === 'original' ? 'original' : 'lesen',
-        darstellung: mapUnavailable || saved.darstellung === 'list' ? 'list' : 'map',
+        darstellung: !mapUnavailable && saved.darstellung === 'map' ? 'map' : 'list',
         knoten: saved.knoten || '', offen: saved.offen || '[]', mehr: saved.mehr || '{}', wissensform: saved.wissensform || '',
+        ordner: saved.ordner || '', ordnerOffen: saved.ordnerOffen || '[]', geladen: String(loadedTarget(saved.geladen)),
         rueckfokus: saved.rueckfokus || '', kartenrevision: saved.kartenrevision || '', zeile: saved.zeile || '',
         einstieg: saved.einstieg === 'themen' ? 'themen' : 'notiz' };
       $('source-query').value = state.suche;
       const project = (window.PRUEFANSICHT?.eintraege || []).find(entry => entry.id === state.bezug && entry.notizPfad);
-      const scopes = [{ id: '', name: 'Alle Dokumente' }];
-      if (state.bezug) scopes.push({ id: state.bezug, name: project?.name || 'Projekt nicht verfügbar' });
+      const scopes = [{ id: '', name: 'Alle Projekte' }, ...(window.PRUEFANSICHT?.eintraege || [])
+        .filter(entry => entry.notizPfad).map(entry => ({ id: entry.id, name: entry.name }))];
+      if (state.projekt && !scopes.some(scope => scope.id === state.projekt)) scopes.push({ id: state.projekt, name: 'Projekt nicht verfügbar' });
       $('source-project').replaceChildren(...scopes.map(scope => el('option', { value: scope.id }, scope.name)));
       $('source-project').value = state.projekt; $('source-mode').value = state.mode;
-      if (!('knoten' in saved) && project && state.darstellung === 'map' && state.einstieg !== 'themen') state.knoten = project.notizPfad;
+      if (!('knoten' in saved) && project && state.einstieg !== 'themen') state.knoten = project.notizPfad;
+      save();
       showOverview().then(() => {
         if (serial === restoreSerial && !state.path && state.rueckfokus) $('knowledge-map').querySelector(`[data-knowledge-focus="${CSS.escape(state.rueckfokus)}"]`)?.focus({ preventScroll: true });
       });
@@ -296,22 +396,37 @@ window.VAULT_SOURCES = (() => {
       state.suche = $('source-query').value.trim(); state.projekt = $('source-project').value;
       state.mode = $('source-mode').value; state.wissensform = $('source-type').value;
       state.path = ''; state.anchor = ''; state.kartenrevision = ''; state.zeile = '';
+      state.geladen = '30';
       clearSource(); save(true); showOverview();
     }
     $('source-search').addEventListener('submit', (event) => { event.preventDefault(); applyFilters(); });
-    $('source-project').addEventListener('change', applyFilters);
+    $('source-project').addEventListener('change', () => { state.ordner = ''; applyFilters(); });
     $('source-mode').addEventListener('change', applyFilters);
     $('source-type').addEventListener('change', applyFilters);
     $('source-view').addEventListener('change', () => {
-      state.darstellung = $('source-view').value; state.wissensform = ''; state.path = ''; state.anchor = '';
-      state.kartenrevision = ''; state.zeile = ''; clearSource(); save(true); showOverview();
+      state.darstellung = $('source-view').value;
+      save(true); showOverview();
     });
     $('source-reset').addEventListener('click', () => {
       $('source-query').value = '';
+      state.ordner = '';
       $('source-project').value = ''; $('source-type').value = '';
       $('source-mode').value = 'fulltext'; applyFilters();
     });
     $('source-more').addEventListener('click', () => { if (nextOffset !== null) search(nextOffset); });
+    document.querySelector('.sources').addEventListener('click', event => {
+      const folder = event.target.closest('[data-source-folder]');
+      const hub = event.target.closest('[data-source-hub]');
+      if (folder) {
+        state.ordner = folder.dataset.sourceFolder;
+        applyFilters();
+      } else if (hub) {
+        state.knoten = hub.dataset.sourceHub;
+        state.path = state.knoten; state.anchor = ''; state.kartenrevision = ''; state.zeile = '';
+        save(true); read(state.path, true);
+        if (state.darstellung === 'map') renderMap(); else renderResults();
+      }
+    });
     document.addEventListener('click', (event) => {
       const target = event.target.closest('[data-source-path], [data-source-view], [data-source-close]');
       if (!target || event.ctrlKey || event.metaKey || event.shiftKey || event.button > 0) return;
@@ -320,13 +435,17 @@ window.VAULT_SOURCES = (() => {
         state.path = ''; state.anchor = ''; state.kartenrevision = ''; state.zeile = '';
         clearSource(); save(true);
         if (state.darstellung === 'map') {
-          if (sourceReturn?.isConnected) sourceReturn.focus({ preventScroll: true });
+          if (sourceReturn?.isConnected) sourceReturn.focus();
           else if (state.knoten) mapController?.focus();
           else $('source-query').focus();
-        } else { renderResults(); $('source-query').focus(); }
+        } else {
+          renderResults();
+          ($('source-results').querySelector(`[data-source-path="${CSS.escape(state.knoten || '')}"]`) || $('source-query')).focus();
+        }
       } else if (target.dataset.sourcePath) {
         sourceReturn = target;
         state.path = target.dataset.sourcePath; state.anchor = target.dataset.sourceAnchor || '';
+        if (state.darstellung === 'list') state.knoten = state.path;
         state.kartenrevision = target.dataset.sourceRevision || ''; state.zeile = target.dataset.sourceLine || '';
         state.ansicht = state.zeile ? 'original' : 'lesen';
         save(true); read(state.path, true);
@@ -359,6 +478,6 @@ window.VAULT_SOURCES = (() => {
     await window.SECOND_BRAIN.ready;
     restore(); window.SECOND_BRAIN.status();
   }
-  return { blocks, validRecord, catalogRequest, selectedRange, start };
+  return { blocks, validRecord, catalogRequest, filterResults, folderTree, loadedTarget, selectedRange, start };
 })();
 window.VAULT_SOURCES.start();

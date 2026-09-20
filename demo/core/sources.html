@@ -10,36 +10,46 @@
   <link rel="stylesheet" href="sources.css">
   <link rel="stylesheet" href="knowledge-map.css">
 </head>
-<body>
+<body data-shell-public="true" data-shell-template="../">
   <a class="sprung" href="#source-search">Zur Dokumentauswahl</a>
   <header class="kopf shell-kopf">
     <h1><a class="shell-home" href="start.html#projekt=&amp;suche=&amp;filter=laufend" aria-label="Second Brain Startseite">Second Brain</a></h1>
     <nav class="shell-primaer" aria-label="Hauptnavigation">
       <a href="start.html">Arbeit</a><a href="collective.html">Agentenarbeit</a><a href="sources.html" aria-current="page">Wissen</a>
-    <a href="../">Vorlage erkunden</a></nav>
+    </nav>
     <p class="kopf-stand" id="stand"></p>
   </header>
   <main class="sources">
     <div class="source-tools">
       <form id="source-search" role="search">
-        <label for="source-view" class="source-compact">Ansicht<select id="source-view"><option value="map">Wissenskarte</option><option value="list">Dokumentliste</option></select></label>
+        <label for="source-view" class="source-compact">Ansicht<select id="source-view"><option value="list">Explorer</option><option value="map">Verbindungen</option></select></label>
         <label for="source-query">Suche<input type="search" id="source-query" maxlength="160" autocomplete="off"></label>
         <label for="source-type" class="source-compact" id="source-type-control">Dokumentart<select id="source-type"><option value="">Alle Dokumentarten</option></select></label>
-        <label for="source-project" class="source-compact" id="source-project-control" hidden>Projektordner<select id="source-project"></select></label>
-        <label for="source-mode" class="source-compact" id="source-mode-control" hidden>Suchbereich<select id="source-mode"><option value="fulltext">Volltext</option><option value="headings">Dateiname und Überschriften</option></select></label>
+        <label for="source-mode" class="source-compact" id="source-mode-control">Suchbereich<select id="source-mode"><option value="fulltext">Volltext</option><option value="headings">Titel und Überschriften</option></select></label>
         <button class="knopf" type="submit">Suchen</button>
         <button class="knopf" type="button" id="source-reset" hidden>Zurücksetzen</button>
       </form>
-      <a class="source-review-link" href="review.html">Passagen und gespeicherte Prüfungen</a>
     </div>
-    <p id="source-status" role="status"></p>
-    <section id="knowledge-map" aria-label="Wissenskarte"></section>
-    <div class="source-layout">
-      <section class="source-overview" aria-label="Dokumentübersicht"><nav id="source-results" aria-label="Dokumente"></nav><button class="knopf" id="source-more" type="button" hidden>Weitere Dokumente</button></section>
-      <article id="source-content" tabindex="-1" aria-labelledby="source-title" hidden><h2 id="source-title">Dokument auswählen</h2></article>
+    <div class="source-explorer">
+      <aside class="source-navigation" aria-label="Wissenszugänge">
+        <label for="source-project" id="source-project-control">Projektordner<select id="source-project"></select></label>
+        <nav id="source-folders" aria-label="Ordner"></nav>
+        <details class="source-hubs"><summary>Einstiege aus HOME</summary><nav id="source-hubs" aria-label="Verlinkte Einstiege"></nav></details>
+        <a class="source-review-link" href="review.html">Passagen und Prüfungen</a>
+      </aside>
+      <div class="source-layout">
+        <div class="source-items">
+          <nav id="source-breadcrumb" aria-label="Aktueller Ordner"></nav>
+          <p id="source-status" role="status"></p>
+          <section id="knowledge-map" aria-label="Dokumentverbindungen" hidden></section>
+          <section class="source-overview" aria-label="Dokumentübersicht"><nav id="source-results" aria-label="Dokumente"></nav></section>
+          <button class="knopf" id="source-more" type="button" hidden>Weitere Dokumente</button>
+        </div>
+        <article id="source-content" tabindex="-1" aria-labelledby="source-title" hidden><h2 id="source-title">Dokument auswählen</h2></article>
+      </div>
     </div>
     <p class="stoerung" id="source-error" role="alert" hidden></p>
   </main>
-  <script src="data.js"></script><script src="runtime.js"></script><script src="gemeinsam.js"></script><script src="context.js"></script><script src="review-state.js"></script><script src="review-source.js"></script><script src="knowledge-map.js"></script><script src="sources.js"></script>
+  <script src="shell.js"></script><script src="data.js"></script><script src="runtime.js"></script><script src="gemeinsam.js"></script><script src="context.js"></script><script src="review-state.js"></script><script src="review-source.js"></script><script src="knowledge-map.js"></script><script src="sources.js"></script>
 </body>
 </html>

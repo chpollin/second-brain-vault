@@ -1,5 +1,11 @@
 # Journal
 
+## 2026-09-20 Compact knowledge views and shared framing
+
+The [interface demo](interface-demo.md) now opens Wissen as a compact Explorer with actual folder branches, shared document filters and complete original reading. Verbindungen uses a directed local network whose explicit expansion preserves existing node positions and whose edges expose literal reference occurrences. Folder containment, document type, maturity and links retain separate meanings. The template explorer and the work interface share their header, footer, typography and surface tokens. Spacing replaces horizontal section separators. The template's prescribed reading paths remain inspectable. No observed agent execution is implied.
+
+The maintained generic core excludes private readings and local write paths. Local browser checks verified context preservation, source fidelity, quoted edge evidence, explicit expansion, narrow layouts, enlarged text, shared navigation and recovery after a failed knowledge request. Independent browser review identified selection and history defects in the upstream integration, and the corrected controller retains loaded catalog depth and keyboard return. These observations support a functioning interface trial. The [research workflow](research-workflow.md) still requires a separate task comparison and researcher acceptance.
+
 ## 2026-09-20 Public work and knowledge demo
 
 The operator requested publication of the revised work interface with the default public template. The [interface demo](interface-demo.md) adds the existing project circles, flat contribution views, an expandable knowledge map and complete source reading under `docs/demo/`. The structure explorer keeps its root address. The copied generic core excludes private project readings and mappings, source snapshots and inbox submission. The static adapter reads only this template's permitted Markdown and keeps responses in a separate browser storage namespace. Source lines, revisions and unresolved links remain inspectable. The [research workflow](research-workflow.md) supplies the evaluation criteria without establishing measured research benefit.

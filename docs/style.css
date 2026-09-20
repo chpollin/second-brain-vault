@@ -15,13 +15,10 @@
   :root {
     color-scheme: light dark;
 
-    --bg: light-dark(oklch(0.965 0.005 265), oklch(0.165 0.012 265));
-    --surface: light-dark(oklch(1 0 0), oklch(0.215 0.014 265));
-    --sunk: light-dark(oklch(0.955 0.006 265), oklch(0.25 0.014 265));
-    --ink: light-dark(oklch(0.23 0.02 265), oklch(0.94 0.008 265));
-    --muted: light-dark(oklch(0.44 0.022 265), oklch(0.75 0.014 265));
-    --line: light-dark(oklch(0.875 0.008 265), oklch(0.32 0.016 265));
-    --accent: light-dark(oklch(0.45 0.15 262), oklch(0.82 0.12 262));
+    --bg: var(--paper);
+    --sunk: var(--sunken);
+    --muted: var(--soft);
+    --accent: var(--offen);
     --accent-wash: color-mix(in oklch, var(--accent) 13%, transparent);
 
     /* One functional family: the same lightness and chroma, the hue carries the layer. Meaning
@@ -30,7 +27,7 @@
 
     --text-xs: 0.76rem;
     --text-sm: 0.86rem;
-    --text: 1rem;
+    --text: var(--t-basis);
     --text-md: 1.12rem;
     --text-lg: clamp(1.2rem, 1.1rem + 0.5vw, 1.45rem);
     --text-xl: clamp(1.5rem, 1.15rem + 1.6vw, 2.35rem);
@@ -39,8 +36,6 @@
     --radius: 0.45rem;
     --rail: 0.22rem;
 
-    --sans: system-ui, "Segoe UI", Roboto, sans-serif;
-    --mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   }
 
   [data-layer="always"] { --layer: light-dark(oklch(0.48 0.16 262), oklch(0.79 0.13 262)); }
@@ -60,11 +55,12 @@
     font-size: var(--text);
     line-height: 1.55;
     margin-inline: auto;
-    max-inline-size: 104rem;
-    padding: var(--gap) var(--gap) 0;
+    max-inline-size: none;
+    padding: 0;
   }
 
-  .masthead {
+  .template-main { max-inline-size: 110rem; margin-inline: auto; padding: var(--s3) var(--s5) var(--s6); }
+  .template-tools {
     align-items: end;
     display: grid;
     gap: 0.6rem var(--gap);
@@ -74,7 +70,6 @@
 
   .tasking {
     align-items: center;
-    border-block: 1px solid var(--line);
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem var(--gap);
@@ -89,11 +84,9 @@
   }
 
   #map {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
     container-type: inline-size;
     display: grid;
-    gap: 2px;
+    gap: var(--s3);
     overflow: hidden;
   }
 
@@ -105,7 +98,7 @@
 
   /* The page shell rather than a component, so the viewport decides. */
   @media (min-width: 62rem) {
-    .masthead { grid-template-columns: minmax(0, 1fr) auto auto; }
+    .template-tools { grid-template-columns: minmax(0, 1fr) auto auto; }
     .stage:not([data-view="map"]) {
       align-items: start;
       grid-template-columns: minmax(17rem, 23rem) minmax(0, 1fr);
@@ -118,7 +111,6 @@
   }
 
   .page-foot {
-    border-block-start: 1px solid var(--line);
     color: var(--muted);
     display: flex;
     flex-wrap: wrap;
@@ -150,6 +142,7 @@
   .find { display: grid; gap: 0.2rem; }
   .find label, .pick label, .band-gloss { color: var(--muted); font-size: var(--text-sm); }
   .find input, .pick select {
+    min-block-size: 2.75rem;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -160,9 +153,9 @@
 
   .repo { display: flex; gap: var(--gap); font-size: var(--text-sm); }
 
-  .pick { align-items: center; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .pick select { max-inline-size: 26rem; }
-  .stepper { align-items: center; display: flex; gap: 0.6rem; }
+  .pick { align-items: center; display: flex; flex-wrap: wrap; gap: 0.5rem; max-inline-size: 100%; min-inline-size: 0; }
+  .pick select { max-inline-size: min(26rem, 100%); }
+  .stepper { align-items: center; display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .stepper button {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -173,12 +166,9 @@
   .stepper button:disabled { color: var(--muted); cursor: default; }
   #step-of { color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
 
-  /* The loading map, one band per layer, stacked in the order in which a file reaches an agent.
-     The bands sit flush with a hairline between them, so the map reads as one stack rather than
-     as seven separate cards. */
+  /* Each group names a prescribed loading role. Spacing separates roles without inventing graph edges. */
   .band {
-    background: var(--surface);
-    border-inline-start: var(--rail) solid var(--layer);
+    background: var(--bg);
     display: grid;
     gap: 0.35rem var(--gap);
     padding: 0.7rem 0.8rem;
@@ -198,16 +188,18 @@
   .band-gloss { line-height: 1.35; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 0.3rem; list-style: none; padding: 0; }
+  .chips li { max-inline-size: 100%; min-inline-size: 0; }
   .chip {
-    background: var(--sunk);
-    border: 1px solid var(--line);
-    border-inline-start: var(--rail) solid var(--layer);
+    background: var(--surface);
+    border: 0;
     border-radius: 0 0.3rem 0.3rem 0;
     color: inherit;
     display: inline-block;
-    font-family: var(--mono);
-    font-size: var(--text-xs);
-    padding: 0.14rem 0.45rem;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    padding: 0.4rem 0.55rem;
     text-decoration: none;
     transition: background-color 120ms ease-out, box-shadow 120ms ease-out;
   }
@@ -399,7 +391,6 @@
   .prose .block-id { color: var(--muted); font-family: var(--mono); font-size: var(--text-xs); }
   .prose .fn-ref a { text-decoration: none; }
   .prose .footnotes {
-    border-block-start: 1px solid var(--line);
     font-size: var(--text-sm);
     padding-block-start: 0.7rem;
   }
@@ -414,7 +405,7 @@
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     margin-block-start: 2rem;
   }
-  .relation { border-block-start: 1px solid var(--line); padding-block-start: 0.7rem; }
+  .relation { padding-block-start: 0.7rem; }
   .relation ul { list-style: none; margin-block-start: 0.4rem; padding: 0; }
   .relation li { border-inline-start: var(--rail) solid var(--layer); padding-inline-start: 0.5rem; }
   .relation li + li { margin-block-start: 0.2rem; }

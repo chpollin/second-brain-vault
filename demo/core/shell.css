@@ -1,6 +1,6 @@
 @layer components {
-  .shell-kopf { align-items: center; gap: var(--s3) var(--s5); padding-block: var(--s4); background: var(--paper); }
-  .shell-kopf h1 { white-space: nowrap; font-size: 1.125rem; }
+  .shell-kopf { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); padding-block: var(--s3); background: var(--paper); border: 0; }
+  .shell-kopf h1 { margin: 0; white-space: nowrap; font-size: 1.125rem; line-height: 1.25; }
   .shell-home { display: inline-flex; align-items: center; min-block-size: 2.75rem; color: var(--ink); text-decoration: none; }
   .shell-home:hover { text-decoration: underline; }
   .filter-options { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1); border: 0; padding: 0; margin: 0; min-inline-size: 0; }
@@ -11,12 +11,19 @@
   .filter-options input:checked + span { border-color: var(--soft); background: var(--surface); color: var(--ink); }
   .filter-options input:focus-visible + span { outline: 2px solid var(--offen); outline-offset: 2px; }
   .filter-options label:hover span { color: var(--ink); }
-  .shell-kopf .kopf-stand { margin-inline-start: auto; color: var(--soft); font-size: var(--t-klein); }
-  .shell-primaer { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s1); }
-  .shell-primaer a { display: inline-flex; align-items: center; min-block-size: 2.75rem; gap: var(--s2); padding: var(--s2) var(--s3); border-radius: var(--r-klein); color: var(--soft); text-decoration: none; line-height: 1.25; }
-  .shell-primaer a:hover { color: var(--ink); background: var(--sunken); }
-  .shell-primaer a[aria-current] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--soft); }
+  .shell-kopf .kopf-stand { margin: 0; margin-inline-start: auto; color: var(--soft); font-size: var(--t-klein); }
+  :is(.shell-primaer, .shell-secondary) { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s1); }
+  :is(.shell-primaer, .shell-secondary) a { display: inline-flex; align-items: center; min-block-size: 2.75rem; gap: var(--s2); padding: var(--s2) var(--s3); border-radius: var(--r-klein); color: var(--soft); text-decoration: none; line-height: 1.25; }
+  :is(.shell-primaer, .shell-secondary) a:hover { color: var(--ink); background: var(--sunken); }
+  :is(.shell-primaer, .shell-secondary) a[aria-current] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--soft); }
+  :is(.shell-kopf, .shell-footer) a:focus-visible { outline: 2px solid var(--offen); outline-offset: 2px; }
+  .shell-secondary { margin-inline-start: auto; font-size: var(--t-klein); }
+  .shell-secondary + .kopf-stand { margin-inline-start: 0; }
   .shell-primaer svg { inline-size: 1rem; block-size: 1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .shell-footer { max-inline-size: 110rem; margin-inline: auto; padding: var(--s5); border: 0; color: var(--soft); font-size: var(--t-klein); }
+  .shell-footer nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); }
+  .shell-footer a { display: inline-flex; align-items: center; min-block-size: 2.75rem; color: var(--soft); text-underline-offset: 0.15em; }
+  .shell-footer a:hover { color: var(--ink); }
   .knowledge-links { display: flex; flex-wrap: wrap; gap: var(--s4); margin-block: var(--s3); }
   .knowledge-links a { display: inline-flex; min-block-size: 2.75rem; align-items: center; }
   :is(input, textarea, select) { font-size: 1rem; }

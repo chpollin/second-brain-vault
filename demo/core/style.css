@@ -187,7 +187,6 @@
   }
 
   .lage-spalte {
-    border-block-start: 3px solid var(--spur);
     padding-block-start: var(--s3);
 
     & > h2 { color: var(--spur); margin-block-end: var(--s3); }
@@ -201,7 +200,6 @@
     display: grid;
     gap: var(--s1);
     padding-block-end: var(--s4);
-    border-block-end: 1px solid var(--line);
   }
   .lage-text, .lage-klappe { font-size: var(--t-klein); color: var(--ink); max-inline-size: 60ch; }
   .lage-klappe {
@@ -346,7 +344,6 @@
 
     & th { text-align: start; font-weight: 600; vertical-align: top; }
     & thead th { color: var(--soft); font-weight: 400; padding-block-end: var(--s2); }
-    & tbody tr { border-block-start: 1px solid var(--line); }
     & td, & tbody th { padding: var(--s2) var(--s4) var(--s2) 0; vertical-align: top; }
     & .einheit { border: 0; padding: 0; }
   }
@@ -857,7 +854,6 @@
     align-items: center;
     gap: var(--s2) var(--s4);
     padding: var(--s3) var(--s5);
-    border-block-end: 1px solid var(--line);
     background: var(--surface);
   }
   .pb-titelblock { display: grid; gap: 0; margin-inline-end: auto; min-inline-size: 0; }
@@ -889,12 +885,11 @@
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
     min-block-size: 0;
-    border-block-start: 1px solid var(--line);
     background: var(--surface);
     container-type: inline-size;
   }
 
-  .pb-liste { display: grid; gap: 2px; padding: var(--s3); border-block-end: 1px solid var(--line); max-block-size: 14rem; overflow-y: auto; }
+  .pb-liste { display: grid; gap: 2px; padding: var(--s3); max-block-size: 14rem; overflow-y: auto; }
   .pb-posten {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);

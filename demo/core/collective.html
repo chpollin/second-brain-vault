@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="shell.css">
 <link rel="stylesheet" href="collective.css">
 </head>
-<body>
+<body data-shell-public="true" data-shell-template="../">
 <header class="kopf shell-kopf">
   <h1><a class="shell-home" href="start.html#projekt=&amp;suche=&amp;filter=laufend">Second Brain</a></h1>
-  <nav class="shell-primaer" aria-label="Hauptnavigation"><a href="start.html">Arbeit</a><a href="collective.html" aria-current="page">Agentenarbeit</a><a href="sources.html">Wissen</a><a href="../">Vorlage erkunden</a></nav>
+  <nav class="shell-primaer" aria-label="Hauptnavigation"><a href="start.html">Arbeit</a><a href="collective.html" aria-current="page">Agentenarbeit</a><a href="sources.html">Wissen</a></nav>
   <p class="kopf-stand" id="stand"></p>
 </header>
 <main class="collective">
@@ -35,7 +35,7 @@
     <section id="collective-detail" class="collective-detail" aria-label="Ausgewählter Arbeitskontext" hidden></section>
   </div>
 </main>
-<script src="data.js"></script>
+<script src="shell.js"></script><script src="data.js"></script>
 <script src="runtime.js"></script>
 <script src="context.js"></script>
 <script src="progress.js"></script>

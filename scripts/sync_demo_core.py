@@ -23,6 +23,7 @@ ASSETS = (
     "fragen.html",
     "style.css",
     "shell.css",
+    "shell.js",
     "overview.css",
     "work.css",
     "collective.css",
@@ -153,6 +154,10 @@ function projectGroup(entry) {
             raise ValueError("Review the public response-state adapter.")
     elif name == "review.html":
         text = text.replace('<a href="experiment.html">Research-Persona-Belege</a>', "")
+    elif name == "shell.js":
+        text = text.replace(
+            "'sources.html', 'review.html', 'experiment.html'", "'sources.html', 'review.html'"
+        )
     elif name == "sources.js":
         original = "current.sourceUrl.startsWith('obsidian://open?')"
         if text.count(original) != 1:
@@ -168,7 +173,7 @@ function projectGroup(entry) {
             text,
         )
     if name.endswith(".html"):
-        text = text.replace("</nav>", '<a href="../">Vorlage erkunden</a></nav>', 1)
+        text = text.replace("<body>", '<body data-shell-public="true" data-shell-template="../">', 1)
         text = text.replace("<title>Second Brain", "<title>Second Brain Demo")
     for key in ("pruefansicht.", "second-brain.source-selection.", "second-brain.belegpruefungen."):
         text = text.replace(key, "second-brain-public-demo." + key)

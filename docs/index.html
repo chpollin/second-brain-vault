@@ -4,26 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Second Brain Vault explorer</title>
+<link rel="stylesheet" href="demo/style.css">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="demo/shell.css">
 <script type="module" src="app.js"></script>
 </head>
-<body>
-<header class="masthead">
-  <h1>Second Brain Vault, and how an agent reads it</h1>
+<body data-shell-public="true" data-shell-base="demo/" data-shell-template="./" data-shell-page="template">
+<header class="kopf shell-kopf" lang="de"></header>
+<main class="template-main">
+<div class="template-tools">
+  <h2>Vorlage</h2>
   <div class="find" role="search">
     <label for="q">Search names, headings and text</label>
     <input id="q" type="search" autocomplete="off" spellcheck="false">
   </div>
-  <nav class="repo" aria-label="Source">
-    <a href="demo/">Work and knowledge demo</a>
-    <a href="https://github.com/chpollin/second-brain-vault">Repository</a>
+  <nav class="repo" aria-label="Vorlage herunterladen">
     <a href="https://github.com/chpollin/second-brain-vault/archive/refs/heads/main.zip">Download ZIP</a>
   </nav>
-</header>
+</div>
 
 <div class="tasking">
   <p class="pick">
-    <label for="task">Trace an agent task</label>
+    <label for="task">Prescribed reading path</label>
     <select id="task"><option value="">no task</option></select>
   </p>
   <p class="stepper" id="stepper" hidden>
@@ -36,7 +38,7 @@
 <div class="stage" id="stage" data-view="map">
   <section id="map" aria-label="Loading map"></section>
 
-  <main id="reader" hidden>
+  <article id="reader" hidden>
     <h2 id="doc-title" tabindex="-1"></h2>
     <p id="doc-lead" class="lead" hidden></p>
     <dl id="doc-fields" class="frontmatter" hidden></dl>
@@ -46,7 +48,7 @@
       <section id="doc-inbound" class="relation"></section>
       <section id="doc-linksto" class="relation"></section>
     </div>
-  </main>
+  </article>
 
   <section id="results" hidden tabindex="-1" aria-labelledby="results-head">
     <h2 id="results-head"></h2>
@@ -54,9 +56,7 @@
   </section>
 </div>
 
-<footer class="page-foot">
-  <p>Second Brain Vault, a template for a research vault kept with agents. Code MIT, text CC BY 4.0.</p>
-  <p><a href="https://github.com/chpollin/second-brain-vault">github.com/chpollin/second-brain-vault</a></p>
-</footer>
+</main>
+<script src="demo/shell.js"></script>
 </body>
 </html>

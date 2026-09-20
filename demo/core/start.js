@@ -244,7 +244,7 @@ function renderProject() {
           el('span', { class: 'project-question-copy' }, el('span', { class: 'project-question-title' }, contextual ? (point.frageKurz || point.frage) : description.title),
             !contextual && description.detail && el('span', { class: 'project-item-detail' }, description.detail),
             unmetPrerequisite(point, state) && el('span', { class: 'project-item-detail' }, 'Noch nicht entscheidbar'),
-            point.voraussetzung && el('span', { class: 'project-item-detail' }, `Voraussetzung: ${!contextual && description.prerequisite || point.voraussetzung}`),
+            point.voraussetzung && el('span', { class: 'project-item-detail' }, `Voraussetzung: ${point.voraussetzung}`),
             contextual && point.kontext && el('span', { class: 'project-item-detail project-question-context' }, point.kontext)),
           !['Offen', 'Antwort fehlt'].includes(state.responseLabel)
             && el('span', { class: 'project-question-state', 'data-response': state.response }, state.responseLabel)),
