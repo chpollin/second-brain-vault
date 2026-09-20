@@ -15,9 +15,10 @@ Usage:
     python scripts/check_vault.py --json       machine-readable result
 
 Exit codes: 0 no hard finding, 1 hard finding, 2 configuration error.
-Design decisions: standard library only, single file, the frontmatter parser covers the
+Design decisions: standard-library script pipeline, the frontmatter parser covers the
 flat subset the vault uses (scalars and inline lists) and is no YAML implementation.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -32,8 +33,18 @@ TAXONOMY = VAULT / "TAG-TAXONOMY.md"
 FIXTURES = "Vault Operations/Fixtures/"
 # Not vault documents: repository knowledge, agent configuration, tooling, the generated site,
 # local runs.
-SKIP_DIRS = {".claude", ".git", ".local", ".obsidian", "docs", "knowledge", "scripts", "tests",
-             "tools", "evals"}
+SKIP_DIRS = {
+    ".claude",
+    ".git",
+    ".local",
+    ".obsidian",
+    "docs",
+    "knowledge",
+    "scripts",
+    "tests",
+    "tools",
+    "evals",
+}
 SKIP_FILES = {"README.md", "LICENSE.md"}
 CONCEPT_SECTIONS = ["Summary", "Sources", "Related"]
 
@@ -66,7 +77,7 @@ def split_frontmatter(text: str) -> tuple[dict | None, str]:
     end = text.find("\n---", 4)
     if end == -1:
         return None, text
-    return parse_flat_yaml(text[4:end]), text[end + 4:]
+    return parse_flat_yaml(text[4:end]), text[end + 4 :]
 
 
 def load_rules() -> dict:
@@ -138,14 +149,15 @@ def check(fixtures: bool = False, hard_only: bool = False, integrity_only: bool 
         meta, body = split_frontmatter(texts[rel])
         plain = RE_CODE.sub("", body)
         links[rel] = set()
-        for target, anchor in RE_LINK.findall(plain):
-            target = target.strip() or Path(rel).stem
-            if target not in by_stem:
-                measured.append((rel, f"dead link [[{target}]]"))
-                continue
-            links[rel].add(by_stem[target])
-            if anchor and anchor.strip() not in anchors(split_frontmatter(texts[by_stem[target]])[1]):
-                measured.append((rel, f"dead anchor [[{target}#{anchor.strip()}]]"))
+        if not hard_only:
+            for target, anchor in RE_LINK.findall(plain):
+                target = target.strip() or Path(rel).stem
+                if target not in by_stem:
+                    measured.append((rel, f"dead link [[{target}]]"))
+                    continue
+                links[rel].add(by_stem[target])
+                if anchor and anchor.strip() not in anchors(split_frontmatter(texts[by_stem[target]])[1]):
+                    measured.append((rel, f"dead anchor [[{target}#{anchor.strip()}]]"))
         if integrity_only:
             continue
 
@@ -199,6 +211,7 @@ def check(fixtures: bool = False, hard_only: bool = False, integrity_only: bool 
         sys.path.insert(0, str(Path(__file__).resolve().parent))
         import build_site
         import render_agents_md
+
         if not render_agents_md.is_current():
             hard.append(("AGENTS.md", "stale, run python scripts/render_agents_md.py"))
         if not build_site.is_current():
@@ -223,7 +236,7 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:
         print(f"{result['checked']} documents checked")
-        for tier in ("hard", "measured"):
+        for tier in ("hard",) if args.hard else ("hard", "measured"):
             print(f"{tier}: {len(result[tier])}")
             for rel, message in result[tier]:
                 print(f"  {rel}: {message}")

@@ -1,5 +1,6 @@
 """The vault check must pass on the template, find the seeded defects in the fixtures,
 and abort visibly when a rule source is missing."""
+
 import importlib.util
 import sys
 from pathlib import Path
@@ -36,6 +37,14 @@ def test_missing_rule_source_aborts(monkeypatch, tmp_path):
     raise AssertionError("a missing rule source must not end as a passed check")
 
 
+def test_hard_only_keeps_hard_findings_and_omits_measured_findings() -> None:
+    full = check_vault.check(fixtures=True)
+    hard_only = check_vault.check(fixtures=True, hard_only=True)
+    assert full["measured"]
+    assert hard_only["hard"] == full["hard"]
+    assert hard_only["measured"] == []
+
+
 def test_unregistered_skill_and_convention_are_reported(monkeypatch, tmp_path):
     (tmp_path / ".claude" / "skills" / "new-skill").mkdir(parents=True)
     (tmp_path / ".claude" / "skills" / "new-skill" / "SKILL.md").write_text("x", encoding="utf-8")
@@ -45,5 +54,7 @@ def test_unregistered_skill_and_convention_are_reported(monkeypatch, tmp_path):
     (tmp_path / "CLAUDE.md").write_text("- [[Convention Other]]", encoding="utf-8")
     monkeypatch.setattr(check_vault, "VAULT", tmp_path)
     messages = [msg for _, msg in check_vault.registers()]
-    assert messages == ["skill 'new-skill' missing in the skill register",
-                        "'Convention New' missing in the convention index"]
+    assert messages == [
+        "skill 'new-skill' missing in the skill register",
+        "'Convention New' missing in the convention index",
+    ]

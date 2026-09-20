@@ -20,7 +20,7 @@ Checks, enriches, researches into, refactors and dissolves vault knowledge docum
 - `Vault Operations/Conventions/Convention Frontmatter Field Profiles.md`, the field profile per document type.
 - `TAG-TAXONOMY.md`, the controlled tag vocabulary.
 - `CLAUDE.md`, the rule levels and the control documents.
-- `Vault Operations/Conventions/Convention Curation Round.md`, the playbook. Its check order, verification rules, known error classes, mass-retag pattern, write boundaries (`#Write boundaries`), loss audit (`#Loss audit`) and delegation model (`#Delegation model`) apply as written there.
+- `Vault Operations/Conventions/Convention Curation Round.md`, the playbook. Its check order, verification rules, known error classes, write boundaries (`#Write boundaries`), loss audit (`#Loss audit`) and delegation model (`#Delegation model`) apply as written there.
 - The convention of the document class actually touched, `Vault Operations/Conventions/Convention Project Overview.md` for a project hub and `Vault Operations/Conventions/Convention Knowledge Documents.md` for a `knowledge/` folder in a repository.
 
 If a source cannot be read, the skill reports that and marks its result as unverified.
@@ -73,6 +73,8 @@ python scripts/check_vault.py --fixtures
 ```
 
 The check decides the required frontmatter core, the closed vocabularies, registered tags, the first heading against the filename, the number of tags, the sections and sources of a concept note, links, anchors and reachability. It decides neither the field profile table beyond the required core, nor style, nor factual correctness, nor whether a restatement is current. The first command skips the fixture folder and the second checks only that folder, and `--integrity` and `--hard` narrow either run. Exit code 0 also stands with measured findings, 1 on a hard violation, 2 on a configuration error, so exit code 0 does not mean a clean area. Read the findings of the changed area and name them, and make sure the run covers the folder that was touched, because a check that skips a folder proves nothing about it. Run the self-check of the `writing-style` skill against every changed prose passage and state that it ran. Check agent self-reports against the real file state before adopting anything.
+
+After an authorized edit, if the template's generated explorer is present, run `python scripts/build_site.py` before the closing check. A read-only run reports stale generated data without rewriting it. Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
 
 ## Output
 

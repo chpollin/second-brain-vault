@@ -23,6 +23,10 @@ query-topics: [home, navigation, entry-point]
 
 ## Projects
 
+[[Repo Directory]] connects each project overview to its repository and maintained knowledge.
+Follow that route for a concrete question, then read the relevant documents through the
+repository's own entry point. The directory records locations, not proof of current access.
+
 | Project | Hub |
 |---|---|
 | Example Project | [[Project Overview Example Project]] |

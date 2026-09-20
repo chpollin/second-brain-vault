@@ -21,10 +21,11 @@ query-topics: [vault-operations, skill-register, glossary, decisions, task-types
 | Dissolve temporary notes | skill `vault-knowledge`, mode dissolve |
 | Check the vault across documents | skill `vault-audit` |
 | Prepare content for a talk, a paper or a post | skill `vault-distill` |
-| Use the vault from a repository session | skill `vault-orient` |
-| Work from the knowledge base of a repository | skill `project-knowledge` |
+| Find relevant vault and project context from a repository session | skill `vault-orient` |
+| Work from a repository's maintained knowledge and integrate findings | skill `project-knowledge` |
 | Report the operational state | skill `active-work-report` |
 | Write prose for a reader | skill `writing-style` |
+| Build or revise a personal research persona | skill `persona-init` |
 
 ## Skill register
 
@@ -37,6 +38,7 @@ query-topics: [vault-operations, skill-register, glossary, decisions, task-types
 | project-knowledge | in a repository with a `knowledge/` folder | works from and writes back into the knowledge base of a repository | [[Convention Knowledge Documents]] |
 | active-work-report | on call | reports the operational state and proposes changes, writes only on instruction | [[Convention ACTIVE-WORK Fields]] |
 | writing-style | before prose is written | prose rules with contrast examples and a self-check | `.claude/rules/documents.md` |
+| persona-init | when a personal profile is requested | builds a readable profile, a working agreement and source provenance through a short dialogue | [[Template Research Persona]] |
 
 How a skill is built and tested stands in [[Convention Skills]].
 
@@ -71,5 +73,8 @@ Project knowledge base
 
 | Date | Decision | Reason and history |
 |---|---|---|
+| 2026-09-20 | Project context follows explicit repository mappings and preserves the scope of transferred findings | [[Decision Log#2026-09-20 Research context across repositories]] |
+| 2026-09-19 | Persona initialisation uses a neutral template and stores personal drafts outside the public explorer | [[Decision Log#2026-09-19 Personal research persona initialisation]] |
+| 2026-09-19 | Skills preserve read-only entry, honor existing update instructions and keep expected test outcomes distinct from observed evidence | [[Decision Log#2026-09-19 Skill evaluation and bounded execution]] |
 | 2026-09-19 | After a change the neighbours that restate the document are brought into step | [[Decision Log#2026-09-19 Propagation after change]] |
 | 2026-09-19 | A skill replaces a rule by a pointer only when the rule stands at the target | [[Decision Log#2026-09-19 Pointers need a target]] |

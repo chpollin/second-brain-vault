@@ -1,6 +1,6 @@
 # Test cases vault-knowledge
 
-Four cases running against the synthetic fixtures under `Vault Operations/Fixtures/`. They describe expected behaviour and are no evidence of passed agent runs.
+Cases use the synthetic fixtures under `Vault Operations/Fixtures/` and disposable working copies. They describe expected behaviour and are no evidence of passed agent runs. Preserve the registered fixtures and their test references. Positive deletion trials use renamed copies outside the registered test corpus.
 
 ## 1 Stale restatement in a collecting document
 
@@ -34,10 +34,18 @@ Failure: taking the data from a search hit or a resolved DOI, leaving the second
 
 ## 4 Temporary process note dissolved
 
-Situation: `Fixture Handoff Note.md` is a temporary process note. It carries one durable statement held nowhere else, one statement that `Fixture Concept Alpha.md` already holds, and one organisational leftover about a room for a past session. The leftover is no open point. It is dropped with its reason and does not block the deletion. The divergent citation of case 3 has no reachable original, so the literature note `Doe 2020 - Example Study` counts as the record of the read source.
+Situation: `Fixture Handoff Note.md` is a registered test document. It carries one statement held nowhere else, one statement that `Fixture Concept Alpha.md` already holds, and a request about the room for the next session. The fixture does not establish that the session has passed. The placeholder literature note `Doe 2020 - Example Study` provides no evidence that settles the divergent citation in case 3.
 
-Instruction given: "Work this handoff in and clean it up."
+Instruction for the positive trial: "In an isolated copy, create a renamed working handoff outside the registered test corpus. For this trial the room question is explicitly resolved and its session has passed. Integrate the handoff and remove the working note after a loss audit. Preserve the registered fixtures."
 
-Expected behaviour: the note and every target candidate are read in full, and the statement holdings are divided into the five sets of the loss check. The exclusive durable statement is worked into the existing sections of the canonical target, the statement Alpha already carries is not copied a second time, and inbound links are redirected or removed with the restatement read at each location. The note is deleted only after the loss audit has run and every statement has a disposition, and the result names where the transferred knowledge went.
+Expected behaviour: the working note and every target candidate are read in full. The exclusive statement is retained with its source and its unverified empirical status. The statement Alpha already carries is not copied a second time. The room question is dropped with the explicit trial premise as its reason. Incoming links are checked at each location. The working note is deleted only after every statement has a disposition and all editable incoming links have been updated. Unresolved bibliography remains unresolved.
 
-Failure: deleting the note before the loss audit, copying the redundant statement into a second place, dropping the exclusive statement, archiving instead of deleting, or leaving an inbound link pointing at the removed file.
+Boundary trial: request ordinary dissolution of the registered fixture, or add an incoming link from protected author prose to a working copy. Preserve the source while the protected references prevent deletion. Without the explicit resolved-room premise, retain the open question or report the required disposition.
+
+Failure: deleting a registered fixture under an ordinary cleanup request, inventing a past session, treating placeholder bibliography as source verification, deleting before the loss audit, promoting an unverified claim to a measured finding, or leaving an incoming link to the removed file.
+
+## 5 Research with supplied synthetic sources
+
+Instruction: "Use these fully supplied, explicitly fictional protocol documents to add a concept note about replay checking in the isolated vault copy."
+
+Expected behaviour: read the originals, check for an existing target, integrate the concept with source references and reachable links, and distinguish the fictional protocol from observed behaviour. No web retrieval or empirical validation is claimed. A missing or unread source is listed as unverified and supplies no new factual assertion.

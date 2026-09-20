@@ -31,7 +31,7 @@ These patterns are the frequent violations. They are banned in running prose wit
 No dash (en or em) and no colon as a connection, for emphasis, or before summaries and lists of examples. Use a comma, a relative clause, a conjunction or a separate sentence. The semicolon is no substitute, it is banned in running prose too and permitted only in parenthetical citation clusters, statistical notation, bibliographic entries and code. A colon stays permitted before a quotation, a code block, or a list whose items sit on their own lines. A dash only inside a genuine parenthetical insertion, and rarely. Code, file paths, technical syntax and inline code are exempt, and the range dash in numeric and alphanumeric ranges (1427–1496, pp. 12–18, E1–E61, 09:00–12:00) is notation and stays.
 
 - Violation: `The result is unambiguous — the pipeline holds.`
-- Conforming: `The result is unambiguous, the pipeline holds.`
+- Conforming: `The result is unambiguous. The pipeline holds.`
 - Violation: `Three tools are in use: a transcription service, an annotation editor and a custom runner.`
 - Conforming: `In use are a transcription service, an annotation editor and a custom runner.`
 
@@ -87,6 +87,8 @@ The prose rules of the vault's own instructions apply in full and are not repeat
 
 ## Verification
 
+Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
+
 Read the finished text once against the four core bans and rewrite every hit. Check specifically:
 
 1. Does the opening carry a meta-announcement, a justifying preamble or a topic label?
@@ -99,4 +101,4 @@ Say what was checked and what was not. Where a source under Reads was unreadable
 
 ## Output
 
-The text itself, in the requested form, without a covering commentary on the style work. A delivery message names only what changed and what is open.
+The text itself, in the requested form, without a covering commentary on the style work. A separate delivery message may name changes, open points and the brief verification required above. Verification commentary stays outside the deliverable.

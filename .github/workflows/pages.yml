@@ -1,0 +1,54 @@
+name: Build and deploy explorer
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - uses: actions/configure-pages@v5
+      - name: Install check dependencies
+        run: python -m pip install pytest ruff
+      - name: Build explorer data
+        run: python scripts/build_site.py
+      - name: Check template and explorer
+        run: |
+          python scripts/check_vault.py
+          python -m pytest -q
+          python -m ruff check .
+          python -m ruff format --check .
+          node --test tests/test_explorer_links.mjs
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy explorer
+        id: deployment
+        uses: actions/deploy-pages@v4

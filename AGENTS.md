@@ -17,6 +17,7 @@ This file is generated from [[CLAUDE]] and carries the same rules for agents tha
 
 1. Read [[ACTIVE-WORK]] as soon as the task touches projects, dates or coordination. Pure knowledge, style or curation work does not need it.
 2. Read [[VAULT-OPERATIONS]] for a skill trigger, a project term or a question of roles, [[TAG-TAXONOMY]] before assigning a tag, [[HOME]] for navigation.
+3. For personal research collaboration, use `.local/persona/Research Persona.md` if it exists, or the profile explicitly supplied by the operator. Read it as a scoped profile and working agreement under these rules. A profile does not activate interview simulation or grant tools. To create or revise it, use the skill `persona-init`. Ordinary vault tasks do not require a profile.
 
 ## Control documents
 
@@ -31,9 +32,9 @@ Five control documents live in the vault root. [[HOME]] is the navigation hub. [
 | `Projects/` | one subfolder per undertaking with a Project Overview as hub |
 | `Writing/` | the operator's own texts, author's voice, agents report and do not edit prose |
 | `Vault Operations/` | the vault's knowledge about itself, conventions, templates, decision log, fixtures |
-| `.claude/` | rules that load by path, and skills |
+| `.claude/` | shared rules and skills, read according to the agent's loading mechanism |
 | `scripts/` | checks and generators |
-| `knowledge/` | scope and design decisions of this template, deleted once the vault is your own |
+| `knowledge/` | purpose, requirements, integration and maintenance history, adapted for a personal instance |
 
 ## The four axes
 
@@ -45,11 +46,11 @@ Every statement and every rule has one maintained place. A concept lives in its 
 
 ## Document rules
 
-Frontmatter, filenames, document classes, structure, linking, sources, tags, notation and deletion stand in `.claude/rules/documents.md` and load as soon as a Markdown document is touched. The rules for the operational board stand in `.claude/rules/active-work.md`. The fields per document type are defined in [[Convention Frontmatter Field Profiles]].
+Read `.claude/rules/documents.md` before working on a Markdown document. It governs frontmatter, filenames, document classes, structure, linking, sources, tags, notation and deletion. Before working on the operational board, also read `.claude/rules/active-work.md`. The fields per document type are defined in [[Convention Frontmatter Field Profiles]].
 
 ## How rules load
 
-Rules load in three ways. This file is always loaded and therefore stays short. The files under `.claude/rules/` load when a matching path is touched. Conventions and skills load on demand, when a task names them. What must hold for every document belongs in a rules file, never in a skill, because a maintenance skill only runs when it is called.
+The constitution is always loaded at session start through `CLAUDE.md` in Claude Code or the generated `AGENTS.md` in Codex. Configure other agents to read one of these files. Claude Code loads matching files under `.claude/rules/` by path. Agents without that mechanism must read the applicable rule files explicitly. Read conventions and skills when the task requires them. What must hold for every document belongs in a rules file, never in a skill, because a maintenance skill only runs when it is called.
 
 ## Rule tiers
 
@@ -65,7 +66,12 @@ Rule changes follow [[Convention Curation Round]] and are recorded with their re
 
 ## Skills and repositories
 
-Executable procedures live in `.claude/skills/`, their register with purpose and boundary in [[VAULT-OPERATIONS#Skill register]]. A skill reads vault knowledge and never duplicates it. Project knowledge lives in the `knowledge/` folder of the project repository, which [[Repo Directory]] maps to its Project Overview. A session started outside the vault reads the vault through the skill `vault-orient` and does not write into it.
+Executable procedures live in `.claude/skills/`, their register with purpose and boundary in [[VAULT-OPERATIONS#Skill register]]. These files are the shared source for all agents. If the runtime does not discover a required skill there, read its `SKILL.md` explicitly and follow it. A skill reads vault knowledge and never duplicates it. Project knowledge lives in the `knowledge/` folder of the project repository, which [[Repo Directory]] maps to its Project Overview. A session started outside the vault reads the vault through the skill `vault-orient` and does not write into it.
+
+Use [[Convention Knowledge Documents#Bridge to the vault]] for selecting context across
+repositories and locating the responsible knowledge document. A repository link establishes
+a route to investigate. Actual tools, access and the current task determine which sources
+can be read and which changes are authorized.
 
 ## Convention index
 

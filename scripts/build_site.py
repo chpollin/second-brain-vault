@@ -14,11 +14,13 @@ Exit codes: 0 written or current, 1 stale under --check.
 Design decisions: standard library only, single file, and deterministic output (sorted keys,
 stable order, LF, no timestamps) so that the currency check does not flap across platforms.
 """
+
 from __future__ import annotations
 
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 VAULT = Path(__file__).resolve().parent.parent
@@ -35,9 +37,9 @@ ABOUT_FILES = {"README.md", "LICENSE.md", "pyproject.toml", ".gitignore"}
 # The legend of the tree. How a file reaches an agent is the vocabulary of this interface and not
 # a statement about vault content, so the labels stand here and the membership is derived below.
 LAYERS = [
-    ["always", "Always loaded", "every session starts here"],
-    ["by-path", "Loaded by path", "when a file the header matches is touched"],
-    ["on-demand", "Read on demand", "when a task names it"],
+    ["always", "Session instructions", "read CLAUDE.md or AGENTS.md at session start"],
+    ["by-path", "Rules by scope", "Claude Code loads matching rules; other agents read them explicitly"],
+    ["on-demand", "Read on demand", "loads when a task names it"],
     ["content", "Vault content", "the notes themselves"],
     ["checks", "Checks", "run, not read"],
     ["fixtures", "Test field", "seeded defects, checked on request"],
@@ -115,7 +117,7 @@ def split_frontmatter(text: str) -> tuple[list[list[str]], str]:
     end = text.find("\n---", 4)
     if end == -1:
         return [], text
-    return parse_frontmatter(text[4:end]), text[end + 4:]
+    return parse_frontmatter(text[4:end]), text[end + 4 :]
 
 
 def field(fields: list[list[str]], name: str) -> str:
@@ -173,6 +175,36 @@ def anchors_of(body: str) -> list[str]:
     return sorted(set(found) | {"^" + b for b in RE_BLOCK_ID.findall(body)})
 
 
+def slugify(text: str) -> str:
+    """The heading id of the interface. The same rule stands in docs/markdown.js, because a
+    wikilink anchor is the heading text and has to reach the element the renderer wrote."""
+    return re.sub(r"^-|-$", "", re.sub(r"[^a-z0-9]+", "-", text.lower()))
+
+
+def outline_of(body: str) -> list[dict]:
+    return [
+        {"level": len(hashes), "text": text.strip(), "id": slugify(text.strip())}
+        for hashes, text in re.findall(r"^(#{1,6})\s+(.+?)\s*$", body, re.M)
+    ]
+
+
+def fold(text: str) -> str:
+    """Case and diacritic folding for the search field, one character in and one character out, so
+    that a hit offset in the folded text also holds in the original and the snippet stays exact."""
+    out = []
+    for char in text:
+        lowered = char.lower()
+        if len(lowered) != 1:
+            out.append(char)
+            continue
+        if lowered == "ß":
+            out.append("s")
+            continue
+        stripped = "".join(c for c in unicodedata.normalize("NFD", lowered) if not unicodedata.combining(c))
+        out.append(stripped if len(stripped) == 1 else lowered)
+    return "".join(out)
+
+
 def collect_files() -> dict[str, Path]:
     files = {}
     for path in sorted(VAULT.rglob("*")):
@@ -205,7 +237,10 @@ def build_files(paths: dict[str, Path]) -> tuple[dict[str, dict], dict[str, str]
             "frontmatter": fields,
             "text": text,
             "anchors": anchors_of(body) if rel.endswith(".md") else [],
+            "outline": outline_of(body) if rel.endswith(".md") else [],
+            "search": fold(text),
             "links": [],
+            "linksTo": [],
             "inbound": [],
         }
         if rel.endswith(".md"):
@@ -216,26 +251,31 @@ def build_files(paths: dict[str, Path]) -> tuple[dict[str, dict], dict[str, str]
                 if key in seen:
                     continue
                 seen.add(key)
-                entry["links"].append({
-                    "target": target,
-                    "anchor": anchor.strip(),
-                    "alias": alias.strip(),
-                    "path": stems.get(target, ""),
-                })
+                entry["links"].append(
+                    {
+                        "target": target,
+                        "anchor": anchor.strip(),
+                        "alias": alias.strip(),
+                        "path": stems.get(target, ""),
+                    }
+                )
         files[rel] = entry
 
     for rel, entry in files.items():
         for link in entry["links"]:
-            if link["path"] and link["path"] != rel and rel not in files[link["path"]]["inbound"]:
-                files[link["path"]]["inbound"].append(rel)
+            if link["path"] and link["path"] != rel:
+                if rel not in files[link["path"]]["inbound"]:
+                    files[link["path"]]["inbound"].append(rel)
+                if link["path"] not in entry["linksTo"]:
+                    entry["linksTo"].append(link["path"])
     for entry in files.values():
         entry["inbound"].sort()
+        entry["linksTo"].sort()
     return files, stems
 
 
 def rule_steps(files: dict[str, dict], reads: list[dict]) -> list[dict]:
-    """A rule file loads when a path it matches is touched. What a task touches is what its skill
-    names under Reads, so the patterns are matched against those paths."""
+    """Match rule scope to skill Reads, regardless of automatic or explicit rule loading."""
     steps = []
     for rel in sorted(r for r in files if r.startswith(".claude/rules/")):
         fields, body = split_frontmatter(files[rel]["text"])
@@ -245,8 +285,19 @@ def rule_steps(files: dict[str, dict], reads: list[dict]) -> list[dict]:
             if matches:
                 # Name a document of the task rather than a rule file, which would read circular.
                 example = next((m for m in matches if not m.startswith(".claude/rules/")), matches[0])
-                why = f"Pattern {pattern} matches {example}. {first_sentence(first_paragraph(body))}"
-                steps.append({"path": rel, "anchor": "", "role": "rule", "why": why, "present": True})
+                steps.append(
+                    {
+                        "path": rel,
+                        "anchor": "",
+                        "role": "rule",
+                        "why": first_sentence(first_paragraph(body)),
+                        # The interface shows the match itself, so pattern and example stay separate
+                        # fields instead of being buried in a sentence.
+                        "pattern": pattern,
+                        "matched": example,
+                        "present": True,
+                    }
+                )
                 break
     return steps
 
@@ -346,6 +397,9 @@ def build_tasks(files: dict[str, dict]) -> list[dict]:
                 steps.append(step)
                 taken.add(step["path"])
         steps.append(check_step(skill_rel, skill_body))
+        for step in steps:
+            step.setdefault("pattern", "")
+            step.setdefault("matched", "")
         tasks.append(
             {
                 "id": re.sub(r"[^a-z0-9]+", "-", task.lower()).strip("-"),

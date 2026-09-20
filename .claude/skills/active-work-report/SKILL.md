@@ -23,8 +23,8 @@ This skill does not repeat the field rules. If a source cannot be read, report i
 4. Extract per document the status, deadlines, next actions, blockers and the progress since the state described in the entry. Compare semantically rather than temporally, because an `updated::` field serves traceability and not analysis. Commits after the described state and newer information in the vault document are the indicators of a stale entry.
 5. Deliver the situation report in the conversation, ordered chronologically where dates exist, covering near deadlines, active projects, waiting or blocked entries, fixed dates in the near term, and what changed against the previous state. One entry is one bullet, several aspects of one entry become sub-bullets rather than a comma chain or a parenthesis, at most one line per bullet.
 6. Follow the report with the recommended changes to ACTIVE-WORK.md, numbered, each naming exactly what to change and where. For a changed narrative text give the old text, the new text and the reason, so the operator can check the change. Name the entries that need no change.
-7. Stop and wait. The operator accepts, rejects or modifies single recommendations and may add tasks that did not come from the scan.
-8. Only then write, following the field contract. After every change to an entry and before reporting back, check each touched entry against the field contract table and output the result as one line per entry with the missing field names or the word complete.
+7. For a report-only request, deliver the recommendations and await an implementation instruction. An explicit update instruction already given authorizes evidenced changes within its scope without renewed confirmation. Keep unresolved substantive decisions and unanswered operator points open.
+8. Execute authorized changes following the field contract. After every change to an entry and before reporting back, check each touched entry against the field contract table and output the result as one line per entry with the missing field names or the word complete.
 
 ## Boundaries
 
@@ -38,6 +38,8 @@ This skill does not repeat the field rules. If a source cannot be read, report i
 - Write boundaries per `Vault Operations/Conventions/Convention Curation Round.md#Write boundaries`.
 
 ## Verification
+
+Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
 
 Per repository, `git log --oneline -15` and `git status --short` in the real local path. After a write, the field-contract check per touched entry. State which entries were checked against repository and file system, which only against the vault document, and which could not be checked.
 

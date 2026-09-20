@@ -8,6 +8,7 @@ Usage:
     python scripts/render_agents_md.py          write AGENTS.md
     python scripts/render_agents_md.py --check  exit 1 when AGENTS.md is stale
 """
+
 from __future__ import annotations
 
 import sys
@@ -33,8 +34,11 @@ def render() -> str:
     if len(hits) != 1:
         raise SystemExit("CLAUDE.md must carry exactly one paragraph that starts with: " + RELATION_MARK)
     paragraphs[hits[0]] = RELATION_TEXT
-    return "\n\n".join(paragraphs).replace("\n# CLAUDE\n", "\n# AGENTS\n").replace(
-        "query-topics: [claude,", "query-topics: [agents,")
+    return (
+        "\n\n".join(paragraphs)
+        .replace("\n# CLAUDE\n", "\n# AGENTS\n")
+        .replace("query-topics: [claude,", "query-topics: [agents,")
+    )
 
 
 def is_current() -> bool:

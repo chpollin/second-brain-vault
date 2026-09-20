@@ -22,6 +22,7 @@ The vault's knowledge about itself. Rules stand in [[CLAUDE]], this map leads to
 - [[Template Concept Note]]
 - [[Template Literature Note]]
 - [[Template Project Overview]]
+- [[Template Research Persona]] — personal research profile and separate working agreement, built through `persona-init`
 
 ## Records
 
