@@ -2,7 +2,7 @@
 
 Second Brain is a personal research environment for working with AI agents. A maintained personal vault holds developed knowledge, source readings, methodological reflections and links to projects. Project repositories hold their own substantive knowledge in `knowledge/` folders. Agents use selected parts of this documentary environment in research dialogue and implementation, following executable skills and the permissions of their actual host.
 
-The research question is how this arrangement can support the recovery of prior reasoning and the development of new, inspectable research contributions across sessions and projects. A paper may describe the arrangement and examine its use. Its research contribution and comparative benefit remain prospective claims requiring evidence.
+The research question is how this arrangement can support the recovery of prior reasoning and the development of new, inspectable research contributions across sessions and projects. The [manuscript](paper.md) presents the implemented design and a proposed study. The [evaluation procedure](evaluation.md) selects real episodes by their dependence on earlier knowledge or scholarly judgement. Comparative benefit remains an open empirical question.
 
 ## Repository purpose
 

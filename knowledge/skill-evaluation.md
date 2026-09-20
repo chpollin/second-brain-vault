@@ -53,6 +53,16 @@ and skill use. It establishes neither independent behavioural reliability nor pe
 scholarly acceptance. Actual research-source retrieval and first-use behaviour across other
 agent environments remain untested.
 
+## Repository-scope recovery check
+
+On 2026-09-20, a subagent with no inherited conversation history received a read-only task in the public repository at revision `05588f3f6d6fdaf72da5e2b1cfbc3043a1320645`. Its question was:
+
+> What does this Second Brain repository actually provide, where would a researcher find the operational interface and context-export function, and can cloning this repository alone give an agent access to the knowledge held in other project repositories?
+
+The task excluded private sibling repositories and the personal vault. The returned answer distinguished the public synthetic template and static explorer, the separate private operational interface, and the separate context exporter. It located the documentary route into project knowledge and qualified actual source access as a host-dependent requirement. The answer cited the README, project and integration documents, the knowledge-document convention and the synthetic repository directory. It also identified the explorer's actual `data.json` read in `docs/app.js`.
+
+The coordinating agent checked the component claims against [Integration](integration.md#component-boundaries), the source read against `docs/app.js`, and the unchanged repository revision and working tree before synchronization. These checks supported the answer's description of the public repository. The subagent explicitly left private component behaviour and actual cross-repository access unchecked. Its detailed reading order is a self-report. A complete execution trace, a comparative baseline, a new human usefulness judgement and later reuse are absent. This is a bounded documentation-recovery check, not a completed research episode under the [evaluation protocol](evaluation.md).
+
 ## Corrections integrated
 
 - External orientation now permits its own read-only entry and reserves writing procedures for an authorized vault session.

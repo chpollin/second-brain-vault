@@ -10,5 +10,8 @@ Read [project](project.md) for the purpose of Second Brain and [handoff](handoff
 | Why does the current arrangement exist? | [Journal](journal.md) |
 | What input still needs integration? | [Handoff](handoff.md) |
 | What did the bounded skill trials establish? | [Skill evaluation](skill-evaluation.md) |
+| What argument and proposed study does the manuscript present? | [Paper](paper.md) |
+| How are real research episodes selected and examined? | [Evaluation](evaluation.md) |
+| What evidence must an episode record preserve? | [Episode template](episode-template.md) |
 
 The [README](../README.md) is the public introduction and setup guide. [Template](template.md) preserves the earlier entry address for references outside this repository.

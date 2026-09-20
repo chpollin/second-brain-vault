@@ -24,7 +24,7 @@ The real ACTIVE-WORK interface is maintained separately in a private repository.
 
 [Promptotyping](https://github.com/DigitalHumanitiesCraft/Promptotyping) connects maintained project knowledge with the iterative development of research artefacts. The template applies this through its `project-knowledge` skill. [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) addresses source-grounded knowledge work, while [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) addresses research coordination. Their specifications remain in their own repositories.
 
-Second Brain brings these concerns into a personal research environment. A paper describing and investigating that environment remains prospective. The [recorded skill trials](knowledge/skill-evaluation.md) cover bounded synthetic cases and do not establish a general benefit or scholarly validation. The [project knowledge](knowledge/INDEX.md) states the purpose, implemented requirements and component boundaries.
+Second Brain brings these concerns into a personal research environment. The [manuscript](knowledge/paper.md), *Second Brain as a Personal Research Environment for Working with AI Agents*, presents the design and a proposed empirical study. The [evaluation procedure](knowledge/evaluation.md) and [episode template](knowledge/episode-template.md) support recording real research episodes, including rejected and unresolved contributions. The [recorded skill trials](knowledge/skill-evaluation.md) cover bounded synthetic cases and do not establish a general benefit or scholarly validation. The [project knowledge](knowledge/INDEX.md) states the purpose, implemented requirements and component boundaries.
 
 ## What you need
 
