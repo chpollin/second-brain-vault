@@ -4,7 +4,7 @@ Second Brain connects a maintained personal research vault with the knowledge he
 
 This repository provides a reusable Obsidian vault template for that arrangement. It contains synthetic example notes, executable skills, document conventions and structural checks. Open it in Obsidian and adapt it to your own domains and projects. The source owner's research corpus and personal Research Persona remain unpublished.
 
-The [structure explorer](https://chpollin.github.io/second-brain-vault/) lets you inspect the template and trace which files an agent reads for a task. It is generated from this repository. It is distinct from the operational interface used with the personal research vault.
+The [structure explorer](https://chpollin.github.io/second-brain-vault/) lets you inspect the template and follow the reading sequences required by its rules. It is generated from this repository. It is distinct from the operational interface used with the personal research vault.
 
 ## Knowledge, procedures and dialogue
 

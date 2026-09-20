@@ -13,7 +13,7 @@ The template must support a person and an available AI agent in maintaining rese
 | Optional personal profile | Neutral persona template and `persona-init` | Derive an inspectable profile through source reading and dialogue, with personal claims distinguished from inference |
 | Structural checks | `scripts/check_vault.py`, generator, commit hook and tests | Check decidable requirements and report measured findings for judgement |
 | Synthetic test material | `Vault Operations/Fixtures/` and skill `evals/` | Preserve registered defects and expected behaviour for bounded trials |
-| Public structure explorer | `docs/` and `scripts/build_site.py` | Derive displayed files, links and instruction-loading traces from the template |
+| Public structure explorer | `docs/` and `scripts/build_site.py` | Derive displayed files, links and prescribed reading sequences from the template |
 | Research procedure | [Evaluation](evaluation.md) and [episode template](episode-template.md) | Preserve the sources, interventions and outcomes of an observed episode, with missing stages explicit |
 
 The repository distributes explorer source. Its generated `docs/data.json` is ignored and is built locally before checks or preview. The Pages workflow builds it from the published source, runs structural checks, Python tests, Ruff checks and Node.js link tests, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.

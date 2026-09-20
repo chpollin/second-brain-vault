@@ -4,163 +4,149 @@ Dr. Christopher Pollin
 
 ## Abstract
 
-Research with AI agents requires continuity between a current question, earlier reasoning and the documents in which findings are maintained. Second Brain connects a personal research vault with project repositories whose `knowledge/` folders hold requirements, decisions and methodological context. Task-specific procedures guide context selection, bounded delegation and authorized revision. A researcher examines contributions in conversation and through views linked to their sources. The publicly available implementation is a reusable vault template with synthetic examples, document conventions, skills, structural checks and a static explorer. This article presents the arrangement and its verification boundaries, then specifies an empirical evaluation based on real research episodes. The proposed study examines whether relevant reasoning can be recovered, whether contributions remain supported by evidence, and whether accepted revisions can be used correctly in later work. The design supports a single agent or a small team. Larger organizational structures remain a research question concerning responsibilities and shared knowledge.
+Second Brain addresses the reuse of research decisions and their supporting evidence across agent sessions and projects. It organizes a personal collection of research notes alongside project documentation, with explicit links between them. Written procedures specify how agents locate relevant material, examine contributions and incorporate authorized revisions into maintained documents. Researchers assess substantive interpretations and can work with a single agent or delegate defined inquiries to additional agents. The public implementation provides a reusable vault template with synthetic examples and structural checks. Agents carry out its procedures using the tools and permissions available in their working environment. A proposed observational study follows real research tasks to examine whether earlier reasoning can be recovered and revised findings applied within their documented conditions. It also records unsuccessful contributions and the effort required for review and knowledge maintenance. The contribution is an inspectable design and an evaluation protocol. Current evidence concerns technical checks and bounded development trials, while effects on research practice remain to be evaluated.
 
-## 1. Research continuity across projects
+## 1. Research projects and personal research environments
 
-A research project distributes its reasoning across source readings, data, software, drafts and recorded decisions. In the working setting examined here, these materials belong to commissioned projects, independent research, writing and teaching. A question in one project can require a decision made elsewhere, while a technically successful change can invalidate an earlier description of the method. An agent working on the current task needs enough of this history to interpret the task correctly.
+When research resumes after an interruption, the current document may preserve a decision without explaining why it was made. A correction may appear in a detailed note while an overview still repeats the earlier position. Working with AI agents raises a practical question about these relationships. Which material should an agent consult, and how can subsequent work retain the grounds and limits of a new contribution?
 
-The practical problem is deciding what knowledge to consult and how a new contribution changes it. A useful response may recover an earlier argument, expose a contradiction or provide an implementation that can be examined. Its value depends on how accurately it uses the available material and whether subsequent work can recover the resulting decision.
+Second Brain investigates this question in a researcher's existing documentary environment. Its scope includes work that crosses project boundaries and continues across conversations. The following working definitions identify the objects of that investigation.
 
-Second Brain is a personal research environment that connects maintained documents with agent-assisted work. Its central research question is how explicit relationships between project knowledge, reusable procedures and researcher judgement can support continuity across sessions and projects. The public contribution is an inspectable implementation of this arrangement and a proposed method for evaluating it in use.
+### Research project
 
-An AI agent here is a system based on a Large Language Model (LLM) that uses selected context and available tools to pursue an assigned task. The initial scope is one researcher working with a coordinating agent and, where useful, bounded subagents. The researcher brings questions and evaluates substantive contributions. The agents read selected sources, investigate assigned problems and prepare changes within their authority. Durable findings enter the documents responsible for them. This arrangement makes the relationship between an answer and its later use available for examination.
+A research project is a connected body of inquiry organized around a research purpose, material under investigation and methods for addressing that purpose. Its identity depends on the relationship between the question being pursued and what would count as a justified contribution. The question and methods can change as the material is examined.
 
-## 2. Related work and methodological context
+For agent-assisted work, a project needs enough explicit context to establish what is being investigated and which evidence can support an answer. Recorded methodological decisions explain how the material is treated. Responsibilities identify who may revise it and who can assess the resulting claims. An output may be an interpretation, an edition or a research tool, but completing the output does not by itself establish its scholarly adequacy.
 
-Co-STORM combines participation in conversations among search-grounded agents with a dynamic mind map and report generation. Its evaluation addresses exploratory information seeking. Adaptation to prior user knowledge and greater conversational control remain identified limitations. These concerns are relevant to Second Brain's use of a researcher's existing knowledge and interventions during a task ([Jiang et al., 2024](https://aclanthology.org/2024.emnlp-main.554/)).
+A project can span several repositories, and a shared tool can serve several projects. A teaching activity may use research knowledge without itself constituting a research project. Second Brain therefore accommodates a broader working portfolio while selecting research tasks for the proposed study according to their substantive questions and evidential demands.
 
-Agentic Context Engineering maintains external context through structured, incremental updates and evaluates this strategy on agent and financial reasoning benchmarks. It provides a technical precedent for treating context as material that develops through use ([Zhang et al., 2025](https://arxiv.org/html/2510.04618v1)). In Second Brain, scholarly claims and personal interpretations require evidence and appropriate authorization before becoming durable knowledge.
+### Personal research environment
 
-An analysis of multi-agent execution traces identifies failures involving task specification, alignment between agents and verification. This supports treating delegation as an operation with its own failure modes. The quality of a contribution must be assessed after agents return their work ([Cemri et al., 2025](https://arxiv.org/html/2503.13657v2)).
+A personal research environment is the maintained arrangement of knowledge resources, tools and working practices through which a researcher conducts inquiry across projects. It connects current work with relevant earlier sources and decisions, and provides ways to examine new contributions and preserve their consequences for later work.
 
-Second Brain also draws on related methodological projects. [Promptotyping](https://github.com/DigitalHumanitiesCraft/Promptotyping) connects maintained project knowledge with iterative development and expert acceptance. [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) addresses the evidence supporting research claims. [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) addresses research coordination. The optional [Research Persona procedure](https://github.com/chpollin/second-brain-vault/tree/main/.claude/skills/persona-init) specifies how a research profile and working agreement can be developed from sources and personal feedback. Their contribution here is a set of design inputs whose usefulness must be assessed in the resulting environment.
+The term *personal* identifies whose research context and judgement organize the environment. Collaboration can involve shared repositories and other researchers. In Second Brain, the personal collection provides continuity across projects, while each project's documentation preserves the conditions of its own work. Conversation allows the researcher to question a proposal and refine an interpretation. Written procedures govern how accepted changes enter the maintained record.
 
-## 3. A maintained documentary environment
+The central research question is under what conditions this arrangement helps later agent sessions recover and apply justified findings, including the work needed to keep those findings usable.
 
-### 3.1. Knowledge and its responsible locations
+## 2. AI agents and related approaches
 
-The personal vault holds conceptual knowledge, source readings and relationships across projects. A project repository keeps implementation-specific knowledge beside its code and data. A repository directory links each project to its maintained knowledge and conceptual overview. These explicit references form a documentary network that a person or agent can follow selectively.
+### AI agent
 
-| Location | Responsibility |
-|---|---|
-| Personal research vault | Concepts, source readings and findings that apply across projects |
-| Project `knowledge/` folder | Project purpose, requirements, data assumptions, decisions and implementation findings |
-| Repository directory and project overview | Navigation between the vault and the responsible repository |
-| Skills and conventions | Reusable procedures and the rules governing their application |
-| Conversation | Current question, proposed interpretation and researcher feedback |
-| Work records and their interface | Open work, dependencies, required judgement and recorded outcomes |
+An AI agent based on a Large Language Model (LLM) pursues a goal through a sequence of actions using tools and adapts its subsequent steps to intermediate results. In research work, it can inspect project resources, act on them and evaluate the resulting output before continuing. ([Sapkota, Roumeliotis and Karkee, 2026](https://doi.org/10.1016/j.inffus.2025.103599), [Weng, 2023](https://lilianweng.github.io/posts/2023-06-23-agent/))
 
-The maintenance rule assigns each durable statement a responsible location. Other documents link to it or provide a scoped summary. When the statement changes, its restatements need inspection. The synthetic development cases exercise the failure this rule addresses, in which a corrected note coexists with an outdated overview or glossary. Git preserves earlier revisions, while the maintained documents state the position that currently governs the work.
+The agent environment supplies access to files and tools and determines which operations are permitted. Its instructions and available knowledge influence the actions the LLM selects. Research evaluation consequently concerns the configured working system, including the evidence it actually receives and the changes it makes. The ability to inspect an intermediate result does not establish that the agent assesses it correctly.
 
-The network uses explicit document links and reading instructions. Access to another repository depends on the active agent environment. A link establishes a route to inspect. It does not establish that its target has been read or that a finding can be transferred without checking the receiving project's assumptions.
+A-MEM constructs linked memory notes and revises their descriptions as new information arrives. Its evaluation concerns questions about extended conversations. This makes linked and evolving notes an established point of comparison for Second Brain, whose proposed study concerns reviewed research knowledge and its subsequent application. ([Xu et al., 2025](https://arxiv.org/html/2502.12110v11)) Agentic Context Engineering similarly develops reusable context through incremental updates, with evaluations on agent tasks and domain-specific benchmarks. Its findings motivate examining what is preserved or lost when knowledge is repeatedly revised. ([Zhang et al., 2026](https://arxiv.org/html/2510.04618v3))
 
-### 3.2. Procedures and context selection
+LongMemEval examines memory across sessions, including changes to previously recorded information. Its analysis distinguishes failure to retrieve evidence from failure to use retrieved evidence correctly. This distinction informs the proposed evaluation of Second Brain, where locating a decision and applying its reasoning are separate achievements. ([Wu et al., 2025](https://arxiv.org/html/2410.10813v2)) Co-STORM addresses participation in conversations among agents during exploratory information seeking. Its interactive mind map provides a related approach to helping people follow and steer an investigation. Reported limitations concern adaptation to the user's prior knowledge and the degree of control over the conversation, both relevant to collaboration informed by a personal research environment. ([Jiang et al., 2024](https://aclanthology.org/2024.emnlp-main.554/))
 
-Skills are written procedures that an agent reads and follows using the tools available in its execution environment. They identify when a procedure applies, which sources to read, the permitted operations and how to verify the result. Substantive knowledge remains in the relevant documents.
+Second Brain also develops ideas from the author's methodological projects. [Promptotyping](https://github.com/DigitalHumanitiesCraft/Promptotyping) places maintained project knowledge within the development and examination of research artefacts. The need to check the resulting claims connects this practice to [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault), which links statements to supporting material. When investigations proceed in parallel, [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) supplies procedures for assigning work and checking returned results. These projects provide design inputs and implementation references. Their combination still requires evaluation in the research setting considered here.
 
-Context selection begins with the research question. The agent locates the responsible project, reads its applicable instructions and follows its knowledge index to the relevant material. Claims about implementation are checked against code or data when their current state matters. A conflict between a specification and observed behaviour remains explicit until it has been investigated.
+## 3. Maintaining knowledge across projects
 
-Transferring a finding between projects requires a further judgement. The agent compares the source project's purpose, material and method with the receiving task. It preserves the conditions under which the finding was established. A plausible analogy can support a proposal, but its applicability remains an inference until checked against the new case. The [knowledge-document convention](https://github.com/chpollin/second-brain-vault/blob/main/Vault%20Operations/Conventions/Convention%20Knowledge%20Documents.md) defines this procedure.
+Second Brain uses a personal vault, a collection of linked notes maintained in Obsidian, to hold conceptual knowledge and readings that may matter across projects. Project-specific documentation resides with the material whose interpretation or implementation it governs. A repository stores such files together with their recorded revisions. Its `knowledge/` folder explains the project's purpose and the decisions that shape its data and tools. A directory links the personal overview to the relevant repository, allowing a reader to move from the broader research context to the detailed project record.
 
-### 3.3. The optional research profile
+The guiding maintenance rule assigns a designated document to each durable finding or rule. Other documents link to that location or summarize it within a stated scope. When the finding changes, those summaries require inspection. This addresses a concrete failure described in the development record, where a corrected knowledge document coexisted with an outdated overview. Revision history preserves what changed, while the maintained text identifies the position that currently governs the work. The [knowledge-document convention](https://github.com/chpollin/second-brain-vault/blob/main/Vault%20Operations/Conventions/Convention%20Knowledge%20Documents.md) specifies how these relationships are handled.
 
-A Research Persona records a researcher's confirmed background and an explicit working agreement for dialogue. Its procedure distinguishes personal statements, source evidence, generated interpretation and simulated answers. A request to shorten one answer consequently applies to that answer unless the researcher expresses a general preference.
+The document network provides routes for selective reading. A link to another repository does not establish access to it. The active agent environment must permit the read, and the source must actually be inspected. The same distinction applies to interpretation. A note relevant to one project can suggest a method for another, but the transfer requires checking the new material and research purpose against the conditions of the earlier finding.
 
-The profile can guide which earlier work is relevant and how a contribution should be discussed. Personal agreement and evidential correctness remain separate judgements. An agent may formulate a well-supported objection even when it differs from the researcher's initial view. The public template provides an [initialisation procedure and neutral template](https://github.com/chpollin/second-brain-vault#build-your-research-persona). Personal profiles and the author's research corpus are excluded from the public distribution.
+Written procedures, called *skills*, tell an agent how to carry out recurring work. A procedure identifies relevant sources and the permitted operations, then specifies how the result should be checked. The substantive knowledge remains in the documents it refers to. Reading a procedure supplies instructions. The ability to execute them depends on available tools and permissions.
 
-## 4. Research work and bounded delegation
+Context selection starts with the current question. The agent uses the project overview and its links to identify relevant knowledge, then checks claims about current software behaviour against code or data when necessary. Disagreement between the documentation and the implementation becomes a question to investigate. The record preserves both accounts until their relationship has been checked.
 
-The workflow begins with a substantive question or a concrete change. The researcher and coordinating agent examine the available context and establish what result would answer the question. Delegation is useful when a bounded investigation can proceed independently, such as inspecting a second repository while the main conversation develops an interpretation.
+## 4. Collaborative inquiry and revision
 
-Each delegated task identifies the question, relevant sources, permitted changes and expected evidence. The coordinating agent compares returned findings with the actual documents or artefacts and integrates their implications. Conflicting findings remain visible. Separate agents can share assumptions and errors, so their agreement alone does not establish validity.
+The researcher and the agent begin by identifying the question to be answered and the evidence that would make a contribution useful. A task can remain within one conversation. Additional agents become relevant when a defined inquiry can proceed independently, such as examining another project's assumptions while the main conversation considers whether a method can be transferred.
+
+Each delegated inquiry specifies its question, sources and permitted changes. The coordinating agent checks returned claims against the cited material before incorporating them into its response. Results can return independently, and conflicting findings remain explicit. This requirement addresses a documented difficulty in multi-agent systems, where failures can arise from task specification, communication and verification. Agreement among agents is therefore insufficient evidence of correctness. ([Cemri et al., 2025](https://arxiv.org/html/2503.13657v3))
 
 ```text
-                     Researcher
-               question and judgement
-                         |
-                         v
-              Conversation and work view
-                         |
-                         v
-              Context selection and task <---- Personal vault
-                    formulation          <---- Project knowledge
-                         |
-                         v
-                 Coordinating agent
-                   /           \
-                  v             v
-          Bounded inquiry   Bounded inquiry
-                  \             /
-                   v           v
-                Contribution and evidence
-                         |
-                         v
-              Verification and, where needed,
-                   scholarly judgement
-                    /           \
-                   v             v
-          Further inquiry   Authorized revision
-                                  |
-                                  v
-                       Maintained knowledge
-                                  |
-                                  +----> Later research question
+Researcher and coordinating agent
+              |
+              v
+Current question <---------- Maintained research knowledge
+              |
+              v
+Source selection and inquiry
+              |
+              +---- Optional delegated inquiries
+              |                 |
+              v                 v
+        Contribution with evidence
+              |
+              v
+   Verification and scholarly judgement
+          /                       \
+         v                         v
+Further inquiry           Authorized revision
+                                   |
+                                   v
+                        Maintained research knowledge
+                                   |
+                                   v
+                          Later research question
 ```
 
-Figure 1. The intended relationship between documentary context, collaborative inquiry and maintained knowledge. Delegated inquiries can return independently. Further inquiry may also follow a finding that requires no document change.
+Figure 1. The proposed relationship between a current inquiry and later use of its findings. The branches describe possible continuations. A useful contribution may require no document change.
 
-Human involvement follows the substance of the operation. A previously authorized technical correction can be implemented and checked directly. A new scholarly interpretation, an unresolved methodological choice or a personal attribution may require the researcher's judgement. Verification should identify the substantive decision and provide the evidence needed to make it.
+Human involvement follows the substance of the work. A technical correction within an existing authorization can be implemented and checked directly. A new scholarly interpretation requires assessment of its grounds. A statement about the researcher's own position also requires confirmation that the attribution is appropriate. When a contribution warrants a durable revision, the authorized session changes its designated document and inspects affected summaries. Consequences for pending work enter the corresponding work record.
 
-An accepted finding is written to the responsible knowledge document. An operational consequence is reflected in the work record, and affected restatements are brought into agreement. A later session must be able to recover both the result and the grounds on which it was accepted. This last step is part of the proposed evaluation, since successful file storage alone cannot establish continuity of reasoning.
+Conversation permits detailed argument and correction. The work interface should make it possible to identify the project, inspect the relevant contribution and follow a recorded response to its actual incorporation. A saved response and an updated knowledge document are distinct states. Making that distinction visible is a design requirement for assessing whether an intervention changed subsequent work.
+
+An optional [Research Persona procedure](https://github.com/chpollin/second-brain-vault/tree/main/.claude/skills/persona-init) develops a confirmed research profile and an agreement about dialogue. The profile can guide the selection of relevant earlier work and the presentation of a contribution. Its account distinguishes the researcher's statements from source evidence and generated interpretation. Simulated answers remain unconfirmed until reviewed, and feedback on one answer becomes a general preference only when the researcher makes that scope explicit. These distinctions allow personal relevance to be examined separately from evidential correctness.
 
 ## 5. Implementation and available evidence
 
-The public [Second Brain repository](https://github.com/chpollin/second-brain-vault), examined at its [20 September 2026 revision](https://github.com/chpollin/second-brain-vault/commit/05588f3f6d6fdaf72da5e2b1cfbc3043a1320645), provides an Obsidian vault template with synthetic notes, reusable procedures, document conventions and deterministic checks. Project knowledge documents describe its purpose and integration boundaries. The static explorer renders the template and shows reading sequences derived from its rules. Those sequences describe intended instruction loading. They are not observed traces of an agent's execution.
+The public [Second Brain repository](https://github.com/chpollin/second-brain-vault) provides a reusable vault template with synthetic content, written procedures and checks on document structure. Its browser-based explorer displays the template and the reading sequences specified by its rules. These sequences describe intended behaviour. They do not record an agent's actual reading or execution.
 
-The author's working environment includes a separate interface over personal work records and a separate exporter that prepares explicitly selected vault documents for a conversation. The exporter records the selected sources. The public template, exporter and personal work interface have distinct implementations and access boundaries. The public template installs no agent runtime or automatic cross-repository retrieval service. Its [integration specification](https://github.com/chpollin/second-brain-vault/blob/main/knowledge/integration.md) identifies these boundaries.
+The author's working environment also contains a separate interface over personal work records and an exporter that prepares explicitly selected documents for use in a conversation. The exporter records its selection. Access to material in other repositories requires additional reads or separately supplied context. The public template contains neither the private research corpus nor a service that automatically retrieves knowledge across repositories. Its [integration specification](https://github.com/chpollin/second-brain-vault/blob/main/knowledge/integration.md) describes these component boundaries.
 
-| Evidence | What it supports | What remains to examine |
-|---|---|---|
-| Structural checks and regression tests | Defined file, link, generation and exclusion behaviour | Correctness of research claims |
-| Local explorer inspection | Selected navigation and document-rendering behaviour | Usability during research work |
-| Recorded synthetic skill trials | Reported behaviour in bounded development cases | Reliability across tasks and agent environments |
-| Proposed study of research episodes | A procedure for examining practical use | Outcomes from actual execution of that study |
+Automated tests examine document requirements, links and generated views. Browser inspection examines selected navigation and rendering behaviour. The [development record](https://github.com/chpollin/second-brain-vault/blob/main/knowledge/skill-evaluation.md) also describes synthetic maintenance and synthesis trials, together with profile initialization. Their complete local transcripts are not publicly available. The persona baseline reported no failure, so that comparison supports no improvement claim. Further cross-repository cases specify expected behaviour without establishing its reliability in use.
 
-The [skill evaluation record](https://github.com/chpollin/second-brain-vault/blob/main/knowledge/skill-evaluation.md) describes synthetic maintenance, synthesis and profile-initialisation trials. Complete dialogue records and local trial artefacts are not included in the public template. The persona baseline reported no failure, which prevents an improvement claim for the added procedure. New cross-repository test cases specify expected behaviour and have not yet established behavioural results. The available evidence therefore supports an implemented and technically checked design, with research usefulness still requiring evaluation.
+A separate documentation-recovery check used a fresh agent context to identify the public repository's scope. Its answer correctly distinguished the template from the external interface and exporter, and the coordinating agent checked these claims against repository files. The record lacks a complete execution trace, a comparison condition and a later reuse attempt. It therefore supports a bounded observation about recovering the repository's documented scope. Effects on research quality or human effort remain untested.
 
-## 6. Evaluation through research episodes
+## 6. Studying research episodes
 
-The proposed unit of analysis is a research episode that connects an initial question with a contribution and its subsequent use. Episodes should be selected because they expose a particular dependency on maintained knowledge or judgement. The researcher's portfolio provides candidate material across different working conditions.
+The proposed study examines a research episode, understood as work on a substantive question together with the resulting contribution and any observed subsequent use. Selection depends on the knowledge or judgement the task requires. The portfolio's categories provide possible settings, but selecting one commissioned project, one independent project and one teaching activity would not by itself explain what is being tested.
 
-| Episode | Question under examination |
-|---|---|
-| Recovering an earlier decision | Can the agent recover its rationale, evidence and remaining conditions? |
-| Transferring a method between projects | Does the proposed transfer preserve differences in material and purpose? |
-| Resolving a contradiction | Are specification, implementation and source evidence distinguished accurately? |
-| Incorporating a correction | Does the accepted change reach the responsible document and relevant restatements? |
-| Continuing work in a later session | Can the revised knowledge guide work without repeating the earlier correction? |
+An episode might resume an earlier methodological decision or assess whether a procedure can be used with different material. Such work can expose a conflict between a source, its interpretation and the implemented behaviour. A correction may follow, and a later task may provide an opportunity to examine whether the revised account remains usable. Which of these relationships occurs depends on the task. The [evaluation protocol](https://github.com/chpollin/second-brain-vault/blob/main/knowledge/evaluation.md) and [episode record](https://github.com/chpollin/second-brain-vault/blob/main/knowledge/episode-template.md) specify the proposed observations.
 
-For each episode, the study should preserve the initial question, available source revisions, selected passages, agent instructions and contributions, researcher interventions, and resulting changes. A later follow-up should examine whether the result can be recovered and applied. Rejected contributions and unresolved questions belong in this record because they reveal where the arrangement fails or creates additional work.
+The record begins with the question and the grounds on which a contribution would be judged. It preserves the source revisions so that later changes do not alter the evidence retrospectively. Available documents are distinguished from passages actually supplied to or read by the agent. The record identifies the LLM and its available settings alongside the active instructions and tool access, because these affect the contribution. Delegated work and researcher interventions remain attributable to their respective roles. Missing logs are identified as gaps, and retrospective recollection remains distinguishable from contemporaneous evidence.
 
-Assessment should distinguish evidence from utility. Source assessment examines whether a claim is supported by the cited passage and preserves its scope. Scholarly assessment examines whether the resulting inference or implementation answers the research question. The researcher's assessment concerns whether the contribution helped the work and whether the necessary judgement could be made from the information presented. Where feasible, a second qualified reader should assess the support for central claims independently of the development conversation.
+Assessment examines each claim needed to support the contribution against its cited passage, data or observed behaviour. It also considers whether an inference follows from the evidence and whether its conditions hold in the present task. Scholarly judgement concerns whether the contribution answers the research question. The researcher separately assesses its usefulness and the work required to make it usable. Where feasible, a qualified reader who did not develop the contribution assesses its central claims independently. Personal acceptance records a decision to use the result and does not establish independent scholarly validation.
 
-The first study should document complete episodes under the proposed workflow. A subsequent comparison could hold the source snapshot, task, agent configuration and available tools constant while varying one component. Comparing explicit knowledge navigation with ordinary agent-led browsing would address the effect of context organization. A separate comparison could examine one agent against bounded delegation, recording additional agent calls, token use and elapsed time so that added processing can be distinguished from the effect of coordination. The persona should be assessed separately, since introducing it alongside additional agents and new retrieval procedures would make the source of any difference unclear.
+For an accepted revision, a later research task can test whether the finding remains available and is applied correctly. That attempt uses a fresh session with the ordinary permitted entry points. Any remaining conversation history or other hints are documented. An assessment record prepared beforehand preserves the expected reasoning and its conditions without supplying the answer to the agent. A failed attempt and an absent follow-up are recorded differently. Rejected, unresolved and interrupted episodes remain part of the analysis, and an accepted contribution can be useful without requiring a write to the knowledge base.
 
-Repeated use creates learning effects for the researcher, and identical tasks become easier after prior exposure. Comparative work must account for task order and researcher familiarity. Outcomes should include the corrections and maintenance work needed to reach an acceptable contribution. Producing more text or completing more agent actions is insufficient evidence of research benefit.
+An initial observational study can establish how the arrangement behaves in the recorded cases. Attributing a difference to a particular component requires a separate comparison. Source material, tasks, agent configuration, available tools and assessment criteria should remain equivalent while one component changes. For example, ordinary agent-led browsing can be compared with explicit documentary navigation. Providing the relevant passages directly in a further condition would help distinguish difficulties in finding evidence from difficulties in applying it.
 
-Each recorded episode includes its outcome as accepted, rejected or unresolved, with the grounds for that judgement. An accepted revision requires a later attempt to use the changed knowledge. Rejected and unresolved contributions retain their evidence, reasons and any remaining questions. This preserves unsuccessful cases in the analysis.
+Delegation requires its own comparison, because additional agents also add processing. A comparison with one agent should use a comparable total processing allowance and record actual calls and available token measurements across the team. The Research Persona should be varied separately. Task order and the researcher's prior familiarity must also be recorded, since repeating a solved task changes the conditions. Elapsed time and human review and maintenance effort belong in the analysis wherever they can be observed by a stated method. Unavailable measurements remain unrecorded.
 
-## 7. Organizational scope and limitations
+## 7. Scope and limitations
 
-The current design operates at the scale of a researcher and a small agent team. A coordinating agent provides a place to integrate delegated findings and surface questions requiring attention. Whether this reduces the effort of examining concurrent investigations requires observation during use.
+The design has developed within one researcher's documentary practices. Its use elsewhere depends on whether relevant project knowledge is available and maintained. Assigning a finding to a designated document helps locate the current account, but establishes no guarantee of truth. Several consistent documents can reproduce the same error. Selective reading can also miss evidence that would change the judgement.
 
-Future work could distinguish a team pursuing a shared task from an organization coordinating teams with different responsibilities. A civilization metaphor would add questions about shared institutions and enduring knowledge, while an ant-colony analogy would direct attention to local interactions through a shared environment. These metaphors suggest different mechanisms to investigate. Introducing further organizational levels would require evidence that they help researchers understand and guide the work.
+The proposed study must make enough material available for its central claims to be inspected. Private research sources and correspondence may restrict publication. Any released episode therefore requires an explicit publication scope and an account of omitted evidence. Removing identifying material must preserve the relationship between a claim and its support. If that relationship cannot be inspected publicly, the limitation belongs with the affected finding.
 
-The personal corpus introduces further limits. It reflects the author's projects and documentary habits, and its usefulness depends on the quality of its maintained knowledge. An explicit ownership rule can locate a statement without establishing its truth. Selective reading can miss relevant material, and consistent documents can preserve the same error. Evaluation must therefore examine substantive claims as well as structural integrity.
-
-Public reproduction also has limits. The template exposes the reusable structure through synthetic content, while the researcher's working corpus remains private. The proposed study will need a publishable set of episodes with sufficient source material to inspect central claims. Removing confidential content must preserve the evidential relationships being evaluated. Until such material and its analysis are available, conclusions remain specific to the implemented design and its development checks.
+Larger agent organizations remain a possible extension. A team can pursue a shared task, while an organization may coordinate teams with distinct responsibilities. A civilization metaphor raises further questions about enduring institutions and shared knowledge. An ant-colony analogy suggests coordination through local interactions in a shared environment. These are prospective design questions. The current study concerns a researcher working with a single agent or a small team, and must first examine whether that arrangement makes the work easier to understand and assess.
 
 ## 8. Conclusion
 
-Second Brain organizes agent-assisted research around maintained knowledge with explicit responsibilities. A personal vault connects concepts and prior reasoning across projects, while project knowledge documents preserve the conditions of implementation and local decisions. Skills guide selective reading and revision, and bounded delegation supplies additional inquiry when the task warrants it. The public template makes this arrangement inspectable and reusable. Its practical value will depend on whether real research episodes preserve the connection between evidence, judgement and later work, including the effort required to maintain that connection.
+Second Brain provides a way to organize the relationship between research knowledge, agent contributions and authorized revision. Its proposed evaluation follows what happens when a finding is needed again, including whether its evidence and conditions remain available and what further correction is required. The public template makes the documentary design inspectable. Establishing its practical value requires observed research episodes and a comparison of the benefits with the work needed to maintain them.
 
 ## References
 
-Cemri, Mert, et al. 2025. [Why Do Multi-Agent LLM Systems Fail?](https://arxiv.org/abs/2503.13657v2) arXiv:2503.13657, version 2.
+Cemri, Mert, et al. 2025. [Why Do Multi-Agent LLM Systems Fail?](https://arxiv.org/abs/2503.13657v3) arXiv:2503.13657, version 3.
 
-Jiang, Yucheng, Yijia Shao, Dekun Ma, Sina J. Semnani, and Monica S. Lam. 2024. [Into the Unknown Unknowns: Engaged Human Learning through Participation in Language Model Agent Conversations](https://aclanthology.org/2024.emnlp-main.554/). Proceedings of EMNLP 2024, 9917–9955. DOI 10.18653/v1/2024.emnlp-main.554.
+Jiang, Yucheng, et al. 2024. [Into the Unknown Unknowns: Engaged Human Learning through Participation in Language Model Agent Conversations](https://aclanthology.org/2024.emnlp-main.554/). Proceedings of EMNLP 2024, 9917–9955.
 
-Zhang, Qizheng, et al. 2025. [Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models](https://arxiv.org/abs/2510.04618v1). arXiv:2510.04618, version 1.
+Sapkota, Ranjan, Konstantinos I. Roumeliotis, and Manoj Karkee. 2026. [AI Agents vs. Agentic AI: A Conceptual Taxonomy, Applications and Challenges](https://doi.org/10.1016/j.inffus.2025.103599). Information Fusion 126, 103599. [Accessible article](https://arxiv.org/pdf/2505.10468v5).
 
-The linked project repositories document the implemented methods and artefacts. They are cited as primary implementation sources. Text and documentation are licensed under CC BY 4.0, and repository code under MIT.
+Weng, Lilian. 2023. [LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/). Lil'Log, 23 June.
+
+Wu, Di, et al. 2025. [LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory](https://arxiv.org/abs/2410.10813v2). ICLR 2025.
+
+Xu, Wujiang, et al. 2025. [A-MEM: Agentic Memory for LLM Agents](https://arxiv.org/abs/2502.12110v11). NeurIPS 2025.
+
+Zhang, Qizheng, et al. 2026. [Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models](https://arxiv.org/abs/2510.04618v3). ICLR 2026.
+
+Text licensed under CC BY 4.0. Code in the Second Brain repository is licensed under MIT. Linked third-party materials retain their own terms.

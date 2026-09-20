@@ -8,7 +8,7 @@ The research question is how this arrangement can support the recovery of prior 
 
 This repository supplies a reusable vault template with synthetic examples. Its readers know Obsidian and have worked with a coding agent. They can adopt its rules, conventions and procedures with their own knowledge. The template abstracts a maintained personal research vault while excluding the source owner's research corpus, personal profile, memory, voice-specific writing modes and business procedures.
 
-The [specification](specification.md) defines the implemented template. The [integration contract](integration.md) distinguishes this public contribution from the private working environment and its separate tools. The static explorer exposes the template's structure and instruction loading. It provides no research dialogue service or operational view of the personal vault.
+The [specification](specification.md) defines the implemented template. The [integration contract](integration.md) distinguishes this public contribution from the private working environment and its separate tools. The static explorer exposes the template's structure and prescribed reading sequences. It provides no research dialogue service or operational view of the personal vault.
 
 ## Method context
 
