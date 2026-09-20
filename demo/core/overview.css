@@ -1,0 +1,132 @@
+@layer components {
+.project-text-density { display: flex; flex-wrap: wrap; gap: var(--s3); margin-block: var(--s3) var(--s4); }
+.project-text-density legend { color: var(--soft); font-size: var(--t-klein); margin-block-end: var(--s1); }
+.project-text-density label { display: inline-flex; align-items: center; min-block-size: 2.75rem; gap: var(--s2); }
+.project-text-density input { accent-color: var(--offen); }
+.project-summary p + p { margin-block-start: var(--s3); }
+.overview { container: overview / inline-size; max-inline-size: 110rem; margin-inline: auto; padding: var(--s5); }
+.overview-tools, .project-heading { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s3); }
+.overview-tools { align-items: end; margin-block-end: var(--s4); }
+.overview-tools #project-result { color: var(--soft); padding-block: var(--s2); }
+.overview-tools label { display: grid; gap: var(--s1); color: var(--soft); }
+.overview-tools input, .overview-tools select { font: inherit; font-size: 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--soft); border-radius: var(--r-klein); padding: var(--s2) var(--s3); max-inline-size: 100%; }
+.overview-tools input { inline-size: min(26rem, 75vw); }
+.overview-secondary { margin-block-start: var(--s5); color: var(--soft); }
+.overview-secondary summary { padding-block: var(--s3); cursor: pointer; }
+.overview-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(min(100%, 20rem), 1fr); align-items: start; gap: var(--s6); }
+.overview .glyphen-feld { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.25rem), 1fr)); gap: var(--s4); }
+.research-groups, .research-publications { display: grid; gap: var(--s3); }
+.research-publications { margin-block-start: var(--s4); }
+.research-publications h3 { font-size: 1rem; color: var(--soft); }
+.overview .glyphe { display: flex; flex-direction: column; align-items: center; min-inline-size: 0; padding: var(--s2); border-radius: var(--r-klein); }
+.prospect-list, .archive-list { list-style: none; padding: 0; display: grid; gap: var(--s3); }
+.prospect-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s2) var(--s3); padding: var(--s2); border-radius: var(--r-klein); }
+.prospect-row[data-selected="true"] { background: var(--surface); outline: 2px solid var(--offen); }
+.prospect-row a { display: inline-flex; align-items: center; gap: var(--s2); min-block-size: 2.75rem; color: var(--ink); }
+.prospect-row .project-mark { inline-size: 1rem; block-size: 1rem; }
+.prospect-kind, .prospect-status { color: var(--soft); font-size: var(--t-klein); }
+.prospect-detail-status { color: var(--ink); }
+.archive-list a { display: inline-flex; align-items: center; gap: var(--s2); min-block-size: 2.75rem; color: var(--soft); }
+.archive-list .project-mark { inline-size: 1rem; block-size: 1rem; }
+/* A waiting project recedes, but a question to the operator stays actionable and keeps full strength, as does the arc that names the reason. */
+.overview .glyphe[data-status="wartend"] .bogen-bereit { opacity: 0.35; }
+.overview .glyphe[data-status="wartend"] .glyphe-name { color: var(--soft); }
+.overview .glyphe[data-selected="true"] { background: var(--surface); outline: 2px solid var(--offen); outline-offset: 2px; }
+.overview .glyphe-bild { flex: none; inline-size: auto; block-size: auto; overflow: visible; }
+.overview .glyphe-name { display: flex; align-items: flex-start; justify-content: center; gap: var(--s2); min-block-size: 2.75rem; inline-size: 100%; white-space: normal; overflow: visible; text-overflow: clip; color: var(--ink); text-align: center; text-decoration: none; border-radius: var(--r-klein); }
+.overview .glyphe-name:hover { text-decoration: underline; }
+.glyphe-bogen-hit { fill: none; stroke: transparent; stroke-width: 24; pointer-events: stroke; }
+.glyphe-punkt-hit { fill: transparent; stroke: none; pointer-events: all; }
+.glyphe-bogen-link, .glyphe-punkt-link { cursor: pointer; }
+.glyphe-bogen-link:hover .bogen-linie, .glyphe-bogen-link[aria-current="true"] .bogen-linie { stroke-width: 7; }
+.glyphe-bogen-link:focus-visible { outline: none; }
+.glyphe-bogen-link:focus-visible .glyphe-bogen-hit { stroke: var(--focus); stroke-dasharray: 2 5; }
+.glyphe-punkt-link:focus-visible { outline: none; }
+.glyphe-punkt-link:hover .glyphe-punkt-hit, .glyphe-punkt-link:focus-visible .glyphe-punkt-hit, .glyphe-punkt-link[aria-current="true"] .glyphe-punkt-hit { fill: var(--sunken); stroke: var(--focus); stroke-width: 1.5; }
+.overview .glyphe-name > span { min-inline-size: 0; overflow-wrap: anywhere; }
+.project-mark { flex: none; inline-size: 1.15rem; block-size: 1.15rem; color: var(--ink); }
+.overview .glyphe-punkt.glyphe-offen { fill: var(--offen); }
+.overview-legend { display: flex; flex-wrap: wrap; gap: var(--s3); color: var(--soft); font-size: var(--t-klein); margin-block-end: var(--s4); list-style: none; }
+/* Each key repeats its arc in place, so position carries the meaning alongside colour. */
+.overview-legend li { display: flex; align-items: center; gap: .4rem; }
+.overview-legend li[hidden] { display: none; }
+.overview-legend svg { inline-size: 1.25rem; block-size: 1.25rem; }
+.overview-legend .bogen-linie { stroke-width: 3; }
+/* A question whose precondition is unmet stays a question and recedes until it can be answered. */
+.glyphe-punkt.glyphe-spaeter { opacity: 0.4; }
+/* The ring borrows the waiting colour, because such an answer depends on someone else. */
+.glyphe-punkt-dritte { fill: none; stroke: var(--andere); stroke-width: 1.5; }
+.project-question-bullet { inline-size: 1.25rem; block-size: 1.25rem; margin-block-start: .1rem; overflow: visible; }
+.overview .glyphe[data-tile] { cursor: pointer; }
+.project-detail { display: grid; gap: var(--s3); padding: var(--s4); background: var(--surface); border-radius: var(--r-klein); overflow-wrap: anywhere; }
+.project-heading { justify-content: space-between; align-items: baseline; }
+.project-heading h2 { font-size: 1.25rem; line-height: 1.4; }
+.project-state { display: inline-flex; align-items: center; gap: .3rem; color: var(--soft); font-size: var(--t-klein); }
+.overview .glyphe-status { display: inline-flex; align-items: center; gap: .3rem; }
+.overview-active-filter { display: inline-flex; align-items: center; flex-wrap: wrap; gap: var(--s2); color: var(--soft); }
+.overview-active-filter a { display: inline-flex; align-items: center; min-block-size: 2.75rem; padding-inline: var(--s2); }
+/* An invoice to issue is the operator's move and takes the question colour, an issued one waits on others. */
+.invoice-mark { inline-size: 1.1rem; block-size: 1.1rem; flex: none; fill: none; stroke: var(--soft); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.invoice-mark[data-invoice="offen"] { stroke: var(--dich); }
+.invoice-mark[data-invoice="gestellt"] { stroke: var(--andere); }
+.invoice-mark[data-invoice="bezahlt"] { stroke: var(--accept); }
+.invoice-mark[data-invoice="geplant"] { stroke-dasharray: 2 2.5; }
+.project-summary { color: var(--soft); line-height: 1.6; }
+.project-state-details { color: var(--soft); font-size: var(--t-klein); line-height: 1.5; }
+.project-state-details summary { color: var(--ink); cursor: pointer; }
+.project-state-details p { margin-block-start: var(--s2); }
+.project-section { padding-block-start: var(--s3); }
+.project-detail h3 { font-size: 1rem; margin-block-end: var(--s2); }
+.project-section-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--s2); }
+.project-copy { display: inline-flex; align-items: center; justify-content: center; color: var(--soft); background: none; border: 1px solid var(--line); border-radius: var(--r-klein); inline-size: 2.75rem; block-size: 2.75rem; cursor: pointer; }
+.project-copy svg { inline-size: 1.15rem; block-size: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.project-copy-status { color: var(--soft); font-size: var(--t-klein); }
+.project-copy-status:empty { display: none; }
+.project-copy:hover { color: var(--ink); border-color: var(--soft); }
+.project-copy-text { inline-size: 100%; font: inherit; font-size: var(--t-klein); color: var(--ink); background: var(--sunken); border: 1px solid var(--line); border-radius: var(--r-klein); padding: var(--s2); }
+.project-section-questions h3 { color: var(--offen); }
+.project-section-wait h3 { color: var(--andere); }
+.project-section-steps h3 { color: var(--bereit); }
+.project-detail .project-questions { list-style: none; padding: 0; line-height: 1.5; }
+.project-detail .project-steps, .project-detail .project-waiting { list-style: disc; padding-inline-start: 1.25rem; line-height: 1.5; }
+.project-waiting li + li { margin-block-start: var(--s2); }
+.project-questions a { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: var(--s3); padding-block: var(--s3); color: var(--ink); text-decoration: none; }
+.project-questions a:hover .project-question-title { text-decoration: underline; }
+.project-question-state { font-size: var(--t-klein); color: var(--soft); }
+.project-question-state[data-response="answered"] { color: var(--accept); }
+.project-question-state[data-response="revisit"] { color: var(--change); }
+.project-question-blocked { color: var(--andere); }
+.project-blocked-question { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: var(--s3); }
+.project-blocked-question h3 { color: var(--ink); }
+.project-question-copy { display: grid; gap: var(--s1); }
+.project-item-title, .project-question-title { color: var(--ink); font-weight: 400; }
+.project-item-detail { display: block; color: var(--soft); font-size: var(--t-klein); line-height: 1.5; }
+.project-back { justify-self: start; display: inline-flex; align-items: center; min-block-size: 2.75rem; }
+.project-question-workspace { min-inline-size: 0; }
+.project-steps li + li { margin-block-start: var(--s3); }
+.project-original { color: var(--ink); font-size: var(--t-klein); }
+.project-original summary { color: var(--soft); cursor: pointer; min-block-size: 2rem; padding-block: var(--s1); }
+.project-original p { margin-block: var(--s2); }
+.project-questions .project-original { margin-inline-start: calc(1.25rem + var(--s3)); }
+.project-goal { margin-block-start: var(--s3); }
+.project-goal h4 { color: var(--ink); font-size: inherit; font-weight: 500; }
+.project-dates { display: grid; gap: var(--s2); margin-block-start: var(--s3); padding: 0; list-style: none; }
+.project-dates li { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s1) var(--s3); }
+.project-dates time { color: var(--soft); font-size: var(--t-klein); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.project-steps li { color: var(--ink); }
+.project-progress { display: flex; gap: var(--s2); flex-wrap: wrap; }
+.project-progress a { padding: var(--s2); background: var(--sunken); border-radius: var(--r-klein); min-block-size: 2.75rem; display: inline-flex; align-items: center; }
+/* The panel follows the glyph grid; a long project scrolls inside it instead of pushing its end off screen. */
+.project-detail { position: sticky; inset-block-start: var(--s4); max-block-size: calc(100dvh - 2 * var(--s4)); overflow-y: auto; }
+@container overview (max-width: 65rem) {
+  .overview-layout { grid-template-columns: minmax(0, 1fr); }
+  .project-detail { position: static; max-block-size: none; overflow-y: visible; }
+}
+@container overview (max-width: 36rem) {
+  .overview { padding: var(--s3); }
+  .project-heading { align-items: flex-start; }
+  .project-questions a { grid-template-columns: auto minmax(0, 1fr); row-gap: var(--s1); }
+  .project-questions .project-question-state { grid-column: 2; }
+}
+
+}

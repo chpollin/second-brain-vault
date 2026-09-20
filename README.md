@@ -4,7 +4,7 @@ Second Brain connects a maintained personal research vault with the knowledge he
 
 This repository provides a reusable Obsidian vault template for that arrangement. It contains synthetic example notes, executable skills, document conventions and structural checks. Open it in Obsidian and adapt it to your own domains and projects. The source owner's research corpus and personal Research Persona remain unpublished.
 
-The [structure explorer](https://chpollin.github.io/second-brain-vault/) lets you inspect the template and follow the reading sequences required by its rules. It is generated from this repository. It is distinct from the operational interface used with the personal research vault.
+The [work and knowledge demo](https://chpollin.github.io/second-brain-vault/demo/) presents the template through the Second Brain interface, with project questions, documented contributions, an expandable knowledge map and complete source texts. The [structure explorer](https://chpollin.github.io/second-brain-vault/) lets you inspect the template and follow the reading sequences required by its rules. Both are generated from this repository. The [demo contract](knowledge/interface-demo.md) explains source preservation and the limits of browser-local responses.
 
 ## Knowledge, procedures and dialogue
 
@@ -14,7 +14,7 @@ The [structure explorer](https://chpollin.github.io/second-brain-vault/) lets yo
 | Project repositories | Substantive project knowledge beside data and implementation | A repository directory, Project Overview convention and `project-knowledge` procedure |
 | Executable skills | Procedures that select, inspect and maintain relevant knowledge | Skills under `.claude/skills/`, registered in `VAULT-OPERATIONS.md` |
 | Conversation | A question, source-based reasoning, proposed changes and personal feedback | Rules for agent work and optional persona initialisation, used in an available agent host |
-| User interfaces | Inspectable views of selected documents or results | A static explorer of the public template |
+| User interfaces | Inspectable views of selected documents or results | A work and knowledge demo and a structure explorer of the public template |
 
 The vault and repository knowledge form a linked documentary structure. Agents follow explicit references and read the sources needed for the question. The template implements no automatic retrieval across repositories. A skill describes how to act and reads substantive knowledge from its maintained location. Its execution depends on the tools and access available in the actual agent host.
 
@@ -178,9 +178,9 @@ The skills and what each is for stand in the skill register of `VAULT-OPERATIONS
 
 `docs/` shows the file tree by the way each file reaches an agent, renders files and traces which files a task requires. It reads `docs/data.json`, which `scripts/build_site.py` derives from the real files. This generated file is ignored by Git. Run `python scripts/build_site.py` after a template change and before checks, a commit or local preview. The checker reports missing or stale explorer data as a hard finding, as it does for stale generated `AGENTS.md` instructions.
 
-The repository distributes the explorer source. `.github/workflows/pages.yml` builds its data, runs the checks and deploys `docs/` as a Pages artifact on pushes to `main` and manual runs. Set the repository's Pages source to GitHub Actions to use this workflow. Deployment does not commit the generated data.
+The repository distributes the explorer source and the reviewed demo core. `.github/workflows/pages.yml` builds their data, runs the checks and deploys `docs/` as a Pages artifact on pushes to `main` and manual runs. Set the repository's Pages source to GitHub Actions to use this workflow. Deployment does not commit generated data.
 
-For local preview, build first and run `python -m http.server --directory docs` from the repository root, then open `http://localhost:8000`. Browser modules require HTTP rather than `file://`. To remove the explorer, follow the dependency checks in [Start smaller](#start-smaller).
+For local preview, run `python scripts/build_site.py` and `python scripts/build_demo.py`, then `python -m http.server --directory docs` from the repository root. Open `http://localhost:8000/demo/` for the work and knowledge interface or `http://localhost:8000` for the structure explorer. The demo reads only tracked public template notes. Its [maintenance contract](knowledge/interface-demo.md) describes how the generic UI core is refreshed. Browser modules require HTTP rather than `file://`. To remove the explorer, follow the dependency checks in [Start smaller](#start-smaller).
 
 ## Make it your own
 

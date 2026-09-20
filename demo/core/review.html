@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Second Brain Demo · Passagen prüfen</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="shell.css"><link rel="stylesheet" href="sources.css"><link rel="stylesheet" href="review.css">
+</head>
+<body>
+  <a class="sprung" href="#belegarbeit">Zur Prüfung</a>
+  <header class="kopf shell-kopf">
+    <h1><a class="shell-home" href="start.html#projekt=&amp;suche=&amp;filter=laufend" aria-label="Second Brain Startseite">Second Brain</a></h1>
+    <nav class="shell-primaer" aria-label="Hauptnavigation"><a href="start.html">Arbeit</a><a href="collective.html">Agentenarbeit</a><a href="sources.html" aria-current="page">Wissen</a><a href="../">Vorlage erkunden</a></nav>
+  </header>
+  <main class="sources">
+    <h2>Passagen prüfen</h2>
+    <div class="source-actions"><a href="collective.html">Agentenarbeit</a><a href="sources.html">Weitere Passage auswählen</a></div>
+    <p id="source-review-status" role="status"></p>
+    <div id="source-review-passages" class="beleg-vergleich"></div>
+    <section id="belegarbeit" aria-label="Belege vergleichen und beurteilen"></section>
+    <section id="belegurteile" aria-label="Gespeicherte Belegprüfungen"></section>
+  </main>
+  <script src="runtime.js"></script><script src="gemeinsam.js"></script><script src="review-state.js"></script><script src="review-store.js"></script><script src="review-source.js"></script>
+</body>
+</html>

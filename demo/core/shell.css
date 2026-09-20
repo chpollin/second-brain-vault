@@ -1,0 +1,28 @@
+@layer components {
+  .shell-kopf { align-items: center; gap: var(--s3) var(--s5); padding-block: var(--s4); background: var(--paper); }
+  .shell-kopf h1 { white-space: nowrap; font-size: 1.125rem; }
+  .shell-home { display: inline-flex; align-items: center; min-block-size: 2.75rem; color: var(--ink); text-decoration: none; }
+  .shell-home:hover { text-decoration: underline; }
+  .filter-options { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1); border: 0; padding: 0; margin: 0; min-inline-size: 0; }
+  .filter-options legend { color: var(--soft); font-size: var(--t-klein); margin-block-end: var(--s1); }
+  .filter-options label { position: relative; cursor: pointer; }
+  .filter-options input { position: absolute; opacity: 0; inline-size: 1px; block-size: 1px; }
+  .filter-options span { display: inline-flex; align-items: center; min-block-size: 2.75rem; padding: var(--s2) var(--s3); border: 1px solid var(--line); border-radius: var(--r-klein); color: var(--soft); }
+  .filter-options input:checked + span { border-color: var(--soft); background: var(--surface); color: var(--ink); }
+  .filter-options input:focus-visible + span { outline: 2px solid var(--offen); outline-offset: 2px; }
+  .filter-options label:hover span { color: var(--ink); }
+  .shell-kopf .kopf-stand { margin-inline-start: auto; color: var(--soft); font-size: var(--t-klein); }
+  .shell-primaer { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s1); }
+  .shell-primaer a { display: inline-flex; align-items: center; min-block-size: 2.75rem; gap: var(--s2); padding: var(--s2) var(--s3); border-radius: var(--r-klein); color: var(--soft); text-decoration: none; line-height: 1.25; }
+  .shell-primaer a:hover { color: var(--ink); background: var(--sunken); }
+  .shell-primaer a[aria-current] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--soft); }
+  .shell-primaer svg { inline-size: 1rem; block-size: 1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .knowledge-links { display: flex; flex-wrap: wrap; gap: var(--s4); margin-block: var(--s3); }
+  .knowledge-links a { display: inline-flex; min-block-size: 2.75rem; align-items: center; }
+  :is(input, textarea, select) { font-size: 1rem; }
+  .knopf { min-block-size: 2.75rem; }
+  .runtime-warning { color: var(--change); padding: var(--s3) var(--s5); }
+  .work-project-view { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 2.75rem; min-block-size: 2.75rem; color: var(--soft); border: 1px solid var(--line); border-radius: var(--r-klein); }
+  .work-project-view:hover { color: var(--ink); background: var(--surface); }
+  .work-project-view svg { inline-size: 1.25rem; block-size: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.5; }
+}

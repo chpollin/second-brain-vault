@@ -7,6 +7,8 @@ Read [project](project.md) for the purpose of Second Brain and [handoff](handoff
 | What is Second Brain, and what does this repository contribute? | [Project](project.md) |
 | What must the reusable template provide, and how is it checked? | [Specification](specification.md) |
 | Where do the vault, repositories, procedures and interfaces meet? | [Integration](integration.md) |
+| How should inquiry, the work interface and knowledge revision connect? | [Research workflow](research-workflow.md) |
+| How does the public work and knowledge demo preserve sources and support inspection? | [Interface demo](interface-demo.md) |
 | Why does the current arrangement exist? | [Journal](journal.md) |
 | What input still needs integration? | [Handoff](handoff.md) |
 | What did the bounded skill trials establish? | [Skill evaluation](skill-evaluation.md) |

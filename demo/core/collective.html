@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Second Brain Demo · Agentenarbeit</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="collective.css">
+</head>
+<body>
+<header class="kopf shell-kopf">
+  <h1><a class="shell-home" href="start.html#projekt=&amp;suche=&amp;filter=laufend">Second Brain</a></h1>
+  <nav class="shell-primaer" aria-label="Hauptnavigation"><a href="start.html">Arbeit</a><a href="collective.html" aria-current="page">Agentenarbeit</a><a href="sources.html">Wissen</a><a href="../">Vorlage erkunden</a></nav>
+  <p class="kopf-stand" id="stand"></p>
+</header>
+<main class="collective">
+  <div class="collective-tools">
+    <label class="collective-project-label" for="collective-project">Projekt<select id="collective-project"></select></label>
+    <label class="collective-mode-label" for="collective-mode">Ansicht<select id="collective-mode">
+      <option value="team">Beiträge · AI-Team</option>
+      <option value="organisation">Gliederung · AI-Organisation</option>
+      <option value="civilisation">Projektbezüge · AI-Civilisation</option>
+      <option value="colony">Voraussetzungen · AI-Colony</option>
+    </select></label>
+    <label class="collective-context-label" id="collective-context-control"><input type="checkbox" id="collective-text">Kontext zeigen</label>
+    <button type="button" id="collective-project-context" aria-controls="collective-detail" aria-expanded="false">Projektkontext</button>
+    <a id="collective-work" href="start.html">In Arbeit öffnen</a>
+  </div>
+  <p class="collective-source-line">Dokumentierter Stand aus <a id="collective-source" href="sources.html">ACTIVE-WORK.md</a></p>
+  <p class="collective-notice" id="collective-notice" role="status"></p>
+  <div class="collective-layout" id="collective-layout" data-detail="false">
+    <section id="collective-map" class="collective-map" aria-label="Dokumentierte Beiträge"></section>
+    <section id="collective-detail" class="collective-detail" aria-label="Ausgewählter Arbeitskontext" hidden></section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="runtime.js"></script>
+<script src="context.js"></script>
+<script src="progress.js"></script>
+<script src="gemeinsam.js"></script>
+<script src="collective-model.js"></script>
+<script src="collective.js"></script>
+</body>
+</html>

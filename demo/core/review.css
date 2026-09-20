@@ -1,0 +1,32 @@
+@layer components {
+  #belegarbeit { margin-block: var(--s4) var(--s5); }
+  .belegarbeit { padding: var(--s3); margin-block: var(--s4); background: var(--surface); border-radius: var(--r-feld); }
+  .belegarbeit > h3 { margin-block-end: var(--s3); }
+  .beleg-form { display: grid; gap: var(--s3); }
+  .beleg-form label { display: grid; gap: var(--s1); }
+  .beleg-form :is(textarea, select, input), #pruefung-suchen { width: 100%; min-width: 0; padding: var(--s2); background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-klein); font: inherit; }
+  .beleg-form textarea { min-block-size: 5rem; resize: vertical; }
+  .beleg-vergleich { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--s4); }
+  .beleg-ausschnitt { min-width: 0; padding: var(--s3); background: var(--paper); border-radius: var(--r-klein); }
+  .beleg-ausschnitt :is(p, blockquote) { margin-block: var(--s2); overflow-wrap: anywhere; }
+  .beleg-ausschnitt blockquote { margin-inline: 0; padding-inline-start: var(--s3); border-inline-start: 2px solid var(--line); white-space: pre-wrap; }
+  .beleg-aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); margin-block: var(--s3); }
+  .beleg-status { color: var(--ink); margin-block: var(--s2); overflow-wrap: anywhere; }
+  .beleg-status:empty { display: none; }
+  .beleg-ergebnisse { display: grid; grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr); gap: var(--s4); }
+  .beleg-liste { display: grid; align-content: start; gap: var(--s3); margin: 0; padding-inline-start: var(--s3); }
+  .beleg-liste li { min-width: 0; padding-block: var(--s2); }
+  .beleg-liste button { text-align: start; white-space: normal; width: 100%; overflow-wrap: anywhere; }
+  .beleg-liste button[aria-pressed="true"] { border-color: var(--ink); font-weight: 600; }
+  .beleg-urteil { min-width: 0; }
+  .beleg-urteil h4, .beleg-urteil h5 { margin-block: var(--s3) var(--s2); }
+  .beleg-urteil p { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .beleg-herkunft, .beleg-beziehung { font-weight: 600; }
+  .beleg-ergebnis { margin-block: var(--s3); }
+  .beleg-kopiertext { width: 100%; min-block-size: 16rem; font: inherit; padding: var(--s3); background: var(--paper); color: var(--ink); }
+  .beleg-export { width: min(50rem, calc(100% - 2rem)); max-height: 90vh; padding: var(--s4); background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-feld); }
+  .beleg-export textarea { width: 100%; height: 45vh; margin-block: var(--s3); background: var(--surface); color: var(--ink); font: var(--t-klein) var(--mono); }
+  .beleg-export::backdrop { background: color-mix(in srgb, var(--ink) 40%, transparent); }
+  button[aria-pressed="true"].beleg-auswahl { border-color: var(--offen); color: var(--offen); }
+  @media (width < 54rem) { .beleg-ergebnisse { grid-template-columns: 1fr; } }
+}

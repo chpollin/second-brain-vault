@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Second Brain Demo · Zusammenhänge</title>
+<link rel="stylesheet" href="style.css?v=20260919">
+<link rel="stylesheet" href="shell.css">
+</head>
+<body>
+
+<header class="kopf shell-kopf">
+  <h1><a class="shell-home" href="start.html#projekt=&amp;suche=&amp;filter=laufend" aria-label="Second Brain Startseite">Second Brain</a></h1>
+  <nav class="shell-primaer" aria-label="Hauptnavigation">
+    <a href="start.html">Arbeit</a><a href="collective.html">Agentenarbeit</a><a href="sources.html">Wissen</a>
+  <a href="../">Vorlage erkunden</a></nav>
+  <p class="kopf-stand" id="stand"></p>
+</header>
+
+<p class="stoerung" id="stoerung" role="alert" hidden></p>
+
+<div class="rahmen">
+  <main class="start">
+
+    <div class="steuerung">
+      <div class="reiter" role="tablist" aria-label="Fragen">
+        <button type="button" role="tab" id="tab-anliegen" aria-controls="feld-frage" aria-selected="true">Was liegt an</button>
+        <button type="button" role="tab" id="tab-wirkung" aria-controls="feld-frage" aria-selected="false" tabindex="-1">Was hängt woran</button>
+        <button type="button" role="tab" id="tab-beteiligte" aria-controls="feld-frage" aria-selected="false" tabindex="-1">Wer ist beteiligt</button>
+        <button type="button" role="tab" id="tab-antwort" aria-controls="feld-frage" aria-selected="false" tabindex="-1" hidden>Antwort der Session</button>
+      </div>
+      <label class="auswahl">Projekt
+        <select id="projekt"><option value="">alle</option></select>
+      </label>
+    </div>
+
+    <section class="feld" role="tabpanel" id="feld-frage" aria-labelledby="tab-anliegen" tabindex="0">
+      <div id="antwort"></div>
+      <ul class="legende" role="list" aria-label="Legende" id="legende-wirkung" hidden>
+        <li><svg class="kante-probe" viewBox="0 0 32 8" aria-hidden="true"><line x1="0" y1="4" x2="32" y2="4" class="kante"></line></svg> steht in ACTIVE-WORK</li>
+        <li><svg class="kante-probe" viewBox="0 0 32 8" aria-hidden="true"><line x1="0" y1="4" x2="32" y2="4" class="kante kante-llm"></line></svg> vom LLM aus dem Wortlaut gelesen</li>
+        <li><span class="knoten-probe knoten-ungeprueft"></span> Voraussetzungen ungeprüft</li>
+        <li><span class="knoten-probe knoten-andere"></span> andere sind am Zug</li>
+        <li><span class="knoten-probe knoten-wartet"></span> wartet auf erfasste Voraussetzung</li>
+      </ul>
+      <div id="sicht"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="data.js?v=20260919"></script>
+<script src="sicht.js?v=20260919"></script>
+<script src="runtime.js"></script><script src="progress.js"></script><script src="gemeinsam.js?v=20260919"></script>
+<script src="context.js?v=20260919"></script>
+<script src="fragen.js?v=20260919"></script>
+</body>
+</html>

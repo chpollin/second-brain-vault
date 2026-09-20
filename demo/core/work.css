@@ -1,0 +1,50 @@
+@layer layout {
+  .work-detail { container-type: inline-size; min-inline-size: 0; }
+  .work-page .work-main { container-type: inline-size; }
+  .work-page .work-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s4); align-items: start; }
+  .work-page .work-controls { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: end; margin-block-end: var(--s3); }
+  .work-page .work-filter-status { flex-basis: 100%; }
+  .work-page .work-controls .treffer { margin: 0; align-self: center; }
+  .work-page .work-viewbar { display: flex; justify-content: end; margin-block-end: var(--s3); }
+  .work-page .feld-liste, .work-page .feld-matrix, .work-page .feld-detail { grid-area: auto; min-inline-size: 0; max-block-size: none; }
+  .work-page .feld-liste[hidden], .work-page .feld-matrix[hidden] { display: none; }
+  .work-page #liste { max-block-size: none; overflow: visible; }
+  .work-page .matrix-rolle { max-inline-size: 100%; overflow: auto; }
+  .work-page .matrix { min-inline-size: 42rem; }
+  @container (min-width: 58rem) {
+    .work-page .work-layout { grid-template-columns: minmax(19rem, 0.85fr) minmax(0, 1.4fr); }
+    .work-page .work-layout[data-view="matrix"] { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  }
+}
+
+@layer components {
+  :is(.work-page, .work-detail) .legende { margin-block: 0 var(--s5); }
+  :is(.work-page, .work-detail) .zelle { gap: var(--s1); }
+  :is(.work-page, .work-detail) .marke-buendel[data-parts] { position: relative; }
+  :is(.work-page, .work-detail) .marke-buendel[data-parts]::after { content: attr(data-parts); position: absolute; inset-block-start: -.5rem; inset-inline-end: -.6rem; min-inline-size: .9rem; padding: .1rem; background: var(--surface); color: var(--ink); border-radius: var(--r-klein); font-size: .6875rem; line-height: 1; }
+  :is(.work-page, .work-detail) .work-view-switch label > span { justify-content: center; min-inline-size: 2.75rem; padding: var(--s2); }
+  :is(.work-page, .work-detail) .work-view-switch svg { inline-size: 1.25rem; block-size: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  :is(.work-page, .work-detail) .matrix th { block-size: auto; vertical-align: middle; padding: var(--s2); }
+  :is(.work-page, .work-detail) .matrix .achse-form { writing-mode: horizontal-tb; transform: none; rotate: none; inline-size: auto; block-size: auto; min-block-size: 2.75rem; white-space: normal; }
+  :is(.work-page, .work-detail) .matrix .achse-form span { transform: none; writing-mode: horizontal-tb; }
+  :is(.work-page, .work-detail) .zeile-frage { white-space: normal; overflow: visible; }
+  :is(.work-page, .work-detail) .zeile-meta { flex-wrap: wrap; }
+  :is(.work-page, .work-detail) .work-state { color: var(--soft); }
+  :is(.work-page, .work-detail) .wortlaut, :is(.work-page, .work-detail) .answer-history, :is(.work-page, .work-detail) .work-receipts { display: grid; gap: var(--s2); margin-block: var(--s4); padding-block-start: var(--s3); overflow-wrap: anywhere; }
+  :is(.work-page, .work-detail) .history-entry, :is(.work-page, .work-detail) .source-change, :is(.work-page, .work-detail) .work-receipts article { display: grid; gap: var(--s2); }
+  :is(.work-page, .work-detail) .history-answer { white-space: pre-wrap; }
+  :is(.work-page, .work-detail) .answer-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-block-start: var(--s3); }
+  :is(.work-page, .work-detail) .work-recommendation { display: grid; gap: var(--s2); margin-block-end: var(--s4); }
+  :is(.work-page, .work-detail) .recommendation-confirm { display: flex; gap: var(--s2); align-items: center; min-block-size: 2.75rem; }
+  :is(.work-page, .work-detail) .recommendation-confirm input { inline-size: 1.2rem; block-size: 1.2rem; accent-color: var(--offen); }
+  :is(.work-page, .work-detail) .option-recommended { border-inline-start: 2px solid var(--offen); padding-inline-start: var(--s2); }
+  :is(.work-page, .work-detail) .source-excerpt { margin: var(--s2) 0; padding: var(--s2) var(--s3); color: var(--soft); }
+  :is(.work-page, .work-detail) .answer-history h4, :is(.work-page, .work-detail) .work-receipts h4 { margin: 0; font-size: var(--t-basis); font-weight: 600; }
+  :is(.work-page, .work-detail) .urteil textarea, :is(.work-page, .work-detail) .urteil input { font-size: 1rem; }
+  :is(.work-page, .work-detail) .urteil-notiz textarea { min-block-size: 0; block-size: auto; resize: vertical; }
+  @supports (field-sizing: content) {
+    :is(.work-page, .work-detail) .urteil-notiz textarea { field-sizing: content; min-block-size: 4.25rem; max-block-size: 18rem; }
+  }
+  :is(.work-page, .work-detail) .work-receipts ul { padding-inline-start: var(--s5); }
+  :is(.work-page, .work-detail) .blaettern { flex-wrap: wrap; }
+}

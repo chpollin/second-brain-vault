@@ -1,0 +1,6 @@
+@layer components {
+  .ziel-gruppe:has(.source-preview) { flex-basis: 100%; }
+  .source-preview { max-inline-size: 65ch; margin-block: var(--s2); overflow-wrap: anywhere; }
+  .source-preview p { margin-block: var(--s1); }
+  .source-preview-origin { color: var(--soft); font-size: var(--t-klein); }
+}

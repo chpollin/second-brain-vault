@@ -1,0 +1,70 @@
+@layer components {
+  .collective { max-inline-size: 100rem; margin-inline: auto; padding: var(--s4) var(--s5) var(--s6); }
+  .collective-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s4); margin-block-end: var(--s3); }
+  .collective-tools > label { display: inline-flex; align-items: center; gap: var(--s2); color: var(--soft); font-size: var(--t-klein); min-inline-size: 0; }
+  .collective-tools > [hidden] { display: none; }
+  .collective-project-label { flex: 1 1 18rem; max-inline-size: 25rem; }
+  .collective-mode-label { flex: 1 1 18rem; max-inline-size: 25rem; }
+  .collective-tools select { flex: 1; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem; padding: var(--s2); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-klein); font: inherit; font-size: var(--t-basis); }
+  .collective-tools button, .collective-tools > a { display: inline-flex; align-items: center; min-block-size: 2.75rem; padding: var(--s2); font-size: var(--t-klein); white-space: nowrap; }
+  .collective-tools button { color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: var(--r-klein); }
+  .collective-tools button[aria-expanded="true"] { border-color: var(--offen); }
+  .collective-context-label { min-block-size: 2.75rem; cursor: pointer; }
+  .collective-context-label input { inline-size: 1rem; block-size: 1rem; accent-color: var(--offen); }
+  .collective-source-line, .collective-notice { color: var(--soft); font-size: var(--t-klein); margin-block-end: var(--s4); }
+  .collective-source-line a { color: inherit; }
+  .collective-notice { color: var(--change); }
+  .collective-notice:empty { display: none; }
+  .collective-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s5); align-items: start; }
+  .collective-layout[data-detail="true"] { grid-template-columns: minmax(0, 1.5fr) minmax(22rem, 1fr); }
+  .collective-map { min-inline-size: 0; }
+  .collective-group + .collective-group { margin-block-start: var(--s5); }
+  .collective-group h2 { font-size: var(--t-basis); margin-block-end: var(--s2); }
+  .collective-list, .collective-connections { list-style: none; margin: 0; padding: 0; }
+  .collective-node { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) auto; gap: var(--s3); align-items: baseline; text-align: start; inline-size: 100%; min-block-size: 2.75rem; padding: var(--s3) var(--s2); color: var(--ink); border: 0; border-radius: var(--r-klein); background: transparent; cursor: pointer; overflow-wrap: anywhere; }
+  .collective-node:hover, .collective-connection:hover { background: var(--surface); }
+  .collective-node[aria-pressed="true"], .collective-connection[aria-pressed="true"] { background: var(--surface); box-shadow: inset 3px 0 var(--offen); }
+  .collective-kind, .collective-meta, .collective-response, .collective-node time { color: var(--soft); font-size: var(--t-klein); }
+  .collective-kind { text-align: start; }
+  .collective-node-copy { display: grid; gap: var(--s1); min-inline-size: 0; }
+  .collective-node-title { line-height: 1.5; }
+  .collective-node[data-kind="punkt"] .collective-kind, .collective-node[data-kind="teil"] .collective-kind { color: var(--dich); }
+  .collective-node[data-kind="schritt"] .collective-kind, .collective-node[data-kind="termin"] .collective-kind { color: var(--bereit); }
+  .collective-node[data-kind="warten"] .collective-kind { color: var(--andere); }
+  .collective-response { max-inline-size: 10rem; }
+  .collective-prerequisite, .collective-context { font-size: var(--t-klein); line-height: 1.5; color: var(--soft); }
+  .collective-prerequisite { color: var(--andere); }
+  .collective-connection { display: grid; grid-template-columns: minmax(0, 1fr) 10rem minmax(0, 1fr); align-items: center; gap: var(--s2) var(--s4); inline-size: 100%; padding: var(--s4) var(--s3); min-block-size: 2.75rem; text-align: start; color: var(--ink); border: 0; background: var(--surface); border-radius: var(--r-klein); cursor: pointer; overflow-wrap: anywhere; }
+  .collective-connections li + li { margin-block-start: var(--s2); }
+  .collective-relation { color: var(--soft); font-size: var(--t-klein); text-align: center; }
+  .collective-connection-meta { grid-column: 1 / -1; font-size: var(--t-klein); color: var(--soft); }
+  .collective-connections + .collective-group, .collective-empty + .collective-group { margin-block-start: var(--s5); }
+  .collective-empty { color: var(--soft); padding-block: var(--s4); }
+  .collective-detail { min-inline-size: 0; padding: var(--s4); background: var(--surface); border-radius: var(--r-klein); overflow-wrap: anywhere; position: sticky; inset-block-start: var(--s4); max-block-size: calc(100dvh - 2 * var(--s4)); overflow-y: auto; }
+  .collective-detail[hidden] { display: none; }
+  .collective-detail-heading { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-block-end: var(--s3); }
+  .collective-detail h2 { font-size: 1.125rem; }
+  .collective-detail h3 { font-size: var(--t-basis); margin-block: var(--s4) var(--s2); }
+  .collective-close { color: var(--soft); font-size: 1.5rem; min-inline-size: 2.75rem; min-block-size: 2.75rem; border: 0; border-radius: var(--r-klein); background: transparent; cursor: pointer; }
+  .collective-close:hover { color: var(--ink); background: var(--sunken); }
+  .collective-detail p { margin-block-end: var(--s3); }
+  .collective-detail blockquote { margin: var(--s3) 0; padding: 0; white-space: pre-wrap; }
+  .collective-derived { font-weight: 600; }
+  .collective-detail a { display: inline-flex; align-items: center; min-block-size: 2.75rem; }
+  .collective-detail .collective-work-link { display: flex; margin-block-start: var(--s3); }
+  .collective-evidence { margin-block-start: var(--s4); }
+  @media (max-width: 70rem) {
+    .collective-layout[data-detail="true"] { grid-template-columns: minmax(0, 1fr); }
+    .collective-detail { position: static; max-block-size: none; }
+  }
+  @media (max-width: 40rem) {
+    .collective { padding: var(--s3); }
+    .collective-project-label, .collective-mode-label { max-inline-size: none; }
+    .collective-node { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s2); }
+    .collective-kind { grid-column: 1; }
+    .collective-node-copy { grid-column: 1 / -1; grid-row: 2; }
+    .collective-response, .collective-node time { grid-column: 2; grid-row: 1; }
+    .collective-connection { grid-template-columns: minmax(0, 1fr); }
+    .collective-relation { text-align: start; }
+  }
+}

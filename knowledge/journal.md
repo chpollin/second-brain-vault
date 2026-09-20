@@ -1,6 +1,14 @@
 # Journal
 
+## 2026-09-20 Public work and knowledge demo
+
+The operator requested publication of the revised work interface with the default public template. The [interface demo](interface-demo.md) adds the existing project circles, flat contribution views, an expandable knowledge map and complete source reading under `docs/demo/`. The structure explorer keeps its root address. The copied generic core excludes private project readings and mappings, source snapshots and inbox submission. The static adapter reads only this template's permitted Markdown and keeps responses in a separate browser storage namespace. Source lines, revisions and unresolved links remain inspectable. The [research workflow](research-workflow.md) supplies the evaluation criteria without establishing measured research benefit.
+
+Local verification exercised the template project, its full Summary paragraph, question storage, contribution view, knowledge map, exact source reading and passage selection. The narrow viewport retained its width without horizontal overflow. The inspected browser routes produced no JavaScript errors, failed requests or local API requests. Source fidelity, deterministic generation, private-input exclusion, ambiguous references and stale output rejection were checked through the automated suite. Template checks, JavaScript checks and the configured Python lint and formatting checks passed. Publication and operator acceptance require their own evidence.
+
 ## 2026-09-20
+
+The design conversation and session retrospective were synthesized in [research workflow](research-workflow.md). The document connects inquiry, bounded delegation, interface requirements and authorized knowledge revision. It records the observed gap between a review copy and maintained knowledge, while keeping the proposed examination and later reuse separate from completed development checks. Portfolio-specific details remain outside the reusable synthesis.
 
 The revised manuscript was integrated after review of its definitions, references and evaluation boundaries. It defines a research project and a personal research environment, adopts the functional AI-agent definition from the source vault, and explains documentary responsibilities in connected prose. README and specification now identify explorer sequences as prescribed reading rather than observed execution. The source vault's project overview and template description were aligned with the research framing and linked to the maintained manuscript and evaluation protocol. Technical checks and bounded development observations remain distinct from scholarly acceptance and the proposed research study.
 

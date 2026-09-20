@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Second Brain Demo · Überblick</title>
+<link rel="stylesheet" href="style.css?v=20260919">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="overview.css"><link rel="stylesheet" href="work.css">
+<link rel="stylesheet" href="project-relations.css">
+<link rel="stylesheet" href="source-previews.css">
+</head>
+<body>
+
+<header class="kopf shell-kopf">
+  <h1><a class="shell-home" href="start.html#projekt=&amp;suche=&amp;filter=laufend" aria-label="Second Brain Startseite">Second Brain</a></h1>
+  <nav class="shell-primaer" aria-label="Hauptnavigation">
+    <a href="start.html" aria-current="page">Arbeit</a><a href="collective.html">Agentenarbeit</a><a href="sources.html">Wissen</a>
+  <a href="../">Vorlage erkunden</a></nav>
+  <p class="kopf-stand" id="stand"></p>
+</header>
+
+<p class="stoerung" id="stoerung" role="alert" hidden></p>
+
+<main class="overview">
+  <div class="overview-tools">
+    <label>Projekt suchen<input type="search" id="project-search" autocomplete="off"></label>
+    <fieldset class="filter-options" id="project-filter"><legend>Projekte</legend>
+      <label><input type="radio" name="projects" value="laufend" checked><span>Laufend</span></label>
+      <label><input type="radio" name="projects" value="fragen"><span>Antwort fehlt</span></label>
+      <label><input type="radio" name="projects" value="ruhend"><span>Ruhend</span></label>
+      <label><input type="radio" name="projects" value="abgeschlossen"><span>Abgeschlossen</span></label>
+      <label><input type="radio" name="projects" value="alle"><span>Alle</span></label>
+    </fieldset>
+    <p id="project-result" role="status"></p>
+  </div>
+  <ul class="overview-legend" role="list" aria-label="Projektkreise lesen">
+    <li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="bogen-linie bogen-dich" d="M 3.87 4.86 A 8 8 0 0 1 16.13 4.86"></path></svg>Fragen und Entscheidungen</li><li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="bogen-linie bogen-bereit" d="M 8.61 17.88 A 8 8 0 0 1 2.48 7.26"></path></svg>Nächste Schritte</li><li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="bogen-linie bogen-andere" d="M 17.52 7.26 A 8 8 0 0 1 11.39 17.88"></path></svg>Externe Beiträge</li><li class="legend-shapes"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><polygon class="glyphe-punkt glyphe-offen" points="10,4 16,10 10,16 4,10"></polygon></svg>Entscheiden</li><li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle class="glyphe-punkt glyphe-offen" cx="10" cy="10" r="4.5"></circle></svg>Abnehmen</li><li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><polygon class="glyphe-punkt glyphe-offen" points="8.2,4.4 11.8,4.4 11.8,8.2 15.6,8.2 15.6,11.8 11.8,11.8 11.8,15.6 8.2,15.6 8.2,11.8 4.4,11.8 4.4,8.2 8.2,8.2"></polygon></svg>Liefern</li><li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle class="glyphe-punkt-dritte" cx="10" cy="10" r="8"></circle><circle class="glyphe-punkt glyphe-offen" cx="10" cy="10" r="3"></circle></svg>Mit Dritten</li><li id="legend-later" hidden><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle class="glyphe-punkt glyphe-offen glyphe-spaeter" cx="10" cy="10" r="4.5"></circle></svg>Noch nicht entscheidbar</li><li id="legend-answered" hidden><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle class="glyphe-punkt" cx="10" cy="10" r="4.5"></circle></svg>Beantwortet</li><li id="legend-revisit" hidden><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle class="glyphe-punkt" data-urteil="change" stroke-dasharray="2 2" cx="10" cy="10" r="5.5"></circle></svg>Erneut prüfen</li>
+  </ul>
+  <div class="overview-layout">
+    <div><div id="project-list"></div><p id="project-empty" hidden>Keine Projekte für diese Auswahl.</p></div>
+    <section id="project-detail" class="project-detail" aria-labelledby="project-title"></section>
+  </div>
+  <details class="overview-secondary">
+    <summary>Antworten sichern</summary>
+    <button type="button" class="knopf" id="export-oeffnen">Antworten exportieren</button>
+  </details>
+</main>
+<dialog class="pruefbuehne" id="pruefbuehne" aria-labelledby="pb-titel">
+  <header class="pb-kopf">
+    <div class="pb-titelblock">
+      <h2 id="pb-titel"></h2>
+      <a class="pb-adresse" id="pb-extern" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+    <fieldset class="segment">
+      <legend class="unsichtbar">Breite der Seite</legend>
+      <label><input type="radio" name="pb-breite" value="voll" checked><span>Desktop</span></label>
+      <label><input type="radio" name="pb-breite" value="tablet"><span>Tablet</span></label>
+      <label><input type="radio" name="pb-breite" value="schmal"><span>Schmal</span></label>
+    </fieldset>
+    <form method="dialog"><button type="submit" class="knopf">Schließen</button></form>
+  </header>
+  <div class="pb-rumpf">
+    <div class="pb-flaeche" id="pb-flaeche" data-breite="voll">
+      <iframe id="pb-rahmen" title="" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads"></iframe>
+    </div>
+    <aside class="pb-seite" aria-label="Punkte des Projekts">
+      <ul class="pb-liste" id="pb-liste" role="list"></ul>
+      <div class="pb-posten-feld" id="pb-posten"></div>
+    </aside>
+  </div>
+</dialog>
+
+<dialog class="ausgabe" id="export-dialog" aria-labelledby="h-export">
+  <form method="dialog">
+    <h2 id="h-export">Antworten und Korrekturen</h2>
+    <textarea id="export-text" readonly rows="16" aria-label="Urteile als Text"></textarea>
+    <div class="ausgabe-aktionen">
+      <button type="button" class="knopf knopf-haupt" id="export-kopieren">In die Zwischenablage</button>
+      <button type="submit" class="knopf">Schließen</button>
+    </div>
+  </form>
+</dialog>
+<script src="data.js?v=20260919"></script>
+<script src="runtime.js"></script><script src="progress.js"></script><script src="gemeinsam.js?v=20260919"></script>
+<script src="context.js?v=20260919"></script>
+<script src="project-relations.js"></script>
+<script src="project-marks.js"></script><script src="point-types.js"></script>
+<script src="source-previews.js"></script>
+<script src="app.js?v=20260919"></script>
+<script src="start.js?v=20260919"></script>
+</body>
+</html>
