@@ -1,5 +1,56 @@
 # Journal
 
+## 2026-10-17 Technical closure of manuscript blockers
+
+The Human User asked for the remaining technical work to be verified and completed independently of editorial decisions. The parent source-register binding V2 still pointed to a vault note consolidated in vault revision f0dcc1ec. It now resolves to Knowledge Engineering and names the retained section Bestand, Wissensbasis und Wissenssystem. The identifier and assertion statuses are preserved. This routing repair supplies no renewed scholarly verification.
+
+The existing manuscript and its directly dependent knowledge documents were preserved without editorial changes. The explorer data were rebuilt with scripts/build_site.py. The generated docs/data.json remains ignored and reproducible. The parent evidence-chain check and the template hard and integrity checks now pass. The verification boundary in the integrated-manuscript entry below records the earlier failed checks and remains as historical evidence. Technical closure supplies no author acceptance, study result, publication authorization or new manuscript comparison.
+
+
+## 2026-10-17 Integrated Second Brain manuscript
+
+Revised the existing paper at the operator's request. The conceptual contribution connects artefact findings returning to maintained project knowledge with the later recovery and justified transfer of that knowledge. The existing evaluation protocol and episode template now retain the requirement, artefact revision, observed behaviour, interpretation and actual knowledge revision separately. Project, integration and workflow documents reflect the same relationship. This is a revised draft and prospective study protocol, without author acceptance, study execution or publication.
+
+### Design-source and contribution mapping
+
+| Read source | Contribution retained | Boundary |
+|---|---|---|
+| Second Brain paper, project, integration, research workflow, evaluation and skill-evaluation at parent revision 02a461a | Cross-session recovery, actual reads, authorized revision, later application and maintenance effort | Technical checks and dated development observations remain distinct from research effects |
+| Knowledge Structures manuscript, register, assertions and distillates in the parent repository at 02a461a | Knowledge kinds, organizational patterns, collection purposes, structure versus access | Parent README declares a conceptual simulation. No simulated production case or assertion status becomes empirical evidence |
+| Grounded Vault method manuscript, paper/40_output/grounded-vault-method.md, read file SHA-256 F03DBD9C7E9F0B5C1AE7D45E08008CAC0C5AEBC0107F34BE7B17B7CA79F4D830 | Traceability, claim support, restricted human-verified evidence terminology | Review distributions and original claims remain with that method, without importing a quality effect |
+| Promptotyping knowledge/paper-specification.md, read file SHA-256 0E8FB6DB020109F7B0ED03F1632DE868E8F5B000DF545080DD18CCBCDB9C775D | Data, project knowledge and artefact distinction; recurrent work modes; artefact findings returning to knowledge; purpose-specific acceptance | Current specification's publication boundary overrides historical manuscript links. Current author-controlled manuscript unavailable. Historical chapter representation is a dated comparison source, not its replacement |
+
+Original manuscripts and projects remain intact. Promptotyping retains its separate ZfdG paper project. Research Mission Control retains its separate coordination contribution and the planned title recorded in integration.md. The Agentic-Zettelkasten method experiment remains separate. No second manuscript authority or new study plan was created.
+
+### External-source review
+
+A read-only literature reviewer read the complete main texts and substantive appendices of the existing source set. The main agent checked the manuscript claims against relevant original passages. Reading does not establish replication of experiments or independent verification of plotted values. References cited by those works were not thereby read.
+
+| Source version | Claim-bearing sections checked | Use and limit |
+|---|---|---|
+| A-MEM v11, arXiv:2502.12110 | Sections 3.1-3.3 and evaluation scope | Linked evolving memory notes already exist; conversation benchmarks establish no scholarly transfer effect |
+| LongMemEval v2, arXiv:2410.10813 | Sections 3.3, 4.1, 5.5 and E.5 | Retrieval and application assessed separately; information updates do not establish epistemic verification |
+| ACE v3, arXiv:2510.04618 | Sections 2.2, 3.1-3.2 and 4.1; reviewer also read PDF prompt figures | Structured incremental context maintenance is prior work; benchmark effects remain within that setting |
+| Cemri et al. v3, arXiv:2503.13657 | Section 4 and verification discussion | Reported failure classes motivate source and task checks; agent agreement is not an independently tested truth criterion |
+| Co-STORM, EMNLP 2024.554 | Sections 3.1-3.3 and Limitations | Participation, mind map, prior-knowledge adaptation and user-control limits; no longitudinal research effect |
+| Sapkota et al. v5, arXiv:2505.10468, Information Fusion 126, 103599 | Section 2 and tool-feedback account | Conceptual review informs an explicitly local working definition; no taxonomy-as-consensus or empirical effect claim |
+| Weng 2023 | Agent System Overview and Tool Use | Technical architectural overview, distinguished from peer-reviewed effect evidence |
+
+The failed acceptance-ordering trial, persona baseline without an observed failure and inconsistent maintenance despite an existing rule remain in the paper. The current Promptotyping manuscript still needs author-side comparison before publication. Selecting actual research episodes and any publication route remains with the author.
+
+### Verification boundary
+
+The parent evidence-chain check already failed before editing because source binding V2 points to an absent vault document. That register is outside this commission's write scope. After manuscript revision the child hard check reports stale generated docs/data.json, which includes knowledge files. No UI or generated-site file was changed under the knowledge-only authorization. These failures prevent a compliant commit. Targeted verification passed: local Markdown targets in the changed knowledge files resolve; code fences and UTF-8 text are intact; check_vault.py --integrity reports no hard or measured finding. build_site.render() produced valid JSON in memory containing the revised paper and protocol without writing generated output. The design-source hashes above were checked against the actual source files. git diff --check passed. The parent check was repeated and retains the same missing V2 binding. No code or UI change, remote operation, commit, research episode or human acceptance was performed.
+
+
+## 2026-09-24 Paper development and workflow design
+
+Added `paper-develop` and `workflow-design` at the operator's request as separate procedures in the maintained template. The former preserves the contribution, source coverage and accepted decisions during compact scholarly drafting. The latter traces agentic task handling, checks, decision authority and the consequences of feedback. Existing synthesis, knowledge maintenance and prose rules retain their responsibilities. Only general procedures and fictional cases enter the template. The source discussion and project-specific evidence stay in the personal vault.
+
+The [skill evaluation](skill-evaluation.md#paper-and-workflow-development-trials) records the development basis, bounded read-only trial and its limitations. The files provide explicitly readable procedures. They do not establish automatic discovery in a separate host or a global installation.
+
+Critical review narrowed the boundary between source synthesis and manuscript revision, made workflow explanation, review and new design conditional on the actual task, and supplied concrete texts for revision trials. Separate evaluators exercised the skills individually. A workflow trial invented acceptance before merge from an instruction that required acceptance without specifying its order. The resulting correction preserves explicit ordering and has a countercase with an actual pre-merge rule. The evaluation record retains this failed interpretation.
+
 ## 2026-09-20 Compact knowledge views and shared framing
 
 The [interface demo](interface-demo.md) now opens Wissen as a compact Explorer with actual folder branches, shared document filters and complete original reading. Verbindungen uses a directed local network whose explicit expansion preserves existing node positions and whose edges expose literal reference occurrences. Folder containment, document type, maturity and links retain separate meanings. The template explorer and the work interface share their header, footer, typography and surface tokens. Spacing replaces horizontal section separators. The template's prescribed reading paths remain inspectable. No observed agent execution is implied.

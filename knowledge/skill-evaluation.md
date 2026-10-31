@@ -73,6 +73,39 @@ The coordinating agent checked the component claims against [Integration](integr
 - Knowledge repairs and audit repairs account for the generated explorer before final verification. Read-only runs do not regenerate it.
 - Six missing evaluation specifications were added. The knowledge cases now distinguish the original protected fixtures from disposable deletion trials and no longer invent a past session or a verified bibliographic source.
 
+## Paper and workflow development trials
+
+The procedures added on 2026-09-24 respond to corrections observed during prior work without these skills. The author repeatedly narrowed an overextended manuscript, challenged unexplained terminology and distinguished an implemented workflow from a proposed feedback method. Those corrections supply development requirements. They are retrospective observations without a controlled baseline, and the private transcript is excluded from this template.
+
+Each skill has fictional expected-behaviour cases under its `evals/` folder. A fresh-context evaluator read both instruction files and the shared prose rules, then received supplied fictional evidence without the expected answers. It produced a short abstract for a conceptual workflow paper and assessed a separate workflow with a merged change, pending human acceptance, a repeated source omission and a proposed schema expansion.
+
+The coordinating instance inspected the returned text against those inputs. The abstract distinguished the implemented practice from the proposed feedback procedure and avoided an efficiency claim. The workflow account kept schema checking, LLM review and merge separate from acceptance, preserved the uncertainty about rule application and returned the schema question to the authorised person. One ambiguity concerned the required project reads for a fully supplied fictional case. The instruction now explicitly excludes unrelated project sources from such cases.
+
+The skill-creator validators accepted both instruction files. The rebuilt template passed its structural check, existing Python tests, Ruff checks and the parent repository's evidence-chain check. The coordinating instance reviewed the new text and the changed references against the actual files.
+
+The initial trial was a read-only instruction-following exercise using the environment's default model, without production execution, file-edit trials or scholarly acceptance. It did not test citation retrieval, missing capabilities, automatic skill selection or repeated use across sessions. The case files specify further content and boundary checks. Automatic invocation and longitudinal use need separate evaluation designs.
+
+### Revision and separate trials
+
+Critical review on 2026-09-24 found that the initial paper cases described revision tasks without supplying the passages to revise. The workflow procedure recognised explanation, review and design as different requests, but then required an actual implementation trace and a change proposal in every case. These findings led to concrete input passages, conditional handling of each request and narrower routing between `vault-distill` and `paper-develop`. Repetition of evidence limits across the two new skills was retained where it serves their different outputs.
+
+Fresh-context evaluators then read only their assigned skill body and required shared rules. They received the fictional input texts without the expected answers. The coordinating instance checked their actual responses against the supplied material.
+
+| Trial | Observed response and assessment |
+|---|---|
+| Local paper revision | Replaced the unsupported correctness guarantee with tool selection and feedback, used the supplied publication year and retained the unrequested second paragraph verbatim. Met the case's substantive requirements. |
+| Paper condensation | Explained the loop once while preserving the separate rejection and instruction-change references and the absence of later execution evidence. Met the case's requirements. |
+| New workflow with no repository | Produced a proposed sequence with identifier checking and editorial decisions, without demanding an implementation source. Met the design boundary. |
+| Workflow explanation only | Returned the requested progression and return in the requested sentence form, without adding a redesign. Met the explanation boundary. |
+| Declared missing prerequisites | Both evaluators returned the supported account and named unperformed writes or checks. These were hypothetical access limits, without an actual tool-failure experiment. |
+| Acceptance ordering | The workflow evaluator imposed acceptance before merge even though the supplied rule required acceptance without stating its order. This response failed the evidence-boundary check. |
+
+The last response included the sentence "Der Ablauf muss die ausdrückliche redaktionelle Annahme vor dem Merge prüfen." The input did not authorise that inferred ordering. `workflow-design` now requires preservation of the documented sequence and its case file contains a countercase with an explicit pre-merge condition.
+
+A further fresh-context evaluator received the two ordering cases under the corrected skill. For the unspecified ordering it concluded "Der Merge ist deshalb kein nachgewiesener Regelverstoß." For the explicit pre-merge condition it identified the violation. It also declined to verify improvement from an unsupported issue summary. The coordinating instance checked these conclusions against the full supplied inputs. This follow-up supports the correction for these cases. It does not establish general reliability or improvement over a no-skill baseline.
+
+All trials used the available default model. The skill validators, template structure checks, existing Python and explorer-link tests, Ruff checks and parent evidence-chain check passed after the procedure changes. Source retrieval, actual unavailable-tool behaviour, file-edit preservation, automatic invocation and sustained usefulness remain open. The fictional case specifications and these response excerpts preserve the basis of the bounded assessment without distributing private research material.
+
 ## Reproduction and evidence limits
 
 These dated observations are retained as a development record. The public template does not

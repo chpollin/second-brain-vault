@@ -21,6 +21,8 @@ query-topics: [vault-operations, skill-register, glossary, decisions, task-types
 | Dissolve temporary notes | skill `vault-knowledge`, mode dissolve |
 | Check the vault across documents | skill `vault-audit` |
 | Prepare content for a talk, a paper or a post | skill `vault-distill` |
+| Develop or revise a compact exposé or scholarly paper | skill `paper-develop` |
+| Describe or design an agentic workflow with expert feedback | skill `workflow-design` |
 | Find relevant vault and project context from a repository session | skill `vault-orient` |
 | Work from a repository's maintained knowledge and integrate findings | skill `project-knowledge` |
 | Report the operational state | skill `active-work-report` |
@@ -39,6 +41,8 @@ query-topics: [vault-operations, skill-register, glossary, decisions, task-types
 | active-work-report | on call | reports the operational state and proposes changes, writes only on instruction | [[Convention ACTIVE-WORK Fields]] |
 | writing-style | before prose is written | prose rules with contrast examples and a self-check | `.claude/rules/documents.md` |
 | persona-init | when a personal profile is requested | builds a readable profile, a working agreement and source provenance through a short dialogue | [[Template Research Persona]] |
+| paper-develop | when a compact scholarly draft or revision is requested | aligns argument, case evidence, citations and accepted author decisions | selected manuscript and project sources, `vault-distill`, `writing-style` |
+| workflow-design | when agentic workflow design or review is requested | traces task handling, checks, human decisions and feedback consequences | mapped project knowledge and actual implementation evidence |
 
 How a skill is built and tested stands in [[Convention Skills]].
 

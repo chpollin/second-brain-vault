@@ -1,6 +1,6 @@
 ---
 name: vault-distill
-description: Synthesises selected vault content and linked project knowledge on a question or topic into an outline, slide input or draft prose, at a chosen reading depth, and outputs the result without editing anything. Fires on "distil this", "distillate", "summarise the vault on this", "synthesis", and whenever material for slides, a paper, a blog post or a workshop concept is to be prepared, including as the step before slide building when a broad topic has no outline yet. Not for research that is written back into the vault, which is vault-knowledge in mode research, not for prose rules, which is writing-style, not for integrity findings, which is vault-audit, not for building a deck itself.
+description: Synthesises selected vault and project sources into an outline, slide input or source-grounded draft passages without editing files. Fires on "distil this", "distillate", "summarise the vault on this" and requests to prepare source material for writing or teaching. Developing or revising a scholarly manuscript belongs to paper-develop, which may use this synthesis as input. Agentic workflow design belongs to workflow-design, knowledge maintenance to vault-knowledge, prose rules to writing-style and integrity checks to vault-audit. Does not build decks.
 ---
 
 Synthesises selected vault and linked project knowledge for the requested question and changes nothing.

@@ -2,7 +2,7 @@
 
 Second Brain is a personal research environment for working with AI agents. A maintained personal vault holds developed knowledge, source readings, methodological reflections and links to projects. Project repositories hold their own substantive knowledge in `knowledge/` folders. Agents use selected parts of this documentary environment in research dialogue and implementation, following executable skills and the permissions of their actual host.
 
-The research question is how this arrangement can support the recovery of prior reasoning and the development of new, inspectable research contributions across sessions and projects. The [manuscript](paper.md) presents the implemented design and a proposed study. The [evaluation procedure](evaluation.md) selects real episodes by their dependence on earlier knowledge or scholarly judgement. Comparative benefit remains an open empirical question.
+The research question is under what conditions earlier reasoning can be recovered, transferred with justification, examined through research artefacts and revised for later use across sessions and projects. The [manuscript](paper.md) presents the implemented design and a proposed study. The [evaluation procedure](evaluation.md) selects real episodes by their dependence on earlier knowledge or scholarly judgement. Comparative benefit remains an open empirical question.
 
 ## Repository purpose
 
@@ -12,7 +12,7 @@ The [specification](specification.md) defines the implemented template. The [int
 
 ## Method context
 
-The [Promptotyping method](https://github.com/DigitalHumanitiesCraft/Promptotyping) supplies the relation between maintained project knowledge and the development of research artefacts. The template applies this through its `project-knowledge` skill and knowledge-document convention. [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) provides a related architecture for source-grounded claims. [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) addresses the coordination of research work. These methods retain their own specifications and are not installed by cloning this template.
+The [Promptotyping method](https://github.com/DigitalHumanitiesCraft/Promptotyping) supplies the relation between maintained project knowledge and the development of research artefacts. The template applies this through its `project-knowledge` skill and knowledge-document convention. [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) provides a related architecture for source-grounded claims. [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) addresses the coordination of research work. The paper integrates knowledge organization, source review and research-artefact development through Knowledge Structures' distinction among knowledge kinds, organizational patterns and collection purposes. It connects artefact findings returning to project knowledge with the later reuse of that knowledge. The Knowledge Structures manuscript is a conceptual simulation and supplies no empirical cases. Promptotyping retains its separate ZfdG paper project. Grounded Vault and Research Mission Control retain their own methodological contributions. These methods retain their own specifications and are not installed by cloning this template.
 
 ## Evidence boundary
 

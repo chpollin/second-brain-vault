@@ -9,7 +9,7 @@ The template must support a person and an available AI agent in maintaining rese
 | Session rules | `CLAUDE.md` and generated `AGENTS.md` | Route tasks to applicable rules and knowledge, with equivalent instructions for supported readers |
 | Navigation and working state | `HOME.md`, `ACTIVE-WORK.md`, `VAULT-OPERATIONS.md`, `TAG-TAXONOMY.md` | Keep document navigation, current work, procedure registration and tag vocabulary in their responsible documents |
 | Document conventions | `Vault Operations/Conventions/` | Define field profiles, project overviews, repository knowledge, skills and curation |
-| Executable skills | `.claude/skills/` | Provide task-bounded procedures for knowledge maintenance, audit, synthesis, orientation, project knowledge, work reporting, writing and persona initialisation |
+| Executable skills | `.claude/skills/` | Provide task-bounded procedures for knowledge maintenance, audit, synthesis, orientation, project knowledge, work reporting, prose style, compact paper development, agentic workflow design and persona initialisation |
 | Optional personal profile | Neutral persona template and `persona-init` | Derive an inspectable profile through source reading and dialogue, with personal claims distinguished from inference |
 | Structural checks | `scripts/check_vault.py`, generator, commit hook and tests | Check decidable requirements and report measured findings for judgement |
 | Synthetic test material | `Vault Operations/Fixtures/` and skill `evals/` | Preserve registered defects and expected behaviour for bounded trials |

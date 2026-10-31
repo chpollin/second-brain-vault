@@ -24,7 +24,7 @@ Repeat source rows for the material actually relevant to the task.
 
 | Field | Record |
 |---|---|
-| Code and data states, including uncommitted differences | Unrecorded |
+| Code, data and artefact states, including uncommitted differences and relevant conditions | Unrecorded |
 | Host, model identifier and exposed configuration | Unrecorded |
 | Available tools and access failures | Unrecorded |
 | Loaded instructions, skills, profile and their revisions | Unrecorded |
@@ -36,6 +36,10 @@ Repeat source rows for the material actually relevant to the task.
 | Contribution or intervention | Producer role and evidence location | Correction, retry or task change | Verification actually performed |
 |---|---|---|---|
 | Unrecorded | Unrecorded | Unrecorded | Unrecorded |
+
+For an artefact episode, record the research requirement, actual revision, observed behaviour and the check connecting them. Distinguish an implementation defect from a revised understanding of the requirement. Record whether the observation changed maintained knowledge and on what grounds.
+
+For a transfer, record the original finding's assumptions and differences in the new material and purpose.
 
 Record any delegation brief, returned material and coordinator check separately within this table.
 

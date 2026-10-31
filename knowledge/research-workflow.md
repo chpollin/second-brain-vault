@@ -14,6 +14,8 @@ The personal vault holds conceptual knowledge, source readings and relations acr
 
 [Promptotyping](https://github.com/DigitalHumanitiesCraft/Promptotyping) connects maintained project knowledge with iterative development and expert assessment of research artefacts. [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) concerns the support and scope of research claims. [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) supplies procedures for assigning work and verifying returned contributions. The optional [Research Persona procedure](../.claude/skills/persona-init/SKILL.md) develops a confirmed profile and dialogue agreement.
 
+Artefact examination can revise the project knowledge that guided implementation. Later reuse examines the revised account against another task's material and purpose. Technical conformity, source support, scholarly adequacy and acceptance for use remain distinct judgements. The existing [evaluation protocol](evaluation.md) follows these relationships within research episodes.
+
 Second Brain brings these concerns into the researcher's working environment. Their conceptual relationship supplies design grounds. Combining them does not establish their effectiveness or install their mechanisms.
 
 ## Inquiry and authorized revision
@@ -25,6 +27,8 @@ Research question <---------------- Maintained knowledge
        |
        v
 Select sources and investigate
+       |
+       +---- Optional artefact development and examination
        |
        +---- Optional delegated inquiries
        |                    |
