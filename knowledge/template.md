@@ -1,6 +1,6 @@
 # Template
 
-This repository is the reusable vault template for Second Brain, a personal research environment for working with AI agents. It abstracts a maintained personal vault through synthetic examples and excludes its owner's personal research content. The maintenance source remains `knowledge-structures/second-brain-vault`, with a separate public snapshot.
+This repository is the reusable vault template for Second Brain, a personal research environment for working with AI agents. It abstracts a maintained personal vault through synthetic examples and excludes its owner's personal research content. Since 2026-10-31 this repository is its own maintenance source, see [maintenance and distribution](integration.md#maintenance-and-distribution).
 
 The maintained description is organized by the question it answers.
 

@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-10-31 Maintenance moved into this repository
+
+The operator decided to reduce the number of repositories and to treat `knowledge-structures` as a finished simulation. A last snapshot (dab95c0) brought this repository to the state of the former maintenance folder, including the procedures of 2026-09-24 and the integrated manuscript of 2026-10-17. Its added lines were checked for private paths, names and research material before the snapshot was kept. From now on this repository is edited directly. The former folder is frozen, and the private research context exporter stays outside the public template. Pushing and archiving `knowledge-structures` remain with the operator.
+
 ## 2026-10-17 Technical closure of manuscript blockers
 
 The Human User asked for the remaining technical work to be verified and completed independently of editorial decisions. The parent source-register binding V2 still pointed to a vault note consolidated in vault revision f0dcc1ec. It now resolves to Knowledge Engineering and names the retained section Bestand, Wissensbasis und Wissenssystem. The identifier and assertion statuses are preserved. This routing repair supplies no renewed scholarly verification.

@@ -28,13 +28,13 @@ The public [persona template](../Vault%20Operations/Templates/Template%20Researc
 
 ## Maintenance and distribution
 
-The maintenance source is `knowledge-structures/second-brain-vault`. The separate public `second-brain-vault` repository receives selected snapshots from that source. The [published explorer](https://chpollin.github.io/second-brain-vault/) represents its deployed snapshot. Local changes, synchronization and publication are separate operations.
+Since 2026-10-31 this repository is its own maintenance source and is edited directly. Before that, the folder `second-brain-vault/` in the private `knowledge-structures` repository was the maintenance source and this repository received file-tree snapshots from it. That folder is frozen at the last snapshot, and its earlier history, which holds documents of a private research prototype, stays in the private repository. The [published explorer](https://chpollin.github.io/second-brain-vault/) represents its deployed snapshot. Local changes, synchronization and publication are separate operations.
 
 Distribution includes the explorer source, the audited generic demo core and `.github/workflows/pages.yml`. The workflow builds the ignored `docs/data.json` and `docs/demo/` from the checked-out public template, then deploys the checked `docs/` artifact on a push to `main` or a manual run. Repository Pages settings must select GitHub Actions for this workflow to own deployment. Successful local checks do not establish that the remote workflow ran or that its artifact is live.
 
-The maintained personal vault remains the place where its own rules are used and revised. The initial template was derived manually. The maintenance repository's derivation script transfers a committed template snapshot into the public clone without publishing the private source history. Whether future transfer of rules from the personal vault should be automated, or the template should become the upstream source for personal instances, remains an operator decision. Template-specific skill corrections do not automatically install into the personal vault.
+The maintained personal vault remains the place where its own rules are used and revised. The initial template was derived manually. Whether future transfer of rules from the personal vault should be automated, or the template should become the upstream source for personal instances, remains an operator decision. Template-specific skill corrections do not automatically install into the personal vault.
 
-The exporter and template are separate subprojects in the maintenance repository. Neither belongs to its parent paper's assertion chain. This template can be cloned independently and reads no private sibling repository at runtime.
+The research context exporter stays a private subproject of the former maintenance repository and is not part of this template. This template can be cloned independently and reads no private sibling repository at runtime.
 
 ## Conceptual integration and publication boundaries
 

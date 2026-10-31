@@ -33,7 +33,7 @@ The static runtime loads `demo-data.json` and answers the reader's source, catal
 
 The template's current `Decision` question maps to the existing `Entscheidung` response contract and the decision glyph. Its English type and original source line remain recorded. Additional point kinds require an explicit response contract before entering this demo. An unsupported kind blocks generation, which prevents it from silently becoming an artifact acceptance question.
 
-The existing Pages workflow builds the explorer and demo, checks them and deploys their artifact. Generated data remains ignored by Git. Distribution still follows the [maintenance and public snapshot procedure](integration.md#maintenance-and-distribution), so private maintenance history cannot become part of the public repository.
+The existing Pages workflow builds the explorer and demo, checks them and deploys their artifact. Generated data remains ignored by Git. Maintenance and publication follow [maintenance and distribution](integration.md#maintenance-and-distribution).
 
 ## Verification and operator acceptance
 
