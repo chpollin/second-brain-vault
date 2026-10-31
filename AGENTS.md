@@ -83,3 +83,4 @@ Detail conventions live in `Vault Operations/Conventions/`. Read the matching on
 - [[Convention Knowledge Documents]], before creating or refactoring documents in the `knowledge/` folder of a repository
 - [[Convention Skills]], before adding or changing a skill
 - [[Convention Curation Round]], for curation, audit and refactoring rounds and for every rule change
+- [[Convention Strand Notes]], a proposal not yet in force, before ordering notes into an argument

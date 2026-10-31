@@ -16,6 +16,7 @@ The vault's knowledge about itself. Rules stand in [[CLAUDE]], this map leads to
 - [[Convention Knowledge Documents]] — the knowledge base of a repository
 - [[Convention Skills]] — how a skill is cut, built and tested
 - [[Convention Curation Round]] — curation, loss audit, delegation, rule changes
+- [[Convention Strand Notes]] — proposal for ordering notes into an argument, not yet in force
 
 ## Templates
 

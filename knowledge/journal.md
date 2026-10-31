@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-10-31 Strand notes proposed
+
+Added Convention Strand Notes as a proposal with `status: idea`, listed in the convention index as not yet in force. A strand note orders notes into an argument with a small relation vocabulary, records the lineage of an idea in its combining steps and names its producer in a sentence instead of a field. The relation types, the producer values, the two-condition test and the failure conditions were taken over from an earlier, never executed Agentic Zettelkasten method experiment. Its identifier scheme, artefact classes and context builder were left out, because the template's titles, conventions and explorer already cover them. The proposal comes into force only through a curation round, preferably after use in the personal vault, where rules are revised first.
+
 ## 2026-10-31 Maintenance moved into this repository
 
 The operator decided to reduce the number of repositories and to treat `knowledge-structures` as a finished simulation. A last snapshot (dab95c0) brought this repository to the state of the former maintenance folder, including the procedures of 2026-09-24 and the integrated manuscript of 2026-10-17. Its added lines were checked for private paths, names and research material before the snapshot was kept. From now on this repository is edited directly. The former folder is frozen, and the private research context exporter stays outside the public template. Pushing and archiving `knowledge-structures` remain with the operator.
