@@ -17,11 +17,12 @@ The seven build steps follow the operator's sequence of 2026-11-04: create a vau
 
 ## Graph
 
-`scripts/build_graph.py` joins the template's system files from `docs/data.json` with the synthetic example domain under `docs/example/` and precomputes two layouts. The site uses the person's view, with knowledge clustered by domain inside and the system documents as an outer frame. The agent's view, rings by the moment a file reaches the agent, stays in the data for a later use.
+`scripts/build_graph.py` joins the template's system files from `docs/data.json` with the synthetic example domain under `docs/example/` and precomputes one layout, with knowledge clustered by domain inside and the system documents as an outer frame.
 
 - Groups carry the DHCraft watercolour palette. Overview pages are drawn as the hexagon of the logo.
 - States differ by outline, fill and stroke pattern as well as colour: found, read, draft or proposal (dashed), accepted, updated.
 - Every node is focusable. Arrow keys move to a neighbour in that direction, Enter opens the file in the reading panel.
+- In dense phases the label of the most important state stays, overlapping labels are hidden and reappear on hover or focus.
 - In the build section the graph grows with the steps: empty vault, loose sources, a dashed draft of the structure, the system frame with CLAUDE.md lit, notes, then overview pages.
 
 The example domain is a team's research data work: a photo archive project decides on the format of its archival masters, and an oral history project later checks whether the decision transfers to audio. It is synthetic. Its literature notes carry bibliographic entries only.
@@ -49,7 +50,14 @@ The site serves the template files and the synthetic example only. `scripts/buil
 
 ## Evidence
 
-Three reader tests on 2026-11-04 used separate subagents in the role of a professional without Obsidian, Git or agent experience, given screenshots and the page text. They are model readers, not people. All three understood the episode and the principle of one place per statement. All three would have stopped at the first build step because tools, costs and Git were unexplained, skipped the reference as jargon, and asked what happens with their data. The current page answers these findings with the audience line, the tool line with costs, the data section, the folded reference and the plain station row. A fourth model reading of the simplified page understood the idea and the data section, and found that the assistant's setup was missing before the first prompt, that Docling's installation was unexplained and that the legend and the abbreviation MOC confused. The first build step now installs and connects the assistant, step 2 says the assistant can install Docling, the legend shows one entry for the system frame, and overview pages are labelled by their field. Still open from that reading are a rough price and setup time, how a team shares a vault, and how to undo a wrong change. A human reading and the operator's acceptance remain open.
+Five reader tests on 2026-11-04 used separate subagents in the role of a professional without Obsidian, Git or agent experience, given screenshots and the page text. They are model readers, not people.
+
+- All readings understood the example and the principle of one place per statement, and the last one retold the seven phases correctly and called the page calm.
+- The first three would have stopped at the first build step, skipped the reference as jargon and asked about their data. The page answered with an audience line, the tool line, the data sentences and the folded reference.
+- The fourth missed the assistant's setup, Docling's installation and found the legend and the abbreviation MOC confusing. The first step now connects the assistant, the legend has one entry for the system frame, and overview pages are labelled by their field.
+- The fifth asked when Git and Python are needed, where the skills come from, and found the reference to Luhmann and the phase name "test in the tool" unclear. These texts were changed.
+
+Still open from these readings are a price and setup time, how a team shares a vault, and the jargon of the folded reference. A human reading and the operator's acceptance remain open.
 
 ## Decisions
 

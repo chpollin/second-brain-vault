@@ -44,6 +44,7 @@ The vault is usable without Python. The checks then do not run, and the rule tie
 
 ```powershell
 python scripts/build_site.py
+python scripts/build_graph.py
 python scripts/check_vault.py
 python -m pytest -q
 ```

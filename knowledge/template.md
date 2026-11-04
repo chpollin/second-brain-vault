@@ -7,6 +7,7 @@ The maintained description is organized by the question it answers.
 - [Project](project.md) defines the purpose, audience and evidence boundary.
 - [Specification](specification.md) defines the components, constraints and checks.
 - [Integration](integration.md) defines ownership, separate tools and distribution.
+- [Design](design.md) describes the public method page.
 - [Journal](journal.md) records derivation and subsequent decisions.
 - [Skill evaluation](skill-evaluation.md) records the bounded synthetic trials.
 

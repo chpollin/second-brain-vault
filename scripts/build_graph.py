@@ -7,12 +7,8 @@ domain under docs/example/, because the template itself carries only placeholder
 the wikilinks between the selected files, plus one edge from HOME to each example map of content,
 which a real vault would hold in HOME itself.
 
-Two layouts are computed here, so the browser runs no physics and every load shows the same
-picture:
-    themen  the person's view, knowledge clustered by domain, system documents as an outer frame
-    agent   the agent's view, rings by the moment a file reaches the agent's context
-The agent layout keeps each node's angle from the themen layout, so a transition between them
-moves nodes outward or inward instead of across the picture.
+The layout is computed here, so the browser runs no physics and every load shows the same
+picture: knowledge clustered by domain inside, the system documents as a fixed outer frame.
 
 Usage:
     python scripts/build_graph.py          write docs/graph.json
@@ -39,22 +35,6 @@ CONTROL = {"HOME.md", "ACTIVE-WORK.md", "VAULT-OPERATIONS.md", "TAG-TAXONOMY.md"
 OPERATIONS = {"Decision Log.md", "Done Log.md", "Repo Directory.md", "Vault Operations MOC.md"}
 CHECKS = {"scripts/check_vault.py", "scripts/hooks/pre-commit"}
 
-# Ring radius per agent stage: always loaded, control documents, rules and conventions, skills
-# and operations, knowledge.
-RING = {0: 0.0, 1: 0.27, 2: 0.48, 3: 0.7, 4: 0.93}
-GROUP_STAGE = {
-    "core": 0,
-    "control": 1,
-    "rule": 2,
-    "skill": 3,
-    "operations": 3,
-    "check": 3,
-    "moc": 4,
-    "concept": 4,
-    "literature": 4,
-    "project": 4,
-    "source": 4,
-}
 ITERATIONS = 400
 FRAME = 0.95
 INNER_LIMIT = 0.74
@@ -167,7 +147,7 @@ def build_nodes_and_edges(data: dict) -> tuple[list[dict], list[list[str]], dict
     return nodes, sorted([list(edge) for edge in edges]), notes, stems
 
 
-def themen_layout(nodes: list[dict], edges: list[list[str]]) -> dict[str, tuple[float, float]]:
+def cluster_layout(nodes: list[dict], edges: list[list[str]]) -> dict[str, tuple[float, float]]:
     """Knowledge inside, clustered by domain; the system documents as a fixed outer frame.
 
     The frame is ordered by group, with the agent's rules and the control documents at the top,
@@ -241,26 +221,6 @@ def themen_layout(nodes: list[dict], edges: list[list[str]]) -> dict[str, tuple[
     return {key: (x, y) for key, (x, y) in pos.items()}
 
 
-def agent_layout(nodes: list[dict], themen: dict[str, tuple[float, float]]) -> dict[str, tuple[float, float]]:
-    """Rings by agent stage; within a ring, nodes keep the angular order of the themen layout."""
-    pos = {}
-    by_stage: dict[int, list[dict]] = {}
-    for node in nodes:
-        by_stage.setdefault(GROUP_STAGE[node["group"]], []).append(node)
-    for stage, members in by_stage.items():
-        members.sort(key=lambda node: math.atan2(themen[node["id"]][1], themen[node["id"]][0]))
-        radius = RING[stage]
-        if stage == 0:
-            for k, node in enumerate(members):
-                pos[node["id"]] = (0.07 * (k - (len(members) - 1) / 2), 0.0)
-            continue
-        start = math.atan2(themen[members[0]["id"]][1], themen[members[0]["id"]][0])
-        for k, node in enumerate(members):
-            angle = start + 2 * math.pi * k / len(members)
-            pos[node["id"]] = (radius * math.cos(angle), radius * math.sin(angle))
-    return pos
-
-
 def normalise(pos: dict[str, list[float]]) -> dict[str, tuple[float, float]]:
     span = max(max(abs(x), abs(y)) for x, y in pos.values()) or 1
     return {key: (x / span * 0.97, y / span * 0.97) for key, (x, y) in pos.items()}
@@ -269,12 +229,9 @@ def normalise(pos: dict[str, list[float]]) -> dict[str, tuple[float, float]]:
 def render() -> str:
     data = json.loads(DATA.read_text(encoding="utf-8"))
     nodes, edges, notes, stems = build_nodes_and_edges(data)
-    themen = themen_layout(nodes, edges)
-    agent = agent_layout(nodes, themen)
+    layout = cluster_layout(nodes, edges)
     for node in nodes:
-        node["themen"] = [round(themen[node["id"]][0], 4), round(themen[node["id"]][1], 4)]
-        node["agent"] = [round(agent[node["id"]][0], 4), round(agent[node["id"]][1], 4)]
-        node["stage"] = GROUP_STAGE[node["group"]]
+        node["xy"] = [round(layout[node["id"]][0], 4), round(layout[node["id"]][1], 4)]
     graph = {"nodes": nodes, "edges": edges, "files": notes, "stems": stems}
     return json.dumps(graph, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
 

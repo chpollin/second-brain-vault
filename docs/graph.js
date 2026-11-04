@@ -1,6 +1,6 @@
 // The knowledge graph of the method page. Positions come precomputed from docs/graph.json
-// (scripts/build_graph.py), so the browser only draws, animates between the stored layouts and
-// answers interaction. Every node is a focusable control: arrow keys move to a neighbour in that
+// (scripts/build_graph.py), so the browser only draws, stages the example and answers
+// interaction. Every node is a focusable control: arrow keys move to a neighbour in that
 // direction and Enter opens the file, so the picture works without a pointer.
 
 const NS = "http://www.w3.org/2000/svg";
@@ -35,7 +35,7 @@ function hexagon(r) {
 /**
  * @param {HTMLElement} host
  * @param {{nodes: object[], edges: string[][]}} graph
- * @param {{layout?: string, onOpen?: Function, describe?: Function, text: object}} options
+ * @param {{onOpen?: Function, describe?: Function, text: object, labels?: string, frame?: boolean}} options
  */
 export function createGraph(host, graph, options) {
   const text = options.text;
@@ -45,8 +45,7 @@ export function createGraph(host, graph, options) {
     neighbours.get(a).add(b);
     neighbours.get(b).add(a);
   }
-  let layout = options.layout || "themen";
-  const pos = new Map(graph.nodes.map((node) => [node.id, node[layout].map((v) => v * SCALE)]));
+  const pos = new Map(graph.nodes.map((node) => [node.id, node.xy.map((v) => v * SCALE)]));
   let hidden = new Set();
 
   const svg = el("svg", { viewBox: "-58 -58 116 116", role: "group", "aria-label": text.graph.label });
@@ -223,38 +222,6 @@ export function createGraph(host, graph, options) {
     }
   });
 
-  let animation = 0;
-  function setLayout(name) {
-    if (name === layout) return;
-    layout = name;
-    const from = new Map([...pos].map(([id, xy]) => [id, [...xy]]));
-    const to = new Map(graph.nodes.map((node) => [node.id, node[name].map((v) => v * SCALE)]));
-    cancelAnimationFrame(animation);
-    if (reducedMotion()) {
-      for (const [id, xy] of to) pos.set(id, xy);
-      place();
-      return;
-    }
-    const start = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - start) / 1100);
-      const ease = t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
-      for (const [id, [x1, y1]] of from) {
-        const [x2, y2] = to.get(id);
-        pos.set(id, [x1 + (x2 - x1) * ease, y1 + (y2 - y1) * ease]);
-      }
-      place();
-      if (t < 1) animation = requestAnimationFrame(step);
-    };
-    animation = requestAnimationFrame(step);
-  }
-
-  /** Nodes outside `visible` fade out; used while a vault is being built step by step. */
-  function setVisible(visible) {
-    hidden = new Set(graph.nodes.map((node) => node.id).filter((id) => !visible.has(id)));
-    place();
-  }
-
   const STATE_CLASSES = ["lit", "found", "proposal", "accepted", "updated", "checking", "focus"];
   let token = 0;
 
@@ -369,5 +336,5 @@ export function createGraph(host, graph, options) {
     }
   }
 
-  return { setLayout, setVisible, stage, has: (id) => nodeEls.has(id), ids: () => graph.nodes.map((node) => node.id) };
+  return { stage };
 }
