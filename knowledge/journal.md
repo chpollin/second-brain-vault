@@ -1,8 +1,10 @@
 # Journal
 
-## 2026-11-04 Hero variants for comparison
+## 2026-11-04 Combined hero replaces the whole-vault graph
 
-After operator criticism of the numbered stepper, the crowded graph and the hero, three hero variants were built under `docs/lab/` with a shared named stepper and reviewed by model readers and a model UI reviewer, recorded in [design](design.md#evidence). The lab stays local, and the Pages workflow removes it from the artifact. The reference gained one line each on the optional research persona and on parallel review agents. Next step: the operator chooses between B alone and the recommended combination of graph and card, which is then built in the lab before it replaces the live hero.
+After operator criticism of the numbered stepper, the crowded graph and the hero, three hero variants were compared by model readers and a model UI reviewer, recorded in [design](design.md#evidence). On the operator's instruction the recommended combination became the live hero: a focus graph of the episode's notes, the decision note as a card, and a stepper with named phases and actors. The episode data in `docs/episode.json` now holds note positions, links and per-phase states, `docs/hero.js` renders them, and `tests/test_hero_layout.mjs` rejects overlapping notes and links behind unrelated notes. The episode module, the graph's episode staging and the lab variants were deleted, and the stylesheet was consolidated. The reference gained one line each on the optional research persona and on parallel review agents.
+
+A fresh model reviewer's findings were worked in. Verification covered pytest, Ruff, the vault check, the Node tests, syntax checks, and browser walks through all seven phases at 1440 by 900, 1280 by 720 and 390 by 844 in both languages, including keyboard focus and tab order. A human reading and the operator's acceptance remain open.
 
 ## 2026-11-04 Method page replaces explorer and demo
 

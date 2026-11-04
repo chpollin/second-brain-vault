@@ -1,5 +1,5 @@
-// The knowledge graph of the method page. Positions come precomputed from docs/graph.json
-// (scripts/build_graph.py), so the browser only draws, stages the example and answers
+// The knowledge graph of the build section. Positions come precomputed from docs/graph.json
+// (scripts/build_graph.py), so the browser only draws, stages the growing vault and answers
 // interaction. Every node is a focusable control: arrow keys move to a neighbour in that
 // direction and Enter opens the file, so the picture works without a pointer.
 
@@ -7,8 +7,6 @@ const NS = "http://www.w3.org/2000/svg";
 const SCALE = 50;
 const GROUPS = ["core", "control", "rule", "skill", "operations", "check", "moc", "concept", "literature", "project", "source"];
 const SYSTEM = new Set(["core", "control", "rule", "skill", "operations", "check"]);
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, reducedMotion() ? 0 : ms));
 
 function el(name, attrs = {}, parent) {
   const node = document.createElementNS(NS, name);
@@ -35,7 +33,7 @@ function hexagon(r) {
 /**
  * @param {HTMLElement} host
  * @param {{nodes: object[], edges: string[][]}} graph
- * @param {{onOpen?: Function, describe?: Function, text: object, labels?: string, frame?: boolean}} options
+ * @param {{onOpen?: Function, describe?: Function, text: object, frame?: boolean}} options
  */
 export function createGraph(host, graph, options) {
   const text = options.text;
@@ -63,9 +61,7 @@ export function createGraph(host, graph, options) {
   // A faint boundary marks the vault folder, so an empty vault still reads as a place.
   if (options.frame) el("circle", { class: "vault-frame", r: SCALE * 1.04, cx: 0, cy: 0 }, svg);
   const edgeLayer = el("g", { class: "edges", "aria-hidden": "true" }, svg);
-  const trailLayer = el("g", { class: "trails", "aria-hidden": "true" }, svg);
   const nodeLayer = el("g", { class: "nodes" }, svg);
-  const markLayer = el("g", { class: "marks", "aria-hidden": "true" }, svg);
 
   const isSystem = (id) => SYSTEM.has(byId.get(id).group);
   const edgeEls = graph.edges.map(([a, b]) => ({
@@ -95,9 +91,8 @@ export function createGraph(host, graph, options) {
     const label = el("text", { y: -r - 0.9, "text-anchor": "middle" }, g);
     // Overview pages are named by their field; the abbreviation MOC means nothing to a newcomer.
     label.textContent = node.group === "moc" ? node.label.replace(/ MOC$/, "") : node.label;
-    // The hero labels knowledge only; elsewhere the entry points CLAUDE and HOME are named too.
-    const entry = node.id === "CLAUDE.md" || node.id === "HOME.md";
-    if (node.group === "moc" || (entry && options.labels !== "knowledge")) g.dataset.label = "always";
+    // Overview pages and the entry points CLAUDE and HOME are always named.
+    if (node.group === "moc" || node.id === "CLAUDE.md" || node.id === "HOME.md") g.dataset.label = "always";
     nodeEls.set(node.id, g);
   }
   host.replaceChildren(svg);
@@ -222,103 +217,28 @@ export function createGraph(host, graph, options) {
     }
   });
 
-  const STATE_CLASSES = ["lit", "found", "proposal", "accepted", "updated", "checking", "focus"];
-  let token = 0;
-
-  function mark(id, label, kind) {
-    const [x, y] = pos.get(id);
-    const r = radiusOf(byId.get(id));
-    const g = el("g", { class: `marker ${kind}`, transform: `translate(${x.toFixed(2)} ${(y + r + 4.4).toFixed(2)})` }, markLayer);
-    const width = label.length * 1.5 + 3.2;
-    el("rect", { x: -width / 2, y: -2.5, width, height: 3.8, rx: 1.9 }, g);
-    const t = el("text", { "text-anchor": "middle", y: 0.45 }, g);
-    t.textContent = label;
-  }
-
-  function question(nearId) {
-    const [x, y] = pos.get(nearId);
-    const length = Math.hypot(x, y) || 1;
-    const qx = (x / length) * 56;
-    const qy = (y / length) * 56;
-    el("line", { class: "question-line", x1: qx, y1: qy, x2: x, y2: y }, markLayer);
-    const g = el("g", { class: "marker question", transform: `translate(${qx.toFixed(2)} ${qy.toFixed(2)})` }, markLayer);
-    el("circle", { r: 2.8 }, g);
-    const t = el("text", { "text-anchor": "middle", y: 1.2 }, g);
-    t.textContent = "?";
-  }
-
-  async function drawTrail(sequence, myToken) {
-    let previous = null;
-    for (const id of sequence) {
-      if (myToken !== token) return;
-      if (!pos.has(id)) continue;
-      const [x, y] = pos.get(id);
-      if (previous) {
-        const [px, py] = pos.get(previous);
-        // Between two frame nodes the path bends outward along the rim instead of cutting
-        // through the knowledge in the middle.
-        const rim = Math.hypot(px, py) > SCALE * 0.8 && Math.hypot(x, y) > SCALE * 0.8;
-        const bend = rim ? 1.3 : 1;
-        el("path", { class: "trail", d: `M${px} ${py} Q${((px + x) / 2) * bend} ${((py + y) / 2) * bend} ${x} ${y}` }, trailLayer);
-      }
-      nodeEls.get(id).classList.add("lit");
-      previous = id;
-      await wait(520);
-    }
-  }
+  const STATE_CLASSES = ["lit", "proposal", "focus"];
 
   /**
-   * Show one episode state. Every call starts from a clean picture, so a state is fully
+   * Show one growth stage. Every call starts from a clean picture, so a stage is fully
    * described by its object and stepping backwards needs no undo.
    */
-  async function stage(state = {}) {
-    token += 1;
-    const myToken = token;
-    trailLayer.replaceChildren();
-    markLayer.replaceChildren();
+  function stage(state = {}) {
     for (const g of nodeEls.values()) g.classList.remove(...STATE_CLASSES);
-    for (const edge of edgeEls) edge.line.classList.remove("proposal-edge");
     hidden = new Set(state.hidden || []);
     place();
     if (state.active) svg.dataset.playing = "true";
     else delete svg.dataset.playing;
-
     const add = (ids, cls) => ids && ids.forEach((id) => nodeEls.get(id)?.classList.add(cls));
     add(state.focus, "focus");
-    add(state.found, "found");
     add(state.lit, "lit");
-    add(state.checking, "checking");
-    add(state.updated, "updated");
     add(state.drafts, "proposal");
-    if (state.proposal) {
-      nodeEls.get(state.proposal).classList.add("proposal");
-      for (const edge of edgeEls) {
-        if (edge.a === state.proposal || edge.b === state.proposal) edge.line.classList.add("proposal-edge");
-      }
-    }
-    if (state.accepted) nodeEls.get(state.accepted).classList.add("accepted");
-    if (state.question) question(state.question);
-    if (state.gate) mark(state.gate, text.graph.decide, "gate");
-    if (state.transfer) mark(state.transfer, text.graph.checkConditions, "transfer");
-    if (state.pulse) {
-      for (const id of neighbours.get(state.pulse)) {
-        if (hidden.has(id) || isSystem(id)) continue;
-        const [x, y] = pos.get(id);
-        const r = radiusOf(byId.get(id));
-        const ring = el("circle", { class: "pulse", cx: x, cy: y, r }, trailLayer);
-        if (!reducedMotion()) ring.animate([{ opacity: 1, r }, { opacity: 0, r: r * 4 }], { duration: 1400, iterations: 2 });
-      }
-    }
     declutter();
-    if (state.trail) {
-      await drawTrail(state.trail, myToken);
-      if (myToken === token) declutter();
-    }
   }
 
   // Labels of neighbouring nodes overlap in dense steps. The most important states keep their
   // label, a later label that would cover an earlier one is hidden; the hover card still names it.
-  const LABEL_RANK = ["proposal", "accepted", "updated", "checking", "lit", "found", "focus"];
+  const LABEL_RANK = ["proposal", "lit", "focus"];
   function declutter() {
     const shown = [];
     const ranked = [...nodeEls.values()]

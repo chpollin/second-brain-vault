@@ -6,7 +6,7 @@ The public site at <https://chpollin.github.io/second-brain-vault/> explains Sec
 
 | Section | Question it answers | Form |
 |---|---|---|
-| Hero | What is this, for whom, and how is it used? | Title, one sentence, the four parts of a vault as one line, audience line, two actions, and the knowledge graph that plays a seven-phase example with compact numbered steps |
+| Hero | What is this, for whom, and how is it used? | Title, one sentence, the four parts of a vault as one line, audience line with a link to the build section, then the example as a focus graph beside the note card and a named stepper |
 | Build | How do I build my own? | Tool line, seven steps with one sentence and a prompt each, a graph that grows with the steps |
 | Good to know | What leaves my computer, and what is maintenance? | Two columns of four sentences each, with source links |
 | Reference | What exactly does the template contain? | Folded by default: one annotated file tree and three short paragraphs on governance, procedures and document types |
@@ -15,15 +15,24 @@ The example runs through seven phases: ask, find, propose, decide, file it, test
 
 The seven build steps follow the operator's sequence of 2026-11-04: create a vault, bring sources into Markdown, think through the structure, talk it through with the assistant, let the assistant build it, work in knowledge, make it findable for the assistant. The template enters at step 5 as the model the assistant follows. Step 2 names the chain original, Docling, frozen Markdown, distillate, and points to [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) for statements that must be traceable to their source passage. Step 5 defines vault governance as the written rules that say how the vault is built, what goes where and how it may change.
 
-## Graph
+## Hero example
+
+The hero plays the example in three coordinated parts, specified in `docs/episode.json` and rendered by `docs/hero.js`.
+
+- The focus graph shows only the notes of the episode on hand-placed positions, so labels stay readable and no link passes behind a note it does not connect. `tests/test_hero_layout.mjs` checks placement and links. Pills are sized from the rendered label. A note's state shows as outline colour, width and dash, the decision note names its state in text above it, and a one-line legend explains the code. Every pill opens its note.
+- The note card shows what the decision note says in the current phase. Its wikilinks become note buttons, and the cited notes are those highlighted in the graph. German readers see a translation of the English example note from `docs/content.js`, marked as such. The decision step shows each ground with a check mark, filing shows the linking notes, the test shows the finding and where it was recorded, and reuse compares the conditions with the new question.
+- The stepper names each phase and its actor. Done, current and next differ by mark (check, filled number, outlined number) and weight. Each step button carries its full state in its accessible name, and the caption is a live region.
+
+On wide screens the graph and card share a stage of fixed height above the stepper, so the controls keep their position across phases and the example with its controls fits one 1440 by 900 screen in both languages. On narrow screens the stepper comes first with a status line for the current phase, the graph gives way to a list of the involved notes with their state, and the card follows at full height.
+
+## Build graph
 
 `scripts/build_graph.py` joins the template's system files from `docs/data.json` with the synthetic example domain under `docs/example/` and precomputes one layout, with knowledge clustered by domain inside and the system documents as an outer frame.
 
 - Groups carry the DHCraft watercolour palette. Overview pages are drawn as the hexagon of the logo.
-- States differ by outline, fill and stroke pattern as well as colour: found, read, draft or proposal (dashed), accepted, updated.
 - Every node is focusable. Arrow keys move to a neighbour in that direction, Enter opens the file in the reading panel.
-- In dense phases the label of the most important state stays, overlapping labels are hidden and reappear on hover or focus.
-- In the build section the graph grows with the steps: empty vault, loose sources, a dashed draft of the structure, the system frame with CLAUDE.md lit, notes, then overview pages.
+- Overlapping labels are hidden by priority and reappear on hover or focus.
+- The graph grows with the build steps: empty vault, loose sources, a dashed draft of the structure, the system frame with CLAUDE.md lit, notes, then overview pages.
 
 The example domain is a team's research data work: a photo archive project decides on the format of its archival masters, and an oral history project later checks whether the decision transfers to audio. It is synthetic. Its literature notes carry bibliographic entries only.
 
@@ -59,18 +68,9 @@ Five reader tests on 2026-11-04 used separate subagents in the role of a profess
 
 Still open from these readings is how a team shares a vault. Price and setup time stay out of the page, which names the paid plan and links the provider. Persona and parallel review agents each have one line in the reference. A human reading and the operator's acceptance remain open.
 
-A second round on 2026-11-04 compared the live hero with three variants under `docs/lab/`. The variants are A, a focus graph of hand-placed notes, B, a decision note that grows step by step, and C, lanes for you, the assistant and the notes. All three share a stepper with named phases, an actor line and visible done, current and next states. Three model readers in the roles of project lead, librarian and researcher ranked B first, then A, the live hero and C. An independent model UI reviewer recommended combining A's graph with B's card, so that the graph shows where the reasoning lives and the card what it says. On phones the graph would give way to a list of cited notes.
+A second round on 2026-11-04 compared the former hero, a whole-vault graph with numbered steps, with three variants in a temporary lab: a focus graph of hand-placed notes, a decision note that grows step by step, and lanes for you, the assistant and the notes. All three shared a stepper with named phases and actors. Three model readers in the roles of project lead, librarian and researcher ranked the growing note first, then the focus graph, the former hero and the lanes. An independent model UI reviewer recommended combining the focus graph with the note card, so that the graph shows where the reasoning lives and the card what it says, and replacing the graph by a list of notes on phones. Their defects (colliding phone labels, an unreadable scaled graph, moving controls, empty reason headings, a link behind an unrelated note, an eyebrow line) shaped the current hero.
 
-Open defects of the variants:
-
-- colliding step names on phones
-- unreadable scaled graph in A
-- controls that move between steps
-- a transparent sticky header
-- an edge in A that passes behind an unrelated note
-- an eyebrow line on the card
-
-B's empty reason headings after the decision step were fixed. The lab is excluded from the Pages artifact. The choice of hero remains with the operator.
+A fresh model reviewer then read the built hero in three reader roles and against the interface yardstick. Its findings led to a visible focus ring on highlighted notes, the stepper first in document order, a decision step that shows acceptance as the person's act, a legend that matches the drawn states, a reuse state that reads as differing conditions, the decision state inside its pill, a German rendering of the example note, scroll shadows on the card and smaller type on short wide screens such as a projector. Still open from that reading are the phone card moving with the length of the note list during play, and the generic caption of the test phase.
 
 ## Decisions
 
@@ -78,3 +78,4 @@ B's empty reason headings after the decision step were fixed. The lab is exclude
 - 2026-11-04: of three layout variants (guided story, workspace, build along) the operator chose build along. The rejected variants were removed.
 - 2026-11-04: after operator review the separate sections on what a vault is, the example, data and maintenance were merged into the hero and one section of notes, and the reference became a single file tree, because the earlier page said the same things twice and stacked too many levels.
 - 2026-11-04: recorded agent sessions were dropped from the site because they ran under the owner's personal configuration. New recordings require a neutral configuration.
+- 2026-11-04: on the operator's instruction the combined focus graph and note card replaced the whole-vault hero graph. The episode staging of the graph module, the old stepper and the lab variants were removed.

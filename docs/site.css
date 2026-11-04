@@ -1,4 +1,4 @@
-@layer reset, base, tokens, layout, components, variants, utilities;
+@layer reset, base, tokens, layout, components, utilities;
 
 @font-face { font-family: "Instrument Sans"; src: url("assets/fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Instrument Sans"; src: url("assets/fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
@@ -21,7 +21,6 @@
     --accent: oklch(53.1% 0.14 315);
     --accent-hi: oklch(41.6% 0.105 307);
     --on-accent: oklch(99% 0.005 95);
-    --sheen: oklch(100% 0 0 / 0.6);
 
     --g-core: oklch(53.1% 0.14 315);
     --g-control: oklch(57.4% 0.11 255);
@@ -56,7 +55,7 @@
     --head-h: 3.6rem;
   }
 
-  .night, :root[data-theme="night"] {
+  .night {
     color-scheme: dark;
     --ground: oklch(17% 0.045 271);
     --ground-alt: oklch(14% 0.04 271);
@@ -69,7 +68,6 @@
     --accent: oklch(74% 0.13 315);
     --accent-hi: oklch(84% 0.09 315);
     --on-accent: oklch(17% 0.045 271);
-    --sheen: oklch(100% 0 0 / 0.06);
 
     --g-core: oklch(74% 0.15 315);
     --g-control: oklch(82% 0.07 253);
@@ -120,7 +118,8 @@
   .skip { position: absolute; inset-inline-start: 1rem; inset-block-start: -3rem; background: var(--surface); padding: 0.5rem 1rem; z-index: 40; }
   .skip:focus { inset-block-start: 0.5rem; }
 
-  /* The header is always night, like the DHCraft navigation bar is always ink on paper. */
+  /* The header is always night, like the DHCraft navigation bar is always ink on paper. Its
+     background stays nearly opaque, so text scrolling beneath never shows through. */
   .site-head {
     position: sticky; inset-block-start: 0; z-index: 20;
     display: flex; align-items: center; gap: 0.4rem 2rem; flex-wrap: wrap;
@@ -135,27 +134,62 @@
   .site-nav a:hover { color: var(--ink); }
   .site-nav a[aria-current="true"] { color: var(--ink); border-block-end-color: var(--accent); }
   .head-actions { display: flex; gap: 0.5rem; align-items: center; }
-  .lang, .pill {
-    padding: 0.3rem 0.85rem; border-radius: 999px; border: 1px solid var(--edge-hi); background: transparent;
-    color: var(--ink); text-decoration: none; font-size: var(--step--1); cursor: pointer; white-space: nowrap; min-block-size: 2.2rem; display: inline-flex; align-items: center;
-  }
-  .lang:hover, .pill:hover { border-color: var(--accent); }
   @media (max-width: 47.99rem) {
     .site-nav { flex-basis: 100%; order: 3; }
+    .site-nav a { padding-inline: 0.5rem; }
     .site-head { gap: 0 1rem; justify-content: space-between; }
   }
 
   .band { padding: calc(var(--space) * 3) var(--gutter); }
   .band.alt { background: var(--ground-alt); }
   .inner { max-inline-size: var(--wide); margin-inline: auto; display: grid; gap: calc(var(--space) * 1.1); }
-  .measure { max-inline-size: var(--measure); }
-  .intro { color: var(--ink-soft); max-inline-size: var(--measure); }
 
   .site-foot { padding: calc(var(--space) * 2) var(--gutter); font-size: var(--step--1); border-block-start: 1px solid var(--edge); }
   .foot-grid { max-inline-size: var(--wide); margin-inline: auto; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
   .foot-grid > div { display: grid; gap: 0.6rem; }
   .foot-links { display: grid; gap: 0.35rem; align-content: start; }
   .quiet { color: var(--ink-faint); }
+
+  .night-glass {
+    background:
+      radial-gradient(55rem 38rem at 80% -10%, oklch(45% 0.13 315 / 0.32), transparent 70%),
+      radial-gradient(40rem 30rem at -10% 50%, oklch(40% 0.09 255 / 0.22), transparent 70%),
+      var(--ground);
+  }
+
+  /* Hero: the text, then the example. The stepper comes first in the document, so keyboard and
+     screen reader reach its controls and heading before the card. On wide screens the stage
+     (graph and note card) is placed above it with a fixed height, so the controls never move
+     between phases. */
+  .hero {
+    display: grid; gap: 1.1rem; max-inline-size: var(--wide); margin-inline: auto;
+    padding: 1rem var(--gutter) 1.4rem; grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "text" "stepper" "stage";
+  }
+  .hero-text { grid-area: text; display: grid; gap: 1rem 3rem; align-items: end; }
+  .hero-text > div { display: grid; gap: 0.75rem; }
+  .hero-stage { grid-area: stage; display: grid; gap: 1rem 1.5rem; min-inline-size: 0; }
+  .hero-stepper { grid-area: stepper; display: grid; gap: 0.5rem; }
+  @media (min-width: 62rem) {
+    .hero { grid-template-areas: "text" "stage" "stepper"; }
+    .hero-text { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .hero-stage { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); block-size: clamp(22rem, 100svh - 31.75rem, 30rem); }
+  }
+
+  /* Build along: the steps on the left grow the graph on the right. */
+  .grow { display: grid; gap: var(--space); max-inline-size: var(--wide); margin-inline: auto; grid-template-columns: minmax(0, 1fr); }
+  .grow-graph { border-radius: 1rem; padding: 0.8rem; display: grid; gap: 0.5rem; }
+  @media (min-width: 62rem) {
+    .grow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .grow-graph { position: sticky; inset-block-start: calc(var(--head-h) + 1rem); align-self: start; }
+  }
+  /* Narrow screens: the growing graph stays in view above the steps. */
+  @media (max-width: 61.99rem) {
+    #build .grow-graph { order: -1; position: sticky; inset-block-start: calc(var(--head-h) + 2.6rem); z-index: 5; padding: 0.4rem; }
+    #build .grow-graph .graph { max-block-size: 28svh; }
+    #build .grow-caption { min-block-size: 0; margin: 0; }
+    #build .graph-legend { display: none; }
+  }
 }
 
 @layer components {
@@ -167,14 +201,143 @@
   .night .btn.primary { box-shadow: 0 0 2rem oklch(74% 0.13 315 / 0.35); }
   .btn.small { min-block-size: 2.1rem; padding: 0.2rem 0.8rem; font-size: var(--step--1); font-weight: 400; justify-self: start; }
   .btn:disabled { opacity: 0.4; cursor: default; }
-  .actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
-  .lead { font-size: var(--step-1); line-height: 1.5; color: var(--ink-soft); max-inline-size: 34rem; }
-  .eyebrowless { margin: 0; }
+  .lang, .pill {
+    padding: 0.3rem 0.85rem; border-radius: 999px; border: 1px solid var(--edge-hi); background: transparent;
+    color: var(--ink); text-decoration: none; font-size: var(--step--1); cursor: pointer; white-space: nowrap; min-block-size: 2.2rem; display: inline-flex; align-items: center;
+  }
+  .lang:hover, .pill:hover { border-color: var(--accent); }
+  @media (max-width: 47.99rem) { .head-actions .pill { display: none; } }
+  .lead { font-size: var(--step-1); line-height: 1.5; color: var(--ink-soft); max-inline-size: 36rem; }
+  .who { color: var(--ink-faint); max-inline-size: 34rem; }
+  .hero-aside { display: grid; gap: 0.7rem; justify-items: start; }
+  .hero-text h1 { font-size: clamp(2.1rem, 1.5rem + 2vw, 3rem); }
+  .hero-text .lead { font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem); max-inline-size: 40rem; }
 
+  /* The four parts of a vault as one line. */
+  .flow { display: flex; flex-wrap: wrap; gap: 0.3rem 0.4rem; align-items: baseline; color: var(--ink-soft); }
+  .flow li { white-space: nowrap; }
+  .flow li:not(:first-child)::before { content: "→"; margin-inline-end: 0.4rem; color: var(--accent); }
+  .flow strong { color: var(--ink); }
 
-  /* Graph. */
+  /* Hero focus graph: the notes of the example on fixed places. A state differs by outline
+     pattern and width as well as colour, and the decision note names its state in text. */
+  .hero-graph { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 0.4rem; min-block-size: 0; }
+  .focus-graph { inline-size: 100%; block-size: 100%; overflow: visible; }
+  .focus-graph .link { fill: none; stroke: color-mix(in oklch, var(--ink) 14%, transparent); stroke-width: 1.5; transition: stroke 0.3s, opacity 0.3s; }
+  .focus-graph .link[data-on="true"] { stroke: var(--accent); stroke-width: 2.5; }
+  .focus-graph .pill { cursor: pointer; outline: none; transition: opacity 0.3s; }
+  .focus-graph .pill rect { fill: var(--surface); stroke: var(--edge-hi); stroke-width: 1.5; transition: fill 0.3s, stroke 0.3s; }
+  .focus-graph .pill text { fill: var(--ink-faint); font-family: var(--font); font-size: 21px; }
+  .focus-graph .pill .badge { fill: var(--ink-soft); font-size: 17px; }
+  .focus-graph .pill[data-state]:not([data-state=""]) text { fill: var(--ink); }
+  .focus-graph .pill[data-state="read"] rect { stroke: var(--st-read); stroke-width: 2.5; }
+  .focus-graph .pill[data-state="asked"] rect { stroke: var(--st-found); stroke-width: 2.5; }
+  .focus-graph .pill[data-state="found"] rect { stroke: var(--ink-soft); stroke-width: 2; stroke-dasharray: 6 5; }
+  .focus-graph .pill[data-state="proposal"] rect { stroke: var(--st-proposal); stroke-width: 2.5; stroke-dasharray: 8 5; fill: color-mix(in oklch, var(--st-proposal) 12%, var(--surface)); }
+  .focus-graph .pill[data-state="checked"] rect { stroke: var(--st-read); stroke-width: 3.5; fill: color-mix(in oklch, var(--st-read) 14%, var(--surface)); }
+  .focus-graph .pill[data-state="accepted"] rect { stroke: var(--st-accepted); stroke-width: 3; fill: color-mix(in oklch, var(--st-accepted) 16%, var(--surface)); }
+  .focus-graph .pill[data-state="updated"] rect { stroke: var(--st-accepted); stroke-width: 2; }
+  .focus-graph .absent { opacity: 0; pointer-events: none; }
+  /* Hover and keyboard focus come after the states and outrank them, so a highlighted note
+     still shows that it has focus. */
+  .focus-graph .pill.pill:hover rect { stroke: var(--focus); }
+  .focus-graph .pill.pill:focus-visible rect { stroke: var(--focus); stroke-width: 4.5; stroke-dasharray: none; }
+  .focus-graph .pill.decision text:not(.badge) { font-weight: 600; }
+  .focus-legend { font-size: var(--step--1); color: var(--ink-faint); text-align: center; }
+  .focus-list { display: none; }
+  @media (max-width: 61.99rem) {
+    .hero-graph { grid-template-rows: auto; }
+    .focus-graph, .focus-legend { display: none; }
+    .focus-list { display: grid; gap: 0.3rem; font-size: var(--step--1); }
+    .focus-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem; color: var(--ink-soft); }
+    .focus-list .chip { margin: 0; }
+    .focus-list [data-state="proposal"] .chip, .focus-list [data-state="found"] .chip { border-style: dashed; }
+    .focus-list [data-state="accepted"] .chip, .focus-list [data-state="updated"] .chip { border-color: var(--st-accepted); }
+    .focus-list [data-state="read"] .chip, .focus-list [data-state="checked"] .chip { border-color: var(--st-read); }
+  }
+
+  /* Note card: what the decision note says in the current phase. On wide screens it shares the
+     stage's fixed height and scrolls on its own, keyboard included. */
+  .note-card {
+    min-block-size: 0; overflow-y: auto; display: grid; align-content: start; gap: 0.75rem;
+    padding: 1rem 1.2rem; border-radius: 0.9rem; border: 2px dashed var(--edge-hi); font-size: var(--step--1);
+    /* Scroll shadows: a soft edge appears at the top or bottom only while content lies beyond it. */
+    background:
+      linear-gradient(var(--surface) 30%, transparent) top / 100% 2.5rem no-repeat local,
+      linear-gradient(transparent, var(--surface) 70%) bottom / 100% 2.5rem no-repeat local,
+      radial-gradient(farthest-side at 50% 0, color-mix(in oklch, var(--accent) 55%, transparent), transparent) top / 100% 0.8rem no-repeat scroll,
+      radial-gradient(farthest-side at 50% 100%, color-mix(in oklch, var(--accent) 55%, transparent), transparent) bottom / 100% 0.8rem no-repeat scroll,
+      var(--surface);
+  }
+  .note-card[data-state="proposal"] { border-color: var(--st-proposal); }
+  .note-card[data-state="accepted"] { border-style: solid; border-color: var(--st-accepted); }
+  /* The state marker always sits on its own line, so the body never jumps between phases. */
+  .note-card header { display: grid; justify-items: start; gap: 0.3rem; }
+  .note-card h3 { font-size: var(--step-1); }
+  .note-card h4 { font-family: var(--display); font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+  .note-card p, .note-card li, .note-card dd { color: var(--ink-soft); }
+  .note-card .field { display: grid; gap: 0.3rem; }
+  .note-card ul { padding-inline-start: 1.1rem; list-style: disc; display: grid; gap: 0.35rem; }
+  .note-card ul.checked { list-style: none; padding-inline-start: 0; }
+  .note-card .tick { color: var(--st-accepted); font-weight: 700; }
+  .note-card .verdict { color: var(--ink); font-weight: 600; }
+  .note-card .compare { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 0.8rem; align-items: baseline; }
+  .note-card .compare dt { font-weight: 600; color: var(--ink); }
+  .marker { font-size: 0.78rem; font-weight: 600; padding: 0.05rem 0.6rem; border-radius: 999px; border: 1px solid var(--edge-hi); color: var(--ink-faint); white-space: nowrap; }
+  .marker.proposal { color: var(--st-proposal); border-color: var(--st-proposal); }
+  .marker.accepted { color: var(--st-accepted); border-color: var(--st-accepted); }
+  .marker.warn { color: var(--st-found); border-color: var(--st-found); }
+  .chip {
+    display: inline-flex; align-items: center; min-block-size: 1.6rem; margin: 0 0.15rem 0.25rem 0; padding: 0 0.6rem; border-radius: 999px;
+    border: 1px solid var(--edge-hi); background: transparent; color: var(--ink); font-size: 0.82rem; cursor: pointer; vertical-align: baseline;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .note-card p .chip, .note-card li .chip { margin: 0 0.1rem; min-block-size: 1.5rem; }
+  .nowrap { white-space: nowrap; }
+  .chip.faint { border-style: dashed; color: var(--ink-faint); }
+
+  /* Stepper: every phase named with its actor; done, current and next differ by mark and weight. */
+  .step-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+  .step-title { font-size: var(--step-0); font-weight: 600; }
+  .step-controls { display: flex; gap: 0.5rem; }
+  .steps-track { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .steps-track li { display: flex; }
+  .step {
+    inline-size: 100%; display: grid; justify-items: center; align-content: start; gap: 0.15rem; padding: 0.25rem 0.15rem;
+    background: none; border: 0; cursor: pointer; color: var(--ink-soft); position: relative; font-size: var(--step--1);
+  }
+  .step::before { content: ""; position: absolute; inset-block-start: 1.2rem; inset-inline: 0; block-size: 2px; background: var(--edge-hi); }
+  .steps-track li:first-child .step::before { inset-inline-start: 50%; }
+  .steps-track li:last-child .step::before { inset-inline-end: 50%; }
+  .step[data-state="done"]::before, .step[data-state="current"]::before { background: var(--accent); }
+  .step .dot {
+    position: relative; inline-size: 1.9rem; block-size: 1.9rem; border-radius: 50%; display: grid; place-items: center;
+    border: 2px solid var(--edge-hi); background: var(--ground); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums;
+  }
+  .step[data-state="done"] .dot { border-color: var(--accent); color: var(--accent); }
+  .step[data-state="done"] .dot span { display: none; }
+  .step[data-state="done"] .dot::after { content: "✓"; }
+  .step[data-state="current"] .dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 0 1rem oklch(74% 0.13 315 / 0.45); }
+  .step .name { text-align: center; line-height: 1.2; font-weight: 500; }
+  .step[data-state="current"] .name { color: var(--ink); font-weight: 700; }
+  .step[data-state="next"] .name { color: var(--ink-faint); }
+  .step .who { font-size: 0.72rem; color: var(--ink-faint); text-align: center; line-height: 1.2; }
+  .step:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 0.5rem; }
+  .step-status { display: none; }
+  .step-caption { color: var(--ink-soft); max-inline-size: 62rem; min-block-size: 3.2em; }
+  .step-caption strong { color: var(--ink); }
+  @media (max-width: 47.99rem) {
+    .step .name, .step .who { display: none; }
+    .step .dot { inline-size: 1.75rem; block-size: 1.75rem; }
+    .step::before { inset-block-start: 1.1rem; }
+    .step-status { display: block; font-weight: 600; color: var(--ink); }
+    .step-caption { min-block-size: 0; }
+  }
+
+  /* Build graph. */
   .graph { position: relative; inline-size: 100%; aspect-ratio: 1; max-block-size: calc(100svh - var(--head-h) - 5rem); margin-inline: auto; }
   .graph svg { inline-size: 100%; block-size: 100%; overflow: visible; }
+  .graph .vault-frame { fill: none; stroke: color-mix(in oklch, var(--ink) 22%, transparent); stroke-width: 0.3; stroke-dasharray: 1 1.2; }
   .graph .edge { stroke: color-mix(in oklch, var(--ink) 18%, transparent); stroke-width: 0.18; transition: stroke 0.25s, opacity 0.5s; }
   .graph .edge.sys { stroke: color-mix(in oklch, var(--ink) 7%, transparent); }
   /* Hidden wins over every dimming state, so a graph that grows shows only what exists. */
@@ -192,37 +355,20 @@
   .graph svg[data-hover] .node.near text, .graph .node.hot text { opacity: 1; fill: var(--ink); }
   .graph .node.hot .glow { opacity: 1; }
   .graph .node:focus-visible .body { stroke: var(--focus); stroke-width: 0.6; }
-
-  /* Episode states: each differs by outline, fill or stroke pattern, not by colour alone. */
-  .graph svg[data-playing] .node:not(.lit):not(.found):not(.proposal):not(.accepted):not(.updated):not(.checking):not(.focus) { opacity: 0.32; }
+  .graph svg[data-playing] .node:not(.lit):not(.proposal):not(.focus) { opacity: 0.32; }
   .graph svg[data-playing] .edge { opacity: 0.4; }
   .graph .node.lit .body, .graph .node.lit .glow, .graph .node.focus .glow { opacity: 1; }
-  .graph .node.lit text, .graph .node.found text, .graph .node.proposal text, .graph .node.accepted text, .graph .node.updated text, .graph .node.checking text { opacity: 1; fill: var(--ink); }
-  .graph .node.found .body { stroke: var(--st-found); stroke-width: 0.6; stroke-dasharray: 0.8 0.5; }
+  .graph .node.lit text, .graph .node.proposal text { opacity: 1; fill: var(--ink); }
   .graph .node.proposal .body { fill: transparent !important; stroke: var(--st-proposal); stroke-width: 0.6; stroke-dasharray: 0.9 0.6; }
   .graph .node.proposal .shine, .graph .node.proposal .glow { opacity: 0; }
-  .graph .node.accepted .body { stroke: var(--st-accepted); stroke-width: 0.7; }
-  .graph .node.accepted .glow { opacity: 1; }
-  .graph .node.updated .body { stroke: var(--st-accepted); stroke-width: 0.6; }
-  .graph .node.checking .body { stroke: var(--st-read); stroke-width: 0.7; }
-  .graph .edge.proposal-edge { stroke: var(--st-proposal); stroke-dasharray: 0.8 0.6; stroke-width: 0.3; opacity: 1; }
-  .graph .trail { fill: none; stroke: var(--accent-hi); stroke-width: 0.45; stroke-linecap: round; opacity: 0.9; }
-  .graph .pulse { fill: none; stroke: var(--st-accepted); stroke-width: 0.35; }
-  .graph .question-line { stroke: var(--st-found); stroke-width: 0.25; stroke-dasharray: 0.6 0.6; }
-  .graph .marker rect, .graph .marker circle { fill: var(--surface); stroke: var(--edge-hi); stroke-width: 0.2; }
-  .graph .marker text { fill: var(--ink); font-size: 2.3px; font-family: var(--font); font-weight: 600; }
-  .graph .marker.question circle { fill: var(--st-found); stroke: none; }
-  .graph .marker.question text { fill: oklch(20% 0.04 271); font-size: 3.4px; font-weight: 700; }
-  .graph .marker.gate rect { fill: var(--st-proposal); stroke: none; }
-  .graph .marker.gate text { fill: oklch(20% 0.04 271); }
-  .graph .marker.transfer rect { fill: var(--st-read); stroke: none; }
-  .graph .marker.transfer text { fill: oklch(20% 0.04 271); }
-
+  /* Overlapping labels are hidden by priority and return on hover or focus. */
+  .graph .node.label-hidden text { opacity: 0 !important; }
+  .graph .node.label-hidden:hover text, .graph .node.label-hidden:focus-visible text { opacity: 1 !important; }
   .graph-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem 1rem; font-size: var(--step--1); color: var(--ink-faint); }
   .graph-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
   .graph-legend i { inline-size: 0.65rem; block-size: 0.65rem; border-radius: 50%; display: inline-block; }
   .graph-legend i.hex { border-radius: 0; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-  .badge-note { font-size: var(--step--1); color: var(--ink-faint); text-align: center; }
+  .grow-caption { text-align: center; font-size: var(--step--1); color: var(--ink-soft); min-block-size: 2em; }
 
   .node-card {
     position: fixed; z-index: 25; max-inline-size: 18rem; pointer-events: none; padding: 0.6rem 0.8rem; border-radius: 0.6rem;
@@ -232,26 +378,43 @@
   .node-card span { color: oklch(76% 0.03 271); }
   .node-card[hidden] { display: none; }
 
-  /* Episode stepper. */
-  .stepper-box { display: grid; gap: 0.8rem; align-content: start; align-self: start; }
-  .phase-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: 0.35rem; counter-reset: phase; }
-  .phase-list li { counter-increment: phase; }
-  .btn.phase { inline-size: 100%; border-radius: 0.6rem; flex-direction: column; align-items: flex-start; gap: 0.1rem; padding: 0.5rem 0.7rem; font-weight: 600; text-align: start; background: var(--surface); }
-  .btn.phase span:first-child::before { content: counter(phase) " "; color: var(--accent); }
-  .btn.phase[aria-current="step"] { border-color: var(--accent); background: color-mix(in oklch, var(--accent) 16%, var(--surface)); }
-  .actor { font-size: 0.72rem; font-weight: 400; color: var(--ink-faint); }
-  .actor.you::before, .actor.both::before { content: "\25CF "; color: var(--st-proposal); }
-  .actor.agent::before { content: "\25C6 "; color: var(--st-read); }
-  .phase-caption { min-block-size: 4.8em; color: var(--ink-soft); max-inline-size: var(--measure); }
-  .phase-caption strong { color: var(--ink); }
-  .phase-controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-  .phase-count { color: var(--ink-faint); font-size: var(--step--1); }
+  /* Build: one track per step. */
+  .tools { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: var(--step--1); color: var(--ink-soft); max-inline-size: var(--measure); }
+  .tools-label { font-weight: 600; color: var(--ink); }
+  .tool a { font-weight: 600; }
+  .steps { display: grid; gap: 0; counter-reset: step; max-inline-size: var(--measure); }
+  .steps > li { counter-increment: step; display: grid; gap: 0.45rem; padding: 1.1rem 0 1.3rem 1rem; border-inline-start: 3px solid var(--edge); transition: border-color 0.3s; }
+  .steps > li.current { border-inline-start-color: var(--accent); }
+  .steps h3 { font-size: var(--step-1); }
+  .steps h3::before { content: counter(step) "  "; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .steps p { color: var(--ink-soft); }
+  .step-links { display: flex; gap: 1rem; font-size: var(--step--1); }
+  .prompt-box { display: grid; gap: 0.35rem; justify-items: start; }
+  .prompt { inline-size: 100%; background: var(--ground-alt); border: 1px solid var(--edge); padding: 0.7rem 0.9rem; border-radius: 0.6rem; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.84rem; }
 
-  /* Reference. */
+  /* Good to know: two calm columns of sentences. */
+  .columns { display: grid; gap: var(--space) calc(var(--space) * 2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+  .columns h3 { margin-block-end: 0.6rem; }
+  .plain { display: grid; gap: 0.7rem; color: var(--ink-soft); }
+  .plain a { font-size: var(--step--1); }
+
+  /* Reference: one folded, annotated file tree and short paragraphs. */
   .file-link { font: inherit; font-family: var(--mono); font-size: 0.92em; color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; text-align: start; }
-
-  /* Build steps. */
-  .prompt { background: var(--ground-alt); border: 1px solid var(--edge); padding: 0.7rem 0.9rem; border-radius: 0.6rem; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.84rem; }
+  details.reference { display: grid; gap: var(--space); }
+  details.reference > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; padding-block: 0.6rem; }
+  details.reference > summary::-webkit-details-marker { display: none; }
+  details.reference > summary::after { content: "+"; margin-inline-start: auto; font-size: var(--step-2); line-height: 1; color: var(--accent); transition: transform 0.2s; }
+  details.reference[open] > summary::after { transform: rotate(45deg); }
+  .summary-title { font-family: var(--display); font-weight: 700; font-size: var(--step-2); }
+  .summary-sub { color: var(--ink-soft); }
+  .ref-body { display: grid; gap: var(--space) calc(var(--space) * 2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); margin-block-start: var(--space); }
+  .tree { display: grid; gap: 0.15rem; font-size: var(--step--1); }
+  .tree li { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1rem; }
+  .tree code, .tree .file-link { font-family: var(--mono); font-size: 0.85rem; }
+  .tree span { color: var(--ink-soft); }
+  @media (max-width: 30rem) { .tree li { grid-template-columns: minmax(0, 1fr); gap: 0; margin-block-end: 0.3rem; } }
+  .ref-notes { display: grid; gap: 0.8rem; color: var(--ink-soft); font-size: var(--step--1); align-content: start; }
+  .ref-notes strong { color: var(--ink); }
 
   /* Reading panel. */
   .panel {
@@ -282,117 +445,19 @@
   .frontmatter dt { color: var(--ink-faint); }
   .load-error { padding: 1rem var(--gutter); color: var(--g-check); }
 
-  @media (prefers-reduced-motion: reduce) { .graph *, .steps > li { transition: none !important; } }
-}
+  @media (prefers-reduced-motion: reduce) { .graph *, .focus-graph *, .steps > li { transition: none !important; } }
 
-@layer variants {
-  /* Shared hero geometry: text left, graph right, stacked on narrow screens. */
-  .hero { display: grid; gap: var(--space); align-items: center; max-inline-size: var(--wide); margin-inline: auto; padding: calc(var(--space) * 1.5) var(--gutter) calc(var(--space) * 2); grid-template-columns: minmax(0, 1fr); }
-  @media (min-width: 62rem) { .hero { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); min-block-size: calc(100svh - var(--head-h)); } }
-  .hero-text { display: grid; gap: 1.2rem; align-content: center; }
-  .night-glass {
-    background:
-      radial-gradient(55rem 38rem at 80% -10%, oklch(45% 0.13 315 / 0.32), transparent 70%),
-      radial-gradient(40rem 30rem at -10% 50%, oklch(40% 0.09 255 / 0.22), transparent 70%),
-      var(--ground);
+  /* Short wide screens such as a projector at 1280 by 720: smaller type, so the example and its
+     controls still fit one screen. The card then scrolls in its longest phases. */
+  @media (min-width: 62rem) and (max-height: 52rem) {
+    .hero.hero { padding-block: 0.6rem 0.8rem; gap: 0.8rem; }
+    .hero-text h1 { font-size: 2.3rem; }
+    .hero-text .lead, .who, .flow { font-size: var(--step--1); }
+    .hero-stage.hero-stage { block-size: max(16rem, 100svh - 27rem); }
+    .step .who { display: none; }
   }
-
-  /* Build along: the steps on the left grow the graph on the right. */
-  .grow { display: grid; gap: var(--space); max-inline-size: var(--wide); margin-inline: auto; grid-template-columns: minmax(0, 1fr); }
-  @media (min-width: 62rem) {
-    .grow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-    .grow-graph { position: sticky; inset-block-start: calc(var(--head-h) + 1rem); align-self: start; }
-  }
-  .grow-graph { border-radius: 1rem; padding: 0.8rem; display: grid; gap: 0.5rem; }
-  .grow-count { text-align: center; font-size: var(--step--1); color: var(--ink-faint); }
 }
 
 @layer utilities {
   .visually-hidden { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-}
-
-@layer variants {
-  @media (max-width: 47.99rem) {
-    .head-actions .pill { display: none; }
-  }
-  /* Narrow screens: the growing graph stays in view above the steps. */
-  @media (max-width: 61.99rem) {
-    #build .grow-graph { order: -1; position: sticky; inset-block-start: calc(var(--head-h) + 2.6rem); z-index: 5; padding: 0.4rem; }
-    #build .grow-graph .graph { max-block-size: 28svh; }
-    #build .grow-caption { min-block-size: 0; margin: 0; }
-  }
-}
-
-@layer components {
-  .who { color: var(--ink-faint); max-inline-size: 34rem; }
-  .graph-hint { text-align: center; font-size: var(--step--1); color: var(--ink-faint); margin-block-start: 0.3rem; }
-  .graph .vault-frame { fill: none; stroke: color-mix(in oklch, var(--ink) 22%, transparent); stroke-width: 0.3; stroke-dasharray: 1 1.2; }
-
-
-  /* Build: one track per step. */
-  .tools { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: var(--step--1); color: var(--ink-soft); max-inline-size: var(--measure); }
-  .tools-label { font-weight: 600; color: var(--ink); }
-  .tool a { font-weight: 600; }
-  .steps { display: grid; gap: 0; counter-reset: step; max-inline-size: var(--measure); }
-  .steps > li { counter-increment: step; display: grid; gap: 0.45rem; padding: 1.1rem 0 1.3rem 1rem; border-inline-start: 3px solid var(--edge); transition: border-color 0.3s; }
-  .steps > li.current { border-inline-start-color: var(--accent); }
-  .steps h3 { font-size: var(--step-1); }
-  .steps h3::before { content: counter(step) "  "; color: var(--accent); font-variant-numeric: tabular-nums; }
-  .steps p { color: var(--ink-soft); }
-  .step-links { display: flex; gap: 1rem; font-size: var(--step--1); }
-  .prompt-box { display: grid; gap: 0.35rem; justify-items: start; }
-  .prompt { inline-size: 100%; }
-  .grow-caption { text-align: center; font-size: var(--step--1); color: var(--ink-soft); min-block-size: 2em; }
-
-
-  .phase-example { display: block; margin-block-start: 0.5rem; padding: 0.5rem 0.75rem; border-inline-start: 3px solid var(--accent); background: var(--sheen); color: var(--ink); border-radius: 0.3rem; }
-
-  details.reference { display: grid; gap: var(--space); }
-  details.reference > summary { cursor: pointer; list-style: none; display: grid; gap: 0.2rem; padding-block: 0.6rem; border-block-end: 1px solid var(--edge-hi); }
-  details.reference > summary::-webkit-details-marker { display: none; }
-  details.reference[open] > summary::before { transform: rotate(45deg); }
-  .summary-title { font-family: var(--display); font-weight: 700; font-size: var(--step-2); }
-  .summary-sub { color: var(--ink-soft); }
-}
-
-@layer components {
-  /* Hero: the four parts of a vault as one line, and the episode under the graph. */
-  .flow { display: flex; flex-wrap: wrap; gap: 0.3rem 0.4rem; align-items: baseline; color: var(--ink-soft); }
-  .flow li { white-space: nowrap; }
-  .flow li:not(:last-child)::after { content: "→"; margin-inline-start: 0.5rem; color: var(--accent); }
-  .flow strong { color: var(--ink); }
-  #episode-stepper { margin-block-end: 0.6rem; }
-  /* The hero graph leaves room for the episode controls on the first screen. */
-  .hero .graph { max-block-size: calc(100svh - var(--head-h) - 13rem); }
-  .phase-title { font-family: var(--display); font-weight: 600; color: var(--ink); }
-  .phase-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-  .btn.phase { inline-size: 2.4rem; min-block-size: 2.4rem; padding: 0; justify-content: center; border-radius: 999px; background: var(--surface); }
-  .btn.phase[data-actor="you"] { border-color: var(--st-proposal); }
-  .btn.phase[aria-current="step"] { background: var(--accent); color: var(--on-accent); border-color: transparent; }
-  .phase-caption { min-block-size: 0; }
-  .phase-caption:empty { display: none; }
-
-  /* Good to know: two calm columns of sentences. */
-  .columns { display: grid; gap: var(--space) calc(var(--space) * 2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
-  .columns h3 { margin-block-end: 0.6rem; }
-  .plain { display: grid; gap: 0.7rem; color: var(--ink-soft); }
-  .plain a { font-size: var(--step--1); }
-
-  /* Reference: one annotated file tree and three short paragraphs. */
-  details.reference > summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; border-block-end: 0; }
-  details.reference > summary::after { content: "+"; margin-inline-start: auto; font-size: var(--step-2); line-height: 1; color: var(--accent); transition: transform 0.2s; }
-  details.reference[open] > summary::after { transform: rotate(45deg); }
-  .ref-body { display: grid; gap: var(--space) calc(var(--space) * 2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); margin-block-start: var(--space); }
-  .tree { display: grid; gap: 0.15rem; font-size: var(--step--1); }
-  .tree li { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1rem; }
-  .tree code, .tree .file-link { font-family: var(--mono); font-size: 0.85rem; }
-  .tree span { color: var(--ink-soft); }
-  @media (max-width: 30rem) { .tree li { grid-template-columns: minmax(0, 1fr); gap: 0; margin-block-end: 0.3rem; } }
-  .ref-notes { display: grid; gap: 0.8rem; color: var(--ink-soft); font-size: var(--step--1); align-content: start; }
-  .ref-notes strong { color: var(--ink); }
-}
-
-@layer components {
-  .graph .node.label-hidden text { opacity: 0 !important; }
-  .graph .node.label-hidden:hover text, .graph .node.label-hidden:focus-visible text { opacity: 1 !important; }
 }

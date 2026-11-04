@@ -4,8 +4,8 @@
 // and a reference at the end.
 
 import { currentLang, rememberLang, TEXT } from "./content.js";
-import { createStepper, phaseStates, resolver } from "./episode.js";
 import { createGraph } from "./graph.js";
+import { initHero } from "./hero.js";
 import { initPanel, openFile } from "./panel.js";
 
 const REPO = "https://github.com/chpollin/second-brain-vault";
@@ -96,17 +96,13 @@ function renderFooter(t) {
   );
 }
 
-function renderHero(t, onPlay) {
-  const play = h("button", { type: "button", class: "btn primary", text: t.hero.watch });
-  play.addEventListener("click", onPlay);
+function renderHero(t) {
   document.getElementById("hero-text").replaceChildren(
-    h("h1", { text: t.hero.title }),
-    h("p", { class: "lead", text: t.hero.lead }),
-    h("ol", { class: "flow" }, ...t.hero.flow.map(([name, role]) => h("li", {}, h("strong", { text: name }), " ", role))),
-    h("p", { class: "who", text: t.hero.who }),
-    h("p", { class: "actions" }, play, h("a", { class: "btn", href: "#build", text: t.hero.build })),
+    h("div", {}, h("h1", { text: t.hero.title }), h("p", { class: "lead", text: t.hero.lead })),
+    h("div", { class: "hero-aside" },
+      h("ol", { class: "flow" }, ...t.hero.flow.map(([name, role]) => h("li", {}, h("strong", { text: name }), " ", role))),
+      h("p", { class: "who" }, t.hero.who, " ", h("a", { href: "#build", text: t.hero.build }))),
   );
-  document.getElementById("hero-hint").textContent = t.hero.hint;
 }
 
 function copyButton(t, value) {
@@ -221,6 +217,7 @@ function legend(host, t) {
 
 function initGrowth(t, graph, proposal, options, steps) {
   const api = createGraph(document.getElementById("grow-graph"), graph, { ...options, frame: true });
+  legend(document.getElementById("grow-legend"), t);
   const caption = document.getElementById("grow-caption");
   const ofGroups = (groups) => graph.nodes.filter((node) => groups.includes(node.group) && node.id !== proposal).map((node) => node.id);
   let current = -1;
@@ -253,11 +250,7 @@ async function main() {
   document.documentElement.lang = lang;
   renderHeader(t, lang);
   renderFooter(t);
-  let stepper = null;
-  renderHero(t, () => {
-    stepper?.start(true);
-    document.getElementById("hero-graph").scrollIntoView({ block: "nearest" });
-  });
+  renderHero(t);
   renderNotes(t);
   const steps = renderBuild(t);
   initNavState();
@@ -277,15 +270,9 @@ async function main() {
   initPanel(data, t);
   renderReference(t, data);
 
-  const resolve = resolver(graph, data);
-  const states = phaseStates(episode, resolve);
-  const proposal = resolve(episode.phases.find((phase) => phase.proposal).proposal);
+  const proposal = graph.stems[episode.decision];
   const options = { text: t, describe: describer(data, graph, t), onOpen: openFile };
-
-  // The hero graph shows the finished vault and plays the episode; system labels stay quiet.
-  const heroApi = createGraph(document.getElementById("hero-graph"), graph, { ...options, labels: "knowledge" });
-  legend(document.getElementById("hero-legend"), t);
-  stepper = createStepper(document.getElementById("episode-stepper"), episode, states, heroApi, t);
+  initHero({ episode, graph, text: t, onOpen: openFile });
   initGrowth(t, graph, proposal, options, steps);
 
   if (location.hash && !location.hash.startsWith("#datei=")) document.querySelector(location.hash)?.scrollIntoView();

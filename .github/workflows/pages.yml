@@ -34,11 +34,8 @@ jobs:
           python -m pytest -q
           python -m ruff check .
           python -m ruff format --check .
-          node --test tests/test_markdown_links.mjs
+          node --test tests/test_markdown_links.mjs tests/test_hero_layout.mjs
           for file in docs/*.js; do node --check "$file"; done
-      # The hero variants in docs/lab are a working state for local comparison and stay unserved.
-      - name: Remove working states from the artifact
-        run: rm -rf docs/lab
       - uses: actions/upload-pages-artifact@v4
         with:
           path: docs
