@@ -4,7 +4,7 @@ Second Brain connects a maintained personal research vault with the knowledge he
 
 This repository provides a reusable Obsidian vault template for that arrangement. It contains synthetic example notes, executable skills, document conventions and structural checks. Open it in Obsidian and adapt it to your own domains and projects. The source owner's research corpus and personal Research Persona remain unpublished.
 
-The [work and knowledge demo](https://chpollin.github.io/second-brain-vault/demo/) presents the template through the Second Brain interface, with project questions, documented contributions, an expandable knowledge map and complete source texts. The [structure explorer](https://chpollin.github.io/second-brain-vault/) lets you inspect the template and follow the reading sequences required by its rules. Both are generated from this repository. The [demo contract](knowledge/interface-demo.md) explains source preservation and the limits of browser-local responses.
+The [method page](https://chpollin.github.io/second-brain-vault/) explains the approach for readers without prior knowledge, in English and in German with `?lang=de`. It shows a graph of an example vault, builds a vault in seven steps with prompts to copy, walks through one episode of use and states what happens with your data. Its design is described in [design](knowledge/design.md).
 
 ## Knowledge, procedures and dialogue
 
@@ -14,7 +14,7 @@ The [work and knowledge demo](https://chpollin.github.io/second-brain-vault/demo
 | Project repositories | Substantive project knowledge beside data and implementation | A repository directory, Project Overview convention and `project-knowledge` procedure |
 | Executable skills | Procedures that select, inspect and maintain relevant knowledge | Skills under `.claude/skills/`, registered in `VAULT-OPERATIONS.md` |
 | Conversation | A question, source-based reasoning, proposed changes and personal feedback | Rules for agent work and optional persona initialisation, used in an available agent host |
-| User interfaces | Inspectable views of selected documents or results | A work and knowledge demo and a structure explorer of the public template |
+| User interfaces | Inspectable views of selected documents or results | A public method page with a graph of the template and a synthetic example domain |
 
 The vault and repository knowledge form a linked documentary structure. Agents follow explicit references and read the sources needed for the question. The template implements no automatic retrieval across repositories. A skill describes how to act and reads substantive knowledge from its maintained location. Its execution depends on the tools and access available in the actual agent host.
 
@@ -68,10 +68,10 @@ Explicit statements remain confirmed within their scope. Inferred personal claim
 The procedure uses [Template Research Persona](Vault%20Operations/Templates/Template%20Research%20Persona.md).
 The default output is `.local/persona/Research Persona.md`. It contains a readable profile,
 the co-researcher and interview modes, source provenance and remaining questions. `.local/`
-is excluded from Git, the regular vault check and the public explorer. The agent checks the
+is excluded from Git, the regular vault check and the public site. The agent checks the
 saved profile separately. Obsidian normally hides dot-folders. In a private working vault
 you can ask the agent to move it to a visible note and add navigation. Do not do this in a
-copy used to publish the explorer, which includes ordinary vault notes.
+copy used to publish the site, which includes ordinary vault notes.
 
 For a first trial, provide an actual question and say:
 
@@ -166,21 +166,22 @@ second-brain-vault/
 ├── scripts/
 │   ├── check_vault.py         hard and measured rules
 │   ├── render_agents_md.py    generates AGENTS.md
-│   ├── build_site.py          generates docs/data.json for the explorer
+│   ├── build_site.py          generates docs/data.json, the template files for the site
+│   ├── build_graph.py         generates docs/graph.json, the graph and its layouts
 │   └── hooks/pre-commit       rejects a commit that violates a hard rule
 │
-├── docs/                      static explorer of this folder, servable by GitHub Pages
+├── docs/                      the method page with a synthetic example domain, served by GitHub Pages
 ├── tests/                     tests of the check script and of the generator
 └── knowledge/                purpose, requirements, integration and maintenance history
 ```
 
 The skills and what each is for stand in the skill register of `VAULT-OPERATIONS.md`, the conventions in the convention index of `CLAUDE.md`. The check script reports a skill or a convention that exists on disk and is missing from its register.
 
-`docs/` shows the file tree by the way each file reaches an agent, renders files and traces which files a task requires. It reads `docs/data.json`, which `scripts/build_site.py` derives from the real files. This generated file is ignored by Git. Run `python scripts/build_site.py` after a template change and before checks, a commit or local preview. The checker reports missing or stale explorer data as a hard finding, as it does for stale generated `AGENTS.md` instructions.
+`docs/` is the method page. It reads `docs/data.json`, which `scripts/build_site.py` derives from the template files, and `docs/graph.json`, which `scripts/build_graph.py` derives from those files and the synthetic notes under `docs/example/`. Both generated files are ignored by Git. Run both scripts after a template change and before checks, a commit or local preview. The checker reports missing or stale site data as a hard finding, as it does for stale generated `AGENTS.md` instructions. The site never serves `knowledge/`, which `tests/test_site_privacy.py` guards.
 
-The repository distributes the explorer source and the reviewed demo core. `.github/workflows/pages.yml` builds their data, runs the checks and deploys `docs/` as a Pages artifact on pushes to `main` and manual runs. Set the repository's Pages source to GitHub Actions to use this workflow. Deployment does not commit generated data.
+`.github/workflows/pages.yml` builds the site data, runs the checks and deploys `docs/` as a Pages artifact on pushes to `main` and manual runs. Set the repository's Pages source to GitHub Actions to use this workflow. Deployment does not commit generated data.
 
-For local preview, run `python scripts/build_site.py` and `python scripts/build_demo.py`, then `python -m http.server --directory docs` from the repository root. Open `http://localhost:8000/demo/` for the work and knowledge interface or `http://localhost:8000` for the structure explorer. The demo reads only tracked public template notes. Its [maintenance contract](knowledge/interface-demo.md) describes how the generic UI core is refreshed. Browser modules require HTTP rather than `file://`. To remove the explorer, follow the dependency checks in [Start smaller](#start-smaller).
+For local preview, run `python scripts/build_site.py` and `python scripts/build_graph.py`, then `python -m http.server --directory docs` from the repository root and open `http://localhost:8000`, adding `?lang=de` for German. Browser modules require HTTP rather than `file://`. To remove the page, follow the dependency checks in [Start smaller](#start-smaller).
 
 ## Make it your own
 

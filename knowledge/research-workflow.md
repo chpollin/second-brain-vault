@@ -72,7 +72,7 @@ The design discussion favoured a compact project overview with direct access to 
 
 A completion mark needs an explicit meaning. A response can be recorded before an agent processes it, and processing can produce a proposed revision before that revision is authorized and verified. These distinctions should remain inspectable without introducing a required confirmation for every routine operation. Rejected contributions and useful answers requiring no revision also need a clear disposition.
 
-The public template's explorer displays prescribed reading sequences. The operational work interface is a separate component. The requirements above describe the intended connection between work and maintained knowledge and do not establish its complete implementation.
+The public [method page](design.md) illustrates one episode with synthetic notes. The operational work interface is a separate component. The requirements above describe the intended connection between work and maintained knowledge and do not establish its complete implementation.
 
 ## Lessons from the development session
 

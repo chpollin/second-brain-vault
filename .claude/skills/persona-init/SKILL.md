@@ -30,7 +30,7 @@ If a source cannot be read, report the specific gap. A path or citation in a not
 - A persona is a profile and working agreement. The actual agent environment provides skills and tools. Read `VAULT-OPERATIONS.md` before naming available skills and describe their actual scope.
 - Keep facts, personal confirmation and technical verification separate. A positive model judgement cannot confirm an unconfirmed simulation.
 - Store general research knowledge in its existing concept or project note. Keep only personal relevance and links in the profile.
-- Do not scan the whole vault, copy private source collections or publish generated personal output. `.local/` is excluded from Git and from the template's explorer. It does not prevent an explicitly configured external model from receiving selected context.
+- Do not scan the whole vault, copy private source collections or publish generated personal output. `.local/` is excluded from Git and from the template's public site. It does not prevent an explicitly configured external model from receiving selected context.
 
 ## Verification
 
@@ -42,7 +42,7 @@ The default local output is excluded from the public template checks. Inspect it
 python scripts/check_vault.py
 ```
 
-Do not regenerate or publish a public explorer containing personal material. The reusable behavioural cases are in [evals/test-cases.md](evals/test-cases.md). Expected outcomes are not test results.
+Do not regenerate or publish a public site containing personal material. The reusable behavioural cases are in [evals/test-cases.md](evals/test-cases.md). Expected outcomes are not test results.
 
 ## Output
 

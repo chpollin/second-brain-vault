@@ -8,7 +8,7 @@ query-topics: [template-research-persona, personal-profile, co-researcher, inter
 
 # Template Research Persona
 
-The skill `persona-init` adapts this structure in the owner's language. This is an empty form, with no personal claims. By default the resulting file lives at `.local/persona/Research Persona.md`, outside Git and the generated explorer. Do not fill this distributable template with the owner's information.
+The skill `persona-init` adapts this structure in the owner's language. This is an empty form, with no personal claims. By default the resulting file lives at `.local/persona/Research Persona.md`, outside Git and the generated site. Do not fill this distributable template with the owner's information.
 
 Use valid frontmatter from [[Convention Frontmatter Field Profiles]], with `type: knowledge`, `status: draft`, the actual creation date and registered tags. Set the copied title to `Research Persona`. Document maturity and the owner's confirmation of individual claims are separate.
 

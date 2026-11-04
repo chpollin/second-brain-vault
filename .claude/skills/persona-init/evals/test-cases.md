@@ -20,4 +20,4 @@ The owner says "I haven't read that. Give me the whole text so I can listen." Th
 
 ## Save and resume
 
-In a disposable copy, provide synthetic owner statements and explicitly request a saved draft. The resulting file is `.local/persona/Research Persona.md`, not the template. Run the public explorer generator and verify the file and a unique synthetic identity marker are absent from `docs/data.json`. Resume with one changed interest and check that the existing profile is revised without resetting prior confirmation. No publication is performed.
+In a disposable copy, provide synthetic owner statements and explicitly request a saved draft. The resulting file is `.local/persona/Research Persona.md`, not the template. Run the site data generator and verify the file and a unique synthetic identity marker are absent from `docs/data.json`. Resume with one changed interest and check that the existing profile is revised without resetting prior confirmation. No publication is performed.

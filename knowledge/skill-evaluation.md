@@ -70,7 +70,7 @@ The coordinating agent checked the component claims against [Integration](integr
 - An explicit operational update order no longer requires a second confirmation. Unanswered substantive decisions remain open.
 - The English connector example uses two complete sentences, and the delivery rule permits its short verification note outside the deliverable.
 - The knowledge skill no longer points to a nonexistent mass-retag pattern.
-- Knowledge repairs and audit repairs account for the generated explorer before final verification. Read-only runs do not regenerate it.
+- Knowledge repairs and audit repairs account for the generated site data before final verification. Read-only runs do not regenerate it.
 - Six missing evaluation specifications were added. The knowledge cases now distinguish the original protected fixtures from disposable deletion trials and no longer invent a past session or a verified bibliographic source.
 
 ## Paper and workflow development trials

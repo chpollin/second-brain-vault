@@ -74,7 +74,7 @@ python scripts/check_vault.py --fixtures
 
 The check decides the required frontmatter core, the closed vocabularies, registered tags, the first heading against the filename, the number of tags, the sections and sources of a concept note, links, anchors and reachability. It decides neither the field profile table beyond the required core, nor style, nor factual correctness, nor whether a restatement is current. The first command skips the fixture folder and the second checks only that folder, and `--integrity` and `--hard` narrow either run. Exit code 0 also stands with measured findings, 1 on a hard violation, 2 on a configuration error, so exit code 0 does not mean a clean area. Read the findings of the changed area and name them, and make sure the run covers the folder that was touched, because a check that skips a folder proves nothing about it. Run the self-check of the `writing-style` skill against every changed prose passage and state that it ran. Check agent self-reports against the real file state before adopting anything.
 
-After an authorized edit, if the template's generated explorer is present, run `python scripts/build_site.py` before the closing check. A read-only run reports stale generated data without rewriting it. Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
+After an authorized edit, if the template's generated site data is present, run `python scripts/build_site.py` and `python scripts/build_graph.py` before the closing check. A read-only run reports stale generated data without rewriting it. Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
 
 ## Output
 

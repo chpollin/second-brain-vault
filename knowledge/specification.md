@@ -13,17 +13,17 @@ The template must support a person and an available AI agent in maintaining rese
 | Optional personal profile | Neutral persona template and `persona-init` | Derive an inspectable profile through source reading and dialogue, with personal claims distinguished from inference |
 | Structural checks | `scripts/check_vault.py`, generator, commit hook and tests | Check decidable requirements and report measured findings for judgement |
 | Synthetic test material | `Vault Operations/Fixtures/` and skill `evals/` | Preserve registered defects and expected behaviour for bounded trials |
-| Public structure explorer | `docs/` and `scripts/build_site.py` | Derive displayed files, links and prescribed reading sequences from the template |
+| Public method page | `docs/`, `scripts/build_site.py` and `scripts/build_graph.py` | Explain the approach in English and German from the template files and a synthetic example domain, without serving `knowledge/` |
 | Research procedure | [Evaluation](evaluation.md) and [episode template](episode-template.md) | Preserve the sources, interventions and outcomes of an observed episode, with missing stages explicit |
 
-The repository distributes explorer source. Its generated `docs/data.json` is ignored and is built locally before checks or preview. The Pages workflow builds it from the published source, runs structural checks, Python tests, Ruff checks and Node.js link tests, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
+The repository distributes the method page. Its generated `docs/data.json` and `docs/graph.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks and Node.js link tests, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
 
 Skills are executable procedures when an agent reads and follows them. A skill file alone installs no runtime, account connection or tool. The actual host determines which operations are available.
 
 ## Design constraints
 
 - Each statement has one maintained location. Changes require inspection of inbound references and correction of stale restatements.
-- Personal content stays outside the public template. Persona output defaults to `.local/`, excluded from Git and the explorer. The original personal Research Persona remains unpublished.
+- Personal content stays outside the public template. Persona output defaults to `.local/`, excluded from Git and the site. The original personal Research Persona remains unpublished.
 - The template uses English, including ACTIVE-WORK field names. Derivation from a differently named source schema requires explicit mapping.
 - The checker reads rule values from their maintained documents and aborts when a required source is missing. Hard rules reject a commit, measured rules report findings, and heuristic rules require judgement.
 - Fixtures stay outside regular checks and run explicitly. Their expected defects remain part of the test contract.
@@ -37,13 +37,14 @@ Run the following after a template change:
 ```powershell
 python scripts/render_agents_md.py
 python scripts/build_site.py
+python scripts/build_graph.py
 python scripts/check_vault.py
 python -m pytest -q
 python -m ruff check .
 python -m ruff format --check .
-node --test tests/test_explorer_links.mjs
+node --test tests/test_markdown_links.mjs
 ```
 
-Explorer development requires Node.js for the link regression tests. The published explorer runs in the browser without Node.js.
+Page development requires Node.js for the link regression tests. The published page runs in the browser without Node.js.
 
 Inspect measured findings even when the command exits successfully. The checker covers links, anchors and reachability, with no counterpart here to the larger audit engine of the personal source vault. Skill case results remain in [skill evaluation](skill-evaluation.md). These checks do not evaluate conversational quality or the scholarly validity of a new research claim.
