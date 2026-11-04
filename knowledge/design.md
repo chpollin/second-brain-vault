@@ -1,18 +1,17 @@
 # Design
 
-The public site at <https://chpollin.github.io/second-brain-vault/> explains Second Brain to readers without prior knowledge of Obsidian, Git or coding agents, in English by default and in German with `?lang=de`. It should let such a reader say what a vault is, start building one, and recognise how earlier knowledge is reused. It reads like a paper: what it is, how to build one, how it is used, data handling, maintenance, reference.
+The public site at <https://chpollin.github.io/second-brain-vault/> explains Second Brain to readers without prior knowledge of Obsidian, Git or coding agents, in English by default and in German with `?lang=de`. It should let such a reader say what a vault is, start building one, and recognise how earlier knowledge is reused. It has three parts: the idea with a playable example, how to build one, and what is good to know, followed by a folded reference.
 
 ## Sections
 
 | Section | Question it answers | Form |
 |---|---|---|
-| Hero | What is this, and for whom? | Title, one sentence, audience line, two actions, the knowledge graph |
-| What it is | What does a vault consist of? | Four stations in a row (text files, Obsidian, AI assistant, you) and the principle of one place per statement |
+| Hero | What is this, for whom, and how is it used? | Title, one sentence, the four parts of a vault as one line, audience line, two actions, and the knowledge graph that plays a seven-phase example with compact numbered steps |
 | Build | How do I build my own? | Tool line, seven steps with one sentence and a prompt each, a graph that grows with the steps |
-| In use | How is earlier knowledge reused? | A six-phase episode with stepper and graph |
-| Your data | What leaves my computer? | Four rows with provider links |
-| Keep it alive | What is maintenance? | Four rows with the procedure or command |
-| Reference | What exactly does the template contain? | Folded by default: folders, vault governance, control documents, document types, procedures, Zettelkasten comparison |
+| Good to know | What leaves my computer, and what is maintenance? | Two columns of four sentences each, with source links |
+| Reference | What exactly does the template contain? | Folded by default: one annotated file tree and three short paragraphs on governance, procedures and document types |
+
+The example runs through seven phases: ask, find, propose, decide, file it, test in the tool, reuse later. The phase "decide" names the separate judgements of checking sources, checking the reasoning and accepting. The phase "file it" carries the principle of one place per statement. The phase "test in the tool" shows the return of an artefact finding to project knowledge, the first of the two relationships in the manuscript, and "reuse later" the second.
 
 The seven build steps follow the operator's sequence of 2026-11-04: create a vault, bring sources into Markdown, think through the structure, talk it through with the assistant, let the assistant build it, work in knowledge, make it findable for agents. The template enters at step 5 as the model the assistant follows. Step 2 names the chain original, Docling, frozen Markdown, distillate, and points to [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) for statements that must be traceable to their source passage. Step 5 defines vault governance as the written rules that say how the vault is built, what goes where and how it may change.
 
@@ -29,7 +28,7 @@ The example domain is a team's research data work: a photo archive project decid
 
 ## Visual system
 
-The site follows the DHCraft corporate design loosely. Tokens come from the dhcraft-site palette in OKLCH, the fonts Sora and Instrument Sans are vendored under `docs/assets/fonts/` with their licences, buttons and chips are pills, and the header carries the white DHCraft mark. Graph sections stand on a navy night ground with faint highlights, reading sections on paper. The page uses at most three text levels and draws borders only for interactive elements, prompts and the graph.
+The site follows the DHCraft corporate design loosely. Tokens come from the dhcraft-site palette in OKLCH, the fonts Sora and Instrument Sans are vendored under `docs/assets/fonts/` with their licences, buttons and chips are pills, and the header carries the white DHCraft mark. Graph sections stand on a navy night ground with faint highlights, reading sections on paper. The page uses at most three text levels and draws borders only for interactive elements, prompts and the graph. Sections are separated by their ground, not by rules.
 
 ## Terms
 
@@ -56,4 +55,5 @@ Three reader tests on 2026-11-04 used separate subagents in the role of a profes
 
 - 2026-11-04: the method page replaced the structure explorer and the work and knowledge demo as the public site. The demo, its tooling and its contract were deleted.
 - 2026-11-04: of three layout variants (guided story, workspace, build along) the operator chose build along. The rejected variants were removed.
+- 2026-11-04: after operator review the separate sections on what a vault is, the example, data and maintenance were merged into the hero and one section of notes, and the reference became a single file tree, because the earlier page said the same things twice and stacked too many levels.
 - 2026-11-04: recorded agent sessions were dropped from the site because they ran under the owner's personal configuration. New recordings require a neutral configuration.

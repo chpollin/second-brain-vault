@@ -9,7 +9,7 @@ import { createGraph } from "./graph.js";
 import { initPanel, openFile } from "./panel.js";
 
 const REPO = "https://github.com/chpollin/second-brain-vault";
-const NAV = ["understand", "build", "episode", "data", "reference"];
+const NAV = ["top", "build", "notes", "reference"];
 
 // What the growing graph shows after each of the seven build steps: visible groups, groups
 // drawn as a dashed draft, and the groups the step is about.
@@ -54,7 +54,7 @@ function renderHeader(t, lang) {
     h("a", { class: "brand", href: "#top" },
       h("img", { src: "assets/dhcraft-mark-white.svg", alt: "", width: "28", height: "28" }),
       h("span", { text: "Second Brain Vault" })),
-    h("nav", { class: "site-nav", "aria-label": t.nav.understand },
+    h("nav", { class: "site-nav", "aria-label": t.nav.top },
       h("ul", {}, ...NAV.map((id) => h("li", {}, h("a", { href: `#${id}`, text: t.nav[id] }))))),
     h("div", { class: "head-actions" }, toggle, h("a", { class: "pill", href: REPO, text: t.template })),
   );
@@ -96,26 +96,17 @@ function renderFooter(t) {
   );
 }
 
-function renderHero(t) {
-  const hero = document.getElementById("hero-text");
-  hero.replaceChildren(
+function renderHero(t, onPlay) {
+  const play = h("button", { type: "button", class: "btn primary", text: t.hero.watch });
+  play.addEventListener("click", onPlay);
+  document.getElementById("hero-text").replaceChildren(
     h("h1", { text: t.hero.title }),
     h("p", { class: "lead", text: t.hero.lead }),
+    h("ol", { class: "flow" }, ...t.hero.flow.map(([name, role]) => h("li", {}, h("strong", { text: name }), " ", role))),
     h("p", { class: "who", text: t.hero.who }),
-    h("p", { class: "actions" },
-      h("a", { class: "btn primary", href: "#episode", text: t.hero.watch }),
-      h("a", { class: "btn", href: "#build", text: t.hero.build })),
+    h("p", { class: "actions" }, play, h("a", { class: "btn", href: "#build", text: t.hero.build })),
   );
   document.getElementById("hero-hint").textContent = t.hero.hint;
-}
-
-function renderUnderstand(t) {
-  const u = t.understand;
-  document.getElementById("understand-body").replaceChildren(
-    h("h2", { text: u.title }),
-    h("ol", { class: "stations" }, ...u.stations.map(([title, body]) => h("li", {}, h("h3", { text: title }), h("p", { text: body })))),
-    h("p", { class: "principle", text: u.principle }),
-  );
 }
 
 function copyButton(t, value) {
@@ -155,19 +146,15 @@ function renderBuild(t) {
   return steps;
 }
 
-function renderData(t) {
-  document.getElementById("data-body").replaceChildren(
-    h("h2", { text: t.data.title }),
-    h("ul", { class: "rows" }, ...t.data.items.map(([title, body, href]) => h("li", {},
-      h("strong", { text: title }), " ", body, href ? h("a", { class: "row-link", href, text: t.data.source }) : null))),
-  );
-}
-
-function renderMaintain(t) {
-  document.getElementById("maintain-body").replaceChildren(
-    h("h2", { text: t.maintain.title }),
-    h("ul", { class: "rows" }, ...t.maintain.items.map(([title, body, code]) => h("li", {},
-      h("strong", { text: title }), " ", body, h("code", { class: "row-code", text: code })))),
+function renderNotes(t) {
+  const n = t.notes;
+  document.getElementById("notes-body").replaceChildren(
+    h("h2", { text: n.title }),
+    h("div", { class: "columns" },
+      h("section", {}, h("h3", { text: n.dataTitle }),
+        h("ul", { class: "plain" }, ...n.data.map(([sentence, href]) => h("li", {}, sentence, href ? " " : "", href ? h("a", { href, text: n.source }) : null)))),
+      h("section", {}, h("h3", { text: n.careTitle }),
+        h("ul", { class: "plain" }, ...n.care.map((sentence) => h("li", { text: sentence }))))),
   );
 }
 
@@ -177,27 +164,23 @@ function fileButton(path, label) {
 
 function renderReference(t, data) {
   const r = t.reference;
-  const badge = (kind) => h("span", { class: `badge ${kind === t.template ? "template" : "example"}`, text: kind });
-  const block = (title, ...content) => h("section", { class: "ref-block" }, h("h3", { text: title }), ...content);
-  const defs = (items, render) => h("dl", { class: "defs" }, ...items.flatMap((item) => render(item)));
+  const tree = h("ul", { class: "tree", "aria-label": r.treeLabel }, ...r.tree.map(([name, gloss, file, example]) => h("li", {},
+    file && data.files[file] ? fileButton(file, name) : h("code", { text: name }),
+    h("span", { text: example ? `${gloss}, ${r.example}` : gloss }))));
+  const convention = "Vault Operations/Conventions/Convention Frontmatter Field Profiles.md";
   const details = h("details", { class: "reference" },
     h("summary", {}, h("span", { class: "summary-title", text: r.title }), h("span", { class: "summary-sub", text: r.summary })),
-    h("p", { class: "intro", text: r.intro }),
-    h("div", { class: "ref-grid" },
-      block(r.folders.title, defs(r.folders.items, ([name, kind, body]) => [h("dt", {}, h("code", { text: name }), badge(kind)), h("dd", { text: body })])),
-      block(r.governance.title, h("p", { class: "intro", text: r.governance.intro }), defs(r.governance.items, ([name, body]) => [h("dt", {}, data.files[name] ? fileButton(name, name) : h("code", { text: name })), h("dd", { text: body })])),
-      block(r.control.title, defs(r.control.items, ([name, body]) => [h("dt", {}, data.files[name] ? fileButton(name, name) : h("code", { text: name })), h("dd", { text: body })])),
-      block(r.types.title, defs(r.types.items, ([name, body]) => [h("dt", {}, h("code", { text: name })), h("dd", { text: body })])),
-      block(r.skills.title, defs(r.skills.items, ([name, body]) => {
-        const path = `.claude/skills/${name}/SKILL.md`;
-        return [h("dt", {}, data.files[path] ? fileButton(path, name) : h("code", { text: name })), h("dd", { text: body })];
-      })),
-      block(r.zettel.title, h("table", { class: "compare" },
-        h("thead", {}, h("tr", {}, ...r.zettel.head.map((cell) => h("th", { scope: "col", text: cell })))),
-        h("tbody", {}, ...r.zettel.rows.map((row) => h("tr", {}, ...row.map((cell) => h("td", { text: cell }))))))),
-    ));
+    h("div", { class: "ref-body" },
+      tree,
+      h("div", { class: "ref-notes" },
+        h("p", { text: r.governance }),
+        h("p", {}, h("strong", { text: `${r.proceduresLabel}. ` }), ...r.procedures.flatMap(([name, gloss], index) => {
+          const path = `.claude/skills/${name}/SKILL.md`;
+          return [index ? ", " : "", data.files[path] ? fileButton(path, name) : h("code", { text: name }), ` ${gloss}`];
+        }), "."),
+        h("p", {}, `${r.types} `, data.files[convention] ? fileButton(convention, r.typesLink) : r.typesLink, "."))));
   document.getElementById("reference-body").replaceChildren(details);
-  // A link to #reference or a file inside it opens the folded reference first.
+  // A link to #reference opens the folded reference first.
   if (location.hash === "#reference") details.open = true;
   document.querySelector(".site-nav a[href='#reference']")?.addEventListener("click", () => {
     details.open = true;
@@ -269,14 +252,14 @@ async function main() {
   document.documentElement.lang = lang;
   renderHeader(t, lang);
   renderFooter(t);
-  renderHero(t);
-  renderUnderstand(t);
-  renderData(t);
-  renderMaintain(t);
+  let stepper = null;
+  renderHero(t, () => {
+    stepper?.start(true);
+    document.getElementById("hero-graph").scrollIntoView({ block: "nearest" });
+  });
+  renderNotes(t);
   const steps = renderBuild(t);
   initNavState();
-  document.getElementById("episode-title").textContent = t.episode.title;
-  document.getElementById("episode-intro").textContent = t.episode.intro;
 
   let data;
   let graph;
@@ -298,12 +281,11 @@ async function main() {
   const proposal = resolve(episode.phases.find((phase) => phase.proposal).proposal);
   const options = { text: t, describe: describer(data, graph, t), onOpen: openFile };
 
-  // The hero shows the finished vault; system labels stay quiet so knowledge leads.
-  createGraph(document.getElementById("hero-graph"), graph, { ...options, labels: "knowledge" });
+  // The hero graph shows the finished vault and plays the episode; system labels stay quiet.
+  const heroApi = createGraph(document.getElementById("hero-graph"), graph, { ...options, labels: "knowledge" });
   legend(document.getElementById("hero-legend"), t);
+  stepper = createStepper(document.getElementById("episode-stepper"), episode, states, heroApi, t);
   initGrowth(t, graph, proposal, options, steps);
-  const episodeApi = createGraph(document.getElementById("episode-graph"), graph, options);
-  createStepper(document.getElementById("episode-stepper"), episode, states, episodeApi, t).show(0);
 
   if (location.hash && !location.hash.startsWith("#datei=")) document.querySelector(location.hash)?.scrollIntoView();
 }

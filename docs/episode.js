@@ -24,6 +24,8 @@ export function phaseStates(episode, resolve) {
         return { active: true, proposal: proposalId, checking: ids(phase.check), gate: proposalId };
       case "incorporate":
         return { active: true, accepted: proposalId, updated: ids(phase.update), pulse: proposalId };
+      case "test":
+        return { active: true, accepted: proposalId, trail: ids(phase.trail), updated: ids(phase.update) };
       case "reuse":
         return { active: true, accepted: proposalId, trail: ids(phase.trail), transfer: proposalId, question: ids(phase.trail)[1] };
       default:
@@ -42,6 +44,9 @@ export function createStepper(host, episode, states, graphApi, text) {
   host.classList.add("stepper-box");
   const list = document.createElement("ol");
   list.className = "phase-list";
+  const heading = document.createElement("p");
+  heading.className = "phase-title";
+  heading.textContent = t.title;
   const caption = document.createElement("p");
   caption.className = "phase-caption";
   caption.setAttribute("aria-live", "polite");
@@ -54,22 +59,20 @@ export function createStepper(host, episode, states, graphApi, text) {
   count.className = "phase-count";
   controls.append(prev, play, next, count);
 
+  // Compact steps: a numbered pill per phase, the full title in its accessible name; the
+  // caption below carries actor, title, explanation and the example.
   const items = episode.phases.map((phase, index) => {
     const item = document.createElement("li");
-    const pick = button("", "phase");
     const [title] = t.phases[phase.id];
-    const actor = document.createElement("span");
-    actor.className = `actor ${phase.actor}`;
-    actor.textContent = t.actors[phase.actor];
-    const name = document.createElement("span");
-    name.textContent = title;
-    pick.append(name, actor);
+    const pick = button(String(index + 1), "phase");
+    pick.setAttribute("aria-label", `${index + 1}. ${title}, ${t.actors[phase.actor]}`);
+    pick.dataset.actor = phase.actor;
     pick.addEventListener("click", () => show(index, true));
     item.append(pick);
     list.append(item);
     return pick;
   });
-  host.append(list, caption, controls);
+  host.append(heading, list, caption, controls);
 
   let index = -1;
   let timer = 0;
@@ -101,16 +104,18 @@ export function createStepper(host, episode, states, graphApi, text) {
     show(index + 1);
     timer = setTimeout(tick, 5200);
   }
-  play.addEventListener("click", () => {
-    if (timer) return stop();
+  function start(fromBeginning = false) {
     play.textContent = t.pause;
-    if (index >= states.length - 1) show(0);
+    if (fromBeginning || index >= states.length - 1) show(0);
     else show(index + 1);
     timer = setTimeout(tick, 5200);
-  });
+  }
+  play.addEventListener("click", () => (timer ? stop() : start()));
   prev.addEventListener("click", () => show(index - 1, true));
   next.addEventListener("click", () => show(index + 1, true));
-  return { show, stop };
+  // Until a phase is chosen the graph shows the whole vault and only the controls are active.
+  prev.disabled = true;
+  return { show, stop, start };
 }
 
 function button(label, kind) {

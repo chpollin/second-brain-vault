@@ -5,6 +5,7 @@
     {"id": "propose", "actor": "agent", "proposal": "Decision Image Master Format", "supports": ["Archival Master", "File Format", "Access Copy"]},
     {"id": "decide", "actor": "you", "proposal": "Decision Image Master Format", "check": ["Archival Master", "File Format", "Access Copy"]},
     {"id": "incorporate", "actor": "agent", "accept": "Decision Image Master Format", "update": ["Data Management MOC", "Project Overview Photo Archive"]},
+    {"id": "test", "actor": "both", "trail": ["Online Presentation Photo Archive", "Project Overview Photo Archive", "Metadata Standard"], "update": ["Metadata Standard", "Project Overview Photo Archive"]},
     {"id": "reuse", "actor": "both", "trail": ["HOME", "Project Overview Oral History Collection", "Archival Master", "Decision Image Master Format"], "transfer": "Decision Image Master Format"}
   ]
 }

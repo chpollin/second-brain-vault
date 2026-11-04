@@ -6,6 +6,8 @@ The operator asked for a public page that explains Second Brain to readers witho
 
 The site no longer serves `knowledge/`. `tests/test_site_privacy.py` guards the served files. Agent sessions recorded for the page had run under the owner's personal configuration and were not published. The demo source under `demo/`, its build and sync scripts, its tests and the demo contract `interface-demo.md` were deleted at the operator's instruction. That contract described source preservation, the mapping of point kinds and the browser-local responses of the retired demo, and stays readable in Git history.
 
+A second review round merged the explanation of what a vault is and the example into the hero, where the graph now plays a seven-phase episode that includes testing in the tool, and reduced data, maintenance and reference to one section of notes and one file tree. The facet comparison with the manuscript added the return of artefact findings, the separate human judgements, operator points, project knowledge staying with its project and the agent's own search to the page.
+
 Verification covered pytest, Ruff, the vault check, the Node link test, syntax checks of the page modules and browser checks at desktop and phone width in both languages. Three model reader tests are recorded in [design](design.md#evidence). Open: the manuscript's section 5 still names the explorer and demo as the public implementation, an editorial decision. The vault's Repo Directory still describes this repository as a snapshot. A skill for building a vault's structure from the owner's sketch and a convention for source intake were proposed for the template.
 
 ## 2026-10-31 Strand notes proposed

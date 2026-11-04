@@ -12,6 +12,7 @@ The team digitises a photo archive and publishes it online. The working state st
 ## Decisions
 
 - Format of the archival masters, see [[Decision Image Master Format]].
+- Rights statements are required for every photograph, a finding from the [[Online Presentation Photo Archive]].
 
 ## Relations
 
