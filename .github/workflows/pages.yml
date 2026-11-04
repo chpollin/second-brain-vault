@@ -1,4 +1,4 @@
-name: Build and deploy explorer and UI demo
+name: Build and deploy the method page
 
 on:
   push:
@@ -26,19 +26,16 @@ jobs:
       - uses: actions/configure-pages@v5
       - name: Install check dependencies
         run: python -m pip install pytest ruff
-      - name: Build explorer data
-        run: python scripts/build_site.py
-      - name: Build public UI demo
-        run: python scripts/build_demo.py
-      - name: Check template and explorer
+      - name: Build site data
+        run: python scripts/build_site.py && python scripts/build_graph.py
+      - name: Check template and site
         run: |
           python scripts/check_vault.py
           python -m pytest -q
           python -m ruff check .
           python -m ruff format --check .
-          node --test tests/test_explorer_links.mjs
-          node --test tests/test_demo_runtime.mjs
-          for file in demo/core/*.js demo/runtime.js; do node --check "$file"; done
+          node --test tests/test_markdown_links.mjs
+          for file in docs/*.js; do node --check "$file"; done
       - uses: actions/upload-pages-artifact@v4
         with:
           path: docs
@@ -53,6 +50,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy explorer
+      - name: Deploy the site
         id: deployment
         uses: actions/deploy-pages@v4

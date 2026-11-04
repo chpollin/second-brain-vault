@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build docs/data.json for the static explorer of this template.
+"""Build docs/data.json, the template files read by the method page.
 
 Nothing about the vault is written into the interface by hand. The tree, the texts, the link
 graph, the loading layer per file and the task traces are derived from the real files: the task
@@ -29,7 +29,22 @@ OPERATIONS = VAULT / "VAULT-OPERATIONS.md"
 RULES_DIR = VAULT / ".claude" / "rules"
 SKILLS_DIR = VAULT / ".claude" / "skills"
 
-SKIP_DIRS = {".git", ".obsidian", ".local", ".venv", ".pytest_cache", ".ruff_cache", "__pycache__", "docs"}
+# knowledge/ holds this repository's working record. It stays in the repository and is never
+# served on the public site.
+SKIP_DIRS = {
+    ".git",
+    ".obsidian",
+    ".local",
+    ".venv",
+    ".pytest_cache",
+    ".ruff_cache",
+    "__pycache__",
+    "docs",
+    "knowledge",
+}
+# Files of the site itself are not part of the vault the site explains. The privacy test names
+# the private repositories it guards against.
+SITE_TOOLING = {"tests/test_site_privacy.py"}
 KIND_BY_SUFFIX = {".md": "markdown", ".py": "python", ".toml": "toml"}
 KIND_BY_NAME = {"pre-commit": "shell", ".gitignore": "text"}
 ABOUT_FILES = {"README.md", "LICENSE.md", "pyproject.toml", ".gitignore"}
@@ -209,6 +224,8 @@ def collect_files() -> dict[str, Path]:
     files = {}
     for path in sorted(VAULT.rglob("*")):
         if not path.is_file() or set(path.relative_to(VAULT).parts[:-1]) & SKIP_DIRS:
+            continue
+        if path.relative_to(VAULT).as_posix() in SITE_TOOLING:
             continue
         if kind_of(path):
             files[path.relative_to(VAULT).as_posix()] = path

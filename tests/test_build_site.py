@@ -28,7 +28,7 @@ def test_every_trace_step_points_at_an_exportable_file():
                 assert step["why"].strip(), f"{task['id']}: {step['path']} has no reason"
 
 
-def test_existing_persona_stays_outside_the_explorer(monkeypatch, tmp_path) -> None:
+def test_existing_persona_stays_outside_the_site(monkeypatch, tmp_path) -> None:
     """A private profile may exist while its contents stay outside the published corpus."""
     copied = tmp_path / "vault"
     shutil.copytree(VAULT, copied, ignore=shutil.ignore_patterns(*build_site.SKIP_DIRS))

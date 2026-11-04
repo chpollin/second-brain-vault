@@ -1,0 +1,10 @@
+{
+  "phases": [
+    {"id": "question", "actor": "you", "focus": ["HOME", "Data Management MOC", "Project Overview Photo Archive"]},
+    {"id": "recover", "actor": "agent", "trail": ["CLAUDE", "HOME", "Project Overview Photo Archive", "Data Management MOC", "Archival Master", "File Format", "FAIR Principles", "Wilkinson 2016 - The FAIR Guiding Principles"], "found": ["Access Copy", "Metadata Standard", "Retention Period"]},
+    {"id": "propose", "actor": "agent", "proposal": "Decision Image Master Format", "supports": ["Archival Master", "File Format", "Access Copy"]},
+    {"id": "decide", "actor": "you", "proposal": "Decision Image Master Format", "check": ["Archival Master", "File Format", "Access Copy"]},
+    {"id": "incorporate", "actor": "agent", "accept": "Decision Image Master Format", "update": ["Data Management MOC", "Project Overview Photo Archive"]},
+    {"id": "reuse", "actor": "both", "trail": ["HOME", "Project Overview Oral History Collection", "Archival Master", "Decision Image Master Format"], "transfer": "Decision Image Master Format"}
+  ]
+}

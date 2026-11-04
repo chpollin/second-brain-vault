@@ -3,60 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Second Brain Vault explorer</title>
-<link rel="stylesheet" href="demo/style.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="demo/shell.css">
-<script type="module" src="app.js"></script>
+<title>Second Brain Vault</title>
+<meta name="description" content="A folder of linked text notes in which earlier thinking stays findable with its reasons, kept together with an AI assistant. What it is, how to build one, and how it is used.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="stylesheet" href="site.css">
+<script type="module" src="page.js"></script>
 </head>
-<body data-shell-public="true" data-shell-base="demo/" data-shell-template="./" data-shell-page="template">
-<header class="kopf shell-kopf" lang="de"></header>
-<main class="template-main">
-<div class="template-tools">
-  <h2>Vorlage</h2>
-  <div class="find" role="search">
-    <label for="q">Search names, headings and text</label>
-    <input id="q" type="search" autocomplete="off" spellcheck="false">
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head night" id="site-head"></header>
+<main id="main">
+
+<section id="top" class="night night-glass">
+  <div class="hero">
+    <div class="hero-text" id="hero-text"></div>
+    <figure class="hero-graph">
+      <div class="graph" id="hero-graph"></div>
+      <figcaption>
+        <p class="graph-legend" id="hero-legend"></p>
+        <p class="graph-hint" id="hero-hint"></p>
+      </figcaption>
+    </figure>
   </div>
-  <nav class="repo" aria-label="Vorlage herunterladen">
-    <a href="https://github.com/chpollin/second-brain-vault/archive/refs/heads/main.zip">Download ZIP</a>
-  </nav>
-</div>
+</section>
 
-<div class="tasking">
-  <p class="pick">
-    <label for="task">Prescribed reading path</label>
-    <select id="task"><option value="">no task</option></select>
-  </p>
-  <p class="stepper" id="stepper" hidden>
-    <button type="button" id="prev">Previous step</button>
-    <span id="step-of" aria-live="polite"></span>
-    <button type="button" id="next">Next step</button>
-  </p>
-</div>
+<section id="understand" class="band"><div class="inner" id="understand-body"></div></section>
 
-<div class="stage" id="stage" data-view="map">
-  <section id="map" aria-label="Loading map"></section>
-
-  <article id="reader" hidden>
-    <h2 id="doc-title" tabindex="-1"></h2>
-    <p id="doc-lead" class="lead" hidden></p>
-    <dl id="doc-fields" class="frontmatter" hidden></dl>
-    <nav id="doc-outline" class="outline" hidden aria-label="Sections of this document"></nav>
-    <div id="doc-body" class="prose"></div>
-    <div class="relations">
-      <section id="doc-inbound" class="relation"></section>
-      <section id="doc-linksto" class="relation"></section>
+<section id="build" class="band alt">
+  <div class="grow">
+    <div id="build-steps"></div>
+    <div class="grow-graph night">
+      <div class="graph" id="grow-graph"></div>
+      <p class="grow-caption" id="grow-caption" aria-live="polite"></p>
     </div>
-  </article>
+  </div>
+</section>
 
-  <section id="results" hidden tabindex="-1" aria-labelledby="results-head">
-    <h2 id="results-head"></h2>
-    <div id="results-groups"></div>
-  </section>
-</div>
+<section id="episode" class="band night night-glass">
+  <div class="inner">
+    <h2 id="episode-title"></h2>
+    <p class="intro" id="episode-intro"></p>
+    <div class="grow">
+      <div id="episode-stepper"></div>
+      <div class="graph" id="episode-graph"></div>
+    </div>
+  </div>
+</section>
+
+<section id="data" class="band"><div class="inner" id="data-body"></div></section>
+<section id="maintain" class="band alt"><div class="inner" id="maintain-body"></div></section>
+<section id="reference" class="band"><div class="inner" id="reference-body"></div></section>
 
 </main>
-<script src="demo/shell.js"></script>
+<footer class="site-foot night" id="site-foot"></footer>
+<div class="node-card" id="node-card" hidden></div>
+<aside class="panel" id="panel" aria-labelledby="panel-title" hidden>
+  <div class="panel-head">
+    <h2 id="panel-title" tabindex="-1"></h2>
+    <button type="button" id="panel-close"></button>
+  </div>
+  <p class="panel-path" id="panel-path"></p>
+  <div id="panel-body"></div>
+</aside>
+<noscript><p>This page needs JavaScript. The template itself is on <a href="https://github.com/chpollin/second-brain-vault">GitHub</a>.</p></noscript>
 </body>
 </html>
