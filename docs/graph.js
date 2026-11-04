@@ -342,7 +342,31 @@ export function createGraph(host, graph, options) {
         if (!reducedMotion()) ring.animate([{ opacity: 1, r }, { opacity: 0, r: r * 4 }], { duration: 1400, iterations: 2 });
       }
     }
-    if (state.trail) await drawTrail(state.trail, myToken);
+    declutter();
+    if (state.trail) {
+      await drawTrail(state.trail, myToken);
+      if (myToken === token) declutter();
+    }
+  }
+
+  // Labels of neighbouring nodes overlap in dense steps. The most important states keep their
+  // label, a later label that would cover an earlier one is hidden; the hover card still names it.
+  const LABEL_RANK = ["proposal", "accepted", "updated", "checking", "lit", "found", "focus"];
+  function declutter() {
+    const shown = [];
+    const ranked = [...nodeEls.values()]
+      .filter((g) => !g.classList.contains("off"))
+      .map((g) => ({ g, rank: LABEL_RANK.findIndex((cls) => g.classList.contains(cls)) }))
+      .filter(({ g, rank }) => rank >= 0 || g.dataset.label === "always")
+      .sort((a, b) => (a.rank < 0 ? 99 : a.rank) - (b.rank < 0 ? 99 : b.rank));
+    for (const g of nodeEls.values()) g.classList.remove("label-hidden");
+    for (const { g } of ranked) {
+      const box = g.querySelector("text").getBoundingClientRect();
+      if (!box.width) continue;
+      const clash = shown.some((other) => box.left < other.right && box.right > other.left && box.top < other.bottom && box.bottom > other.top);
+      if (clash) g.classList.add("label-hidden");
+      else shown.push(box);
+    }
   }
 
   return { setLayout, setVisible, stage, has: (id) => nodeEls.has(id), ids: () => graph.nodes.map((node) => node.id) };

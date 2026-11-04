@@ -391,3 +391,8 @@
   .ref-notes { display: grid; gap: 0.8rem; color: var(--ink-soft); font-size: var(--step--1); align-content: start; }
   .ref-notes strong { color: var(--ink); }
 }
+
+@layer components {
+  .graph .node.label-hidden text { opacity: 0 !important; }
+  .graph .node.label-hidden:hover text, .graph .node.label-hidden:focus-visible text { opacity: 1 !important; }
+}

@@ -22,10 +22,10 @@ export const TEXT = {
     switchLabel: "Seite auf Deutsch anzeigen",
     skip: "Skip to content",
     nav: { top: "Idea", build: "Build", notes: "Good to know", reference: "Reference" },
-    template: "Template",
+    template: "Template on GitHub",
     hero: {
       title: "Second Brain Vault",
-      lead: "A folder of linked text notes on your own computer, in which earlier thinking stays findable together with its reasons.",
+      lead: "A Second Brain vault is a folder of linked text notes on your own computer, in which earlier thinking stays findable together with its reasons.",
       flow: [["Text files", "on your computer"], ["Obsidian", "shows the links"], ["AI assistant", "finds and proposes"], ["You", "decide"]],
       who: "For people in research, institutions and companies who work with knowledge across projects. No programming needed.",
       watch: "Play the example",
@@ -50,7 +50,7 @@ export const TEXT = {
       actors: { you: "You", agent: "Assistant", both: "You and the assistant" },
       phases: {
         question: ["Ask", "You bring a question from a project.", "Which file format should the photo archive keep its masters in?"],
-        recover: ["Find", "The assistant enters at HOME and the overview pages, like the keyword register of a card index, and follows links to earlier notes and their sources.", "It finds the notes on archival masters and file formats, the scan protocol and the FAIR principles."],
+        recover: ["Find", "The assistant enters at HOME and the overview pages, like the keyword register of a card index, and follows links to earlier notes and their sources.", "It finds the notes on archival masters and file formats, the scan protocol and the FAIR principles for reusable data."],
         propose: ["Propose", "It drafts a note that records the decision with its reasons.", "Uncompressed TIFF for masters, JPEG for access copies, and the rejected alternative."],
         decide: ["Decide", "You check the sources, check the reasoning and then accept, reject or leave it.", "You compare the proposal with the notes it cites and accept it."],
         incorporate: ["File it", "Every statement has one place. The note gets its place, and the notes that point to it are brought up to date.", "The overview page and the project overview now link the decision."],
@@ -145,10 +145,10 @@ export const TEXT = {
     switchLabel: "Show this page in English",
     skip: "Zum Inhalt",
     nav: { top: "Idee", build: "Aufbauen", notes: "Gut zu wissen", reference: "Referenz" },
-    template: "Vorlage",
+    template: "Vorlage auf GitHub",
     hero: {
       title: "Second Brain Vault",
-      lead: "Ein Ordner verbundener Textnotizen auf deinem eigenen Rechner, in dem frühere Überlegungen mit ihren Gründen auffindbar bleiben.",
+      lead: "Ein Second Brain Vault ist ein Ordner verbundener Textnotizen auf deinem eigenen Rechner, in dem frühere Überlegungen mit ihren Gründen auffindbar bleiben.",
       flow: [["Textdateien", "auf deinem Rechner"], ["Obsidian", "zeigt die Verweise"], ["KI-Assistent", "findet und schlägt vor"], ["Du", "entscheidest"]],
       who: "Für Menschen in Forschung, Institutionen und Unternehmen, die projektübergreifend mit Wissen arbeiten. Programmieren musst du nicht.",
       watch: "Beispiel abspielen",
@@ -173,7 +173,7 @@ export const TEXT = {
       actors: { you: "Du", agent: "Assistent", both: "Du und der Assistent" },
       phases: {
         question: ["Fragen", "Du bringst eine Frage aus einem Projekt mit.", "In welchem Dateiformat soll das Fotoarchiv seine Master aufbewahren?"],
-        recover: ["Finden", "Der Assistent steigt bei HOME und den Übersichtsseiten ein, wie beim Schlagwortregister eines Zettelkastens, und folgt Verweisen zu früheren Notizen und ihren Quellen.", "Er findet die Notizen zu Archivmastern und Dateiformaten, das Scanprotokoll und die FAIR-Prinzipien."],
+        recover: ["Finden", "Der Assistent steigt bei HOME und den Übersichtsseiten ein, wie beim Schlagwortregister eines Zettelkastens, und folgt Verweisen zu früheren Notizen und ihren Quellen.", "Er findet die Notizen zu Archivmastern und Dateiformaten, das Scanprotokoll und die FAIR-Prinzipien für nachnutzbare Daten."],
         propose: ["Vorschlagen", "Er entwirft eine Notiz, die die Entscheidung mit ihren Gründen festhält.", "Unkomprimiertes TIFF für Master, JPEG für Nutzungskopien, dazu die verworfene Alternative."],
         decide: ["Entscheiden", "Du prüfst die Quellen, prüfst die Begründung und nimmst an, lehnst ab oder lässt es.", "Du vergleichst den Vorschlag mit den Notizen, auf die er sich stützt, und nimmst ihn an."],
         incorporate: ["Ablegen", "Jede Aussage hat einen Ort. Die Notiz bekommt ihren, und die Notizen, die auf sie verweisen, werden nachgeführt.", "Übersichtsseite und Projektübersicht verweisen jetzt auf die Entscheidung."],
