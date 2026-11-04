@@ -94,7 +94,8 @@ export function createGraph(host, graph, options) {
       el("circle", { class: "shine", r, fill: "url(#shine)", "pointer-events": "none" }, g);
     }
     const label = el("text", { y: -r - 0.9, "text-anchor": "middle" }, g);
-    label.textContent = node.label;
+    // Overview pages are named by their field; the abbreviation MOC means nothing to a newcomer.
+    label.textContent = node.group === "moc" ? node.label.replace(/ MOC$/, "") : node.label;
     // The hero labels knowledge only; elsewhere the entry points CLAUDE and HOME are named too.
     const entry = node.id === "CLAUDE.md" || node.id === "HOME.md";
     if (node.group === "moc" || (entry && options.labels !== "knowledge")) g.dataset.label = "always";

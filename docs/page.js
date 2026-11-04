@@ -230,8 +230,9 @@ function firstParagraph(text) {
 }
 
 function legend(host, t) {
-  const groups = ["source", "concept", "moc", "literature", "project", "control", "rule", "skill"];
-  host.replaceChildren(...groups.map((group) => h("span", {}, h("i", { class: group === "moc" ? "hex" : "", style: `background: var(--g-${group})` }), t.graph.legend[group])));
+  // Readers new to the vault see one entry for the whole system frame instead of six categories.
+  const groups = ["source", "concept", "moc", "literature", "project", "system"];
+  host.replaceChildren(...groups.map((group) => h("span", {}, h("i", { class: group === "moc" ? "hex" : "", style: `background: var(--g-${group === "system" ? "rule" : group})` }), t.graph.legend[group])));
 }
 
 function initGrowth(t, graph, proposal, options, steps) {
