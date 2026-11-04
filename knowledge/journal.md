@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-11-04 Hero variants for comparison
+
+After operator criticism of the numbered stepper, the crowded graph and the hero, three hero variants were built under `docs/lab/` with a shared named stepper and reviewed by model readers and a model UI reviewer, recorded in [design](design.md#evidence). The lab stays local, and the Pages workflow removes it from the artifact. The reference gained one line each on the optional research persona and on parallel review agents. Next step: the operator chooses between B alone and the recommended combination of graph and card, which is then built in the lab before it replaces the live hero.
+
 ## 2026-11-04 Method page replaces explorer and demo
 
 The operator asked for a public page that explains Second Brain to readers without prior knowledge and serves as the slide reference for a workshop. The [method page](design.md) replaced the structure explorer and the work and knowledge demo at the site root. Three layout variants (guided story, workspace, build along) were built on one shared frame and content. The operator chose build along, and the other two were removed. After operator feedback the page was cut to three text levels without nested boxes, and the build section now follows the operator's seven steps from source intake to overview pages for agents. The example domain is a synthetic research data team, so no personal content enters the site.

@@ -57,7 +57,20 @@ Five reader tests on 2026-11-04 used separate subagents in the role of a profess
 - The fourth missed the assistant's setup, Docling's installation and found the legend and the abbreviation MOC confusing. The first step now connects the assistant, the legend has one entry for the system frame, and overview pages are labelled by their field.
 - The fifth asked when Git and Python are needed, where the skills come from, and found the reference to Luhmann and the phase name "test in the tool" unclear. These texts were changed.
 
-Still open from these readings are a price and setup time, how a team shares a vault, and the jargon of the folded reference. A human reading and the operator's acceptance remain open.
+Still open from these readings is how a team shares a vault. Price and setup time stay out of the page, which names the paid plan and links the provider. Persona and parallel review agents each have one line in the reference. A human reading and the operator's acceptance remain open.
+
+A second round on 2026-11-04 compared the live hero with three variants under `docs/lab/`. The variants are A, a focus graph of hand-placed notes, B, a decision note that grows step by step, and C, lanes for you, the assistant and the notes. All three share a stepper with named phases, an actor line and visible done, current and next states. Three model readers in the roles of project lead, librarian and researcher ranked B first, then A, the live hero and C. An independent model UI reviewer recommended combining A's graph with B's card, so that the graph shows where the reasoning lives and the card what it says. On phones the graph would give way to a list of cited notes.
+
+Open defects of the variants:
+
+- colliding step names on phones
+- unreadable scaled graph in A
+- controls that move between steps
+- a transparent sticky header
+- an edge in A that passes behind an unrelated note
+- an eyebrow line on the card
+
+B's empty reason headings after the decision step were fixed. The lab is excluded from the Pages artifact. The choice of hero remains with the operator.
 
 ## Decisions
 

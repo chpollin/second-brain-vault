@@ -126,6 +126,10 @@ export const TEXT = {
         ["project-knowledge", "work from a project"],
         ["vault-orient", "read from another project"],
       ],
+      extras: [
+        ["A personal research persona is optional. The procedure persona-init builds it from your notes, and ordinary vault work does not need it.", ".claude/skills/persona-init/SKILL.md", "persona-init"],
+        ["Several agents can review in parallel. They only read, and the vault session alone writes and accepts their findings.", "Vault Operations/Conventions/Convention Curation Round.md", "Convention Curation Round"],
+      ],
       types: "Document types are concept, literature, knowledge, research, specification and vault-organisation, defined in",
       typesLink: "Convention Frontmatter Field Profiles",
     },
@@ -248,6 +252,10 @@ export const TEXT = {
         ["active-work-report", "Arbeitsstand berichten"],
         ["project-knowledge", "aus einem Projekt arbeiten"],
         ["vault-orient", "aus einem anderen Projekt lesen"],
+      ],
+      extras: [
+        ["Eine persönliche Forschungspersona ist optional. Der Ablauf persona-init baut sie aus deinen Notizen, für die normale Arbeit im Vault braucht es sie nicht.", ".claude/skills/persona-init/SKILL.md", "persona-init"],
+        ["Mehrere Agenten können parallel prüfen. Sie lesen nur, schreiben und übernehmen darf allein die Vault-Sitzung.", "Vault Operations/Conventions/Convention Curation Round.md", "Convention Curation Round"],
       ],
       types: "Dokumenttypen sind concept, literature, knowledge, research, specification und vault-organisation, festgelegt in",
       typesLink: "Convention Frontmatter Field Profiles",

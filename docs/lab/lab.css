@@ -1,0 +1,102 @@
+/* Candidate heroes for comparison only. The whole example, including its controls, fits one
+   desktop screen: text and picture side by side, the named stepper as one row beneath. */
+
+.lab-head { position: sticky; }
+.lab-hero { min-block-size: 0; padding-block: 1.2rem 0.4rem; align-items: start; }
+@media (min-width: 62rem) { .lab-hero { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); } }
+.lab-hero .hero-text { gap: 0.9rem; padding-block-start: 1rem; }
+.lab-hero h1 { font-size: clamp(2rem, 1.5rem + 2vw, 3rem); }
+.lab-visual { min-inline-size: 0; min-block-size: 22rem; display: grid; align-items: start; }
+
+.lab-stepper-wrap { max-inline-size: var(--wide); margin-inline: auto; padding: 0 var(--gutter) 1.5rem; }
+#stepper { display: grid; gap: 0.6rem; }
+.lab-title { font-family: var(--display); font-weight: 600; }
+.lab-steps { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; counter-reset: s; }
+.lab-steps li { display: flex; }
+.lab-step {
+  inline-size: 100%; display: grid; justify-items: center; gap: 0.15rem; padding: 0.3rem 0.2rem; background: none; border: 0;
+  cursor: pointer; color: var(--ink-soft); position: relative; font-size: var(--step--1);
+}
+/* The track line runs behind the dots and shows progress. */
+.lab-step::before { content: ""; position: absolute; inset-block-start: 1.2rem; inset-inline: 0; block-size: 2px; background: var(--edge-hi); z-index: 0; }
+.lab-steps li:first-child .lab-step::before { inset-inline-start: 50%; }
+.lab-steps li:last-child .lab-step::before { inset-inline-end: 50%; }
+.lab-step[data-state="done"]::before, .lab-step[data-state="current"]::before { background: var(--accent); }
+.lab-step .dot {
+  position: relative; z-index: 1; inline-size: 1.9rem; block-size: 1.9rem; border-radius: 50%; display: grid; place-items: center;
+  border: 2px solid var(--edge-hi); background: var(--ground); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1;
+}
+.lab-step[data-state="done"] .dot { border-color: var(--accent); color: var(--accent); }
+.lab-step[data-state="done"] .dot::after { content: "\2713"; position: absolute; font-size: 0.65rem; inset-block-start: -0.45rem; inset-inline-end: -0.35rem; color: var(--accent); }
+.lab-step[data-state="current"] .dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.lab-step .name { font-weight: 600; color: var(--ink); text-align: center; line-height: 1.2; }
+.lab-step[data-state="next"] .name { color: var(--ink-faint); font-weight: 400; }
+.lab-step .who { font-size: 0.72rem; color: var(--ink-faint); }
+.lab-step:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 0.5rem; }
+.lab-caption { color: var(--ink-soft); max-inline-size: 56rem; min-block-size: 4.6em; }
+.lab-caption strong { color: var(--ink); }
+.lab-controls { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+@media (max-width: 47.99rem) {
+  .lab-steps { grid-template-columns: repeat(7, minmax(3.2rem, 1fr)); overflow-x: auto; }
+  .lab-step .who { display: none; }
+}
+
+/* A: focus graph. */
+.lab-graph { inline-size: 100%; block-size: auto; max-block-size: 26rem; }
+.lab-back circle { opacity: 0.16; }
+.lab-edge { fill: none; stroke: color-mix(in oklch, var(--ink) 16%, transparent); stroke-width: 1.5; transition: stroke 0.3s; }
+.lab-edge[data-on="true"] { stroke: var(--accent); stroke-width: 2.5; }
+.lab-pill rect { fill: var(--surface); stroke: var(--edge-hi); stroke-width: 1.5; transition: fill 0.3s, stroke 0.3s, opacity 0.3s; }
+.lab-pill text { fill: var(--ink-faint); font-family: var(--font); font-size: 17px; }
+/* Inactive pills stay opaque so no line shows through; only their text and outline recede. */
+.lab-pill:not([data-state]) text, .lab-pill[data-state=""] text { opacity: 0.45; }
+.lab-pill:not([data-state]) rect, .lab-pill[data-state=""] rect { stroke: var(--edge); }
+.lab-pill[data-state="read"] rect, .lab-pill[data-state="q"] rect { stroke: var(--st-read); }
+.lab-pill[data-state="read"] text, .lab-pill[data-state="q"] text, .lab-pill[data-state="check"] text, .lab-pill[data-state="updated"] text, .lab-pill[data-state="accepted"] text, .lab-pill[data-state="reuse"] text, .lab-pill[data-state="draft"] text { fill: var(--ink); }
+.lab-pill[data-state="found"] rect { stroke: var(--st-found); stroke-dasharray: 5 4; }
+.lab-pill[data-state="found"] text { fill: var(--ink-soft); }
+.lab-pill[data-state="draft"] rect { stroke: var(--st-proposal); stroke-dasharray: 7 5; stroke-width: 2.5; fill: color-mix(in oklch, var(--st-proposal) 10%, var(--surface)); }
+.lab-pill[data-state="check"] rect { stroke: var(--st-read); stroke-width: 3; }
+.lab-pill[data-state="accepted"] rect, .lab-pill[data-state="reuse"] rect { stroke: var(--st-accepted); stroke-width: 3; fill: color-mix(in oklch, var(--st-accepted) 14%, var(--surface)); }
+.lab-pill[data-state="updated"] rect { stroke: var(--st-accepted); stroke-width: 2; }
+.lab-pill.decision text { font-weight: 700; }
+.lab-pill .badge-text { fill: var(--st-proposal); font-size: 15px; font-weight: 700; opacity: 1 !important; }
+
+/* B: note card. */
+.note-card {
+  border-radius: 0.9rem; padding: 1rem 1.2rem; background: var(--surface); border: 2px dashed var(--edge-hi);
+  display: grid; gap: 0.7rem; max-block-size: 26rem; overflow-y: auto; font-size: var(--step--1);
+}
+.note-card[data-state="draft"] { border-color: var(--st-proposal); }
+.note-card[data-state="accepted"] { border-style: solid; border-color: var(--st-accepted); }
+.note-card header { display: grid; gap: 0.1rem; }
+.note-kind { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 600; }
+.note-card h3 { font-size: var(--step-1); }
+.note-card .field { display: grid; gap: 0.3rem; padding-inline-start: 0.7rem; border-inline-start: 3px solid transparent; color: var(--ink-soft); }
+.note-card .field.now { border-inline-start-color: var(--accent); color: var(--ink); }
+/* Earlier fields shrink to their heading and first line, so the current one has the room. */
+.note-card .field.past > :not(h4):not(:nth-child(2)) { display: none; }
+/* Two wrapped lines instead of a one-line ellipsis, so phone readers keep the sense. */
+.note-card .field.past > :nth-child(2) { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.note-card .field.proposal.compact > :nth-child(2) { -webkit-line-clamp: 3; }
+/* The title stays pinned while the card scrolls to the current field. */
+.note-card header { position: sticky; inset-block-start: -1rem; background: var(--surface); padding-block: 1rem 0.4rem; margin-block-start: -1rem; z-index: 1; }
+.note-card h4 { font-family: var(--display); font-size: 0.8rem; color: var(--ink); }
+.note-card ul { padding-inline-start: 1.1rem; list-style: disc; }
+.note-card .ticks { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; }
+.note-card .conditions { color: var(--ink); }
+.chip { display: inline-block; margin: 0 0.3rem 0.3rem 0; padding: 0.1rem 0.6rem; border-radius: 999px; border: 1px solid var(--edge-hi); font-size: 0.8rem; }
+.chip.faint { border-style: dashed; color: var(--ink-faint); }
+
+/* C: lanes. */
+.lanes { display: grid; gap: 0.2rem; font-size: 0.76rem; overflow-x: auto; }
+.lane-row { display: grid; grid-template-columns: 4.6rem repeat(7, minmax(5.2rem, 1fr)); gap: 0.15rem; }
+.lane-row > span { padding: 0.45rem 0.5rem; border-radius: 0.4rem; min-block-size: 2.6rem; transition: background 0.3s, opacity 0.3s; }
+.lane-row.head > span { font-weight: 700; color: var(--ink); min-block-size: 0; }
+.lane-label { font-weight: 700; color: var(--ink); align-self: center; }
+.lane-row [data-state="next"] { opacity: 0.35; }
+.lane-row [data-state="done"] { opacity: 0.7; }
+.lane-row [data-state="current"] { background: color-mix(in oklch, var(--accent) 18%, transparent); color: var(--ink); }
+.lane-row.you [data-state="current"]:not(:empty) { outline: 2px solid var(--st-proposal); }
+.lane-row.agent [data-state="current"]:not(:empty) { outline: 2px solid var(--st-read); }
+.lanes .chip { margin: 0 0.2rem 0.2rem 0; }

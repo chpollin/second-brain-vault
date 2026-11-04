@@ -178,6 +178,7 @@ function renderReference(t, data) {
           const path = `.claude/skills/${name}/SKILL.md`;
           return [index ? ", " : "", data.files[path] ? fileButton(path, name) : h("code", { text: name }), ` ${gloss}`];
         }), "."),
+        ...r.extras.map(([text, file, label]) => h("p", {}, `${text} `, data.files[file] ? fileButton(file, label) : h("code", { text: label }))),
         h("p", {}, `${r.types} `, data.files[convention] ? fileButton(convention, r.typesLink) : r.typesLink, "."))));
   document.getElementById("reference-body").replaceChildren(details);
   // A link to #reference opens the folded reference first.
