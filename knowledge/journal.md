@@ -1,5 +1,13 @@
 # Journal
 
+## 2026-11-05 Knowledge checked against the unpushed method page
+
+The curation round of 2026-11-05 compared the knowledge documents with the method page as committed locally. The page commits from efd4ca9 to 0475124 are not yet pushed, so the opening sentence of [design](design.md), which placed the page at its public address, named a state that only a push establishes. Design now names `docs/` as the page and the Pages workflow as its route to the address. The [specification](specification.md) listed only the Node.js link test, while `.github/workflows/pages.yml` also runs `tests/test_hero_layout.mjs` and `node --check` on every page script. Its workflow description and verification commands now carry both.
+
+The open point of 2026-11-04 on the vault's Repo Directory is resolved there, since its entry names this repository as its own maintenance source since 2026-10-31. Still open are section 5 of the [manuscript](paper.md), which names the explorer and the demo as the public implementation and remains an editorial decision, and two README passages that still speak of graph layouts and of removing the explorer. Both were reported to the operator with a proposed wording.
+
+Verification ran `python scripts/check_vault.py` without hard or measured findings, `python -m pytest -q`, `node --test tests/test_markdown_links.mjs tests/test_hero_layout.mjs` and `node --check` on every page script, all passing, and a check of every relative link and anchor in `knowledge/` without findings. The generated site data was not rebuilt, and no page file changed.
+
 ## 2026-11-04 Combined hero replaces the whole-vault graph
 
 After operator criticism of the numbered stepper, the crowded graph and the hero, three hero variants were compared by model readers and a model UI reviewer, recorded in [design](design.md#evidence). On the operator's instruction the recommended combination became the live hero: a focus graph of the episode's notes, the decision note as a card, and a stepper with named phases and actors. The episode data in `docs/episode.json` now holds note positions, links and per-phase states, `docs/hero.js` renders them, and `tests/test_hero_layout.mjs` rejects overlapping notes and links behind unrelated notes. The episode module, the graph's episode staging and the lab variants were deleted, and the stylesheet was consolidated. The reference gained one line each on the optional research persona and on parallel review agents.

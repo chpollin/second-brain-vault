@@ -16,7 +16,7 @@ The template must support a person and an available AI agent in maintaining rese
 | Public method page | `docs/`, `scripts/build_site.py` and `scripts/build_graph.py` | Explain the approach in English and German from the template files and a synthetic example domain, without serving `knowledge/` |
 | Research procedure | [Evaluation](evaluation.md) and [episode template](episode-template.md) | Preserve the sources, interventions and outcomes of an observed episode, with missing stages explicit |
 
-The repository distributes the method page. Its generated `docs/data.json` and `docs/graph.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks and Node.js link tests, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
+The repository distributes the method page. Its generated `docs/data.json` and `docs/graph.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link and hero layout tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
 
 Skills are executable procedures when an agent reads and follows them. A skill file alone installs no runtime, account connection or tool. The actual host determines which operations are available.
 
@@ -42,9 +42,10 @@ python scripts/check_vault.py
 python -m pytest -q
 python -m ruff check .
 python -m ruff format --check .
-node --test tests/test_markdown_links.mjs
+node --test tests/test_markdown_links.mjs tests/test_hero_layout.mjs
+Get-ChildItem docs/*.js | ForEach-Object { node --check $_.FullName }
 ```
 
-Page development requires Node.js for the link regression tests. The published page runs in the browser without Node.js.
+Page development requires Node.js for the link and hero layout tests and the syntax check. The published page runs in the browser without Node.js.
 
 Inspect measured findings even when the command exits successfully. The checker covers links, anchors and reachability, with no counterpart here to the larger audit engine of the personal source vault. Skill case results remain in [skill evaluation](skill-evaluation.md). These checks do not evaluate conversational quality or the scholarly validity of a new research claim.

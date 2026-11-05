@@ -1,6 +1,6 @@
 # Design
 
-The public site at <https://chpollin.github.io/second-brain-vault/> explains Second Brain to readers without prior knowledge of Obsidian, Git or coding agents, in English by default and in German with `?lang=de`. It should let such a reader say what a vault is, start building one, and recognise how earlier knowledge is reused. It has three parts: the idea with a playable example, how to build one, and what is good to know, followed by a folded reference.
+The method page in `docs/` explains Second Brain to readers without prior knowledge of Obsidian, Git or coding agents, in English by default and in German with `?lang=de`. It should let such a reader say what a vault is, start building one, and recognise how earlier knowledge is reused. It has three parts: the idea with a playable example, how to build one, and what is good to know, followed by a folded reference. The Pages workflow publishes it at <https://chpollin.github.io/second-brain-vault/> from the last state pushed to `main`, as [integration](integration.md#maintenance-and-distribution) describes, so local commits reach that address only after a push.
 
 ## Sections
 
