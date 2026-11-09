@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge explorer. Second Brain Vault</title>
+<meta name="description" content="Explore linked example notes, read their connections in context and inspect unresolved references.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="explorer.css">
+<script type="module" src="explorer.js"></script>
+</head>
+<body class="explorer-page">
+<a class="skip" href="#reader">Skip to selected note</a>
+<header class="site-head night" id="explorer-head"></header>
+<main class="explorer-shell" id="main">
+<div class="explorer-title"><h1 id="page-title">Knowledge explorer</h1><p id="provenance">Synthetic example. research data management. read only</p></div>
+<form class="explorer-tools" role="search" id="search-form">
+<label><span id="search-label">Find a note</span><input type="search" id="search" autocomplete="off" placeholder="Title or text"></label>
+<label><span id="domain-label">Folder</span><select id="domain"><option value="">All folders</option></select></label>
+<label><span id="lens-label">Show</span><select id="lens"><option value="all">All notes</option><option value="unresolved">Unresolved references</option><option value="isolated">Without links</option><option value="cross">Links across folders</option></select></label>
+</form>
+<div class="explorer-workspace">
+<details class="note-browser" open><summary id="browser-summary">Notes</summary><p id="results-status" role="status"></p><ul id="note-list" role="list"></ul></details>
+<section class="context night" aria-labelledby="context-title"><h2 id="context-title">Linked context</h2><p id="graph-key">Arrows follow the written links. Select a note to read it.</p><div class="context-scroll" id="context-graph"></div></section>
+<article class="reader" id="reader" aria-labelledby="note-title"><h2 id="note-title" tabindex="-1">Loading example notes…</h2><p class="note-location" id="note-location"></p><div id="note-body" class="prose"></div><div id="evidence"></div></article>
+</div>
+<p id="load-error" role="alert" hidden></p>
+</main>
+<noscript><p>The explorer needs JavaScript. Read the <a href="example/Projects/Project%20Overview%20Photo%20Archive.md">example Markdown notes</a> directly.</p></noscript>
+</body>
+</html>

@@ -5,3 +5,4 @@ __pycache__/
 .venv/
 /docs/data.json
 /docs/graph.json
+/docs/explorer.json

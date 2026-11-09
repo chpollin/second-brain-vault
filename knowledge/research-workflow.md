@@ -1,6 +1,6 @@
 # Research workflow and knowledge continuity
 
-Second Brain supports research across projects by connecting maintained knowledge with the questions people and agents are currently investigating. Its purpose is to help a researcher recover earlier reasoning, examine new contributions and preserve findings under the conditions that justify them. The [project description](project.md) defines the research purpose. The [paper](paper.md) develops its argument and working definitions.
+Second Brain supports bringing together and working with knowledge about a person or a domain, as well as a person's own knowledge. This workflow describes its application to research across projects: recovering earlier reasoning, examining new contributions and preserving findings under the conditions that justify them. These are uses of the general function, whose outcomes depend on the task. The [project description](project.md) defines the research purpose. The [paper](paper.md) develops its argument and working definitions.
 
 ## Research context and responsibilities
 
@@ -9,6 +9,12 @@ A research project connects a substantive purpose with material, methods and cri
 A personal research environment is the maintained arrangement of knowledge resources, tools and working practices through which a researcher conducts inquiry across projects. The researcher supplies questions and substantive judgement. Agents select relevant context, investigate bounded questions and prepare contributions whose grounds can be inspected. Their ability to act depends on their actual tools and authorization.
 
 The personal vault holds conceptual knowledge, source readings and relations across projects. Each repository maintains the assumptions and decisions governing its own material and implementation. Skills describe recurring procedures and read this knowledge at its responsible location. The [integration contract](integration.md) specifies ownership and access boundaries. Explicit links provide routes for investigation. They establish neither automatic retrieval nor permission to read or change their targets.
+
+## Organization and modelling in an Obsidian vault
+
+Notes state the knowledge and its scope, source references preserve the grounds, and links provide routes between related documents. Overview notes organize entry points without copying the full contents of their targets. A link alone does not specify why two claims belong together. Explain the relevant relationship in prose when the current task needs that distinction. Keep open work at its operational location and views of the graph distinguishable from interpretations of its meaning.
+
+More explicit structures develop through use. A repeated difficulty in finding, expressing or maintaining a relationship can justify a small change, which is then examined in the next task. The existing strand-note proposal supplies one possible form for an argument, rather than a required structure for every vault. No new metadata field or relation vocabulary follows from the general function alone.
 
 ## Relation to the methodological projects
 
@@ -21,6 +27,8 @@ Second Brain brings these concerns into the researcher's working environment. Th
 ## Inquiry and authorized revision
 
 The current question determines which knowledge is relevant. A coordinating agent can delegate an inquiry when it can proceed independently alongside useful work. Its brief identifies the question, permitted sources and changes, expected evidence and publication boundary. The coordinator checks returned claims against the material before incorporating them. Agreement among agents is insufficient evidence of correctness.
+
+When an inquiry follows connections between notes, retain enough of the selection path to explain which connections were followed, why the selected material matters and which relevant alternatives were left outside the context. The context assembled for the question remains a derived view of the maintained documents. A connection suggested by an agent remains a proposal until its grounds have been examined under the applicable authority. Similarity alone does not establish the relation. The [strand-note proposal](../Vault%20Operations/Conventions/Convention%20Strand%20Notes.md) offers one optional form for ordering notes into an argument. It is not yet a convention in force and is not required for ordinary context selection.
 
 ```text
 Research question <---------------- Maintained knowledge
@@ -72,7 +80,7 @@ The design discussion favoured a compact project overview with direct access to 
 
 A completion mark needs an explicit meaning. A response can be recorded before an agent processes it, and processing can produce a proposed revision before that revision is authorized and verified. These distinctions should remain inspectable without introducing a required confirmation for every routine operation. Rejected contributions and useful answers requiring no revision also need a clear disposition.
 
-The public [method page](design.md) illustrates one episode with synthetic notes. The operational work interface is a separate component. The requirements above describe the intended connection between work and maintained knowledge and do not establish its complete implementation.
+The public [method page](design.md) illustrates one episode with synthetic notes. The [knowledge explorer](design.md#knowledge-explorer) lets a reader follow their literal references and examine the linking passages. The operational work interface is a separate component. The requirements above describe the intended connection between work and maintained knowledge and do not establish its complete implementation.
 
 ## Lessons from the development session
 
@@ -107,3 +115,5 @@ Teams, organizations and civilizations were proposed as metaphors for increasing
 The synthesis draws on the design discussion and session retrospective of 20 September 2026, including the supplied interface screenshots. This conversation is developmental evidence with incomplete experimental controls. No full transcript is distributed with the public template.
 
 Maintained sources are the [paper](paper.md), [integration contract](integration.md), [knowledge-document convention](../Vault%20Operations/Conventions/Convention%20Knowledge%20Documents.md), [development record](skill-evaluation.md) and [journal](journal.md). The [evaluation protocol](evaluation.md) governs prospective examination. The practical inquiry described here remains a proposal.
+
+The Agentic Zettelkasten method specification, experiment protocol and governance documents supplied additional design proposals for context selection and comparison, integrated on 2026-11-08. The prepared experiment was not performed. These proposals establish neither observed research benefit nor an implemented retrieval mechanism. The integration and source fingerprints are recorded in the [journal](journal.md#2026-11-08-note-network-method-integrated).

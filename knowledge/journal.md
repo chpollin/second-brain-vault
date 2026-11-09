@@ -1,5 +1,37 @@
 # Journal
 
+
+## 2026-11-09 Focused visual decision view
+
+The operator rejected the generic workspace as text-heavy and commissioned one visual understanding task. The explorer entry point now shows TIFF grounds, JPEG derivation, rejected JPEG-only storage and the image/audio boundary. Selecting an object opens one original passage in place. The prior note browser remains a secondary destination. Source notes remain unchanged. The design contract and browser evidence are maintained in [design](design.md#knowledge-explorer). The operator subsequently authorized curation, commits and push on 2026-11-09. Source repositories remain intact.
+
+## 2026-11-08 Knowledge explorer commissioned
+
+The operator assigned the useful functions of `vault-graph` to the Second Brain frontend, initially with synthetic example data, and deferred the old deletion tasks. The explorer is a separate working view alongside the guided method page. The design now defines improvement through understanding a selected connection from its passage, following relevant context and identifying a possible reading or maintenance action. Integration records the source and public-data boundary. Specification and README include the synthetic-only builder, and evaluation supplies the corresponding reader tasks. WEFT relation types remain an optional later input when an actual task needs them.
+
+The source project's `knowledge/methodik.md` and `knowledge/architecture.md` were read at checkout revision `2efebaba0e721908e344e273a494736098565b18`. Their distinction between structural findings, diagnosis candidates and semantic hypotheses informed the new design. The source analysis stack and private exports remain separate. The source repositories and local clone are retained. Implementation and observed browser checks have their maintained record in [design](design.md#evidence). Operator acceptance and the value in real knowledge work remain open.
+
+## 2026-11-08 General function clarified
+
+The operator defined Second Brain as bringing together knowledge held by a person, knowledge about a person or knowledge within a domain, and organizing, connecting and where needed modelling it for further use. Research questions and arguments are possible outcomes, alongside other task-dependent results. The author's personal research environment is one application. Project, README, specification and research workflow now preserve that distinction, including the difference between a collection about a person and the optional Research Persona.
+
+Additional structures are to develop through actual work. The workflow explains how sources, notes, links and overview documents can carry the initial arrangement in Obsidian. Explicit relations or models are added for a demonstrated need. The existing manuscript, proposed study and strand-note proposal retain their own scope and status. No new field, relation vocabulary, study or publication is introduced.
+
+## 2026-11-08 Note-network method integrated
+
+The operator assigned the reusable knowledge of the retired Agentic Zettelkasten experiment to Second Brain. Comparison with the current template confirmed that the strand-note proposal already retained argument relations, producer attribution and a two-condition test. The research workflow now also explains selection paths, relevant exclusions, derived contexts and the status of agent-proposed connections. The evaluation protocol links an optional isolated-note versus connected-note comparison to its existing controls and episode record. Integration records this transfer without adding another method project, mandatory identifiers, lifecycle fields or run infrastructure.
+
+The source repository had no commit at inspection. The documents below were read in full and identified by SHA-256. No experiment was run, no Luhmann Archive content or source tools were copied, and no claim of research benefit or automatic retrieval follows. The strand-note convention remains a proposal. The source repository remains intact.
+
+| Source document in Agentic Zettelkasten | SHA-256 at integration |
+|---|---|
+| `knowledge/project.md` | `09af395417a01ca764f82841a4f0ceca105bc4732f115a7c7b1eeabedb1b21f0` |
+| `knowledge/method-specification.md` | `e31fb4078b2612bc5889c897975cf310decacf44cbb771804016296f2d576c11` |
+| `knowledge/experiment-protocol.md` | `f46099013229293bdfee99e6e5a64509e87f109e4efee2652e54f8dbd2da8b8b` |
+| `knowledge/governance.md` | `5a373e478a617973f9a9fa5ac658494773f4822a12e9792cf3679704cca6065e` |
+
+Verification regenerated the derived site and graph data, passed the vault structure check without hard or measured findings, and passed the Python tests, Node.js link and layout tests and page-script syntax checks. Ruff lint and formatting checks could not run because Ruff is not installed in the available Python environment. No source code was changed.
+
 ## 2026-11-05 Knowledge checked against the unpushed method page
 
 The curation round of 2026-11-05 compared the knowledge documents with the method page as committed locally. The page commits from efd4ca9 to 0475124 are not yet pushed, so the opening sentence of [design](design.md), which placed the page at its public address, named a state that only a push establishes. Design now names `docs/` as the page and the Pages workflow as its route to the address. The [specification](specification.md) listed only the Node.js link test, while `.github/workflows/pages.yml` also runs `tests/test_hero_layout.mjs` and `node --check` on every page script. Its workflow description and verification commands now carry both.

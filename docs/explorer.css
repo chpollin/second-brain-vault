@@ -1,0 +1,99 @@
+@layer layout, components;
+@layer layout {
+  .explorer-page { --wide: 100rem; }
+  .explorer-shell { padding: 1.5rem var(--gutter) 3rem; container-type: inline-size; }
+  .explorer-title { display: flex; flex-wrap: wrap; gap: .6rem 2rem; align-items: baseline; margin-block-end: 1.25rem; }
+  .explorer-title h1 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem); }
+  .explorer-title p { color: var(--ink-soft); font-size: var(--step--1); }
+  .explorer-tools { display: flex; flex-wrap: wrap; gap: .75rem; margin-block-end: 1.5rem; align-items: end; }
+  .explorer-tools label { display: grid; gap: .25rem; flex: 1 1 10rem; font-size: var(--step--1); }
+  .explorer-tools label:first-child { flex: 3 1 17rem; }
+  .explorer-tools input, .explorer-tools select { inline-size: 100%; min-block-size: 2.75rem; padding: .5rem .75rem; border: 1px solid var(--edge-hi); border-radius: .4rem; background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; }
+  .explorer-workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  .note-browser { min-inline-size: 0; }
+  .context { min-inline-size: 0; padding: 1.1rem; border-radius: .6rem; }
+  .reader { min-inline-size: 0; scroll-margin-block-start: 5rem; }
+  .context-scroll { max-block-size: 35rem; overflow: auto; }
+  .context svg { inline-size: 100%; min-inline-size: 32rem; }
+  .context { display: none; }
+  @container (inline-size >= 48rem) {
+    .explorer-workspace { grid-template-columns: minmax(18rem, 1fr) minmax(22rem, 1.15fr); }
+    .note-browser { grid-column: 1 / -1; }
+    .note-browser ul { columns: 3 14rem; }
+    .context { display: block; }
+    .context svg { min-inline-size: 0; }
+  }
+  @container (inline-size >= 74rem) {
+    .explorer-workspace { grid-template-columns: 14rem minmax(23rem, 1fr) minmax(26rem, 1.15fr); }
+    .note-browser { grid-column: auto; max-block-size: calc(100vh - 17rem); overflow: auto; }
+    .note-browser ul { columns: auto; }
+  }
+}
+@layer components {
+  .explorer-page .site-head { position: static; gap: .75rem; flex-wrap: wrap; }
+  .explorer-page .site-nav ul { flex-wrap: wrap; }
+  .explorer-page .site-nav a[aria-current] { color: var(--ink); text-decoration: underline; }
+  .explorer-page h2 { font-size: 1.2rem; }
+  .explorer-page h3, .reader .prose h2 { font-size: 1.05rem; }
+  .explorer-page button { cursor: pointer; font: inherit; }
+  .note-browser summary { cursor: pointer; font-weight: 600; min-block-size: 2.5rem; }
+  #results-status { color: var(--ink-soft); margin-block-end: .4rem; font-size: var(--step--1); }
+  #note-list li { break-inside: avoid; }
+  #note-list a { display: block; padding: .45rem .6rem; border-inline-start: 3px solid transparent; text-decoration: none; font-size: .95rem; line-height: 1.35; }
+  #note-list a:hover, #note-list a:focus-visible { text-decoration: underline; background: var(--ground-alt); }
+  #note-list a[aria-current] { border-color: var(--accent); background: var(--ground-alt); color: var(--ink); font-weight: 600; }
+  .context > p { color: var(--ink-soft); font-size: .85rem; margin-block: .5rem 1rem; }
+  .context .graph-edge { stroke: var(--ink-faint); stroke-width: 1.4; fill: none; }
+  .context marker path { fill: var(--ink-faint); }
+  .context .graph-node rect { fill: var(--surface); stroke: var(--edge-hi); stroke-width: 1.5; }
+  .context .graph-node.selected rect { stroke: var(--accent); stroke-width: 2.5; }
+  .context .graph-node:hover rect, .context .graph-node:focus-visible rect { stroke: var(--focus); }
+  .context .graph-node:focus-visible { outline: none; }
+  .context .graph-node text { fill: var(--ink); font: 17px var(--font); text-anchor: middle; }
+  .context .graph-label { fill: var(--ink-soft); font: 15px var(--font); text-anchor: middle; }
+  .context .graph-node { cursor: pointer; }
+  .note-location { color: var(--ink-soft); font-size: var(--step--1); overflow-wrap: anywhere; margin-block: .35rem 1.1rem; }
+  .reader .prose { font-size: 1rem; max-inline-size: 75ch; }
+  .reader .prose > :first-child { margin-block-start: 0; }
+  .reader .prose h2 { margin-block-start: 1.25rem; }
+  .reader .prose p, .reader .prose ul { margin-block: .7rem; }
+  .reader .prose ul { padding-inline-start: 1.2rem; list-style: disc; }
+  #evidence { margin-block-start: 1.75rem; }
+  #evidence h3 { margin-block: 1.25rem .6rem; }
+  .relation { margin-block: .9rem; padding-block-end: .9rem; border-block-end: 1px solid var(--edge); }
+  .relation a { text-decoration: none; font-weight: 600; }
+  .relation a:hover, .relation a:focus-visible { text-decoration: underline; }
+  .relation blockquote { margin: .35rem 0 0; color: var(--ink-soft); font-size: .94rem; overflow-wrap: anywhere; }
+  .relation .line { font-size: .8rem; color: var(--ink-soft); margin-inline-start: .4rem; }
+  .care-note { color: var(--ink-soft); font-size: .94rem; margin-block: .7rem; }
+  #load-error { color: var(--accent-hi); }
+}
+@layer components {
+  .explorer-tasks { display: flex; flex-wrap: wrap; gap: .35rem 1.3rem; margin-block-end: 1rem; font-size: .93rem; }
+  .explorer-tasks a { text-decoration: none; }
+  .explorer-tasks a:hover, .explorer-tasks a:focus-visible { text-decoration: underline; }
+}
+@layer components {
+  .explorer-page [hidden] { display: none; }
+  .reader .prose { display: block; }
+  .reader .prose :is(h3,h4,h5,h6) { margin: 1rem 0 .4rem; font-family: var(--display); font-size: 1rem; line-height: 1.35; font-weight: 600; }
+  .reader .prose p, .reader .prose ul, .reader .prose ol { margin-block: .5rem; }
+  .reader .prose > :first-child { margin-block-start: 0; }
+}
+@layer components {
+  .return-notes { border: 0; padding: .4rem 0; color: var(--accent); background: transparent; margin-block-end: .75rem; }
+  .return-notes:hover { text-decoration: underline; }
+  @container (inline-size >= 48rem) { .return-notes { display: none; } }
+}
+@layer layout {
+  .explorer-tools { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: .6rem .75rem; }
+  .explorer-tools label { min-inline-size: 0; }
+  .explorer-tools label:first-child { grid-column: 1 / -1; }
+  @container (inline-size >= 48rem) {
+    .explorer-tools { grid-template-columns: minmax(15rem,3fr) minmax(10rem,1fr) minmax(12rem,1fr); }
+    .explorer-tools label:first-child { grid-column: auto; }
+  }
+}
+@layer components {
+  .explorer-page .explorer-tools select { min-inline-size: 0; }
+}

@@ -34,6 +34,16 @@ Record task order and researcher familiarity. Where suitable tasks allow it, var
 
 For each condition, retain observed agent calls, tool calls, retries, supplied context and reported token use across all participating agents, with telemetry provenance. Capture elapsed time and human review or repair effort only when observed by a stated method. Missing measurements remain unrecorded, never zero. A delegation comparison should hold the total processing allowance comparable where possible and account for additional computation when interpreting differences. Without that control, an apparent improvement cannot be attributed specifically to coordination. Do not infer research benefit from answer length or activity volume.
 
+A comparison of note context may contrast a starting note with the same note plus an explicitly selected set of connected notes, such as a [proposed strand note](../Vault%20Operations/Conventions/Convention%20Strand%20Notes.md#testing-the-convention). Apply the controls above and the existing episode record. Examine whether the added context changes the argument, its distinctions or explanatory reach, whether a new connection is defensible and which claims exceed the supplied material. Also examine which included notes were useful and which relevant material the selection excluded. Additional length or terminology is insufficient evidence of improvement. Agent-suggested connections can be examined separately when the simpler comparison warrants it. This is an optional prospective comparison, not a commissioned or completed experiment.
+
+## Knowledge-explorer review
+
+The [knowledge explorer](design.md#knowledge-explorer) begins with synthetic data. Its technical and interface checks belong to development evidence. A completed example task establishes only the observed behaviour on that example.
+
+In the focused image-format view, ask a reader to explain the TIFF grounds, identify JPEG as a regenerable access copy and recognise why audio needs its own decision. Ask which visible relationship and source passage supports each explanation. The broader browser at `docs/notes.html` retains separate maintenance tasks, including what an isolated note or unresolved reference establishes and what must be read before changing anything. Preserve navigation failures, mistaken interpretations and the operator's proposed corrections.
+
+Review whether the visualization helps the reader find evidence and a constructive next reading or revision action. Keep the reader's understanding, their judgement of usefulness and the correctness of the underlying references separate. Compare against a simpler list-and-text route only when an actual comparison is commissioned under the controls above. Example-data review supplies no result about a private vault or a general effect on research.
+
 ## Evidence and privacy
 
 Retain transcripts and source snapshots only in the location and scope authorized for the study. Public template files contain no actual private episode. Use roles in study documentation, keep identifying keys separately, and inspect excerpts and artefacts before any explicitly authorized publication. Redaction must preserve enough of the claim-support relationship for the stated review. If it cannot, describe the affected result as unavailable for public inspection.

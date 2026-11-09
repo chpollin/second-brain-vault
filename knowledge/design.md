@@ -36,6 +36,16 @@ On wide screens the graph and card share a stage of fixed height above the stepp
 
 The example domain is a team's research data work: a photo archive project decides on the format of its archival masters, and an oral history project later checks whether the decision transfers to audio. It is synthetic. Its literature notes carry bibliographic entries only.
 
+## Knowledge explorer
+
+The operator rejected the first list/graph/full-text workspace as too text-heavy on 2026-11-08. The next slice at `docs/explorer.html` answers one question: why are photo masters TIFF, how does JPEG derive from them, and where does this decision stop applying? The previous generic note browser remains at `docs/notes.html` as a secondary destination. The method hero stays unchanged.
+
+The initial view contains three compact grounds feeding the TIFF master, a directed derivation to the JPEG access copy, and the boundary between photographs and audio. The rejected JPEG-only alternative remains selectable. These are editorially curated relationships justified by the example decision and its named sources, not relation types inferred from graph topology. One selected object reveals its exact original passage and source line immediately beneath that object. Selecting another object moves the single evidence passage; Escape closes it. Native buttons provide pointer and keyboard access. Selection is addressable and follows browser history.
+
+The wide composition is a spatial argument, with reasons left, master centre, derived copy right, and scope below. Narrow screens preserve direction through a vertical flow and reflow the evidence at its selected object. Source passages remain English and are identified as originals. German labels are editorial condensations. The existing DHCraft type and colour tokens apply. No search, filters, full note column or repeated evidence inventory appears in this slice. Synthetic data and source provenance remain explicit.
+
+Acceptance tasks are to explain the TIFF grounds, identify JPEG as a regenerable access copy, and recognise that the image decision leaves audio open. The visual arrangement must communicate these before opening full documents. Evidence selection must stay at the selected object without blocking the composition. Human acceptance remains open until the operator examines the result.
+
 ## Visual system
 
 The site follows the DHCraft corporate design loosely. Tokens come from the dhcraft-site palette in OKLCH, the fonts Sora and Instrument Sans are vendored under `docs/assets/fonts/` with their licences, buttons and chips are pills, and the header carries the white DHCraft mark. Graph sections stand on a navy night ground with faint highlights, reading sections on paper. The page uses at most three text levels and draws borders only for interactive elements, prompts and the graph. Sections are separated by their ground, not by rules.
@@ -59,6 +69,8 @@ The site serves the template files and the synthetic example only. `scripts/buil
 
 ## Evidence
 
+The focused decision view was visually inspected at 1600 by 900, 1280 by 800 and 360 by 740 CSS pixels on 2026-11-08. Selected Information, Scanner, Master, Format and Audio states were inspected, with no horizontal document overflow in the checked widths. Pointer selection and keyboard Enter opened evidence at the selected object. Escape from the evidence source link closed it and restored object focus. Independent source and wide-view review found an Escape defect and a loading race, both corrected. The parent rechecked Escape and narrow reflow. Existing Python and Node checks passed. Actual 200 percent browser zoom and human acceptance remain open.
+
 Five reader tests on 2026-11-04 used separate subagents in the role of a professional without Obsidian, Git or agent experience, given screenshots and the page text. They are model readers, not people.
 
 - All readings understood the example and the principle of one place per statement, and the last one retold the seven phases correctly and called the page calm.
@@ -79,3 +91,4 @@ A fresh model reviewer then read the built hero in three reader roles and agains
 - 2026-11-04: after operator review the separate sections on what a vault is, the example, data and maintenance were merged into the hero and one section of notes, and the reference became a single file tree, because the earlier page said the same things twice and stacked too many levels.
 - 2026-11-04: recorded agent sessions were dropped from the site because they ran under the owner's personal configuration. New recordings require a neutral configuration.
 - 2026-11-04: on the operator's instruction the combined focus graph and note card replaced the whole-vault hero graph. The episode staging of the graph module, the old stepper and the lab variants were removed.
+- 2026-11-08: the operator commissioned a knowledge explorer using the example data alongside the method page, with contextual reading and inspectable link evidence as the first design criteria. Source repositories and the local `vault-graph` clone are retained while the integration is examined.

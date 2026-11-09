@@ -1,6 +1,6 @@
 """The public site serves template material and the synthetic example domain only.
 
-Checks the built site data, so run build_site.py and build_graph.py first, as the Pages
+Checks the built site data, so run build_site.py, build_graph.py and build_explorer.py first, as the Pages
 workflow does.
 """
 
@@ -40,7 +40,7 @@ def test_no_private_trace_in_served_files():
 
 def test_no_email_address_in_example_or_graph_data():
     found = []
-    for path in [DOCS / "graph.json", *sorted((DOCS / "example").rglob("*.md"))]:
+    for path in [DOCS / "graph.json", DOCS / "explorer.json", *sorted((DOCS / "example").rglob("*.md"))]:
         match = EMAIL.search(path.read_text(encoding="utf-8"))
         if match:
             found.append((path.name, match.group(0)))

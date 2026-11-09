@@ -1,0 +1,88 @@
+@layer layout, components;
+@layer layout {
+  .decision-page main { max-inline-size: 84rem; margin-inline:auto; padding: 2rem var(--gutter) 1rem; }
+  .decision-head { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.8rem var(--gutter); }
+  .decision-head nav { display:flex; gap:1.5rem; }
+  .decision-title { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; align-items:baseline; margin-block-end:2.5rem; }
+  .decision-title h1 { font:600 clamp(1.8rem,1.4rem + 1vw,2.5rem) var(--display); }
+  .decision-title p { color:var(--ink-soft); }
+  .argument { position:relative; isolation:isolate; display:grid; grid-template-columns:minmax(12rem,1.1fr) 5rem minmax(13rem,1fr) 5rem minmax(12rem,1fr); gap:1rem 0; align-items:center; container-type:inline-size; }
+  .grounds { grid-column:1; grid-row:1; display:grid; gap:1.5rem; }
+  .grounds-label { grid-column:2; grid-row:1; }
+  .master { grid-column:3; grid-row:1; }
+  .copy-label { grid-column:4; grid-row:1; }
+  .copy { grid-column:5; grid-row:1; }
+  .alternative { grid-column:3; grid-row:2; justify-self:center; margin-block-start:.8rem; }
+  .scope { grid-column:1/-1; display:grid; grid-template-columns:1fr 1px 1fr; gap:2rem; margin-block-start:3rem; padding-block:1.5rem; border-block-start:1px solid var(--edge-hi); align-items:start; }
+  .connections { position:absolute; inset:0; inline-size:100%; block-size:100%; z-index:-1; overflow:visible; pointer-events:none; }
+  .source-note { font-size:.85rem; color:var(--ink-soft); margin-block-start:1.25rem; }
+}
+@layer components {
+  .decision-page { --copy-tint:color-mix(in oklch,var(--g-control) 10%,var(--ground)); }
+  .decision-page [hidden] { display:none; }
+  .decision-head a { color:var(--ink); text-decoration:none; }
+  .decision-head a:hover { text-decoration:underline; }
+  .decision-head .brand { display:flex; gap:.65rem; align-items:center; font-weight:600; }
+  .object { min-inline-size:0; }
+  .object button { inline-size:100%; color:var(--ink); background:var(--ground); font:inherit; cursor:pointer; border:1px solid var(--edge-hi); border-radius:.4rem; padding:1rem; text-align:start; display:flex; gap:.8rem; align-items:center; line-height:1.35; }
+  .object button:hover { border-color:var(--accent); }
+  .object button:focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
+  .object button[aria-expanded=true] { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent); }
+  .node-symbol { font-size:1.5rem; inline-size:2.25rem; flex-shrink:0; text-align:center; }
+  .scanner-icon,.audio-icon { inline-size:2.25rem; block-size:2rem; fill:none; stroke:currentColor; stroke-width:2; flex-shrink:0; }
+  .master > button,.copy > button { flex-direction:column; padding:1.4rem .7rem; gap:.55rem; text-align:center; }
+  .master > button { background:var(--ink); color:var(--ground); border-color:var(--ink); }
+  .copy > button { background:var(--copy-tint); }
+  .file-icon { inline-size:5.2rem; block-size:6.2rem; fill:none; stroke:currentColor; stroke-width:2; }
+  .object strong { font:600 2rem var(--display); }
+  .object-role { font-size:.85rem; }
+  .master button > :last-child,.copy button > :last-child { font-size:.85rem; }
+  .relation-label { font-size:.8rem; text-align:center; color:var(--ink-soft); background:var(--ground); z-index:1; padding:.3rem 0; }
+  .grounds-label { align-self:start; margin-block-start:1rem; }
+  .alternative > button { gap:.5rem; padding:.6rem; border-style:dashed; font-size:.85rem; background:var(--ground); }
+  .rejected-symbol { font-size:1.5rem; }
+  .scope .object button { border:0; padding:.3rem; background:none; justify-content:center; }
+  .scope-mark { font-size:1.75rem; }
+  .scope-boundary { background:var(--edge-hi); min-block-size:3rem; }
+  .connections path { fill:none; stroke:var(--ink-faint); stroke-width:1.5; }
+  .connections marker path { fill:var(--ink-faint); stroke:none; }
+  .evidence { margin-block-start:1rem; padding:.65rem 0 .65rem .8rem; border-inline-start:3px solid var(--accent); font-size:.9rem; line-height:1.5; overflow-wrap:anywhere; }
+  .evidence blockquote { margin:0; }
+  .evidence a { display:block; color:var(--accent-hi); font-size:.78rem; margin-block-start:.5rem; }
+  .evidence .line-label { color:var(--ink-soft); font-size:.78rem; }
+}
+@layer layout {
+  .decision-page main { container-type:inline-size; }
+  @container (inline-size < 48rem) {
+    .decision-title { margin-block-end:1.5rem; }
+    .argument { grid-template-columns:minmax(0,1fr); gap:1rem; }
+    .grounds { grid-column:1; grid-row:1; gap:.6rem; }
+    .grounds-label { grid-column:1; grid-row:2; margin:0; }
+    .grounds-label::after { content:' ↓'; }
+    .master { grid-column:1; grid-row:3; }
+    .copy-label { grid-column:1; grid-row:4; }
+    .copy { grid-column:1; grid-row:5; }
+    .alternative { grid-column:1; grid-row:6; margin:0; }
+    .scope { grid-column:1; grid-row:7; grid-template-columns:1fr; gap:1rem; margin-block-start:.5rem; }
+    .scope-boundary { min-block-size:1px; }
+    .connections { display:none; }
+    .master > button,.copy > button { display:grid; grid-template-columns:3rem 1fr; text-align:start; padding:1rem; column-gap:1rem; }
+    .master .file-icon,.copy .file-icon { grid-column:1; grid-row:1/4; inline-size:3rem; block-size:4rem; }
+    .master button > :not(svg),.copy button > :not(svg) { grid-column:2; }
+    .master strong,.copy strong { font-size:1.65rem; }
+  }
+}
+@layer components {
+  .relation-label { justify-self:center; }
+  .copy-label { transform:translateY(-1.4rem); }
+  @container (inline-size < 48rem) {
+    .master > button,.copy > button { display:grid; grid-template-columns:3rem 1fr; text-align:start; padding:1rem; column-gap:1rem; }
+    .master .file-icon,.copy .file-icon { grid-column:1; grid-row:1/4; inline-size:3rem; block-size:4rem; }
+    .master button > :not(svg),.copy button > :not(svg) { grid-column:2; }
+    .master strong,.copy strong { font-size:1.65rem; }
+    .copy-label { transform:none; }
+  }
+}
+@layer components {
+  @container (inline-size < 48rem) { .scope-boundary { min-block-size:1px; } }
+}

@@ -1,6 +1,6 @@
 # Specification
 
-The template must support a person and an available AI agent in maintaining research knowledge, selecting context and reviewing proposed changes. Its reusable procedures read substantive knowledge at its maintained location. They do not carry copies of that knowledge in their instructions.
+The template supports bringing together, organizing and connecting knowledge held by a person, knowledge about a person or knowledge within a domain. Its use with an available AI agent includes selecting context and reviewing proposed changes. The intended output is determined by the task, and more explicit knowledge models develop from needs observed in use. Its reusable procedures read substantive knowledge at its maintained location. They do not carry copies of that knowledge in their instructions.
 
 ## Implemented components
 
@@ -14,9 +14,10 @@ The template must support a person and an available AI agent in maintaining rese
 | Structural checks | `scripts/check_vault.py`, generator, commit hook and tests | Check decidable requirements and report measured findings for judgement |
 | Synthetic test material | `Vault Operations/Fixtures/` and skill `evals/` | Preserve registered defects and expected behaviour for bounded trials |
 | Public method page | `docs/`, `scripts/build_site.py` and `scripts/build_graph.py` | Explain the approach in English and German from the template files and a synthetic example domain, without serving `knowledge/` |
+| Knowledge explorer | `docs/explorer.html`, `docs/decision.js`, `docs/decision.css` | Follow the curated visual grounds, derivation and scope of the photo-format decision; select an object to read its original evidence in place. The generic note browser remains at `docs/notes.html` |
 | Research procedure | [Evaluation](evaluation.md) and [episode template](episode-template.md) | Preserve the sources, interventions and outcomes of an observed episode, with missing stages explicit |
 
-The repository distributes the method page. Its generated `docs/data.json` and `docs/graph.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link and hero layout tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
+The repository distributes the method page and synthetic knowledge explorer. Its generated `docs/data.json`, `docs/graph.json` and `docs/explorer.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link and hero layout tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
 
 Skills are executable procedures when an agent reads and follows them. A skill file alone installs no runtime, account connection or tool. The actual host determines which operations are available.
 
@@ -30,6 +31,10 @@ Skills are executable procedures when an agent reads and follows them. A skill f
 - Optional components can be removed only with their references and dependencies inspected. The [README](../README.md#start-smaller) gives the removal procedure. A separate core-and-packs architecture is unnecessary for the implemented template.
 - Source-specific exclusions remain in the owner's rules. The public template does not reproduce the original owner's prohibition concerning a particular third-party website.
 
+## Explorer requirements
+
+The explorer reads only `docs/example/`. Each resolved reference retains its direction, literal occurrence, source line and excerpt. Unresolved references preserve their reason, including references outside the example boundary, so they can be distinguished from missing notes. Connected components and isolated notes are structural review candidates. The interface follows the [task and interaction contract](design.md#knowledge-explorer), and the [review tasks](evaluation.md#knowledge-explorer-review) keep observed usability separate from technical correctness and operator acceptance.
+
 ## Verification
 
 Run the following after a template change:
@@ -38,6 +43,8 @@ Run the following after a template change:
 python scripts/render_agents_md.py
 python scripts/build_site.py
 python scripts/build_graph.py
+python scripts/build_explorer.py
+python scripts/build_explorer.py --check
 python scripts/check_vault.py
 python -m pytest -q
 python -m ruff check .

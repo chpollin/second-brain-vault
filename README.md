@@ -1,10 +1,12 @@
-# Second Brain as a Personal Research Environment for Working with AI Agents
+# Second Brain
 
-Second Brain connects a maintained personal research vault with the knowledge held in project repositories and the procedures that AI agents use to work with it. The vault holds developed ideas, source readings and cross-project relations. Each repository keeps its requirements, decisions and domain knowledge in a `knowledge/` folder. Conversation gives the person and agent a place to examine this material and develop new contributions. Accepted findings return to their responsible documents through authorized maintenance.
+Second Brain brings together knowledge held by a person, knowledge about a person or knowledge within a domain, and makes it available for further work. Sources, developed ideas and their relationships can be organized, examined and revised in a maintained Obsidian vault. The resulting work may take different forms, including research questions, arguments, texts, decisions, models and tools. Explicit modelling is added where the subject and the task call for it.
 
-This repository provides a reusable Obsidian vault template for that arrangement. It contains synthetic example notes, executable skills, document conventions and structural checks. Open it in Obsidian and adapt it to your own domains and projects. The source owner's research corpus and personal Research Persona remain unpublished.
+This repository provides a reusable Obsidian vault template for that function. The author uses it as a personal research environment connected to project repositories and procedures for working with AI agents. It contains synthetic example notes, executable skills, document conventions and structural checks. Open it in Obsidian and adapt it to your own domains and projects. The source owner's research corpus and personal Research Persona remain unpublished.
 
-The [method page](https://chpollin.github.io/second-brain-vault/) explains the approach for readers without prior knowledge, in English and in German with `?lang=de`. It shows a graph of an example vault, builds a vault in seven steps with prompts to copy, walks through one episode of use and states what happens with your data. Its design is described in [design](knowledge/design.md).
+The [method page](https://chpollin.github.io/second-brain-vault/) explains the approach for readers without prior knowledge, in English and in German with `?lang=de`. It shows a graph of an example vault, builds a vault in seven steps with prompts to copy, walks through one episode of use and states what happens with your data. The [knowledge explorer](docs/explorer.html) opens one visual argument for the image-format decision, with original evidence at the selected object. The broader note browser remains available through Notes. Their design is described in [design](knowledge/design.md).
+
+Begin with the sources, notes, links and overview pages needed for an actual task. More specific structures develop through use. The [project description](knowledge/project.md) separates this general function from the author's research application.
 
 ## Knowledge, procedures and dialogue
 
@@ -14,7 +16,7 @@ The [method page](https://chpollin.github.io/second-brain-vault/) explains the a
 | Project repositories | Substantive project knowledge beside data and implementation | A repository directory, Project Overview convention and `project-knowledge` procedure |
 | Executable skills | Procedures that select, inspect and maintain relevant knowledge | Skills under `.claude/skills/`, registered in `VAULT-OPERATIONS.md` |
 | Conversation | A question, source-based reasoning, proposed changes and personal feedback | Rules for agent work and optional persona initialisation, used in an available agent host |
-| User interfaces | Inspectable views of selected documents or results | A public method page with a graph of the template and a synthetic example domain |
+| User interfaces | Inspectable views of selected documents or results | A public method page and a knowledge explorer over synthetic example notes |
 
 The vault and repository knowledge form a linked documentary structure. Agents follow explicit references and read the sources needed for the question. The template implements no automatic retrieval across repositories. A skill describes how to act and reads substantive knowledge from its maintained location. Its execution depends on the tools and access available in the actual agent host.
 
@@ -24,7 +26,7 @@ The real ACTIVE-WORK interface is maintained separately in a private repository.
 
 [Promptotyping](https://github.com/DigitalHumanitiesCraft/Promptotyping) connects maintained project knowledge with the iterative development of research artefacts. The template applies this through its `project-knowledge` skill. [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) addresses source-grounded knowledge work, while [Research Mission Control](https://github.com/DigitalHumanitiesCraft/research-mission-control) addresses research coordination. Their specifications remain in their own repositories. A vault built after this template can run Research Mission Control on top of it, as the author's vault does since October 2026: the operators keep one file each under the vault's lab folder, and the ACTIVE-WORK interface shows them beside the projects. Nothing in the template depends on that.
 
-Second Brain brings these concerns into a personal research environment. The [manuscript](knowledge/paper.md), *Second Brain as a Personal Research Environment for Working with AI Agents*, presents the design and a proposed empirical study. The [evaluation procedure](knowledge/evaluation.md) and [episode template](knowledge/episode-template.md) support recording real research episodes, including rejected and unresolved contributions. The [recorded skill trials](knowledge/skill-evaluation.md) cover bounded synthetic cases and do not establish a general benefit or scholarly validation. The [project knowledge](knowledge/INDEX.md) states the purpose, implemented requirements and component boundaries.
+The author's research application brings these concerns into a personal research environment. The [manuscript](knowledge/paper.md), *Second Brain as a Personal Research Environment for Working with AI Agents*, presents the design and a proposed empirical study. The [evaluation procedure](knowledge/evaluation.md) and [episode template](knowledge/episode-template.md) support recording real research episodes, including rejected and unresolved contributions. The [recorded skill trials](knowledge/skill-evaluation.md) cover bounded synthetic cases and do not establish a general benefit or scholarly validation. The [project knowledge](knowledge/INDEX.md) states the purpose, implemented requirements and component boundaries.
 
 ## What you need
 
@@ -45,6 +47,7 @@ The vault is usable without Python. The checks then do not run, and the rule tie
 ```powershell
 python scripts/build_site.py
 python scripts/build_graph.py
+python scripts/build_explorer.py
 python scripts/check_vault.py
 python -m pytest -q
 ```
@@ -168,21 +171,22 @@ second-brain-vault/
 │   ├── check_vault.py         hard and measured rules
 │   ├── render_agents_md.py    generates AGENTS.md
 │   ├── build_site.py          generates docs/data.json, the template files for the site
-│   ├── build_graph.py         generates docs/graph.json, the graph and its layouts
+│   ├── build_graph.py         generates docs/graph.json, the method-page graph and its layouts
+│   ├── build_explorer.py      generates docs/explorer.json from synthetic example notes
 │   └── hooks/pre-commit       rejects a commit that violates a hard rule
 │
-├── docs/                      the method page with a synthetic example domain, served by GitHub Pages
+├── docs/                      the method page and synthetic knowledge explorer, served by GitHub Pages
 ├── tests/                     tests of the check script and of the generator
 └── knowledge/                purpose, requirements, integration and maintenance history
 ```
 
 The skills and what each is for stand in the skill register of `VAULT-OPERATIONS.md`, the conventions in the convention index of `CLAUDE.md`. The check script reports a skill or a convention that exists on disk and is missing from its register.
 
-`docs/` is the method page. It reads `docs/data.json`, which `scripts/build_site.py` derives from the template files, and `docs/graph.json`, which `scripts/build_graph.py` derives from those files and the synthetic notes under `docs/example/`. Both generated files are ignored by Git. Run both scripts after a template change and before checks, a commit or local preview. The checker reports missing or stale site data as a hard finding, as it does for stale generated `AGENTS.md` instructions. The site never serves `knowledge/`, which `tests/test_site_privacy.py` guards.
+`docs/` contains the method page and `explorer.html`. The method page reads `docs/data.json`, which `scripts/build_site.py` derives from the template files, and `docs/graph.json`, which `scripts/build_graph.py` derives from those files and the synthetic notes under `docs/example/`. The explorer reads `docs/explorer.json`, built by `scripts/build_explorer.py` exclusively from those example notes, with literal reference passages and line numbers. All generated data files are ignored by Git. Run the three builders after a change and before checks, a commit or local preview. The checks detect missing or stale generated data and generated `AGENTS.md` instructions. The site never serves `knowledge/`, which `tests/test_site_privacy.py` guards.
 
 `.github/workflows/pages.yml` builds the site data, runs the checks and deploys `docs/` as a Pages artifact on pushes to `main` and manual runs. Set the repository's Pages source to GitHub Actions to use this workflow. Deployment does not commit generated data.
 
-For local preview, run `python scripts/build_site.py` and `python scripts/build_graph.py`, then `python -m http.server --directory docs` from the repository root and open `http://localhost:8000`, adding `?lang=de` for German. Browser modules require HTTP rather than `file://`. To remove the page, follow the dependency checks in [Start smaller](#start-smaller).
+For local preview, run `python scripts/build_site.py`, `python scripts/build_graph.py` and `python scripts/build_explorer.py`, then `python -m http.server --directory docs` from the repository root and open `http://localhost:8000`, adding `?lang=de` for German. Open `http://localhost:8000/explorer.html` for the knowledge explorer. Browser modules require HTTP rather than `file://`. To remove the page, follow the dependency checks in [Start smaller](#start-smaller).
 
 ## Make it your own
 
@@ -205,7 +209,7 @@ Begin with the notes and skills you need while keeping their dependencies. The c
 
 To remove a skill or convention, first inspect references to its name across the vault, including `.claude/`, `scripts/` and `tests/`. Preserve any rule source that a remaining procedure or check needs. Remove the optional file or folder together with its register entry, navigation links and dependent instructions. Regenerate `AGENTS.md` after a constitution change and `docs/data.json` after any template change, then run both `python scripts/check_vault.py` and `python -m pytest -q`. A successful commit establishes only that the hard rules passed. Read the measured findings as well.
 
-The tests describe the distributed template. Removing a named component can require an explicit test change to match the smaller vault, such as the known-file assertion for `Convention Skills` in `tests/test_build_site.py`. Preserve the checks for broken links, required rule sources and stale generated files. Removing the explorer requires adapting its import and currency check in `scripts/check_vault.py` and its tests before deleting `docs/` or `scripts/build_site.py`.
+The tests describe the distributed template. Removing a named component can require an explicit test change to match the smaller vault, such as the known-file assertion for `Convention Skills` in `tests/test_build_site.py`. Preserve the checks for broken links, required rule sources and stale generated files. Removing the public pages requires adapting their generated-data checks, privacy tests, navigation links and Pages workflow before deleting page assets or their builders.
 
 The skills `project-knowledge` and `vault-orient` apply when you keep code repositories next to the vault. `active-work-report` applies when you use `ACTIVE-WORK.md` as your board.
 

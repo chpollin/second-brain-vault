@@ -56,7 +56,7 @@ function renderHeader(t, lang) {
       h("span", { text: "Second Brain Vault" })),
     h("nav", { class: "site-nav", "aria-label": t.nav.top },
       h("ul", {}, ...NAV.map((id) => h("li", {}, h("a", { href: `#${id}`, text: t.nav[id] }))))),
-    h("div", { class: "head-actions" }, toggle, h("a", { class: "pill", href: REPO, text: t.template })),
+    h("div", { class: "head-actions" }, h("a", { href: `explorer.html?lang=${lang}`, text: lang === "de" ? "Wissen erkunden" : "Explore knowledge" }), toggle, h("a", { class: "pill", href: REPO, text: t.template })),
   );
   document.querySelector(".skip").textContent = t.skip;
 }
