@@ -8,7 +8,7 @@ Every Markdown document in this folder, including the rules, conventions and ski
 
 ## Code
 
-The files under `scripts/` and `tests/` are licensed under the MIT License.
+The files under `scripts/` and `tests/` and the scripts and stylesheets of the method page under `docs/` are licensed under the MIT License. The shared DHCraft files under `docs/assets/dhcraft/` carry their own licence file: MIT for the stylesheets and the script, the DHCraft mark excluded, the fonts under the SIL Open Font License.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -1,17 +1,28 @@
-// The method page. index.html carries the English page and works without JavaScript. This
-// module adds the German text, the current section in the navigation, and the
-// playable example with its reading panel, which need the example notes from graph.json. Copy
-// buttons come from the shared assets/dhcraft/dhcraft-copy.js, which reads the language this
-// module sets first.
+// The method page is complete in English in index.html and reads without JavaScript. This
+// module only switches to German (?lang=de or a remembered choice) and shows the language
+// link. Copy buttons come from the shared assets/dhcraft/dhcraft-copy.js, which reads the
+// language this module sets first.
 
-import { currentLang, HTML_KEYS, PAGE_DE, rememberLang, TEXT } from "./content.js";
-import { initHero } from "./hero.js";
-import { initPanel, openFile } from "./panel.js";
+import { HTML_KEYS, PAGE_DE } from "./content.js";
 
-async function loadJson(path) {
-  const response = await fetch(path);
-  if (!response.ok) throw new Error(`${path}: ${response.status}`);
-  return response.json();
+const STORE = "second-brain-vault-lang";
+
+function currentLang() {
+  const asked = new URLSearchParams(location.search).get("lang");
+  if (asked === "de" || asked === "en") return asked;
+  try {
+    return localStorage.getItem(STORE) === "de" ? "de" : "en";
+  } catch {
+    return "en";
+  }
+}
+
+function remember(lang) {
+  try {
+    localStorage.setItem(STORE, lang);
+  } catch {
+    // Storage can be blocked; the choice then holds for this visit only.
+  }
 }
 
 /** Replace the English text of every marked element by its German entry. */
@@ -29,61 +40,20 @@ function translate() {
   }
 }
 
-function initLanguage(lang, t) {
-  const other = lang === "en" ? "de" : "en";
-  const link = document.getElementById("lang-switch");
-  const url = new URL(location.href);
-  url.searchParams.set("lang", other);
-  link.href = url.search + url.hash;
-  link.hreflang = other;
-  link.lang = other;
-  link.hidden = false;
-  link.textContent = t.switchTo;
-  link.setAttribute("aria-label", t.switchLabel);
-  link.addEventListener("click", () => rememberLang(other));
-  // Links to the secondary pages keep the language.
-  for (const anchor of document.querySelectorAll("a[href$='.html']")) anchor.href = `${anchor.getAttribute("href")}?lang=${lang}`;
-}
+const lang = currentLang();
+document.documentElement.lang = lang;
+if (lang === "de") translate();
 
-function initNavState() {
-  const links = new Map([...document.querySelectorAll(".site-nav a")].map((link) => [link.hash.slice(1), link]));
-  const observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      for (const [id, link] of links) {
-        if (id === entry.target.id) link.setAttribute("aria-current", "true");
-        else link.removeAttribute("aria-current");
-      }
-    }
-  }, { rootMargin: "-40% 0px -55% 0px" });
-  for (const id of links.keys()) {
-    const section = document.getElementById(id);
-    if (section) observer.observe(section);
-  }
-}
-
-async function main() {
-  const lang = currentLang();
-  const t = TEXT[lang];
-  document.documentElement.lang = lang;
-  if (lang === "de") translate();
-  initLanguage(lang, t);
-  initNavState();
-
-  let graph;
-  let episode;
-  try {
-    [graph, episode] = await Promise.all([loadJson("graph.json"), loadJson("episode.json")]);
-  } catch {
-    // The static list of phases stays in place; the page remains complete without the example.
-    return;
-  }
-  initPanel({ files: graph.files, stems: graph.stems }, t);
-  document.getElementById("hero-card").hidden = false;
-  document.getElementById("example").classList.add("playable");
-  initHero({ episode, graph, text: t, onOpen: openFile });
-
-  if (location.hash && !location.hash.startsWith("#datei=")) document.querySelector(location.hash)?.scrollIntoView();
-}
-
-main();
+const other = lang === "en" ? "de" : "en";
+const link = document.getElementById("lang-switch");
+const url = new URL(location.href);
+url.searchParams.set("lang", other);
+link.href = url.search + url.hash;
+link.hreflang = other;
+link.lang = other;
+link.textContent = other === "de" ? "Deutsch" : "English";
+link.setAttribute("aria-label", other === "de" ? "Seite auf Deutsch anzeigen" : "Show this page in English");
+link.hidden = false;
+link.addEventListener("click", () => remember(other));
+// The explorer keeps the language.
+for (const anchor of document.querySelectorAll("a[href$='.html']")) anchor.href = `${anchor.getAttribute("href")}?lang=${lang}`;

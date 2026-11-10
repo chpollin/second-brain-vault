@@ -52,7 +52,7 @@ function renderList(state) {
     const link=noteLink(note.id); if(note.id===state.note) link.setAttribute('aria-current','true');
     list.append(el('li')); list.lastChild.append(link);
   }
-  if(!found.length) { const button=el('button',t.reset,{type:'button',class:'pill'}); button.addEventListener('click',()=>{ $('search').value='';$('domain').value='';$('lens').value='all';filters();}); list.append(el('li')); list.lastChild.append(button); }
+  if(!found.length) { const button=el('button',t.reset,{type:'button',class:'dh-btn'}); button.addEventListener('click',()=>{ $('search').value='';$('domain').value='';$('lens').value='all';filters();}); list.append(el('li')); list.lastChild.append(button); }
   return found;
 }
 function renderReader(state,found) {

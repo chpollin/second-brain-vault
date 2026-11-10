@@ -27,7 +27,7 @@ jobs:
       - name: Install check dependencies
         run: python -m pip install pytest ruff
       - name: Build site data
-        run: python scripts/build_site.py && python scripts/build_graph.py && python scripts/build_explorer.py
+        run: python scripts/build_site.py && python scripts/build_explorer.py
       - name: Check template and site
         run: |
           python scripts/check_vault.py
@@ -35,7 +35,7 @@ jobs:
           python -m pytest -q
           python -m ruff check .
           python -m ruff format --check .
-          node --test tests/test_markdown_links.mjs tests/test_hero_layout.mjs tests/test_explorer_route.mjs tests/test_page_text.mjs
+          node --test tests/test_markdown_links.mjs tests/test_explorer_route.mjs tests/test_page_text.mjs
           for file in docs/*.js docs/assets/dhcraft/*.js; do node --check "$file"; done
       - uses: actions/upload-pages-artifact@v4
         with:

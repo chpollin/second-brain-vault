@@ -33,7 +33,7 @@ If a source cannot be read, report it and mark the result unverified.
 
 Run `python scripts/check_vault.py` and `python scripts/check_vault.py --integrity`, after a repair a second time. State which checks ran, on which scope, and what was not checked.
 
-After an authorized repair, if the template's generated site data is present, run `python scripts/build_site.py` and `python scripts/build_graph.py` before the closing check. A read-only audit reports stale generated data without rewriting it. Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
+After an authorized repair, if the template's generated site data is present, run `python scripts/build_site.py` before the closing check. A read-only audit reports stale generated data without rewriting it. Regression cases for skill maintenance stand in [evals/test-cases.md](evals/test-cases.md).
 
 ## Output
 
