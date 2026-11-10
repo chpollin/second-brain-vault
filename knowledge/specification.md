@@ -13,11 +13,11 @@ The template supports bringing together, organizing and connecting knowledge hel
 | Optional personal profile | Neutral persona template and `persona-init` | Derive an inspectable profile through source reading and dialogue, with personal claims distinguished from inference |
 | Structural checks | `scripts/check_vault.py`, generator, commit hook and tests | Check decidable requirements and report measured findings for judgement |
 | Synthetic test material | `Vault Operations/Fixtures/` and skill `evals/` | Preserve registered defects and expected behaviour for bounded trials |
-| Public method page | `docs/index.html`, `docs/content.js`, `docs/site.css`, `docs/assets/dhcraft/` and `scripts/build_site.py` | One static page after the Promptotyping start page, opening light, with a standalone SVG main figure in `docs/images/`, in English and German, readable without JavaScript, with a prompt demo on the synthetic example domain, without serving `knowledge/` |
+| Public method page | `docs/index.html`, `docs/content.js`, `docs/site.css`, `docs/assets/dhcraft/` | One static page after the Promptotyping start page, opening light, with a standalone SVG main figure in `docs/images/`, in English and German, readable without JavaScript, with a prompt demo on the synthetic example domain, without serving `knowledge/` |
 | Knowledge explorer | `docs/explorer.html`, `docs/decision.js`, `docs/decision.css` | Follow the curated visual grounds, derivation and scope of the photo-format decision; select an object to read its original evidence in place. The generic note browser remains at `docs/notes.html` |
 | Research procedure | [Evaluation](evaluation.md) and [episode template](episode-template.md) | Preserve the sources, interventions and outcomes of an observed episode, with missing stages explicit |
 
-The repository distributes the method page and synthetic knowledge explorer. Its generated `docs/data.json` and `docs/explorer.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link, explorer route and page text tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
+The repository distributes the method page and synthetic knowledge explorer. Its generated `docs/explorer.json` is ignored and is built locally before the tests or a preview. The Pages workflow builds it from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link, explorer route and page text tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
 
 Skills are executable procedures when an agent reads and follows them. A skill file alone installs no runtime, account connection or tool. The actual host determines which operations are available.
 
@@ -42,7 +42,6 @@ Run the following after a template change:
 
 ```powershell
 python scripts/render_agents_md.py
-python scripts/build_site.py
 python scripts/build_explorer.py
 python scripts/build_explorer.py --check
 python scripts/check_vault.py

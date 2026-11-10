@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-11-11 Site data no longer built
+
+The method page no longer read `docs/data.json`, yet the workflow built and published it, and the commit check refused a commit whenever it was stale. Its generation left the workflow, `check_vault.py`, the README, the page prompts and the skills, and the privacy test now reads `docs/explorer.json`. `scripts/build_site.py` keeps only the in-memory file model whose task-trace tests still run, and its removal together with `tests/test_build_site.py` is left to the owner. The German figure and page text name the Repo-Verzeichnis, and both figures leave more space between arrowheads and boxes.
+
 ## 2026-11-10 Main figure reduced and the closing step named curate
 
 On the owner's review the figure keeps its three columns, colours and icons but shows each block as a title and one line, without sublines, file rows or a two-line link label, and stays legible at 800 pixels. A German version was added. The closing step of a session is now called curate in figure, page, Convention Knowledge Documents and the register of skills, recorded in the Decision Log.

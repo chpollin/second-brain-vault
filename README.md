@@ -38,23 +38,19 @@ These steps take a few minutes and end with two visible results, a clean check r
    git remote remove origin
    ```
 
-2. Build the generated data and run the checks.
+2. Run the check.
 
    ```sh
-   python scripts/build_site.py
-   python scripts/build_explorer.py
    python scripts/check_vault.py
    ```
 
-   The last command should end with `hard: 0` and `measured: 0`. Run `python -m pytest -q` as well if pytest is installed.
+   It should end with `hard: 0` and `measured: 0`. If pytest is installed, run `python scripts/build_explorer.py` and then `python -m pytest -q` as well, because the privacy test reads the generated explorer data.
 
 3. Switch on the commit check, so that a commit breaking a hard rule is refused.
 
    ```sh
    git config core.hooksPath scripts/hooks
    ```
-
-   The check also refuses a commit while `docs/data.json` is out of date, and that file changes with every note, because the method page shows the vault's files. Run `python scripts/build_site.py` before you commit, or remove the method page as described under [Start smaller](#start-smaller).
 
 4. Open the folder in Obsidian with "Open folder as vault" and start at `HOME.md`. Obsidian then creates a `.obsidian/` folder with its settings, which you may commit or add to `.gitignore`.
 
@@ -99,7 +95,7 @@ Report the operational state with the skill active-work-report.
 4. Write your own prose rules into the skill `writing-style`. A style skill for another language needs contrast examples in that language.
 5. Record every rule change with its reason in `Vault Operations/Decision Log.md`.
 6. Adapt this README and the files under `knowledge/` to the purpose of your vault, or remove them once nothing refers to them any more.
-7. Before you push a personal vault to GitHub, remove `docs/` and `.github/workflows/pages.yml` or leave GitHub Pages switched off. The workflow publishes `docs/data.json`, which contains the full text of every file in the vault outside `docs/` and `knowledge/`, and the privacy test only looks for the template author's private names.
+7. Before you push a personal vault to GitHub, remove `docs/` and `.github/workflows/pages.yml` or leave GitHub Pages switched off. The workflow publishes the template's method page with its synthetic example, which describe the template rather than your vault.
 
 In the template, operator means you, the person who owns the vault and decides its rules. Operator points are the questions the agent leaves for you in `ACTIVE-WORK.md`, each phrased so that you can answer it without opening another file.
 
@@ -119,9 +115,9 @@ The profile is written to `.local/persona/Research Persona.md`, a folder that Gi
 
 ### Start smaller
 
-You can keep only the notes and skills you need, as long as their dependencies stay. The check script needs `scripts/check_vault.py` with `scripts/build_site.py` and `scripts/render_agents_md.py`, the rule sources `Convention Frontmatter Field Profiles` and `TAG-TAXONOMY.md`, `CLAUDE.md`, `HOME.md`, `VAULT-OPERATIONS.md` and a locally built `docs/data.json`. It also compares the skills under `.claude/skills/` and the conventions under `Vault Operations/Conventions/` with their registers. Each skill names further conventions and templates in its `Reads` section.
+You can keep only the notes and skills you need, as long as their dependencies stay. The check script needs `scripts/check_vault.py` with `scripts/render_agents_md.py`, the rule sources `Convention Frontmatter Field Profiles` and `TAG-TAXONOMY.md`, `CLAUDE.md`, `HOME.md` and `VAULT-OPERATIONS.md`. It also compares the skills under `.claude/skills/` and the conventions under `Vault Operations/Conventions/` with their registers. Each skill names further conventions and templates in its `Reads` section.
 
-Before removing a skill or convention, search the vault for its name, including `.claude/`, `scripts/` and `tests/`. Remove it together with its register entry, navigation links and dependent instructions, regenerate `AGENTS.md` after a change to `CLAUDE.md` and `docs/data.json` after any change to a file of the vault, then run `python scripts/check_vault.py` and `python -m pytest -q`. Some tests describe the distributed template and need an explicit change when a named component goes, such as the known-file assertion for `Convention Skills` in `tests/test_build_site.py`. Keep the checks for broken links, required rule sources and stale generated files.
+Before removing a skill or convention, search the vault for its name, including `.claude/`, `scripts/` and `tests/`. Remove it together with its register entry, navigation links and dependent instructions, regenerate `AGENTS.md` after a change to `CLAUDE.md`, then run `python scripts/check_vault.py` and `python -m pytest -q`. Some tests describe the distributed template and need an explicit change when a named component goes, such as the known-file assertion for `Convention Skills` in `tests/test_build_site.py`. Keep the checks for broken links, required rule sources and stale generated files.
 
 The skills `project-knowledge` and `vault-orient` matter only if you keep code repositories next to the vault. `active-work-report` matters only if you use `ACTIVE-WORK.md` as your board. `paper-develop` supports compact paper drafting and `workflow-design` the design of agentic workflows. The skill register in `VAULT-OPERATIONS.md` describes all skills.
 
@@ -174,7 +170,7 @@ second-brain-vault/
 
 ### Method page and knowledge explorer
 
-`docs/` holds the method page and a knowledge explorer over the synthetic example notes in `docs/example/`. The page is static HTML. The explorer and the commit check read JSON files that `scripts/build_site.py` and `scripts/build_explorer.py` generate and that Git ignores. To preview them locally, run the builders and serve the folder.
+`docs/` holds the method page and a knowledge explorer over the synthetic example notes in `docs/example/`. The page is static HTML. The explorer reads `docs/explorer.json`, which `scripts/build_explorer.py` generates and Git ignores. To preview it locally, run the builder and serve the folder.
 
 ```sh
 python -m http.server --directory docs

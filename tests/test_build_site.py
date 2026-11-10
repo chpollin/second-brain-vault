@@ -1,6 +1,6 @@
-"""The generated site must describe the real template: every trace step points at a file that
+"""The derived file model must describe the real template: every trace step points at a file that
 exists unless it is marked as absent, every wikilink resolves, the loading layer of the known
-files is right, and a stale docs/data.json is detected."""
+files is right."""
 
 import importlib.util
 import json
@@ -104,20 +104,6 @@ def test_glob_matching_covers_the_root():
     assert build_site.glob_to_regex("**/*.md").match("CLAUDE.md")
     assert build_site.glob_to_regex("**/*.md").match("Vault Operations/Done Log.md")
     assert not build_site.glob_to_regex("ACTIVE-WORK.md").match("Vault Operations/Done Log.md")
-
-
-def test_check_detects_a_stale_file(monkeypatch, tmp_path):
-    target = tmp_path / "data.json"
-    monkeypatch.setattr(build_site, "TARGET", target)
-    assert not build_site.is_current()
-    target.write_text(build_site.render(), encoding="utf-8", newline="\n")
-    assert build_site.is_current()
-    target.write_text('{"files": {}}\n', encoding="utf-8", newline="\n")
-    assert not build_site.is_current()
-
-
-def test_the_written_file_is_current():
-    assert build_site.is_current(), "run python scripts/build_site.py"
 
 
 def test_the_search_field_is_length_preserving_and_folded():

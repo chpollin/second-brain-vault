@@ -27,7 +27,7 @@ jobs:
       - name: Install check dependencies
         run: python -m pip install pytest ruff
       - name: Build site data
-        run: python scripts/build_site.py && python scripts/build_explorer.py
+        run: python scripts/build_explorer.py
       - name: Check template and site
         run: |
           python scripts/check_vault.py

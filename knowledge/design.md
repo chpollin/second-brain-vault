@@ -62,7 +62,7 @@ The page uses the shared DHCraft web foundation, copied unchanged to `docs/asset
 
 ## Data and publication boundary
 
-The site serves the template files and the synthetic example only. `scripts/build_site.py` excludes `knowledge/`, and `tests/test_site_privacy.py` fails when served files contain a `knowledge/` path, a local home path, the names of the owner's private working repositories or an email address in the example data. Statements about tools, costs and data handling follow the providers' pages linked in `docs/content.js`, read on 2026-11-04.
+The site serves the template files and the synthetic example only. `docs/` holds no `knowledge/` folder, and `tests/test_site_privacy.py` fails when one appears, when the explorer data name a `knowledge/` path, when served files contain a local home path, the names of the owner's private working repositories or an email address in the example data. Statements about tools, costs and data handling follow the providers' pages linked in `docs/content.js`, read on 2026-11-04.
 
 ## Evidence
 

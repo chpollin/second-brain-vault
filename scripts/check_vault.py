@@ -209,13 +209,10 @@ def check(fixtures: bool = False, hard_only: bool = False, integrity_only: bool 
 
     if not fixtures and not integrity_only:
         sys.path.insert(0, str(Path(__file__).resolve().parent))
-        import build_site
         import render_agents_md
 
         if not render_agents_md.is_current():
             hard.append(("AGENTS.md", "stale, run python scripts/render_agents_md.py"))
-        if not build_site.is_current():
-            hard.append(("docs/data.json", "stale, run python scripts/build_site.py"))
 
     return {"checked": len(docs), "hard": hard, "measured": measured}
 

@@ -1,7 +1,6 @@
 """The public site serves template material and the synthetic example domain only.
 
-Checks the built site data, so run build_site.py and build_explorer.py first, as the Pages
-workflow does.
+Checks the built explorer data, so run build_explorer.py first, as the Pages workflow does.
 """
 
 import json
@@ -25,8 +24,9 @@ def served_texts():
 
 
 def test_no_knowledge_folder_is_served():
-    data = json.loads((DOCS / "data.json").read_text(encoding="utf-8"))
-    assert not [path for path in data["files"] if path.startswith("knowledge/")]
+    assert not (DOCS / "knowledge").exists()
+    data = json.loads((DOCS / "explorer.json").read_text(encoding="utf-8"))
+    assert not [node["id"] for node in data["nodes"] if node["id"].startswith("knowledge/")]
 
 
 def test_no_private_trace_in_served_files():

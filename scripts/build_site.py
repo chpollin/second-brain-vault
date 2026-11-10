@@ -1,30 +1,23 @@
-#!/usr/bin/env python3
-"""Build docs/data.json, the template files read by the method page.
+"""Derive the template's file model and task traces from the real files.
 
-Nothing about the vault is written into the interface by hand. The tree, the texts, the link
-graph, the loading layer per file and the task traces are derived from the real files: the task
-table of VAULT-OPERATIONS.md, the `paths:` headers of the rule files, and the `## Reads` and
-`## Verification` sections of the skills.
+The tree, the texts, the link graph, the loading layer per file and the task traces come from
+the real files: the task table of VAULT-OPERATIONS.md, the `paths:` headers of the rule files, and
+the `## Reads` and `## Verification` sections of the skills. The method page no longer reads this
+model, so nothing is written to docs/. `tests/test_build_site.py` uses `render()` to check that
+every task trace points at a real file, and `build_explorer.py` shares its parsing helpers.
 
-Usage:
-    python scripts/build_site.py          write docs/data.json
-    python scripts/build_site.py --check  exit 1 when docs/data.json is stale
-
-Exit codes: 0 written or current, 1 stale under --check.
 Design decisions: standard library only, single file, and deterministic output (sorted keys,
-stable order, LF, no timestamps) so that the currency check does not flap across platforms.
+stable order, LF, no timestamps).
 """
 
 from __future__ import annotations
 
 import json
 import re
-import sys
 import unicodedata
 from pathlib import Path
 
 VAULT = Path(__file__).resolve().parent.parent
-TARGET = VAULT / "docs" / "data.json"
 OPERATIONS = VAULT / "VAULT-OPERATIONS.md"
 RULES_DIR = VAULT / ".claude" / "rules"
 SKILLS_DIR = VAULT / ".claude" / "skills"
@@ -439,20 +432,3 @@ def render() -> str:
         "tasks": build_tasks(files),
     }
     return json.dumps(data, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
-
-
-def is_current() -> bool:
-    return TARGET.is_file() and read_text(TARGET) == render()
-
-
-def main() -> int:
-    if "--check" in sys.argv:
-        return 0 if is_current() else 1
-    TARGET.parent.mkdir(parents=True, exist_ok=True)
-    TARGET.write_text(render(), encoding="utf-8", newline="\n")
-    print(f"{TARGET.relative_to(VAULT).as_posix()} written")
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
