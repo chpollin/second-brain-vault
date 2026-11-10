@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-11-10 Method page after the owner's review
+
+The owner chose the Promptotyping start page as the reference and recorded the decisions in brand-assets `web/design.md`. The page now opens light with a dark toggle, starts with title, abstract and a standalone SVG figure of vault, agent session and project repository in the colours of the mark, explains the figure in three paragraphs of prose, sets the take-away files apart, and keeps the seven-prompt demo, which was run in full on a fresh clone and improved in three prompts. Details, colour roles and the demo run are in [design](design.md#main-figure). The figure is also exported as PNG at double resolution under `docs/images/`.
+
 ## 2026-11-10 Method page as one static page in seven parts
 
 The owner found the first rebuild still too text-heavy and too structured and asked for one static page. The page now follows the seven parts of the DHCraft method sites, fixed in brand-assets `web/design.md` and shared with Promptotyping and Grounded Vault: title and abstract, a main figure with vault layers, agent session and project repository, origin, terms, reuse, a prompt demo on the synthetic photo archive, and limits with licence and citation. The playable example with stepper, focus graph, note card and reading panel, the graph builder and its test, the template contents section and the section navigation were removed. The decision view and the note browser remain as one link. The shared web files are MIT with the logo excluded, recorded in `LICENSE.md` and the copied licence file. Slide screenshots under `docs/images/` were regenerated. Details are in [design](design.md#decisions).
