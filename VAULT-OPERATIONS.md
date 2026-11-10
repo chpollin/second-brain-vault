@@ -37,7 +37,7 @@ query-topics: [vault-operations, skill-register, glossary, decisions, task-types
 | vault-audit | on call | reports dead links, dead anchors and unreachable documents | `scripts/check_vault.py` |
 | vault-distill | on call | synthesises vault content into an outline, slide input or draft prose and edits nothing | [[HOME]] |
 | vault-orient | on call, outside the vault | opens the vault as a read-only knowledge source for a repository session | [[HOME]], [[Repo Directory]] |
-| project-knowledge | in a repository with a `knowledge/` folder | works from and writes back into the knowledge base of a repository | [[Convention Knowledge Documents]] |
+| project-knowledge | in a repository with a `knowledge/` folder | works from and curates the knowledge base of a repository | [[Convention Knowledge Documents]] |
 | active-work-report | on call | reports the operational state and proposes changes, writes only on instruction | [[Convention ACTIVE-WORK Fields]] |
 | writing-style | before prose is written | prose rules with contrast examples and a self-check | `.claude/rules/documents.md` |
 | persona-init | when a personal profile is requested | builds a readable profile, a working agreement and source provenance through a short dialogue | [[Template Research Persona]] |
@@ -77,6 +77,7 @@ Project knowledge base
 
 | Date | Decision | Reason and history |
 |---|---|---|
+| 2026-11-10 | The closing step of a session is curation: accepted knowledge at the level where it applies, outdated statements corrected or removed | [[Decision Log#2026-11-10 Curation as the closing step of a session]] |
 | 2026-09-20 | Project context follows explicit repository mappings and preserves the scope of transferred findings | [[Decision Log#2026-09-20 Research context across repositories]] |
 | 2026-09-19 | Persona initialisation uses a neutral template and stores personal drafts outside the public explorer | [[Decision Log#2026-09-19 Personal research persona initialisation]] |
 | 2026-09-19 | Skills preserve read-only entry, honor existing update instructions and keep expected test outcomes distinct from observed evidence | [[Decision Log#2026-09-19 Skill evaluation and bounded execution]] |

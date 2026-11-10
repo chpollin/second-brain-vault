@@ -42,7 +42,7 @@ Documents are created by function, not from a fixed checklist. Every knowledge b
 1. Let the task determine the project and question. Resolve the repository through [[Repo Directory]] and read its linked Project Overview for conceptual context. For a session already in a repository, verify the mapping against that checkout.
 2. Read the repository's applicable instructions, including explicitly referenced local supplements, then `knowledge/INDEX.md`, open input in `handoff.md` when relevant, and the selected documents. Where there is no index, use the action layer's documented entry. Read `journal.md` when the ground of a decision or a revision is needed.
 3. Verify mutable claims against the relevant code, data or recorded decision. Record the inspected revision or data state when it affects the finding. A current checkout can establish implementation behaviour, while a specification establishes intended behaviour. Preserve a conflict between them until its cause is checked.
-4. Write back only within the authorised scope. A durable finding goes into the document responsible for it, authorised restatements are brought into step, and an implemented change gets one short journal entry. A read-only task returns the finding and its proposed destination in the conversation.
+4. Curate only within the authorised scope. A durable finding goes into the document responsible for it at the level where it applies, statements that have become outdated or unwarranted are corrected or removed, authorised restatements are brought into step, and an implemented change gets one short journal entry. A read-only task returns the finding and its proposed destination in the conversation.
 
 ## Ownership and transfer
 

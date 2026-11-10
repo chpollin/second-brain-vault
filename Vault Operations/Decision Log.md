@@ -8,6 +8,10 @@ query-topics: [decision-log, rule-history, reasons]
 
 The history and the reasons of the rules, newest first. The rules themselves stand in [[CLAUDE]], in `.claude/rules/` and in the conventions. The decisions in force are registered in [[VAULT-OPERATIONS#Decisions in force]].
 
+## 2026-11-10 Curation as the closing step of a session
+
+Following the owner's terminology for all his methods, the closing step of an agent session is called curation instead of writing back. Writing back names only the mechanical part. Curation records accepted knowledge at the level where it applies, corrects or removes statements that have become outdated or unwarranted, and keeps what holds for one project in that project. [[Convention Knowledge Documents#Working from the knowledge base]] step 4 and the gloss of `project-knowledge` in [[VAULT-OPERATIONS]] now use the term.
+
 ## 2026-09-20 Research context across repositories
 
 The operator approved Second Brain as a personal research environment for working with AI

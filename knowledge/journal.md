@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-11-10 Main figure reduced and the closing step named curate
+
+On the owner's review the figure keeps its three columns, colours and icons but shows each block as a title and one line, without sublines, file rows or a two-line link label, and stays legible at 800 pixels. A German version was added. The closing step of a session is now called curate in figure, page, Convention Knowledge Documents and the register of skills, recorded in the Decision Log.
+
 ## 2026-11-10 Method page after the owner's review
 
 The owner chose the Promptotyping start page as the reference and recorded the decisions in brand-assets `web/design.md`. The page now opens light with a dark toggle, starts with title, abstract and a standalone SVG figure of vault, agent session and project repository in the colours of the mark, explains the figure in three paragraphs of prose, sets the take-away files apart, and keeps the seven-prompt demo, which was run in full on a fresh clone and improved in three prompts. Details, colour roles and the demo run are in [design](design.md#main-figure). The figure is also exported as PNG at double resolution under `docs/images/`.

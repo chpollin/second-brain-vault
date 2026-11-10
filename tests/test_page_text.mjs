@@ -9,7 +9,7 @@ globalThis.location = { search: "" };
 const { HTML_KEYS, PAGE_DE } = await import("../docs/content.js");
 const html = readFileSync(new URL("../docs/index.html", import.meta.url), "utf8");
 
-const pageKeys = new Set([...html.matchAll(/data-t(?:-label|-alt)?="([^"]+)"/g)].map((match) => match[1]));
+const pageKeys = new Set([...html.matchAll(/data-t(?:-label|-alt|-src)?="([^"]+)"/g)].map((match) => match[1]));
 
 test("every marked element has a German entry", () => {
   assert.deepEqual([...pageKeys].filter((key) => !(key in PAGE_DE)), []);

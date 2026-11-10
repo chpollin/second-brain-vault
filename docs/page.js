@@ -43,6 +43,9 @@ function translate() {
   for (const node of document.querySelectorAll("[data-t-label]")) {
     if (node.dataset.tLabel in PAGE_DE) node.setAttribute("aria-label", PAGE_DE[node.dataset.tLabel]);
   }
+  for (const node of document.querySelectorAll("[data-t-src]")) {
+    if (node.dataset.tSrc in PAGE_DE) node.setAttribute("src", PAGE_DE[node.dataset.tSrc]);
+  }
   for (const node of document.querySelectorAll("[data-t-alt]")) {
     if (node.dataset.tAlt in PAGE_DE) node.setAttribute("alt", PAGE_DE[node.dataset.tAlt]);
   }
