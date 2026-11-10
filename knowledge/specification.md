@@ -13,11 +13,11 @@ The template supports bringing together, organizing and connecting knowledge hel
 | Optional personal profile | Neutral persona template and `persona-init` | Derive an inspectable profile through source reading and dialogue, with personal claims distinguished from inference |
 | Structural checks | `scripts/check_vault.py`, generator, commit hook and tests | Check decidable requirements and report measured findings for judgement |
 | Synthetic test material | `Vault Operations/Fixtures/` and skill `evals/` | Preserve registered defects and expected behaviour for bounded trials |
-| Public method page | `docs/`, `scripts/build_site.py` and `scripts/build_graph.py` | Explain the approach in English and German from the template files and a synthetic example domain, without serving `knowledge/` |
+| Public method page | `docs/index.html`, `docs/content.js`, `docs/site.css`, `docs/assets/dhcraft/`, `scripts/build_site.py` and `scripts/build_graph.py` | Explain the template, its layers, its connection to project repositories, its contents, start and limits in English and German with a synthetic example domain, readable without JavaScript, without serving `knowledge/` |
 | Knowledge explorer | `docs/explorer.html`, `docs/decision.js`, `docs/decision.css` | Follow the curated visual grounds, derivation and scope of the photo-format decision; select an object to read its original evidence in place. The generic note browser remains at `docs/notes.html` |
 | Research procedure | [Evaluation](evaluation.md) and [episode template](episode-template.md) | Preserve the sources, interventions and outcomes of an observed episode, with missing stages explicit |
 
-The repository distributes the method page and synthetic knowledge explorer. Its generated `docs/data.json`, `docs/graph.json` and `docs/explorer.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link and hero layout tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
+The repository distributes the method page and synthetic knowledge explorer. Its generated `docs/data.json`, `docs/graph.json` and `docs/explorer.json` are ignored and are built locally before checks or preview. The Pages workflow builds them from the published source, runs structural checks, Python tests including the site privacy test, Ruff checks, the Node.js link, hero layout, explorer route and page text tests and a syntax check of every page script, then deploys `docs/` as an artifact. The generated data is never committed. Stale generated agent instructions still fail the checks.
 
 Skills are executable procedures when an agent reads and follows them. A skill file alone installs no runtime, account connection or tool. The actual host determines which operations are available.
 
@@ -50,8 +50,8 @@ python scripts/check_vault.py
 python -m pytest -q
 python -m ruff check .
 python -m ruff format --check .
-node --test tests/test_markdown_links.mjs tests/test_hero_layout.mjs
-Get-ChildItem docs/*.js | ForEach-Object { node --check $_.FullName }
+node --test tests/test_markdown_links.mjs tests/test_hero_layout.mjs tests/test_explorer_route.mjs tests/test_page_text.mjs
+Get-ChildItem docs/*.js, docs/assets/dhcraft/*.js | ForEach-Object { node --check $_.FullName }
 ```
 
 Page development requires Node.js for the link and hero layout tests and the syntax check. The published page runs in the browser without Node.js.

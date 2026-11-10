@@ -202,7 +202,7 @@ Each keeps its own specification in its own repository, and none is installed by
 
 ## Licence and citation
 
-Text and documentation are licensed under CC BY 4.0, code under MIT, as [LICENSE.md](LICENSE.md) states. The fonts under `docs/assets/fonts/` keep their own licences.
+Text and documentation are licensed under CC BY 4.0, code under MIT, as [LICENSE.md](LICENSE.md) states. The shared DHCraft files under `docs/assets/dhcraft/`, copied from [brand-assets](https://github.com/DigitalHumanitiesCraft/brand-assets), keep their own terms, which includes the DHCraft logo and the fonts under the SIL Open Font License.
 
 To cite the template, name author, title, year and repository:
 

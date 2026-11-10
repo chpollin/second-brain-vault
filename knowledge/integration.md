@@ -18,7 +18,7 @@ Together, the vault and linked repository knowledge form a distributed documenta
 
 The [research workflow](research-workflow.md) relates these responsibilities to collaborative inquiry, interface requirements and the examination of later knowledge reuse.
 
-This public template supplies reusable structure and synthetic examples. Its [method page](design.md) explains the approach with a graph of the template and a synthetic example domain. The real ACTIVE-WORK interface lives in the separate private `active-work-ui` repository and provides views over personal knowledge and work records. Its private snapshots and project-specific readings are excluded from the public distribution.
+This public template supplies reusable structure and synthetic examples. Its [method page](design.md) explains the approach with a diagram of vault and project repositories and a synthetic example domain. The real ACTIVE-WORK interface lives in the separate private `active-work-ui` repository and provides views over personal knowledge and work records. Its private snapshots and project-specific readings are excluded from the public distribution.
 
 The separate `second-brain-exporter` prepares read-only context from explicitly selected vault files. Its context manifest records the selected documents. It does not automatically follow references into external repositories. Repository knowledge becomes available to a conversation only through an additional explicit read or separately supplied context within the host's access boundaries. The exporter implements no model API client, dialogue service or scheduler, and it does not upload its output automatically.
 

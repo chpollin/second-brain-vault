@@ -1,5 +1,11 @@
 # Journal
 
+## 2026-11-10 Method page rebuilt on the shared DHCraft foundation
+
+Commissioned to make Second Brain Vault, Research Mission Control and Promptotyping reusable from one level, with finished frontends in one corporate design. The page now answers from its entry what the vault is, its layers, how it connects to project repositories and their `knowledge/` folders, what the template contains, how to start, its limits, the related methods and the citation. The diagram of vault and repositories is new and draws on Convention Knowledge Documents, the Repo Directory and `vault-orient`. The growing build graph, the folded reference and the page's own tokens and fonts were removed; the shared files from brand-assets now carry tokens, header, footer, buttons and code blocks. Slide screenshots at 1600 by 900 lie under `docs/images/`. Details and checks are in [design](design.md#decisions) and [design](design.md#evidence).
+
+Open from the independent review and the build: the licence of the shared DHCraft files in a public MIT repository waits for the brand-assets decision; the explorer page `explorer.html` exists only in German; graph labels in the example stay small between 62 and 80rem; the reading panel is not modal on phones; copy buttons share one accessible name; title and description stay English on `?lang=de`. Operator acceptance of the page is open.
+
 ## 2026-11-10 README, instructions and method page for outside readers
 
 Commissioned to make the template understandable and reusable for colleagues who know Git and Markdown but not the source owner's system. A self-trial from a fresh clone in a scratch folder ran the three builders, the check (`hard: 0`, `measured: 0`), the 28 Python tests, the fixture check with its two seeded findings, the commit hook refusing a note with an unregistered tag and the AGENTS.md generator. Opening the vault in Obsidian and an agent conversation were not executed.

@@ -1,44 +1,40 @@
 # Design
 
-The method page in `docs/` explains Second Brain to readers without prior knowledge of Obsidian, Git or coding agents, in English by default and in German with `?lang=de`. It should let such a reader say what a vault is, start building one, and recognise how earlier knowledge is reused. It has three parts: the idea with a playable example, how to build one, and what is good to know, followed by a folded reference. The Pages workflow publishes it at <https://chpollin.github.io/second-brain-vault/> from the last state pushed to `main`, as [integration](integration.md#maintenance-and-distribution) describes, so local commits reach that address only after a push.
+The method page in `docs/` lets a reader decide from its entry, in one or two steps, whether to reuse the template. English stands in `docs/index.html` and reads without JavaScript, German comes from `PAGE_DE` in `docs/content.js` with `?lang=de`, and `tests/test_page_text.mjs` keeps both key sets equal. The Pages workflow publishes it at <https://chpollin.github.io/second-brain-vault/> from the last state pushed to `main`, as [integration](integration.md#maintenance-and-distribution) describes, so local commits reach that address only after a push.
 
 ## Sections
 
 | Section | Question it answers | Form |
 |---|---|---|
-| Hero | What is this, for whom, and how is it used? | Title, one sentence, the four parts of a vault as one line, audience line with a link to the build section, then the example as a focus graph beside the note card and a named stepper |
-| Build | How do I build my own? | Tool line, seven steps with one sentence and a prompt each, a graph that grows with the steps |
-| Good to know | What leaves my computer, and what is maintenance? | Two columns of four sentences each, with source links |
-| Reference | What exactly does the template contain? | Folded by default: one annotated file tree and three short paragraphs on governance, procedures and document types |
+| Entry | What is this, for whom, and what does a vault consist of? | Title, one sentence, audience line, two actions, and the three layers knowledge, rules and state with their files |
+| Example | How is earlier knowledge found, decided and reused? | Stepper with named phases above the focus graph and note card; without the example data a static list of the phases |
+| Vault and project repositories | How do the vault and the `knowledge/` folders of project repositories connect, and how does confirmed knowledge return? | One HTML diagram with two boxes and three relations, and a caption on what returns |
+| Template contents | What does the template ship? | Four groups (synthetic examples, skills, rules and conventions, structure checks) with name and purpose per entry, linked to the files on GitHub |
+| Start | How do I begin? | Requirements sentence, the clone route as copyable commands, and the seven agent steps with their prompts folded |
+| Data and limits | What leaves the computer, and what does the template not do? | Two short lists |
+| Methods and citation | Where do Research Mission Control, Promptotyping and Grounded Vault fit, and how is the template cited? | Linked list and one copyable citation; the licence stands in the footer |
 
-The example runs through seven phases: ask, find, propose, decide, file it, test the result, reuse later. The phase "decide" names the separate judgements of checking sources, checking the reasoning and accepting. The phase "file it" carries the principle of one place per statement. The phase "test the result" shows the return of an artefact finding to project knowledge, the first of the two relationships in the manuscript, and "reuse later" the second.
+The diagram rests on [Convention Knowledge Documents](../Vault%20Operations/Conventions/Convention%20Knowledge%20Documents.md), the Repo Directory and the skill `vault-orient`. Project Overview and Repo Directory point to the repository's `knowledge/INDEX.md`. A repository session reads concept and literature notes through `vault-orient` without writing. A finding that holds beyond its project returns as a handover with goal, paths, source and evidence and enters the responsible note in a vault session once accepted. Each arrow starts and ends at the two objects it connects. On narrow screens each relation stacks as source, arrow and target in reading order.
 
-The seven build steps follow the operator's sequence of 2026-11-04: create a vault, bring sources into Markdown, think through the structure, talk it through with the agent, let the agent build it, work in knowledge, make it findable for the agent. The template enters at step 5, where the agent downloads it and copies its rules, checks and skills into the new vault. Step 2 names the chain original, Docling, frozen Markdown, distillate, and points to [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) for statements that must be traceable to their source passage. Step 5 defines vault governance as the written rules that say how the vault is built, what goes where and how it may change.
+The seven agent steps follow the operator's sequence of 2026-11-04: create a vault, bring sources into Markdown, think through the structure, talk it through with the agent, let the agent build it, work in knowledge, make it findable for the agent. The template enters at step 5, where the agent copies its rules, conventions, checks and skills into the new vault.
 
-## Hero example
+## Example
 
-The hero plays the example in three coordinated parts, specified in `docs/episode.json` and rendered by `docs/hero.js`.
+The example plays one episode in three coordinated parts, specified in `docs/episode.json` and rendered by `docs/hero.js`.
 
 - The focus graph shows only the notes of the episode on hand-placed positions, so labels stay readable and no link passes behind a note it does not connect. `tests/test_hero_layout.mjs` checks placement and links. Pills are sized from the rendered label. A note's state shows as outline colour, width and dash, the decision note names its state in text above it, and a one-line legend explains the code. Every pill opens its note.
 - The note card shows what the decision note says in the current phase. Its wikilinks become note buttons, and the cited notes are those highlighted in the graph. German readers see a translation of the English example note from `docs/content.js`, marked as such. The decision step shows each ground with a check mark, filing shows the linking notes, the test shows the finding and where it was recorded, and reuse compares the conditions with the new question.
 - The stepper names each phase and its actor. Done, current and next differ by mark (check, filled number, outlined number) and weight. Each step button carries its full state in its accessible name, and the caption is a live region.
 
-On wide screens the graph and card share a stage of fixed height above the stepper, so the controls keep their position across phases and the example with its controls fits one 1440 by 900 screen in both languages. On narrow screens the stepper comes first with a status line for the current phase, the graph gives way to a list of the involved notes with their state, and the card follows at full height.
+The example stands in its own band below the entry. The stepper with its heading and controls comes first, and on wide screens graph and card share a stage of fixed height below it, so the controls keep their position across phases. On narrow screens the stepper comes first with a status line for the current phase, the graph gives way to a list of the involved notes with their state, and the card follows at full height.
 
-## Build graph
+## Example domain
 
-`scripts/build_graph.py` joins the template's system files from `docs/data.json` with the synthetic example domain under `docs/example/` and precomputes one layout, with knowledge clustered by domain inside and the system documents as an outer frame.
-
-- Groups carry the DHCraft watercolour palette. Overview pages are drawn as the hexagon of the logo.
-- Every node is focusable. Arrow keys move to a neighbour in that direction, Enter opens the file in the reading panel.
-- Overlapping labels are hidden by priority and reappear on hover or focus.
-- The graph grows with the build steps: empty vault, loose sources, a dashed draft of the structure, the system frame with CLAUDE.md lit, notes, then overview pages.
-
-The example domain is a team's research data work: a photo archive project decides on the format of its archival masters, and an oral history project later checks whether the decision transfers to audio. It is synthetic. Its literature notes carry bibliographic entries only.
+The example domain is a team's research data work: a photo archive project decides on the format of its archival masters, and an oral history project later checks whether the decision transfers to audio. It is synthetic. Its literature notes carry bibliographic entries only. `scripts/build_graph.py` turns it into `docs/graph.json`, whose notes and stems the example and the reading panel use.
 
 ## Knowledge explorer
 
-The operator rejected the first list/graph/full-text workspace as too text-heavy on 2026-11-08. The next slice at `docs/explorer.html` answers one question: why are photo masters TIFF, how does JPEG derive from them, and where does this decision stop applying? The previous generic note browser remains at `docs/notes.html` as a secondary destination. The method hero stays unchanged.
+The operator rejected the first list/graph/full-text workspace as too text-heavy on 2026-11-08. The next slice at `docs/explorer.html` answers one question: why are photo masters TIFF, how does JPEG derive from them, and where does this decision stop applying? The previous generic note browser remains at `docs/notes.html` as a secondary destination. The example on the method page stays unchanged.
 
 The initial view contains three compact grounds feeding the TIFF master, a directed derivation to the JPEG access copy, and the boundary between photographs and audio. The rejected JPEG-only alternative remains selectable. These are editorially curated relationships justified by the example decision and its named sources, not relation types inferred from graph topology. One selected object reveals its exact original passage and source line immediately beneath that object. Selecting another object moves the single evidence passage; Escape closes it. Native buttons provide pointer and keyboard access. Selection is addressable and follows browser history.
 
@@ -48,7 +44,9 @@ Acceptance tasks are to explain the TIFF grounds, identify JPEG as a regenerable
 
 ## Visual system
 
-The site follows the DHCraft corporate design loosely. Tokens come from the dhcraft-site palette in OKLCH, the fonts Sora and Instrument Sans are vendored under `docs/assets/fonts/` with their licences, buttons and chips are pills, and the header carries the white DHCraft mark. Graph sections stand on a navy night ground with faint highlights, reading sections on paper. The page uses at most three text levels and draws borders only for interactive elements, prompts and the graph. Sections are separated by their ground, not by rules.
+The page uses the shared DHCraft web foundation, specified in [brand-assets `web/design.md`](https://github.com/DigitalHumanitiesCraft/brand-assets/blob/main/web/design.md) and copied unchanged to `docs/assets/dhcraft/` (tokens, building blocks, copy script, watercolour mark, fonts). Its design document and specimen page are not copied, because the site serves only what the page loads. `docs/site.css` maps the short names used by the page and the explorer pages onto the `--dh-*` roles and adds project colours only, the note states of the example (`--st-*`) and the three layer colours. Header, footer, buttons, code blocks with copy buttons and the skip link are the shared building blocks. The page follows the system's light or dark setting.
+
+Recorded overrides of the shared values: the light note-state colours are darkened from the brand hues so that marker text reaches 4.5:1 on paper, and the anchor offset grows on narrow screens where the header takes two rows. Sections are separated by alternating grounds. Borders are drawn for controls, the note card, the diagram boxes and the code blocks.
 
 ## Terms
 
@@ -68,6 +66,8 @@ The site follows the DHCraft corporate design loosely. Tokens come from the dhcr
 The site serves the template files and the synthetic example only. `scripts/build_site.py` excludes `knowledge/`, and `tests/test_site_privacy.py` fails when served files contain a `knowledge/` path, a local home path, the names of the owner's private working repositories or an email address in the example data. Statements about tools, costs and data handling follow the providers' pages linked in `docs/content.js`, read on 2026-11-04.
 
 ## Evidence
+
+On 2026-11-10 the rebuilt page was inspected in the built-in browser at 1280 by 800 and 360 by 740 CSS pixels, light and dark, in English and German: entry, example, diagram, template contents, start, limits and footer. No horizontal document overflow at 360 pixels. Keyboard: a stepper button changed the phase with Enter and showed its focus ring, a note button in the card opened the reading panel with Enter, and Escape closed it and returned focus. The explorer and notes pages were seen at 1280 by 800 with the shared header. The page without JavaScript was checked only in source, where English, the static phase list and every link are present and the language switch stays hidden. Actual 200 percent zoom, a screen reader and copying to the clipboard were not exercised. An independent fresh-context review from source found an inaccurate check sentence, a removal advice that would break the checks, an incomplete copy list in step 5, an unqualified licence line, colour names in the legend that no longer matched, bold label prefixes, a simile and colons joining clauses. These were corrected. Its remaining points are listed under open questions in the journal.
 
 The focused decision view was visually inspected at 1600 by 900, 1280 by 800 and 360 by 740 CSS pixels on 2026-11-08. Selected Information, Scanner, Master, Format and Audio states were inspected, with no horizontal document overflow in the checked widths. Pointer selection and keyboard Enter opened evidence at the selected object. Escape from the evidence source link closed it and restored object focus. Independent source and wide-view review found an Escape defect and a loading race, both corrected. The parent rechecked Escape and narrow reflow. Existing Python and Node checks passed. Actual 200 percent browser zoom and human acceptance remain open.
 
@@ -93,3 +93,4 @@ A fresh model reviewer then read the built hero in three reader roles and agains
 - 2026-11-04: on the operator's instruction the combined focus graph and note card replaced the whole-vault hero graph. The episode staging of the graph module, the old stepper and the lab variants were removed.
 - 2026-11-08: the operator commissioned a knowledge explorer using the example data alongside the method page, with contextual reading and inspectable link evidence as the first design criteria. Source repositories and the local `vault-graph` clone are retained while the integration is examined.
 - 2026-11-10: following the source owner's terminology decision of that day, the page calls the LLM-driven program an agent (KI-Agent) instead of an assistant. Three statements were narrowed to what the template supports. Git keeps the committed states, parallel checking agents leave the decision on their findings to the reader, and the footer names passing checks and synthetic trials instead of general readiness. After an independent fresh-context review, step 5 has the agent copy the template's rules, checks and skills, give converted sources the required frontmatter and set up Git, because later steps and the reference depend on them. The tool line names Python for Docling as well.
+- 2026-11-10: on the operator's commission for compact, reusable method pages in one corporate design, the page was rebuilt around the reader's first decision. New sections show the three layers, the connection of vault and project repositories, the template contents, the start routes, the limits and the citation. The growing build graph and its module `docs/graph.js`, the folded reference, the night grounds and the local font copies were removed, and the shared DHCraft foundation replaced the page's own token layer. The example, the seven agent steps and the explorer pages remain. English moved into the HTML so that the page reads without JavaScript.
