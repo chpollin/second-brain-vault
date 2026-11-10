@@ -1,92 +1,47 @@
-@layer reset, base, tokens, layout, components, utilities;
+/* Second Brain method page. Loads after the shared DHCraft tokens and building blocks under
+   assets/dhcraft/, whose rules sit in the layer dh and lose to every layer declared here. */
+@layer dh, reset, base, layout, components, utilities;
 
-@font-face { font-family: "Instrument Sans"; src: url("assets/fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Instrument Sans"; src: url("assets/fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Sora"; src: url("assets/fonts/sora-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Sora"; src: url("assets/fonts/sora-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Site roles, all derived from the shared tokens. The short names are also read by the
+   explorer pages. State colours mark the notes of the example; each is checked for 3:1 as a
+   stroke and 4.5:1 as marker text on the ground of its scheme. */
+:root {
+  --ground: var(--dh-ground);
+  --ground-alt: var(--dh-ground-alt);
+  --surface: var(--dh-surface);
+  --ink: var(--dh-ink);
+  --ink-soft: var(--dh-ink-soft);
+  --ink-faint: var(--dh-ink-soft);
+  --edge: var(--dh-line);
+  --edge-hi: var(--dh-line-strong);
+  --accent: var(--dh-accent);
+  --accent-hi: var(--dh-link);
+  --on-accent: var(--dh-on-accent);
+  --focus: var(--dh-focus);
+  --font: var(--dh-font-text);
+  --display: var(--dh-font-display);
+  --mono: var(--dh-font-mono);
+  --step--1: var(--dh-step--1);
+  --step-0: var(--dh-step-0);
+  --step-1: var(--dh-step-1);
+  --step-2: var(--dh-step-2);
+  --step-3: var(--dh-step-3);
+  --gutter: var(--dh-gutter);
+  --wide: var(--dh-page);
+  --measure: var(--dh-measure);
+  --head-h: 3.75rem;
+  --band: clamp(2.5rem, 1.5rem + 4vw, 5rem);
 
-@layer tokens {
-  /* DHCraft house palette (dhcraft-site global.css) in OKLCH. Paper is the reading ground, the
-     night is navy ink deepened into obsidian glass, where the graph glows. */
-  :root {
-    color-scheme: light;
-    --ground: oklch(99.1% 0.005 95);
-    --ground-alt: oklch(96.6% 0.01 95);
-    --surface: oklch(100% 0 0);
-    --edge: oklch(28.3% 0.064 271 / 0.12);
-    --edge-hi: oklch(28.3% 0.064 271 / 0.25);
-    --ink: oklch(28.3% 0.064 271);
-    --ink-soft: oklch(42% 0.05 271);
-    --ink-faint: oklch(52% 0.04 271);
-    --accent: oklch(53.1% 0.14 315);
-    --accent-hi: oklch(41.6% 0.105 307);
-    --on-accent: oklch(99% 0.005 95);
+  --st-read: light-dark(var(--dh-blue-deep), var(--dh-blue));
+  --st-found: light-dark(#94560c, var(--dh-orange));
+  --st-proposal: light-dark(#984186, var(--dh-pink));
+  --st-accepted: light-dark(#3b7130, var(--dh-lime));
+  --g-control: var(--st-read);
 
-    --g-core: oklch(53.1% 0.14 315);
-    --g-control: oklch(57.4% 0.11 255);
-    --g-rule: oklch(50% 0.09 255);
-    --g-skill: oklch(62% 0.15 125);
-    --g-operations: oklch(55% 0.04 271);
-    --g-check: oklch(58% 0.13 30);
-    --g-moc: oklch(28.3% 0.064 271);
-    --g-concept: oklch(64.6% 0.138 334);
-    --g-literature: oklch(70% 0.138 69);
-    --g-project: oklch(63.5% 0.136 139);
-    --g-source: oklch(62% 0.02 271);
-
-    --st-read: oklch(57.4% 0.11 255);
-    --st-found: oklch(70% 0.138 69);
-    --st-proposal: oklch(64.6% 0.138 334);
-    --st-accepted: oklch(63.5% 0.136 139);
-    --focus: oklch(53.1% 0.14 315);
-
-    --font: "Instrument Sans", system-ui, sans-serif;
-    --display: "Sora", "Instrument Sans", system-ui, sans-serif;
-    --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
-    --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
-    --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.08rem);
-    --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
-    --step-2: clamp(1.45rem, 1.25rem + 0.9vw, 1.95rem);
-    --step-3: clamp(2.2rem, 1.6rem + 2.6vw, 3.5rem);
-    --space: clamp(1rem, 0.8rem + 1vw, 1.6rem);
-    --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
-    --measure: 42rem;
-    --wide: 80rem;
-    --head-h: 3.6rem;
-  }
-
-  .night {
-    color-scheme: dark;
-    --ground: oklch(17% 0.045 271);
-    --ground-alt: oklch(14% 0.04 271);
-    --surface: oklch(22% 0.05 271);
-    --edge: oklch(100% 0 0 / 0.1);
-    --edge-hi: oklch(100% 0 0 / 0.2);
-    --ink: oklch(95% 0.01 95);
-    --ink-soft: oklch(80% 0.03 271);
-    --ink-faint: oklch(68% 0.03 271);
-    --accent: oklch(74% 0.13 315);
-    --accent-hi: oklch(84% 0.09 315);
-    --on-accent: oklch(17% 0.045 271);
-
-    --g-core: oklch(74% 0.15 315);
-    --g-control: oklch(82% 0.07 253);
-    --g-rule: oklch(68% 0.1 255);
-    --g-skill: oklch(84% 0.15 122);
-    --g-operations: oklch(64% 0.04 271);
-    --g-check: oklch(72% 0.12 30);
-    --g-moc: oklch(97% 0.02 95);
-    --g-concept: oklch(76% 0.13 334);
-    --g-literature: oklch(82% 0.13 69);
-    --g-project: oklch(76% 0.14 139);
-    --g-source: oklch(72% 0.02 271);
-
-    --st-read: oklch(80% 0.09 253);
-    --st-found: oklch(82% 0.13 69);
-    --st-proposal: oklch(78% 0.13 334);
-    --st-accepted: oklch(78% 0.14 139);
-    --focus: oklch(84% 0.09 315);
-  }
+  /* The three layers of the vault. */
+  --layer-knowledge: var(--dh-accent);
+  --layer-rules: var(--st-read);
+  --layer-state: var(--st-accepted);
 }
 
 @layer reset {
@@ -94,140 +49,184 @@
   body, h1, h2, h3, h4, p, ol, ul, dl, dd, figure, pre { margin: 0; }
   ol, ul { padding: 0; list-style: none; }
   img, svg { display: block; max-inline-size: 100%; }
-  button, input { font: inherit; color: inherit; }
+  button, input, select { font: inherit; color: inherit; }
 }
 
 @layer base {
   html { scroll-padding-block-start: calc(var(--head-h) + 1rem); }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-  body { background: var(--ground); color: var(--ink); font-family: var(--font); font-size: var(--step-0); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-  .night { background-color: var(--ground); color: var(--ink); }
-  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.01em; }
-  h1 { font-size: var(--step-3); line-height: 1.05; letter-spacing: -0.02em; }
-  h2 { font-size: var(--step-2); line-height: 1.2; }
-  h3 { font-size: var(--step-1); line-height: 1.3; font-weight: 600; }
-  a { color: var(--accent); text-underline-offset: 0.18em; }
-  code, pre { font-family: var(--mono); font-size: 0.88em; }
-  :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-  table { border-collapse: collapse; inline-size: 100%; }
-  th, td { text-align: start; vertical-align: top; padding: 0.5rem 0.75rem 0.5rem 0; border-block-end: 1px solid var(--edge); }
-  thead th { font-size: var(--step--1); color: var(--ink-faint); font-weight: 600; }
+  body { -webkit-font-smoothing: antialiased; }
+  h4 { font-family: var(--display); font-size: var(--step-0); font-weight: 600; line-height: 1.3; }
+  code { overflow-wrap: anywhere; }
+  .quiet { color: var(--ink-soft); }
+  [hidden] { display: none !important; }
 }
 
 @layer layout {
-  .skip { position: absolute; inset-inline-start: 1rem; inset-block-start: -3rem; background: var(--surface); padding: 0.5rem 1rem; z-index: 40; }
-  .skip:focus { inset-block-start: 0.5rem; }
-
-  /* The header is always night, like the DHCraft navigation bar is always ink on paper. Its
-     background stays nearly opaque, so text scrolling beneath never shows through. */
-  .site-head {
-    position: sticky; inset-block-start: 0; z-index: 20;
-    display: flex; align-items: center; gap: 0.4rem 2rem; flex-wrap: wrap;
-    min-block-size: var(--head-h); padding: 0.35rem var(--gutter);
-    background: oklch(15% 0.042 271 / 0.97); color: var(--ink); border-block-end: 1px solid var(--edge);
-  }
-  .brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 700; color: var(--ink); text-decoration: none; }
-  .brand img { inline-size: 1.75rem; block-size: 1.75rem; }
-  .site-nav { flex: 1; min-inline-size: 0; }
-  .site-nav ul { display: flex; gap: 0.2rem; overflow-x: auto; scrollbar-width: none; }
-  .site-nav a { display: block; padding: 0.55rem 0.7rem; color: var(--ink-soft); text-decoration: none; white-space: nowrap; border-block-end: 2px solid transparent; }
-  .site-nav a:hover { color: var(--ink); }
-  .site-nav a[aria-current="true"] { color: var(--ink); border-block-end-color: var(--accent); }
-  .head-actions { display: flex; gap: 0.5rem; align-items: center; }
+  .site-head { position: sticky; inset-block-start: 0; z-index: 20; min-block-size: var(--head-h); }
+  .head-actions { display: flex; gap: var(--dh-space-2); align-items: center; margin-inline-start: auto; }
+  .head-actions .dh-btn { padding-block: var(--dh-space-1); font-size: var(--step--1); }
+  /* Narrow screens: brand and language share the first row, the navigation scrolls in the
+     second. The repository link stays in the entry section. */
   @media (max-width: 47.99rem) {
-    .site-nav { flex-basis: 100%; order: 3; }
-    .site-nav a { padding-inline: 0.5rem; }
-    .site-head { gap: 0 1rem; justify-content: space-between; }
+    .site-head { gap: 0 var(--dh-space-3); padding-block: var(--dh-space-1); }
+    .site-head .dh-nav { order: 3; }
+    .site-head .dh-brand img { block-size: 1.6rem; }
+    .head-actions .head-link { display: none; }
+    :root { --head-h: 6.25rem; }
   }
 
-  .band { padding: calc(var(--space) * 3) var(--gutter); }
-  .band.alt { background: var(--ground-alt); }
-  .inner { max-inline-size: var(--wide); margin-inline: auto; display: grid; gap: calc(var(--space) * 1.1); }
+  .band { padding: var(--band) var(--gutter); }
+  .band.alt { background-color: var(--ground-alt); }
+  .inner { max-inline-size: var(--wide); margin-inline: auto; display: grid; gap: var(--dh-space-6); }
+  .section-head { display: grid; gap: var(--dh-space-3); max-inline-size: var(--measure); }
+  .section-head p { color: var(--ink-soft); }
 
-  .site-foot { padding: calc(var(--space) * 2) var(--gutter); font-size: var(--step--1); border-block-start: 1px solid var(--edge); }
-  .foot-grid { max-inline-size: var(--wide); margin-inline: auto; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
-  .foot-grid > div { display: grid; gap: 0.6rem; }
-  .foot-links { display: grid; gap: 0.35rem; align-content: start; }
-  .quiet { color: var(--ink-faint); }
+  /* Entry: what the vault is on the left, its three layers on the right. */
+  .intro {
+    max-inline-size: var(--wide); margin-inline: auto; padding: var(--band) var(--gutter);
+    display: grid; gap: var(--dh-space-6) var(--dh-space-7); align-items: center;
+  }
+  .intro-text { display: grid; gap: var(--dh-space-4); justify-items: start; }
+  @media (min-width: 62rem) { .intro { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
 
-  .night-glass {
-    background:
-      radial-gradient(55rem 38rem at 80% -10%, oklch(45% 0.13 315 / 0.32), transparent 70%),
-      radial-gradient(40rem 30rem at -10% 50%, oklch(40% 0.09 255 / 0.22), transparent 70%),
-      var(--ground);
-  }
+  .columns { display: grid; gap: var(--dh-space-6) var(--dh-space-7); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  .columns > section { display: grid; gap: var(--dh-space-3); align-content: start; }
 
-  /* Hero: the text, then the example. The stepper comes first in the document, so keyboard and
-     screen reader reach its controls and heading before the card. On wide screens the stage
-     (graph and note card) is placed above it with a fixed height, so the controls never move
-     between phases. */
-  .hero {
-    display: grid; gap: 1.1rem; max-inline-size: var(--wide); margin-inline: auto;
-    padding: 1rem var(--gutter) 1.4rem; grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "text" "stepper" "stage";
-  }
-  .hero-text { grid-area: text; display: grid; gap: 1rem 3rem; align-items: end; }
-  .hero-text > div { display: grid; gap: 0.75rem; }
-  .hero-stage { grid-area: stage; display: grid; gap: 1rem 1.5rem; min-inline-size: 0; }
-  .hero-stepper { grid-area: stepper; display: grid; gap: 0.5rem; }
-  @media (min-width: 62rem) {
-    .hero { grid-template-areas: "text" "stage" "stepper"; }
-    .hero-text { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-    .hero-stage { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); block-size: clamp(22rem, 100svh - 31.75rem, 30rem); }
-  }
-
-  /* Build along: the steps on the left grow the graph on the right. */
-  .grow { display: grid; gap: var(--space); max-inline-size: var(--wide); margin-inline: auto; grid-template-columns: minmax(0, 1fr); }
-  .grow-graph { border-radius: 1rem; padding: 0.8rem; display: grid; gap: 0.5rem; }
-  @media (min-width: 62rem) {
-    .grow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-    .grow-graph { position: sticky; inset-block-start: calc(var(--head-h) + 1rem); align-self: start; }
-  }
-  /* Narrow screens: the growing graph stays in view above the steps. */
-  @media (max-width: 61.99rem) {
-    #build .grow-graph { order: -1; position: sticky; inset-block-start: calc(var(--head-h) + 2.6rem); z-index: 5; padding: 0.4rem; }
-    #build .grow-graph .graph { max-block-size: 28svh; }
-    #build .grow-caption { min-block-size: 0; margin: 0; }
-    #build .graph-legend { display: none; }
-  }
+  .dh-foot { margin-block-start: 0; justify-content: space-between; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: var(--dh-space-2) var(--dh-space-5); }
 }
 
 @layer components {
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; border-radius: 999px;
-    border: 1px solid var(--edge-hi); background: transparent; cursor: pointer; font-weight: 600; text-decoration: none; color: var(--ink); min-block-size: 2.5rem;
-  }
-  .btn.primary { background: var(--accent); color: var(--on-accent); border-color: transparent; }
-  .night .btn.primary { box-shadow: 0 0 2rem oklch(74% 0.13 315 / 0.35); }
-  .btn.small { min-block-size: 2.1rem; padding: 0.2rem 0.8rem; font-size: var(--step--1); font-weight: 400; justify-self: start; }
-  .btn:disabled { opacity: 0.4; cursor: default; }
-  .lang, .pill {
-    padding: 0.3rem 0.85rem; border-radius: 999px; border: 1px solid var(--edge-hi); background: transparent;
-    color: var(--ink); text-decoration: none; font-size: var(--step--1); cursor: pointer; white-space: nowrap; min-block-size: 2.2rem; display: inline-flex; align-items: center;
-  }
-  .lang:hover, .pill:hover { border-color: var(--accent); }
-  @media (max-width: 47.99rem) { .head-actions .pill { display: none; } }
-  .lead { font-size: var(--step-1); line-height: 1.5; color: var(--ink-soft); max-inline-size: 36rem; }
-  .who { color: var(--ink-faint); max-inline-size: 34rem; }
-  .hero-aside { display: grid; gap: 0.7rem; justify-items: start; }
-  .hero-text h1 { font-size: clamp(2.1rem, 1.5rem + 2vw, 3rem); }
-  .hero-text .lead { font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem); max-inline-size: 40rem; }
+  .lead { font-size: var(--step-1); line-height: 1.5; max-inline-size: 36rem; }
+  .who { color: var(--ink-soft); max-inline-size: 34rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--dh-space-3); margin-block-start: var(--dh-space-2); }
 
-  /* The four parts of a vault as one line. */
-  .flow { display: flex; flex-wrap: wrap; gap: 0.3rem 0.4rem; align-items: baseline; color: var(--ink-soft); }
-  .flow li { white-space: nowrap; }
-  .flow li:not(:first-child)::before { content: "→"; margin-inline-end: 0.4rem; color: var(--accent); }
-  .flow strong { color: var(--ink); }
+  /* The three layers: a coloured rule on the left names the layer, the files sit beneath. */
+  .layers { display: grid; gap: var(--dh-space-5); }
+  .layer { display: grid; gap: var(--dh-space-1); padding-inline-start: var(--dh-space-5); border-inline-start: 4px solid var(--layer); }
+  .layer.knowledge { --layer: var(--layer-knowledge); }
+  .layer.rules { --layer: var(--layer-rules); }
+  .layer.state { --layer: var(--layer-state); }
+  .layer h2 { font-size: var(--step-1); }
+  .layer p { color: var(--ink-soft); }
+  .files { display: flex; flex-wrap: wrap; gap: var(--dh-space-1) var(--dh-space-3); font-size: var(--step--1); }
+  .files code { color: var(--ink); }
 
-  /* Hero focus graph: the notes of the example on fixed places. A state differs by outline
-     pattern and width as well as colour, and the decision note names its state in text. */
-  .hero-graph { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 0.4rem; min-block-size: 0; }
+  /* Rows: a file or method name with its purpose, one line on wide screens. */
+  .rows { display: grid; }
+  .rows li { padding-block: var(--dh-space-2); border-block-end: var(--dh-hairline) solid var(--edge); color: var(--ink-soft); }
+  .rows li:last-child { border-block-end: 0; }
+  .rows a { font-weight: 600; text-decoration: none; margin-inline-end: var(--dh-space-2); }
+  .rows a:hover, .rows a:focus-visible { text-decoration: underline; }
+  .rows a code { font-size: 0.88em; color: var(--accent-hi); }
+  /* The four groups of the template stand side by side on wide screens, each entry as its
+     name with the purpose beneath. */
+  .contents { display: grid; gap: var(--dh-space-6); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .contents .rows li > a { display: block; inline-size: fit-content; }
+  .contents .rows li { padding-block: var(--dh-space-1) var(--dh-space-2); }
+  .contents .rows li > span { display: block; font-size: var(--step--1); line-height: 1.4; }
+  .contents > section { display: grid; gap: var(--dh-space-2); align-content: start; }
+
+  .plain { display: grid; gap: var(--dh-space-3); color: var(--ink-soft); }
+  .plain li { padding-inline-start: var(--dh-space-4); border-inline-start: 2px solid var(--edge); }
+
+  /* Start: two routes side by side on wide screens. */
+  .tools { color: var(--ink-soft); }
+  .routes { display: grid; gap: var(--dh-space-7); }
+  @media (min-width: 62rem) { .routes { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .route { display: grid; gap: var(--dh-space-3); align-content: start; }
+  .route > p { color: var(--ink-soft); }
+  .route .dh-code { margin: 0; }
+  .build-steps { display: grid; counter-reset: step; }
+  .build-steps > li { counter-increment: step; display: grid; gap: var(--dh-space-1); padding: var(--dh-space-3) 0 var(--dh-space-3) 2.6rem; position: relative; border-block-end: var(--dh-hairline) solid var(--edge); }
+  .build-steps > li::before {
+    content: counter(step); position: absolute; inset-inline-start: 0; inset-block-start: var(--dh-space-3);
+    inline-size: 1.8rem; block-size: 1.8rem; display: grid; place-items: center; border-radius: 50%;
+    border: 2px solid var(--accent); color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; font-size: var(--step--1);
+  }
+  .build-steps p { color: var(--ink-soft); }
+  .build-steps details summary { cursor: pointer; color: var(--accent-hi); font-size: var(--step--1); font-weight: 600; inline-size: fit-content; min-block-size: 2rem; display: flex; align-items: center; }
+  .build-steps summary::-webkit-details-marker { display: none; }
+  .build-steps summary::before { content: ""; inline-size: 0; block-size: 0; margin-inline-end: var(--dh-space-2); border-block: 0.3rem solid transparent; border-inline-start: 0.45rem solid currentColor; transition: rotate 0.15s; }
+  .build-steps details[open] summary::before { rotate: 90deg; }
+  .build-steps .dh-code { margin: var(--dh-space-2) 0 0; }
+  .dh-code pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.86rem; }
+
+  /* Vault and repositories. One grid carries both boxes and the three relations, so every
+     arrow starts and ends at the two objects it connects. */
+  .bridge { display: grid; gap: var(--dh-space-6); }
+  .bridge-grid {
+    display: grid; gap: var(--dh-space-3) 0;
+    grid-template-columns: minmax(0, 1fr) minmax(9rem, 15rem) minmax(0, 1fr);
+    grid-template-rows: auto repeat(3, minmax(5.5rem, auto));
+  }
+  .bridge-box { grid-row: 1 / -1; border-radius: var(--dh-radius-m); margin: calc(var(--dh-space-3) * -1) 0; }
+  .vault-box { grid-column: 1; background-color: var(--surface); border: 2px solid var(--layer-knowledge); }
+  /* The offset edge behind the repository box stands for the further repositories. */
+  .repo-box { grid-column: 3; background-color: var(--surface); border: 2px solid var(--layer-rules); box-shadow: 0.5rem 0.5rem 0 -2px var(--ground), 0.5rem 0.5rem 0 0 var(--layer-rules); }
+  .bridge-name { grid-row: 1; padding: var(--dh-space-4) var(--dh-space-5) 0; font-size: var(--step-1); }
+  .vault-name { grid-column: 1; }
+  .repo-name { grid-column: 3; }
+  .bridge-end { display: grid; gap: 0.1rem; align-content: center; margin-inline: var(--dh-space-4); padding: var(--dh-space-3) var(--dh-space-4); background-color: var(--ground-alt); border-radius: var(--dh-radius-s); }
+  .bridge-end.accent { box-shadow: inset 4px 0 0 var(--accent); }
+  /* The side of an end is read aloud everywhere and shown where the boxes are not drawn. */
+  .end-side { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .end-title { font-weight: 600; color: var(--ink); }
+  .end-note { font-size: var(--step--1); color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 0 var(--dh-space-2); }
+  .v1, .f1, .r1 { grid-row: 2; }
+  .v2, .f2, .r2 { grid-row: 3; }
+  .v3, .f3, .r3 { grid-row: 4; }
+  .v1, .v2, .v3 { grid-column: 1; }
+  .f1, .f2, .f3 { grid-column: 2; }
+  .r1, .r2, .r3 { grid-column: 3; }
+  /* An arrow is a line with a head, the label above it. */
+  .bridge-flow { display: grid; align-content: center; padding-inline: var(--dh-space-2); text-align: center; }
+  .flow-label { position: relative; display: block; font-size: var(--step--1); color: var(--ink); line-height: 1.3; padding-block-end: 1.1rem; }
+  .flow-label::before { content: ""; position: absolute; inset-inline: calc(var(--dh-space-2) * -1); inset-block-end: 0.35rem; block-size: 2px; background: var(--edge-hi); }
+  .flow-label::after { content: ""; position: absolute; inset-block-end: calc(0.35rem - 6px); border-block: 7px solid transparent; }
+  .to-repo .flow-label::after { inset-inline-end: calc(var(--dh-space-2) * -1 - 2px); border-inline-start: 11px solid var(--edge-hi); }
+  .to-vault .flow-label::after { inset-inline-start: calc(var(--dh-space-2) * -1 - 2px); border-inline-end: 11px solid var(--accent); }
+  .to-vault .flow-label::before { background: var(--accent); block-size: 3px; }
+  .to-vault .flow-label { font-weight: 600; }
+  .bridge figcaption { max-inline-size: var(--measure); color: var(--ink-soft); }
+
+  /* Narrow screens: each relation stacks as source, arrow and target; the box names lead. */
+  @media (max-width: 47.99rem) {
+    .bridge-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 0; }
+    .bridge-box, .bridge-name { display: none; }
+    .bridge-end, .bridge-flow { grid-column: 1; grid-row: auto; margin-inline: 0; }
+    .bridge-end .end-side { position: static; inline-size: auto; block-size: auto; clip-path: none; white-space: normal; font-size: var(--step--1); color: var(--ink-soft); }
+    .v2, .r3 { margin-block-start: var(--dh-space-5); }
+    .bridge-flow { min-block-size: 4rem; text-align: start; padding-inline: 2rem 0; position: relative; }
+    .flow-label { position: static; padding: 0; }
+    .flow-label::before { inset-inline: auto; inset-inline-start: 0.9rem; inset-block: 0.3rem; margin: 0; inline-size: 2px; block-size: auto; }
+    .to-vault .flow-label::before { inline-size: 3px; block-size: auto; }
+    .flow-label::after, .to-repo .flow-label::after, .to-vault .flow-label::after { inset-block-start: auto; inset-block-end: 0; inset-inline: 0.9rem auto; margin: 0 0 0 -6px; border-block: 0; border-inline: 7px solid transparent; border-block-start: 10px solid var(--edge-hi); }
+    .to-vault .flow-label::after { border-block-start-color: var(--accent); }
+  }
+
+  /* Example: the stepper names each phase and actor; the focus graph shows where the notes
+     lie, the card what the decision note says. Without the example data the static list of
+     phases stays. */
+  .example .hero { display: grid; gap: var(--dh-space-4); max-inline-size: var(--wide); margin-inline: auto; grid-template-columns: minmax(0, 1fr); grid-template-areas: "stepper" "stage"; }
+  .hero-stage { grid-area: stage; display: grid; gap: var(--dh-space-4) var(--dh-space-5); min-inline-size: 0; }
+  .hero-stepper { grid-area: stepper; display: grid; gap: var(--dh-space-2); }
+  .example:not(.playable) .hero-stage { display: none; }
+  .phase-list { display: grid; gap: var(--dh-space-2); counter-reset: phase; max-inline-size: var(--measure); color: var(--ink-soft); margin-block-start: var(--dh-space-3); }
+  .phase-list li strong { color: var(--ink); }
+  @media (min-width: 62rem) {
+    .hero-stage { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); block-size: clamp(22rem, 100svh - 20rem, 30rem); }
+  }
+  .example-more { max-inline-size: var(--wide); margin: var(--dh-space-5) auto 0; display: flex; flex-wrap: wrap; gap: var(--dh-space-2) var(--dh-space-6); font-size: var(--step--1); }
+
+  .hero-graph { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: var(--dh-space-2); min-block-size: 0; }
   .focus-graph { inline-size: 100%; block-size: 100%; overflow: visible; }
-  .focus-graph .link { fill: none; stroke: color-mix(in oklch, var(--ink) 14%, transparent); stroke-width: 1.5; transition: stroke 0.3s, opacity 0.3s; }
-  .focus-graph .link[data-on="true"] { stroke: var(--accent); stroke-width: 2.5; }
+  .focus-graph .link { fill: none; stroke: var(--edge-hi); stroke-width: 1.5; opacity: 0.6; transition: stroke 0.3s, opacity 0.3s; }
+  .focus-graph .link[data-on="true"] { stroke: var(--accent); stroke-width: 2.5; opacity: 1; }
   .focus-graph .pill { cursor: pointer; outline: none; transition: opacity 0.3s; }
   .focus-graph .pill rect { fill: var(--surface); stroke: var(--edge-hi); stroke-width: 1.5; transition: fill 0.3s, stroke 0.3s; }
-  .focus-graph .pill text { fill: var(--ink-faint); font-family: var(--font); font-size: 21px; }
+  .focus-graph .pill text { fill: var(--ink-soft); font-family: var(--font); font-size: 21px; }
   .focus-graph .pill .badge { fill: var(--ink-soft); font-size: 17px; }
   .focus-graph .pill[data-state]:not([data-state=""]) text { fill: var(--ink); }
   .focus-graph .pill[data-state="read"] rect { stroke: var(--st-read); stroke-width: 2.5; }
@@ -238,75 +237,67 @@
   .focus-graph .pill[data-state="accepted"] rect { stroke: var(--st-accepted); stroke-width: 3; fill: color-mix(in oklch, var(--st-accepted) 16%, var(--surface)); }
   .focus-graph .pill[data-state="updated"] rect { stroke: var(--st-accepted); stroke-width: 2; }
   .focus-graph .absent { opacity: 0; pointer-events: none; }
-  /* Hover and keyboard focus come after the states and outrank them, so a highlighted note
-     still shows that it has focus. */
+  /* Hover and keyboard focus outrank the states, so a highlighted note still shows focus. */
   .focus-graph .pill.pill:hover rect { stroke: var(--focus); }
   .focus-graph .pill.pill:focus-visible rect { stroke: var(--focus); stroke-width: 4.5; stroke-dasharray: none; }
   .focus-graph .pill.decision text:not(.badge) { font-weight: 600; }
-  .focus-legend { font-size: var(--step--1); color: var(--ink-faint); text-align: center; }
+  .focus-legend { font-size: var(--step--1); color: var(--ink-soft); text-align: center; }
   .focus-list { display: none; }
   @media (max-width: 61.99rem) {
     .hero-graph { grid-template-rows: auto; }
     .focus-graph, .focus-legend { display: none; }
-    .focus-list { display: grid; gap: 0.3rem; font-size: var(--step--1); }
-    .focus-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem; color: var(--ink-soft); }
+    .focus-list { display: grid; gap: var(--dh-space-1); font-size: var(--step--1); }
+    .focus-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--dh-space-2); color: var(--ink-soft); }
     .focus-list .chip { margin: 0; }
     .focus-list [data-state="proposal"] .chip, .focus-list [data-state="found"] .chip { border-style: dashed; }
     .focus-list [data-state="accepted"] .chip, .focus-list [data-state="updated"] .chip { border-color: var(--st-accepted); }
     .focus-list [data-state="read"] .chip, .focus-list [data-state="checked"] .chip { border-color: var(--st-read); }
   }
 
-  /* Note card: what the decision note says in the current phase. On wide screens it shares the
-     stage's fixed height and scrolls on its own, keyboard included. */
+  /* Note card: on wide screens it shares the stage's fixed height and scrolls on its own. */
   .note-card {
-    min-block-size: 0; overflow-y: auto; display: grid; align-content: start; gap: 0.75rem;
-    padding: 1rem 1.2rem; border-radius: 0.9rem; border: 2px dashed var(--edge-hi); font-size: var(--step--1);
-    /* Scroll shadows: a soft edge appears at the top or bottom only while content lies beyond it. */
-    background:
-      linear-gradient(var(--surface) 30%, transparent) top / 100% 2.5rem no-repeat local,
-      linear-gradient(transparent, var(--surface) 70%) bottom / 100% 2.5rem no-repeat local,
-      radial-gradient(farthest-side at 50% 0, color-mix(in oklch, var(--accent) 55%, transparent), transparent) top / 100% 0.8rem no-repeat scroll,
-      radial-gradient(farthest-side at 50% 100%, color-mix(in oklch, var(--accent) 55%, transparent), transparent) bottom / 100% 0.8rem no-repeat scroll,
-      var(--surface);
+    min-block-size: 0; overflow-y: auto; display: grid; align-content: start; gap: var(--dh-space-3);
+    padding: var(--dh-space-4) var(--dh-space-5); border-radius: var(--dh-radius-m); border: 2px dashed var(--edge-hi);
+    background-color: var(--surface); font-size: var(--step--1);
   }
   .note-card[data-state="proposal"] { border-color: var(--st-proposal); }
   .note-card[data-state="accepted"] { border-style: solid; border-color: var(--st-accepted); }
-  /* The state marker always sits on its own line, so the body never jumps between phases. */
-  .note-card header { display: grid; justify-items: start; gap: 0.3rem; }
+  .note-card header { display: grid; justify-items: start; gap: var(--dh-space-1); }
   .note-card h3 { font-size: var(--step-1); }
-  .note-card h4 { font-family: var(--display); font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+  .note-card h4 { font-size: 0.82rem; }
   .note-card p, .note-card li, .note-card dd { color: var(--ink-soft); }
-  .note-card .field { display: grid; gap: 0.3rem; }
-  .note-card ul { padding-inline-start: 1.1rem; list-style: disc; display: grid; gap: 0.35rem; }
+  .note-card .field { display: grid; gap: var(--dh-space-1); }
+  .note-card ul { padding-inline-start: 1.1rem; list-style: disc; display: grid; gap: var(--dh-space-1); }
   .note-card ul.checked { list-style: none; padding-inline-start: 0; }
   .note-card .tick { color: var(--st-accepted); font-weight: 700; }
   .note-card .verdict { color: var(--ink); font-weight: 600; }
-  .note-card .compare { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 0.8rem; align-items: baseline; }
+  .note-card .compare { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--dh-space-1) var(--dh-space-3); align-items: baseline; }
   .note-card .compare dt { font-weight: 600; color: var(--ink); }
-  .marker { font-size: 0.78rem; font-weight: 600; padding: 0.05rem 0.6rem; border-radius: 999px; border: 1px solid var(--edge-hi); color: var(--ink-faint); white-space: nowrap; }
+  .marker { font-size: 0.78rem; font-weight: 600; padding: 0.05rem 0.6rem; border-radius: var(--dh-radius-pill); border: 1px solid var(--edge-hi); color: var(--ink-soft); white-space: nowrap; }
   .marker.proposal { color: var(--st-proposal); border-color: var(--st-proposal); }
   .marker.accepted { color: var(--st-accepted); border-color: var(--st-accepted); }
   .marker.warn { color: var(--st-found); border-color: var(--st-found); }
   .chip {
-    display: inline-flex; align-items: center; min-block-size: 1.6rem; margin: 0 0.15rem 0.25rem 0; padding: 0 0.6rem; border-radius: 999px;
+    display: inline-flex; align-items: center; min-block-size: 1.6rem; margin: 0 0.15rem 0.25rem 0; padding: 0 0.6rem; border-radius: var(--dh-radius-pill);
     border: 1px solid var(--edge-hi); background: transparent; color: var(--ink); font-size: 0.82rem; cursor: pointer; vertical-align: baseline;
   }
   .chip:hover { border-color: var(--accent); }
   .note-card p .chip, .note-card li .chip { margin: 0 0.1rem; min-block-size: 1.5rem; }
   .nowrap { white-space: nowrap; }
-  .chip.faint { border-style: dashed; color: var(--ink-faint); }
+  .chip.faint { border-style: dashed; color: var(--ink-soft); }
 
-  /* Stepper: every phase named with its actor; done, current and next differ by mark and weight. */
-  .step-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
-  .step-title { font-size: var(--step-0); font-weight: 600; }
-  .step-controls { display: flex; gap: 0.5rem; }
+  /* Stepper: done, current and next differ by mark and weight. */
+  .step-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--dh-space-2) var(--dh-space-4); }
+  .step-title { font-size: var(--step-2); }
+  .step-controls { display: flex; flex-wrap: wrap; gap: var(--dh-space-2); }
+  .step-controls .dh-btn:disabled { opacity: 0.45; }
   .steps-track { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
   .steps-track li { display: flex; }
   .step {
-    inline-size: 100%; display: grid; justify-items: center; align-content: start; gap: 0.15rem; padding: 0.25rem 0.15rem;
+    inline-size: 100%; display: grid; justify-items: center; align-content: start; gap: 0.15rem; padding: var(--dh-space-1) 0.15rem;
     background: none; border: 0; cursor: pointer; color: var(--ink-soft); position: relative; font-size: var(--step--1);
   }
-  .step::before { content: ""; position: absolute; inset-block-start: 1.2rem; inset-inline: 0; block-size: 2px; background: var(--edge-hi); }
+  .step::before { content: ""; position: absolute; inset-block-start: 1.2rem; inset-inline: 0; block-size: 2px; background: var(--edge); }
   .steps-track li:first-child .step::before { inset-inline-start: 50%; }
   .steps-track li:last-child .step::before { inset-inline-end: 50%; }
   .step[data-state="done"]::before, .step[data-state="current"]::before { background: var(--accent); }
@@ -317,12 +308,11 @@
   .step[data-state="done"] .dot { border-color: var(--accent); color: var(--accent); }
   .step[data-state="done"] .dot span { display: none; }
   .step[data-state="done"] .dot::after { content: "✓"; }
-  .step[data-state="current"] .dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 0 1rem oklch(74% 0.13 315 / 0.45); }
-  .step .name { text-align: center; line-height: 1.2; font-weight: 500; }
+  .step[data-state="current"] .dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .step .name { text-align: center; line-height: 1.2; font-weight: 600; }
   .step[data-state="current"] .name { color: var(--ink); font-weight: 700; }
-  .step[data-state="next"] .name { color: var(--ink-faint); }
-  .step .who { font-size: 0.72rem; color: var(--ink-faint); text-align: center; line-height: 1.2; }
-  .step:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 0.5rem; }
+  .step .who { font-size: 0.72rem; color: var(--ink-soft); text-align: center; line-height: 1.2; }
+  .step:focus-visible { outline: var(--dh-focus-ring); outline-offset: 2px; border-radius: var(--dh-radius-s); }
   .step-status { display: none; }
   .step-caption { color: var(--ink-soft); max-inline-size: 62rem; min-block-size: 3.2em; }
   .step-caption strong { color: var(--ink); }
@@ -334,126 +324,39 @@
     .step-caption { min-block-size: 0; }
   }
 
-  /* Build graph. */
-  .graph { position: relative; inline-size: 100%; aspect-ratio: 1; max-block-size: calc(100svh - var(--head-h) - 5rem); margin-inline: auto; }
-  .graph svg { inline-size: 100%; block-size: 100%; overflow: visible; }
-  .graph .vault-frame { fill: none; stroke: color-mix(in oklch, var(--ink) 22%, transparent); stroke-width: 0.3; stroke-dasharray: 1 1.2; }
-  .graph .edge { stroke: color-mix(in oklch, var(--ink) 18%, transparent); stroke-width: 0.18; transition: stroke 0.25s, opacity 0.5s; }
-  .graph .edge.sys { stroke: color-mix(in oklch, var(--ink) 7%, transparent); }
-  /* Hidden wins over every dimming state, so a graph that grows shows only what exists. */
-  .graph .edge.off, .graph .node.off, .graph svg[data-playing] .node.off, .graph svg[data-hover] .node.off { opacity: 0 !important; pointer-events: none; }
-  .graph .node { cursor: pointer; outline: none; transition: opacity 0.5s; }
-  .graph .node .body { stroke: oklch(100% 0 0 / 0.35); stroke-width: 0.12; transition: stroke 0.25s; }
-  .graph .node .glow { opacity: 0.4; transition: opacity 0.25s; }
-  .graph .node text { fill: var(--ink-soft); font-size: 2.6px; font-family: var(--font); pointer-events: none; paint-order: stroke; stroke: var(--ground); stroke-width: 0.7px; opacity: 0; transition: opacity 0.25s; }
-  .graph .node[data-label="always"] text { opacity: 1; }
-  .graph .node.system .body { opacity: 0.72; }
-  .graph .node.system .glow { opacity: 0.12; }
-  .graph svg[data-hover] .edge { opacity: 0.35; }
-  .graph svg[data-hover] .edge.near { stroke: var(--accent); stroke-width: 0.32; opacity: 1; }
-  .graph svg[data-hover] .node:not(.near):not(.hot) { opacity: 0.3; }
-  .graph svg[data-hover] .node.near text, .graph .node.hot text { opacity: 1; fill: var(--ink); }
-  .graph .node.hot .glow { opacity: 1; }
-  .graph .node:focus-visible .body { stroke: var(--focus); stroke-width: 0.6; }
-  .graph svg[data-playing] .node:not(.lit):not(.proposal):not(.focus) { opacity: 0.32; }
-  .graph svg[data-playing] .edge { opacity: 0.4; }
-  .graph .node.lit .body, .graph .node.lit .glow, .graph .node.focus .glow { opacity: 1; }
-  .graph .node.lit text, .graph .node.proposal text { opacity: 1; fill: var(--ink); }
-  .graph .node.proposal .body { fill: transparent !important; stroke: var(--st-proposal); stroke-width: 0.6; stroke-dasharray: 0.9 0.6; }
-  .graph .node.proposal .shine, .graph .node.proposal .glow { opacity: 0; }
-  /* Overlapping labels are hidden by priority and return on hover or focus. */
-  .graph .node.label-hidden text { opacity: 0 !important; }
-  .graph .node.label-hidden:hover text, .graph .node.label-hidden:focus-visible text { opacity: 1 !important; }
-  .graph-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem 1rem; font-size: var(--step--1); color: var(--ink-faint); }
-  .graph-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
-  .graph-legend i { inline-size: 0.65rem; block-size: 0.65rem; border-radius: 50%; display: inline-block; }
-  .graph-legend i.hex { border-radius: 0; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-  .grow-caption { text-align: center; font-size: var(--step--1); color: var(--ink-soft); min-block-size: 2em; }
-
-  .node-card {
-    position: fixed; z-index: 25; max-inline-size: 18rem; pointer-events: none; padding: 0.6rem 0.8rem; border-radius: 0.6rem;
-    border: 1px solid oklch(100% 0 0 / 0.2); background: oklch(20% 0.045 271 / 0.97); color: oklch(95% 0.01 95);
-    box-shadow: 0 0.8rem 2rem oklch(0% 0 0 / 0.45); font-size: var(--step--1); display: grid; gap: 0.2rem;
-  }
-  .node-card span { color: oklch(76% 0.03 271); }
-  .node-card[hidden] { display: none; }
-
-  /* Build: one track per step. */
-  .tools { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: var(--step--1); color: var(--ink-soft); max-inline-size: var(--measure); }
-  .tools-label { font-weight: 600; color: var(--ink); }
-  .tool a { font-weight: 600; }
-  .steps { display: grid; gap: 0; counter-reset: step; max-inline-size: var(--measure); }
-  .steps > li { counter-increment: step; display: grid; gap: 0.45rem; padding: 1.1rem 0 1.3rem 1rem; border-inline-start: 3px solid var(--edge); transition: border-color 0.3s; }
-  .steps > li.current { border-inline-start-color: var(--accent); }
-  .steps h3 { font-size: var(--step-1); }
-  .steps h3::before { content: counter(step) "  "; color: var(--accent); font-variant-numeric: tabular-nums; }
-  .steps p { color: var(--ink-soft); }
-  .step-links { display: flex; gap: 1rem; font-size: var(--step--1); }
-  .prompt-box { display: grid; gap: 0.35rem; justify-items: start; }
-  .prompt { inline-size: 100%; background: var(--ground-alt); border: 1px solid var(--edge); padding: 0.7rem 0.9rem; border-radius: 0.6rem; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.84rem; }
-
-  /* Good to know: two calm columns of sentences. */
-  .columns { display: grid; gap: var(--space) calc(var(--space) * 2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
-  .columns h3 { margin-block-end: 0.6rem; }
-  .plain { display: grid; gap: 0.7rem; color: var(--ink-soft); }
-  .plain a { font-size: var(--step--1); }
-
-  /* Reference: one folded, annotated file tree and short paragraphs. */
-  .file-link { font: inherit; font-family: var(--mono); font-size: 0.92em; color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; text-align: start; }
-  details.reference { display: grid; gap: var(--space); }
-  details.reference > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; padding-block: 0.6rem; }
-  details.reference > summary::-webkit-details-marker { display: none; }
-  details.reference > summary::after { content: "+"; margin-inline-start: auto; font-size: var(--step-2); line-height: 1; color: var(--accent); transition: transform 0.2s; }
-  details.reference[open] > summary::after { transform: rotate(45deg); }
-  .summary-title { font-family: var(--display); font-weight: 700; font-size: var(--step-2); }
-  .summary-sub { color: var(--ink-soft); }
-  .ref-body { display: grid; gap: var(--space) calc(var(--space) * 2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); margin-block-start: var(--space); }
-  .tree { display: grid; gap: 0.15rem; font-size: var(--step--1); }
-  .tree li { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1rem; }
-  .tree code, .tree .file-link { font-family: var(--mono); font-size: 0.85rem; }
-  .tree span { color: var(--ink-soft); }
-  @media (max-width: 30rem) { .tree li { grid-template-columns: minmax(0, 1fr); gap: 0; margin-block-end: 0.3rem; } }
-  .ref-notes { display: grid; gap: 0.8rem; color: var(--ink-soft); font-size: var(--step--1); align-content: start; }
-  .ref-notes strong { color: var(--ink); }
-
-  /* Reading panel. */
+  /* Reading panel for the example notes. */
   .panel {
     position: fixed; inset-block: 0; inset-inline-end: 0; z-index: 30; inline-size: min(100%, 44rem);
     background: var(--surface); color: var(--ink); border-inline-start: 1px solid var(--edge-hi);
-    box-shadow: -1rem 0 3rem oklch(0% 0 0 / 0.3); overflow-y: auto; padding: 0 var(--gutter) 3rem; display: grid; gap: 0.6rem; align-content: start;
+    box-shadow: -1rem 0 3rem oklch(0% 0 0 / 0.25); overflow-y: auto; padding: 0 var(--gutter) 3rem; display: grid; gap: var(--dh-space-3); align-content: start;
   }
-  .panel[hidden] { display: none; }
-  .panel-head { display: flex; justify-content: space-between; align-items: start; gap: 1rem; position: sticky; inset-block-start: 0; background: var(--surface); padding-block: 1rem 0.5rem; }
+  .panel-head { display: flex; justify-content: space-between; align-items: start; gap: var(--dh-space-4); position: sticky; inset-block-start: 0; background: var(--surface); padding-block: var(--dh-space-4) var(--dh-space-2); }
   .panel-head h2 { font-size: var(--step-1); overflow-wrap: anywhere; }
-  .panel-head button { padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--edge-hi); background: transparent; cursor: pointer; min-block-size: 2.4rem; }
-  .panel-path { font-family: var(--mono); font-size: var(--step--1); color: var(--ink-faint); overflow-wrap: anywhere; }
-  #panel-body { display: grid; gap: 0.8rem; }
-  .prose { display: grid; gap: 0.8rem; min-inline-size: 0; overflow-wrap: anywhere; }
+  .panel-head button { padding: var(--dh-space-2) var(--dh-space-4); border-radius: var(--dh-radius-pill); border: 1px solid var(--edge-hi); background: transparent; cursor: pointer; min-block-size: 2.4rem; }
+  .panel-path { font-family: var(--mono); font-size: var(--step--1); color: var(--ink-soft); overflow-wrap: anywhere; }
+  #panel-body { display: grid; gap: var(--dh-space-3); }
+  .prose { display: grid; gap: var(--dh-space-3); min-inline-size: 0; overflow-wrap: anywhere; }
   .prose h1 { font-size: var(--step-2); }
-  .prose h2 { font-size: var(--step-1); margin-block-start: 0.6rem; }
+  .prose h2 { font-size: var(--step-1); margin-block-start: var(--dh-space-2); }
   .prose h3, .prose h4 { font-size: var(--step-0); }
   .prose ul, .prose ol { padding-inline-start: 1.3rem; list-style: revert; }
-  .prose pre { background: var(--ground-alt); padding: 0.8rem; border-radius: 0.5rem; overflow-x: auto; }
-  .prose table { font-size: var(--step--1); display: block; overflow-x: auto; }
-  .prose blockquote, .prose .callout { margin: 0; padding: 0.6rem 0.9rem; border-inline-start: 3px solid var(--accent); background: var(--ground-alt); border-radius: 0.3rem; }
+  .prose pre { background: var(--ground-alt); padding: var(--dh-space-3); border-radius: var(--dh-radius-s); overflow-x: auto; }
+  .prose table { font-size: var(--step--1); display: block; overflow-x: auto; border-collapse: collapse; }
+  .prose th, .prose td { text-align: start; vertical-align: top; padding: var(--dh-space-2) var(--dh-space-3) var(--dh-space-2) 0; border-block-end: 1px solid var(--edge); }
+  .prose blockquote, .prose .callout { margin: 0; padding: var(--dh-space-2) var(--dh-space-4); border-inline-start: 3px solid var(--accent); background: var(--ground-alt); border-radius: var(--dh-radius-s); }
   .prose .callout-title { font-weight: 700; }
-  .prose .inline-fields { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.15rem 0.8rem; font-size: var(--step--1); }
-  .prose .inline-fields dt { font-family: var(--mono); color: var(--ink-faint); }
-  .prose .block-id, .prose .footnotes { font-size: var(--step--1); color: var(--ink-faint); }
-  .prose .dead-link { color: var(--ink-faint); text-decoration: line-through; }
-  .frontmatter { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.1rem 0.8rem; font-family: var(--mono); font-size: var(--step--1); background: var(--ground-alt); padding: 0.6rem 0.8rem; border-radius: 0.5rem; }
-  .frontmatter dt { color: var(--ink-faint); }
-  .load-error { padding: 1rem var(--gutter); color: var(--g-check); }
+  .prose .inline-fields { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.15rem var(--dh-space-3); font-size: var(--step--1); }
+  .prose .inline-fields dt { font-family: var(--mono); color: var(--ink-soft); }
+  .prose .block-id, .prose .footnotes { font-size: var(--step--1); color: var(--ink-soft); }
+  .prose .dead-link { color: var(--ink-soft); text-decoration: line-through; }
+  .frontmatter { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.1rem var(--dh-space-3); font-family: var(--mono); font-size: var(--step--1); background: var(--ground-alt); padding: var(--dh-space-2) var(--dh-space-3); border-radius: var(--dh-radius-s); }
+  .frontmatter dt { color: var(--ink-soft); }
 
-  @media (prefers-reduced-motion: reduce) { .graph *, .focus-graph *, .steps > li { transition: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .focus-graph * { transition: none !important; } }
 
-  /* Short wide screens such as a projector at 1280 by 720: smaller type, so the example and its
-     controls still fit one screen. The card then scrolls in its longest phases. */
+  /* Short wide screens such as a projector at 1280 by 720: the example and its controls fit. */
   @media (min-width: 62rem) and (max-height: 52rem) {
-    .hero.hero { padding-block: 0.6rem 0.8rem; gap: 0.8rem; }
-    .hero-text h1 { font-size: 2.3rem; }
-    .hero-text .lead, .who, .flow { font-size: var(--step--1); }
-    .hero-stage.hero-stage { block-size: max(16rem, 100svh - 27rem); }
+    .hero-stage.hero-stage { block-size: max(16rem, 100svh - 17rem); }
     .step .who { display: none; }
   }
 }

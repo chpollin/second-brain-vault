@@ -4,44 +4,292 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Second Brain Vault</title>
-<meta name="description" content="A folder of linked text notes in which earlier thinking stays findable with its reasons, kept together with an AI agent. What it is, how to build one, and how it is used.">
+<meta name="description" content="A template for an Obsidian vault that you maintain together with an AI agent: knowledge, rules and state in one folder, linked to the knowledge folders of your project repositories.">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="stylesheet" href="assets/dhcraft/dhcraft-tokens.css">
+<link rel="stylesheet" href="assets/dhcraft/dhcraft-components.css">
 <link rel="stylesheet" href="site.css">
 <script type="module" src="page.js"></script>
+<script type="module" src="assets/dhcraft/dhcraft-copy.js"></script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="site-head night" id="site-head"></header>
+<a class="dh-skip" href="#main" data-t="skip">Skip to content</a>
+<header class="dh-head site-head">
+  <a class="dh-brand" href="#top"><img src="assets/dhcraft/dhcraft-mark-watercolor-128.png" alt="" width="112" height="128">Second Brain Vault</a>
+  <nav class="dh-nav site-nav" aria-label="Sections" data-t-label="nav.label">
+    <ul>
+      <li><a href="#example" data-t="nav.example">Example</a></li>
+      <li><a href="#repositories" data-t="nav.repositories">Repositories</a></li>
+      <li><a href="#template" data-t="nav.template">Template</a></li>
+      <li><a href="#start" data-t="nav.start">Start</a></li>
+      <li><a href="#limits" data-t="nav.limits">Limits</a></li>
+      <li><a href="#related" data-t="nav.related">Methods</a></li>
+    </ul>
+  </nav>
+  <div class="head-actions">
+    <a class="dh-btn lang" id="lang-switch" hidden href="?lang=de" hreflang="de" lang="de" aria-label="Seite auf Deutsch anzeigen">Deutsch</a>
+    <a class="dh-btn head-link" href="https://github.com/chpollin/second-brain-vault">GitHub</a>
+  </div>
+</header>
 <main id="main">
 
-<section id="top" class="night night-glass">
+<section id="top" class="intro">
+  <div class="intro-text">
+    <h1>Second Brain Vault</h1>
+    <p class="lead" data-t="hero.lead">A template for an Obsidian vault that you maintain together with an AI agent. Notes keep earlier thinking findable with its reasons, written rules tell the agent how the vault works, and the operator, the person who keeps the vault, decides what is accepted.</p>
+    <p class="who" data-t="hero.who">For people in research and institutions who work with knowledge across projects. Every note in the template is a synthetic example.</p>
+    <p class="actions"><a class="dh-btn dh-btn--primary" href="#start" data-t="hero.start">Start</a> <a class="dh-btn" href="https://github.com/chpollin/second-brain-vault" data-t="hero.repo">Template on GitHub</a></p>
+  </div>
+  <ol class="layers" aria-label="Three layers of the vault" data-t-label="layers.label">
+    <li class="layer knowledge">
+      <h2 data-t="layers.knowledge.title">Knowledge</h2>
+      <p data-t="layers.knowledge.text">Concept notes, literature notes and one Project Overview per project, reached from HOME through overview pages.</p>
+      <p class="files"><code>&lt;Field&gt;/</code> <code>Literature/</code> <code>Projects/</code></p>
+    </li>
+    <li class="layer rules">
+      <h2 data-t="layers.rules.title">Rules</h2>
+      <p data-t="layers.rules.text">CLAUDE.md and its generated twin AGENTS.md, read at session start, with rules by file path, conventions, skills and checks.</p>
+      <p class="files"><code>CLAUDE.md</code> <code>.claude/</code> <code>Vault Operations/</code> <code>scripts/</code></p>
+    </li>
+    <li class="layer state">
+      <h2 data-t="layers.state.title">State</h2>
+      <p data-t="layers.state.text">ACTIVE-WORK holds current work, next steps and the open questions to the operator.</p>
+      <p class="files"><code>ACTIVE-WORK.md</code></p>
+    </li>
+  </ol>
+</section>
+
+<section id="example" class="band alt example" aria-labelledby="example-title">
   <div class="hero">
-    <div class="hero-text" id="hero-text"></div>
-    <div class="hero-stepper" id="hero-stepper"></div>
+    <div class="hero-stepper" id="hero-stepper">
+      <h2 class="step-title" id="example-title" data-t="example.title">A team and its photo archive</h2>
+      <ol class="phase-list">
+        <li data-t="example.phases.0">You bring a question from a project, here which file format the photo archive should keep its masters in.</li>
+        <li data-t="example.phases.1">The agent enters at HOME and the overview pages and follows links to earlier notes and their sources.</li>
+        <li data-t="example.phases.2">It drafts a note that records the decision with its reasons and the rejected alternative.</li>
+        <li data-t="example.phases.3">You check the sources and the reasoning, then accept, reject or leave it open.</li>
+        <li data-t="example.phases.4">The note gets its one place, and the notes that point to it are brought up to date.</li>
+        <li data-t="example.phases.5">What the project builds is tested, and the finding goes back into the project's knowledge.</li>
+        <li data-t="example.phases.6">Another project finds the decision and checks whether its conditions hold.</li>
+      </ol>
+    </div>
     <div class="hero-stage">
       <figure class="hero-graph" id="hero-graph"></figure>
-      <article class="note-card" id="hero-card"></article>
+      <article class="note-card" id="hero-card" hidden></article>
+    </div>
+  </div>
+  <p class="example-more"><a href="explorer.html" data-t="example.explorer">Why TIFF? The decision with its grounds and sources, in German</a> <a href="notes.html" data-t="example.notes">All example notes</a></p>
+</section>
+
+<section id="repositories" class="band" aria-labelledby="repositories-title">
+  <div class="inner">
+    <div class="section-head">
+      <h2 id="repositories-title" data-t="repos.title">Vault and project repositories</h2>
+      <p data-t="repos.lead">The vault holds conceptual knowledge and one Project Overview per project. Each project repository holds its own knowledge in a folder <code>knowledge/</code>. Each links to the other.</p>
+    </div>
+    <figure class="bridge" aria-labelledby="bridge-caption">
+      <div class="bridge-grid">
+        <div class="bridge-box vault-box" aria-hidden="true"></div>
+        <div class="bridge-box repo-box" aria-hidden="true"></div>
+        <h3 class="bridge-name vault-name" data-t="repos.vault">Vault</h3>
+        <h3 class="bridge-name repo-name" data-t="repos.repo">Project repository</h3>
+
+        <p class="bridge-end v1"><span class="end-side" data-t="repos.vault">Vault</span><span class="end-title" data-t="repos.r1.from">Project Overview and Repo Directory</span><span class="end-note" data-t="repos.r1.fromNote">name the repository</span></p>
+        <p class="bridge-flow f1 to-repo"><span class="flow-label" data-t="repos.r1.flow">points to its entry</span></p>
+        <p class="bridge-end r1"><span class="end-side" data-t="repos.repo">Project repository</span><span class="end-title"><code>knowledge/INDEX.md</code></span><span class="end-note" data-t="repos.r1.toNote">entry to the project knowledge</span></p>
+
+        <p class="bridge-end v2"><span class="end-side" data-t="repos.vault">Vault</span><span class="end-title" data-t="repos.r2.from">Concept and literature notes</span><span class="end-note" data-t="repos.r2.fromNote">shared across projects</span></p>
+        <p class="bridge-flow f2 to-repo"><span class="flow-label" data-t="repos.r2.flow">read only, through vault-orient</span></p>
+        <p class="bridge-end r2"><span class="end-side" data-t="repos.repo">Project repository</span><span class="end-title" data-t="repos.r2.to">Agent session in the repository</span><span class="end-note"><code>CLAUDE.md</code> <code>AGENTS.md</code></span></p>
+
+        <p class="bridge-end r3 accent"><span class="end-side" data-t="repos.repo">Project repository</span><span class="end-title" data-t="repos.r3.from">Findings from code, data and tests</span><span class="end-note"><code>specification.md</code> <code>journal.md</code> <code>handoff.md</code></span></p>
+        <p class="bridge-flow f3 to-vault"><span class="flow-label" data-t="repos.r3.flow">back to the vault as a confirmed finding, handed over and accepted</span></p>
+        <p class="bridge-end v3 accent"><span class="end-side" data-t="repos.vault">Vault</span><span class="end-title" data-t="repos.r3.to">Responsible note in the vault</span><span class="end-note" data-t="repos.r3.toNote">changed in a vault session</span></p>
+      </div>
+      <figcaption id="bridge-caption" data-t="repos.caption">Project findings stay in the repository. Only a finding that holds beyond its project goes back to the vault, as a handover that names goal, paths, source and evidence. The conditions of the source project travel with it.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="template" class="band alt" aria-labelledby="template-title">
+  <div class="inner">
+    <div class="section-head">
+      <h2 id="template-title" data-t="template.title">What the template contains</h2>
+    </div>
+    <div class="contents">
+      <section>
+        <h3 data-t="template.examples">Synthetic examples</h3>
+        <ul class="rows">
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/Example%20Domain"><code>Example Domain/</code></a> <span data-t="template.ex.domain">placeholder field with overview page and concept note</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/Projects/Example%20Project"><code>Projects/</code></a> <span data-t="template.ex.project">placeholder project and its ACTIVE-WORK entry</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/Vault%20Operations/Fixtures"><code>Fixtures/</code></a> <span data-t="template.ex.fixtures">notes with seeded defects for testing an agent</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/docs/example"><code>docs/example/</code></a> <span data-t="template.ex.photo">the photo archive of the example above</span></li>
+        </ul>
+      </section>
+      <section>
+        <h3 data-t="template.skills">Skills</h3>
+        <ul class="rows">
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/.claude/skills/vault-knowledge/SKILL.md"><code>vault-knowledge</code></a> <span data-t="template.sk.knowledge">add, check and merge notes</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/.claude/skills/vault-audit/SKILL.md"><code>vault-audit</code></a> <span data-t="template.sk.audit">integrity of the whole vault</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/.claude/skills/vault-distill/SKILL.md"><code>vault-distill</code></a> <span data-t="template.sk.distill">outline from selected notes, read only</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/.claude/skills/active-work-report/SKILL.md"><code>active-work-report</code></a> <span data-t="template.sk.report">report the work state</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/.claude/skills/project-knowledge/SKILL.md"><code>project-knowledge</code></a> <span data-t="template.sk.project">work in a repository with knowledge/</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/.claude/skills/vault-orient/SKILL.md"><code>vault-orient</code></a> <span data-t="template.sk.orient">read the vault from a repository</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/.claude/skills"><code>.claude/skills/</code></a> <span data-t="template.sk.more">writing-style, paper-develop, workflow-design, persona-init</span></li>
+        </ul>
+      </section>
+      <section>
+        <h3 data-t="template.conventions">Rules and conventions</h3>
+        <ul class="rows">
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/CLAUDE.md"><code>CLAUDE.md</code></a> <span data-t="template.cv.claude">rules read in every session, AGENTS.md generated from it</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/.claude/rules"><code>.claude/rules/</code></a> <span data-t="template.cv.rules">rules selected by file path</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/Vault%20Operations/Conventions/Convention%20Frontmatter%20Field%20Profiles.md">Field Profiles</a> <span data-t="template.cv.fields">fields per document type</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/Vault%20Operations/Conventions/Convention%20Knowledge%20Documents.md">Knowledge Documents</a> <span data-t="template.cv.knowledge">knowledge/ of a repository and its bridge to the vault</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/Vault%20Operations/Conventions/Convention%20Curation%20Round.md">Curation Round</a> <span data-t="template.cv.curation">rule changes, loss audit before deletion</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/Vault%20Operations/Conventions"><code>Conventions/</code></a> <span data-t="template.cv.more">Project Overview, ACTIVE-WORK Fields, Skills, Strand Notes (proposal)</span></li>
+        </ul>
+      </section>
+      <section>
+        <h3 data-t="template.checks">Structure checks</h3>
+        <ul class="rows">
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/scripts/hooks/pre-commit"><code>pre-commit</code></a> <span data-t="template.ck.hook">refuses a commit that breaks a hard rule</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/scripts/check_vault.py"><code>check_vault.py</code></a> <span data-t="template.ck.check">work list of dead links, anchors and unreachable notes</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/scripts/render_agents_md.py"><code>render_agents_md.py</code></a> <span data-t="template.ck.render">keeps AGENTS.md in step with CLAUDE.md</span></li>
+          <li><a href="https://github.com/chpollin/second-brain-vault/tree/main/tests"><code>tests/</code></a> <span data-t="template.ck.tests">tests of the checks, the fixtures and this page</span></li>
+        </ul>
+      </section>
     </div>
   </div>
 </section>
 
-<section id="build" class="band alt">
-  <div class="grow">
-    <div id="build-steps"></div>
-    <div class="grow-graph night">
-      <div class="graph" id="grow-graph"></div>
-      <p class="grow-caption" id="grow-caption" aria-live="polite"></p>
-      <p class="graph-legend" id="grow-legend"></p>
+<section id="start" class="band" aria-labelledby="start-title">
+  <div class="inner">
+    <div class="section-head">
+      <h2 id="start-title" data-t="start.title">Start</h2>
+      <p class="tools"><span data-t="start.needs">The template needs</span> <a href="https://obsidian.md">Obsidian</a>, <a href="https://code.claude.com/docs/en/setup">Claude Code</a> <span data-t="start.or">or</span> <a href="https://learn.chatgpt.com/docs/codex/cli">Codex</a> <span data-t="start.paid">with a paid plan or account</span>, <a href="https://git-scm.com/downloads">Git</a>, <span data-t="start.python">Python 3.11 or newer, for the agent route also</span> <a href="https://github.com/docling-project/docling">Docling</a>.</p>
+    </div>
+    <div class="routes">
+      <section class="route">
+        <h3 data-t="start.clone.title">Use the template</h3>
+        <p data-t="start.clone.text">Clone it, build the page data and run the checks. <code>check_vault.py</code> should end with <code>hard: 0</code> and <code>measured: 0</code>.</p>
+        <figure class="dh-code">
+<pre><code>git clone https://github.com/chpollin/second-brain-vault.git my-vault
+cd my-vault
+python scripts/build_site.py
+python scripts/build_graph.py
+python scripts/build_explorer.py
+python scripts/check_vault.py</code></pre>
+        </figure>
+        <p data-t="start.clone.hook">The commit check then refuses every commit that breaks a hard rule.</p>
+        <figure class="dh-code">
+<pre><code>git config core.hooksPath scripts/hooks</code></pre>
+        </figure>
+        <p data-t="start.clone.open">Then open the folder in Obsidian with “Open folder as vault” and start an agent session in the same folder with this request.</p>
+        <figure class="dh-code">
+<pre><code data-t="start.clone.prompt">Read HOME and CLAUDE and tell me in ten lines how this vault is organised.</code></pre>
+        </figure>
+        <p class="quiet"><a href="https://github.com/chpollin/second-brain-vault#readme" data-t="start.clone.readme">README with trial requests and how to adapt the template</a></p>
+      </section>
+      <section class="route">
+        <h3 data-t="start.build.title">Build your own with an agent</h3>
+        <p data-t="start.build.text">Seven steps from an empty folder. The agent copies the template's rules, checks and skills in step 5.</p>
+        <ol class="build-steps">
+          <li>
+            <h4 data-t="start.s1.title">Create a vault and connect the agent</h4>
+            <p data-t="start.s1.text">Open an empty folder in Obsidian and in Claude Code or Codex.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s1.prompt">Read this folder and tell me in three sentences what you can do here.</code></pre></figure></details>
+          </li>
+          <li>
+            <h4 data-t="start.s2.title">Bring your sources into Markdown</h4>
+            <p data-t="start.s2.text">Docling converts PDFs and slides locally. Originals stay beside the converted text, which stays unchanged.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s2.prompt">Convert the files in [folder] with Docling into Markdown in the folder Sources/. Do not edit the converted text. List pages where tables or scans came out wrong.</code></pre></figure></details>
+          </li>
+          <li>
+            <h4 data-t="start.s3.title">Think through your structure</h4>
+            <p data-t="start.s3.text">Write down projects, fields of knowledge, recurring work and where to-dos are kept, before the agent proposes anything.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s3.prompt">My projects: …
+My fields of knowledge: …
+Recurring work (proposals, administration, teaching): …
+Where my to-dos should live: …</code></pre></figure></details>
+          </li>
+          <li>
+            <h4 data-t="start.s4.title">Talk it through with the agent</h4>
+            <p data-t="start.s4.text">The agent asks about gaps and overlaps before anything is created.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s4.prompt">Here is how I work: [your sketch]. Ask me up to five questions about gaps and overlaps, then propose a folder structure. Do not create anything yet.</code></pre></figure></details>
+          </li>
+          <li>
+            <h4 data-t="start.s5.title">Let the agent build it</h4>
+            <p data-t="start.s5.text">It copies the template's rules, conventions, checks and skills, creates HOME and ACTIVE-WORK and writes the structure into CLAUDE.md.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s5.prompt">Download the Second Brain Vault template (github.com/chpollin/second-brain-vault) and use it as the model. Copy its CLAUDE.md, TAG-TAXONOMY.md, VAULT-OPERATIONS.md, its folders .claude and scripts and its folder Vault Operations/Conventions into this vault. Create the structure we agreed on and write it as the topography in CLAUDE.md. Put my to-dos into ACTIVE-WORK. Give the files in Sources/ the frontmatter the rules require without changing their text. Set up Git in this folder and show me the result.</code></pre></figure></details>
+          </li>
+          <li>
+            <h4 data-t="start.s6.title">Work in your knowledge</h4>
+            <p data-t="start.s6.text">One note per concept, linked to its source and the project. What belongs to one project stays in that project.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s6.prompt">For [project], turn the relevant files in Sources/ into concept and literature notes with the skill vault-knowledge. One note per concept, linked to its source and the project overview. Show me the list before writing.</code></pre></figure></details>
+          </li>
+          <li>
+            <h4 data-t="start.s7.title">Make it findable for the agent</h4>
+            <p data-t="start.s7.text">The agent searches names and text and follows links, without a search index. Every field gets an overview page.</p>
+            <details><summary data-t="start.prompt">Prompt</summary><figure class="dh-code"><pre><code data-t="start.s7.prompt">Create an overview page (MOC) for each field with one line per note, link it from HOME and report notes that no overview page reaches.</code></pre></figure></details>
+          </li>
+        </ol>
+      </section>
     </div>
   </div>
 </section>
 
-<section id="notes" class="band"><div class="inner" id="notes-body"></div></section>
-<section id="reference" class="band alt"><div class="inner" id="reference-body"></div></section>
+<section id="limits" class="band alt" aria-labelledby="limits-title">
+  <div class="inner">
+    <div class="section-head">
+      <h2 id="limits-title" data-t="limits.title">Data and limits</h2>
+    </div>
+    <div class="columns">
+      <section>
+        <h3 data-t="limits.data.title">Data flow</h3>
+        <ul class="plain">
+          <li data-t="limits.data.local">Notes stay on the local computer, and Obsidian needs no account. Docling converts sources locally.</li>
+          <li><span data-t="limits.data.agent">The agent sends requests and the files it reads to its provider. Whether they may be used for training depends on provider and plan.</span> <a href="https://code.claude.com/docs/en/data-usage" data-t="limits.source">source</a></li>
+          <li data-t="limits.data.pages">Before a personal vault is pushed, GitHub Pages stays switched off. The page data contains the full text of every vault file outside <code>docs/</code> and <code>knowledge/</code>.</li>
+        </ul>
+      </section>
+      <section>
+        <h3 data-t="limits.scope.title">Scope</h3>
+        <ul class="plain">
+          <li data-t="limits.scope.benefit">Its checks show that it is consistent, and its skills were tried on synthetic cases. Whether it helps in everyday research has not been studied yet.</li>
+          <li data-t="limits.scope.retrieval">It has no automatic retrieval across repositories. The agent follows explicit links within the access its host grants.</li>
+          <li data-t="limits.scope.install">A skill is a written procedure. It installs no tools and connects no accounts.</li>
+          <li data-t="limits.scope.content">It carries no personal content. The author's own research vault stays private.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section id="related" class="band" aria-labelledby="related-title">
+  <div class="inner columns">
+    <section>
+      <h2 id="related-title" data-t="related.title">Related methods</h2>
+      <ul class="rows">
+        <li><a href="https://github.com/DigitalHumanitiesCraft/research-mission-control">Research Mission Control</a> <span data-t="related.rmc">how a person directs several agents, checks their results and records accepted changes</span></li>
+        <li><a href="https://github.com/DigitalHumanitiesCraft/Promptotyping">Promptotyping</a> <span data-t="related.pt">maintained project knowledge in knowledge/ guides the development of research artefacts</span></li>
+        <li><a href="https://github.com/DigitalHumanitiesCraft/grounded-vault">Grounded Vault</a> <span data-t="related.gv">statements traceable to the exact passage of their source</span></li>
+      </ul>
+    </section>
+    <section>
+      <h2 data-t="cite.title">Citation</h2>
+      <figure class="dh-code">
+<pre><code>Pollin, C. (2026). Second Brain Vault [Obsidian vault template]. https://github.com/chpollin/second-brain-vault</code></pre>
+        </figure>
+    </section>
+  </div>
+</section>
 
 </main>
-<footer class="site-foot night" id="site-foot"></footer>
-<div class="node-card" id="node-card" hidden></div>
+<footer class="dh-foot site-foot">
+  <p><span data-t="footer.by">A template by</span> <a href="https://dhcraft.org">Digital Humanities Craft</a></p>
+  <p><span data-t="cite.licence">Text and documentation CC BY 4.0, code in scripts/ and tests/ MIT. The shared DHCraft files, the logo and the fonts keep their own terms.</span> <a href="https://github.com/chpollin/second-brain-vault/blob/main/LICENSE.md" data-t="cite.licenceLink">Licence</a></p>
+  <p class="foot-links"><a href="https://github.com/chpollin/second-brain-vault" data-t="footer.repo">Source on GitHub</a> <a href="https://github.com/chpollin/second-brain-vault/blob/main/knowledge/paper.md" data-t="footer.paper">Manuscript</a></p>
+</footer>
 <aside class="panel" id="panel" aria-labelledby="panel-title" hidden>
   <div class="panel-head">
     <h2 id="panel-title" tabindex="-1"></h2>
@@ -50,6 +298,5 @@
   <p class="panel-path" id="panel-path"></p>
   <div id="panel-body"></div>
 </aside>
-<noscript><p>This page needs JavaScript. The template itself is on <a href="https://github.com/chpollin/second-brain-vault">GitHub</a>.</p></noscript>
 </body>
 </html>

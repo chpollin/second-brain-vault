@@ -171,9 +171,9 @@ export function initHero({ episode, graph, text, onOpen }) {
   const steps = h("ol", { class: "steps-track" });
   const status = h("p", { class: "step-status", "aria-hidden": "true" });
   const caption = h("p", { class: "step-caption", "aria-live": "polite" });
-  const prev = h("button", { type: "button", class: "btn ghost", text: t.prev });
-  const play = h("button", { type: "button", class: "btn primary", text: t.play });
-  const next = h("button", { type: "button", class: "btn ghost", text: t.next });
+  const prev = h("button", { type: "button", class: "dh-btn", text: t.prev });
+  const play = h("button", { type: "button", class: "dh-btn dh-btn--primary", text: t.play });
+  const next = h("button", { type: "button", class: "dh-btn", text: t.next });
   const buttons = episode.phases.map((phase, index) => {
     const [title] = t.phases[phase.id];
     const button = h("button", { type: "button", class: "step" },
@@ -203,10 +203,9 @@ export function initHero({ episode, graph, text, onOpen }) {
       button.setAttribute("aria-label", t.stepLabel(position + 1, total, t.phases[other.id][0], t.actors[other.actor], t.stepStates[state]));
     });
     const [title, body] = t.phases[phase.id];
-    status.textContent = `${t.stepOf(index + 1, total)}: ${title}, ${t.actors[phase.actor]}`;
-    caption.replaceChildren(h("strong", { text: `${t.actors[phase.actor]}: ${title}. ` }), body);
-    if (index === total - 1) caption.append(" ", h("a", { href: "#build", text: text.hero.build }));
-    play.setAttribute("aria-pressed", String(Boolean(timer)));
+    status.textContent = `${t.stepOf(index + 1, total)}, ${title}, ${t.actors[phase.actor]}`;
+    caption.replaceChildren(h("strong", { text: `${title}. ` }), body);
+    if (index === total - 1) caption.append(" ", h("a", { href: "#start", text: text.hero.build }));
     prev.disabled = index === 0;
     next.disabled = index === total - 1;
 
@@ -238,7 +237,6 @@ export function initHero({ episode, graph, text, onOpen }) {
     clearTimeout(timer);
     timer = 0;
     play.textContent = t.play;
-    play.setAttribute("aria-pressed", "false");
   }
   function tick() {
     if (index >= episode.phases.length - 1) return halt();
@@ -248,7 +246,6 @@ export function initHero({ episode, graph, text, onOpen }) {
   play.addEventListener("click", () => {
     if (timer) return halt();
     play.textContent = t.pause;
-    play.setAttribute("aria-pressed", "true");
     show(index >= episode.phases.length - 1 ? 0 : index + 1);
     timer = setTimeout(tick, PHASE_MS);
   });
