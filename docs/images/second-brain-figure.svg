@@ -78,19 +78,19 @@
   
   <text class="soft" x="612" y="546" font-size="22">keep what holds, remove the outdated</text>
 
-  <path class="io" d="M810,248 V283" marker-end="url(#ab)"/>
-  <path class="io" d="M810,413 V448" marker-end="url(#ab)"/>
+  <path class="io" d="M810,255 V280" marker-end="url(#ab)"/>
+  <path class="io" d="M810,420 V445" marker-end="url(#ab)"/>
 
-  <path class="io" d="M502,185 H586" marker-end="url(#ab)"/>
+  <path class="io" d="M510,185 H580" marker-end="url(#ab)"/>
   <text class="lbl" x="545" y="171" font-size="21">reads</text>
-  <path class="io" d="M1118,185 H1034" marker-end="url(#ab)"/>
+  <path class="io" d="M1110,185 H1040" marker-end="url(#ab)"/>
   <text class="lbl" x="1075" y="171" font-size="21">reads</text>
-  <path class="io" d="M586,515 H504" marker-end="url(#ab)"/>
+  <path class="io" d="M580,515 H510" marker-end="url(#ab)"/>
   <text class="lbl" x="545" y="501" font-size="21">writes</text>
-  <path class="io" d="M1034,515 H1116" marker-end="url(#ab)"/>
+  <path class="io" d="M1040,515 H1110" marker-end="url(#ab)"/>
   <text class="lbl" x="1075" y="501" font-size="21">writes</text>
 
-  <path class="io" d="M270,590 V668 H1350 V616" stroke-dasharray="8 7" marker-end="url(#ab)"/>
+  <path class="io" d="M270,596 V668 H1350 V622" stroke-dasharray="8 7" marker-end="url(#ab)"/>
   <rect x="470" y="648" width="680" height="40" fill="#fdfcf8"/>
   <text class="lbl" x="810" y="676" font-size="23">Repo Directory links each project to its knowledge/</text>
 </svg>
