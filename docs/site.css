@@ -1,10 +1,11 @@
-/* Second Brain method page. Loads after the shared DHCraft tokens and building blocks under
-   assets/dhcraft/, whose rules sit in the layer dh and lose to every layer declared here. The
-   explorer pages load this file too, for the short role names and the reading styles. */
+/* Second Brain method page, after the Promptotyping start page as reference. Loads after the
+   shared DHCraft tokens and building blocks under assets/dhcraft/, whose rules sit in the
+   layer dh and lose to every layer declared here. The explorer pages load this file too, for
+   the short role names and the reading styles. */
 @layer dh, reset, base, layout, components, utilities;
 
-/* Site roles, all derived from the shared tokens. The three layer colours mark knowledge,
-   rules and state in the main figure. */
+/* Site roles, all derived from the shared tokens. The page opens light: index.html sets
+   data-theme="light", and the toggle switches to the shared dark values. */
 :root {
   --ground: var(--dh-ground);
   --ground-alt: var(--dh-ground-alt);
@@ -30,11 +31,9 @@
   --wide: var(--dh-page);
   --measure: var(--dh-measure);
   --g-control: light-dark(var(--dh-blue-deep), var(--dh-blue));
-
-  --layer-knowledge: var(--dh-accent);
-  --layer-rules: light-dark(var(--dh-blue-deep), var(--dh-blue));
-  --layer-state: light-dark(#3b7130, var(--dh-lime));
-  --arrow: 2.75rem;
+  /* The figure is a light plate in both schemes, so it reads the same on a page, in a paper
+     and on a slide. */
+  --plate: var(--dh-paper);
 }
 
 @layer reset {
@@ -51,114 +50,58 @@
   body { -webkit-font-smoothing: antialiased; }
   code { overflow-wrap: anywhere; }
   [hidden] { display: none !important; }
+  .icon-set { display: none; }
 }
 
 @layer layout {
-  .head-actions { display: flex; gap: var(--dh-space-2); align-items: center; margin-inline-start: auto; }
-  .head-actions .lang { min-block-size: 2rem; padding: 0 var(--dh-space-4); font-size: var(--step--1); }
-  /* Brand, language and repository link share one row on phones. */
-  @media (max-width: 30rem) { .site-head { gap: var(--dh-space-2); flex-wrap: nowrap; } .site-head .dh-brand { font-size: var(--step--1); } }
+  .site-head .dh-brand img { block-size: 2rem; inline-size: auto; }
+  .head-tools { display: flex; gap: var(--dh-space-1); align-items: center; margin-inline-start: auto; }
+  @media (max-width: 47.99rem) { .site-head { gap: 0 var(--dh-space-2); } .site-head .head-tools { order: 2; } .site-head .dh-nav { order: 3; } }
 
-  /* One column of parts. Prose keeps the reading width, figure and lists use the page width. */
   .page { max-inline-size: var(--wide); margin-inline: auto; padding: 0 var(--gutter); }
   .part { display: grid; gap: var(--dh-space-4); padding-block: var(--dh-space-7); border-block-start: var(--dh-hairline) solid var(--edge); }
-  .part:first-child { border-block-start: 0; }
   .part > p { max-inline-size: var(--measure); color: var(--ink-soft); }
   .dh-foot { margin-block-start: 0; }
 }
 
 @layer components {
-  .icon-button { display: inline-flex; align-items: center; justify-content: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: var(--dh-radius-pill); color: var(--ink-soft); }
+  .icon-button { display: inline-flex; align-items: center; justify-content: center; inline-size: 2.5rem; block-size: 2.5rem; border: 0; border-radius: var(--dh-radius-pill); background: transparent; color: var(--ink-soft); cursor: pointer; }
   .icon-button:hover, .icon-button:focus-visible { color: var(--ink); background: var(--ground-alt); }
-  .icon-button svg { inline-size: 1.25rem; block-size: 1.25rem; }
-  .icon { inline-size: 1.4rem; block-size: 1.4rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-button svg { inline-size: 1.2rem; block-size: 1.2rem; }
+  .lang { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 2.5rem; block-size: 2.5rem; border-radius: var(--dh-radius-pill); color: var(--ink-soft); font-weight: 600; font-size: var(--step--1); text-decoration: none; }
+  .lang:hover, .lang:focus-visible { color: var(--ink); background: var(--ground-alt); }
+  .icon { inline-size: 1.1rem; block-size: 1.1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-  .intro { padding-block: var(--dh-space-7); }
-  .intro .lead { font-size: var(--step-1); line-height: 1.5; color: var(--ink); }
-  .actions { display: flex; flex-wrap: wrap; gap: var(--dh-space-3); }
+  /* Title, abstract, main figure and the prose that explains it. */
+  .intro { display: grid; gap: var(--dh-space-5); padding-block: var(--dh-space-7); }
+  .intro .lead { max-inline-size: var(--measure); font-size: var(--step-1); line-height: 1.5; }
+  .main-figure { border-radius: var(--dh-radius-m); background: var(--plate); border: var(--dh-hairline) solid var(--edge); }
+  .main-figure img { inline-size: 100%; block-size: auto; }
+  /* On phones the figure keeps a legible size and scrolls sideways inside its frame. */
+  @media (max-width: 47.99rem) { .main-figure { overflow-x: auto; } .main-figure img { inline-size: 56rem; max-inline-size: none; } }
+  .prose-intro { display: grid; gap: var(--dh-space-3); max-inline-size: var(--measure); }
+  .prose-intro p { color: var(--ink); }
 
-  /* Main figure. One grid holds vault, session and repository, so every arrow sits between
-     the two objects it connects: reading flows into step 1, writing flows out of step 3. */
-  .main-figure { display: grid; gap: var(--dh-space-4); }
-  .mf-grid {
-    display: grid; gap: var(--dh-space-3) 0; align-items: center;
-    grid-template-columns: minmax(0, 1fr) var(--arrow) minmax(0, 1.05fr) var(--arrow) minmax(0, 1fr);
-    grid-template-rows: auto repeat(3, minmax(4.5rem, auto)) auto;
-  }
-  .mf-box { grid-row: 1 / 5; align-self: stretch; display: grid; align-content: start; gap: var(--dh-space-4); padding: var(--dh-space-5); border-radius: var(--dh-radius-m); background: var(--surface); }
-  .mf-vault { grid-column: 1; border: 2px solid var(--layer-knowledge); }
-  /* The offset edge behind the repository stands for further repositories. */
-  .mf-repo { grid-column: 5; border: 2px solid var(--layer-rules); box-shadow: 0.45rem 0.45rem 0 -2px var(--ground), 0.45rem 0.45rem 0 0 var(--layer-rules); }
-  .mf-name { font-family: var(--display); font-weight: 700; font-size: var(--step-1); color: var(--ink); }
-  .mf-session-name { grid-column: 3; grid-row: 1; text-align: center; align-self: end; }
-  .mf-layers, .mf-files { display: grid; gap: var(--dh-space-4); }
-  .layer { display: flex; gap: var(--dh-space-3); align-items: start; color: var(--ink-soft); }
-  .layer strong { display: block; color: var(--ink); }
-  .layer .icon { color: var(--layer); margin-block-start: 0.15rem; }
-  .layer.knowledge { --layer: var(--layer-knowledge); }
-  .layer.rules { --layer: var(--layer-rules); }
-  .layer.state { --layer: var(--layer-state); }
-  .mf-files { color: var(--ink-soft); }
-  .mf-files code { color: var(--ink); }
-  .mf-step { grid-column: 3; display: flex; gap: var(--dh-space-3); align-items: start; padding: var(--dh-space-3) var(--dh-space-4); border-radius: var(--dh-radius-m); background: var(--ground-alt); color: var(--ink-soft); }
-  .mf-step strong { display: block; color: var(--ink); }
-  .mf-num { flex: none; display: grid; place-items: center; inline-size: 1.7rem; block-size: 1.7rem; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent); font-weight: 600; font-size: var(--step--1); }
-  .read { grid-row: 2; } .work { grid-row: 3; } .write { grid-row: 4; }
-  .a-read-in { grid-column: 2; grid-row: 2; }
-  .a-read-out { grid-column: 4; grid-row: 2; }
-  .a-write-vault { grid-column: 2; grid-row: 4; }
-  .a-write-repo { grid-column: 4; grid-row: 4; }
-  /* An arrow is a line with a head drawn by borders. */
-  .mf-arrow { position: relative; block-size: 2px; background: var(--edge-hi); }
-  .mf-arrow::after { content: ""; position: absolute; inset-block-start: -6px; border-block: 7px solid transparent; }
-  .mf-arrow.to-right::after { inset-inline-end: -1px; border-inline-start: 11px solid var(--edge-hi); }
-  .mf-arrow.to-left::after { inset-inline-start: -1px; border-inline-end: 11px solid var(--edge-hi); }
-  .mf-arrow.accent { block-size: 3px; background: var(--accent); }
-  .mf-arrow.accent.to-right::after { border-inline-start-color: var(--accent); }
-  .mf-arrow.accent.to-left::after { border-inline-end-color: var(--accent); }
-  .mf-link { grid-column: 1 / -1; grid-row: 5; position: relative; margin-block-start: var(--dh-space-2); padding-block-start: var(--dh-space-4); text-align: center; color: var(--ink-soft); font-size: var(--step--1); }
-  .mf-link::before { content: ""; position: absolute; inset-block-start: 0; inset-inline: 12% 12%; block-size: 2px; background: var(--edge-hi); }
-  .mf-link::after { content: ""; position: absolute; inset-block-start: -6px; inset-inline-end: 12%; border-block: 7px solid transparent; border-inline-start: 11px solid var(--edge-hi); }
-  .main-figure figcaption { max-inline-size: var(--measure); color: var(--ink-soft); }
-  /* Narrow screens: vault, session and repository stack; the step texts name the direction. */
-  @media (max-width: 47.99rem) {
-    .mf-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
-    .mf-grid > * { grid-column: 1; grid-row: auto; }
-    .mf-arrow, .mf-link::before, .mf-link::after { display: none; }
-    .mf-session-name { text-align: start; margin-block-start: var(--dh-space-3); }
-    .mf-repo { margin-block-start: var(--dh-space-3); }
-    .mf-link { text-align: start; padding: 0; }
-  }
+  /* Files to take away: one visibly separate block with one control per item. */
+  .takeaway { display: flex; flex-wrap: wrap; gap: var(--dh-space-3); padding: var(--dh-space-5); border-radius: var(--dh-radius-m); background: var(--ground-alt); border: var(--dh-hairline) solid var(--edge); }
 
-  .links, .plain { display: grid; gap: var(--dh-space-2); max-inline-size: var(--measure); }
-  .links span, .plain li { color: var(--ink-soft); }
-  .links a { font-weight: 600; text-decoration: none; }
-  .links a:hover, .links a:focus-visible { text-decoration: underline; }
-
-  /* Terms in glossary form, two columns on wide screens. */
-  .terms { display: grid; gap: var(--dh-space-2) var(--dh-space-6); grid-template-columns: minmax(10rem, 16rem) minmax(0, var(--measure)); }
-  .terms dt { font-weight: 600; color: var(--ink); }
-  .terms dd { margin: 0; color: var(--ink-soft); }
-  @media (max-width: 47.99rem) {
-    .terms { grid-template-columns: minmax(0, 1fr); gap: 0; }
-    .terms dd { margin-block-end: var(--dh-space-3); }
-  }
-  .more { font-size: var(--step--1); }
-
-  /* Numbered steps with their copyable blocks. */
+  /* Numbered steps; a step name or instruction shares the row above its block with the copy
+     button. */
   .steps { display: grid; gap: var(--dh-space-5); counter-reset: step; max-inline-size: 56rem; }
   .steps > li { counter-increment: step; position: relative; padding-inline-start: 2.6rem; display: grid; gap: var(--dh-space-1); }
   .steps > li::before {
-    content: counter(step); position: absolute; inset-inline-start: 0; inset-block-start: 0;
+    content: counter(step); position: absolute; inset-inline-start: 0; inset-block-start: 0.2rem;
     inline-size: 1.8rem; block-size: 1.8rem; display: grid; place-items: center; border-radius: 50%;
     border: 2px solid var(--accent); color: var(--accent); font-weight: 600; font-size: var(--step--1); font-variant-numeric: tabular-nums;
   }
-  /* The step name or instruction shares the row above its block with the copy button. */
   .steps .dh-code { margin: 0; }
-  .steps .dh-code figcaption { color: var(--ink); font-size: var(--step-0); align-self: center; }
+  .steps .dh-code figcaption { display: flex; gap: var(--dh-space-2); align-items: center; color: var(--ink); font-size: var(--step-0); }
+  .steps .dh-code figcaption .icon { color: var(--ink-soft); }
   .dh-code pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.86rem; }
   .yields { color: var(--ink-soft); font-size: var(--step--1); }
   .part > .dh-code { margin: 0; max-inline-size: 56rem; }
+  .plain { display: grid; gap: var(--dh-space-2); max-inline-size: var(--measure); }
+  .plain li { color: var(--ink-soft); }
 
   /* Reading styles of the explorer pages. */
   .prose { display: grid; gap: var(--dh-space-3); min-inline-size: 0; overflow-wrap: anywhere; }

@@ -1,11 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Second Brain Vault</title>
-<meta name="description" content="A template for an Obsidian vault that a person maintains together with an AI agent, with written rules, synthetic example notes, checks and a didactic demo.">
+<meta name="description" content="A template for an Obsidian vault that a person keeps together with an AI agent, with written rules, synthetic example notes, checks and a demo in seven prompts.">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<script>
+  // The page opens light whatever the system setting; a stored choice from the toggle wins.
+  // Set before first paint, so a reader who chose dark sees no light flash.
+  try {
+    if (localStorage.getItem("second-brain-vault-theme") === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  } catch (e) {}
+</script>
 <link rel="stylesheet" href="assets/dhcraft/dhcraft-tokens.css">
 <link rel="stylesheet" href="assets/dhcraft/dhcraft-components.css">
 <link rel="stylesheet" href="site.css">
@@ -13,95 +20,59 @@
 <script type="module" src="assets/dhcraft/dhcraft-copy.js"></script>
 </head>
 <body>
+<svg class="icon-set" aria-hidden="true" focusable="false">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 5h5v5m0-5-8.5 8.5M18 14v5H5V6h5"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m5 7 4.5 4.5L5 16m7 1h7"/></symbol>
+  <symbol id="i-prompt" viewBox="0 0 24 24"><path d="M5 5.5h14v10H10l-4 3.5v-3.5H5z"/></symbol>
+</svg>
 <a class="dh-skip" href="#main" data-t="skip">Skip to content</a>
 <header class="dh-head site-head">
-  <a class="dh-brand" href="#top"><img src="assets/dhcraft/dhcraft-mark-watercolor-128.png" alt="" width="112" height="128">Second Brain Vault</a>
-  <div class="head-actions">
-    <a class="dh-btn lang" id="lang-switch" hidden href="?lang=de" hreflang="de" lang="de" aria-label="Seite auf Deutsch anzeigen">Deutsch</a>
+  <a class="dh-brand" href="#top"><img src="assets/dhcraft/dhcraft-mark-watercolor-128.png" alt="" width="28" height="32">Second Brain Vault</a>
+  <nav class="dh-nav" aria-label="Main" data-t-label="nav.label">
+    <ul>
+      <li><a href="#reuse" data-t="nav.reuse">Reuse</a></li>
+      <li><a href="#example" data-t="nav.example">Example</a></li>
+      <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/knowledge/specification.md" data-t="nav.spec">Specification</a></li>
+    </ul>
+  </nav>
+  <div class="head-tools">
+    <a class="lang" id="lang-switch" hidden href="?lang=de" hreflang="de" lang="de" aria-label="Seite auf Deutsch anzeigen">DE</a>
     <a class="icon-button" href="https://github.com/chpollin/second-brain-vault"><span class="visually-hidden" data-t="head.repo">Repository on GitHub</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+    <button type="button" class="icon-button" id="theme-toggle" hidden><span class="visually-hidden">Switch to the dark theme</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 5a7 7 0 0 0 0 14z" fill="currentColor" stroke="none"/></svg></button>
   </div>
 </header>
 <main id="main" class="page">
 
-<section id="top" class="part intro">
+<section id="top" class="intro">
   <h1>Second Brain Vault</h1>
   <p class="lead" data-t="intro.abstract">A template for an Obsidian vault that a person keeps together with an AI agent. Written rules say where knowledge belongs and how it may change, and the person decides what is accepted.</p>
-  <p class="actions"><a class="dh-btn dh-btn--primary" href="#reuse" data-t="intro.reuse">Reuse</a> <a class="dh-btn" href="#example" data-t="intro.example">Example</a></p>
-</section>
-
-<section id="figure" class="part" aria-labelledby="figure-title">
-  <h2 id="figure-title" data-t="figure.title">Vault, project repository and agent session</h2>
-  <figure class="main-figure" aria-describedby="figure-caption">
-    <div class="mf-grid">
-      <div class="mf-box mf-vault">
-        <p class="mf-name" data-t="figure.vault">Vault</p>
-        <ul class="mf-layers">
-          <li class="layer knowledge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z M15 3v3h3 M9 11h6 M9 15h6"/></svg><span><strong data-t="figure.knowledge">Knowledge</strong> <span data-t="figure.knowledgeText">notes and Project Overviews, reached from HOME</span></span></li>
-          <li class="layer rules"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h2 M10 6h9 M5 12h2 M10 12h9 M5 18h2 M10 18h9"/></svg><span><strong data-t="figure.rules">Rules</strong> <span data-t="figure.rulesText">CLAUDE.md, conventions, skills, checks</span></span></li>
-          <li class="layer state"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v3H9z M7 4.5H5V21h14V4.5h-2 M8.5 13l2.5 2.5 4.5-5"/></svg><span><strong data-t="figure.state">State</strong> <span data-t="figure.stateText">ACTIVE-WORK, open questions to the operator</span></span></li>
-        </ul>
-      </div>
-      <p class="mf-name mf-session-name" data-t="figure.session">Agent session</p>
-      <span class="mf-arrow a-read-in to-right" aria-hidden="true"></span>
-      <p class="mf-step read"><span class="mf-num" aria-hidden="true">1</span><span><strong data-t="figure.read">Read</strong> <span data-t="figure.readText">rules first, then what the task needs, from vault and repository</span></span></p>
-      <span class="mf-arrow a-read-out to-left" aria-hidden="true"></span>
-      <p class="mf-step work"><span class="mf-num" aria-hidden="true">2</span><span><strong data-t="figure.work">Work</strong> <span data-t="figure.workText">the agent proposes with reasons, the operator decides</span></span></p>
-      <span class="mf-arrow a-write-vault to-left accent" aria-hidden="true"></span>
-      <p class="mf-step write"><span class="mf-num" aria-hidden="true">3</span><span><strong data-t="figure.write">Write back</strong> <span data-t="figure.writeText">accepted knowledge to its one note, project findings to knowledge/</span></span></p>
-      <span class="mf-arrow a-write-repo to-right accent" aria-hidden="true"></span>
-      <div class="mf-box mf-repo">
-        <p class="mf-name" data-t="figure.repo">Project repository</p>
-        <ul class="mf-files">
-          <li><code>CLAUDE.md</code> <code>AGENTS.md</code></li>
-          <li><code>knowledge/</code> <span data-t="figure.knowledgeFolder">INDEX, specification, journal, handoff</span></li>
-          <li data-t="figure.code">code and data</li>
-        </ul>
-      </div>
-      <p class="mf-link"><span data-t="figure.link">Repo Directory links each Project Overview to its knowledge/INDEX.md</span></p>
-    </div>
-    <figcaption id="figure-caption" data-t="figure.caption">A session in a project repository reads the vault without writing to it. A finding for the vault goes there as a handover.</figcaption>
+  <figure class="main-figure" tabindex="0" aria-label="Main figure" data-t-label="figure.label">
+    <img src="images/second-brain-figure.svg" width="1600" height="760" data-t-alt="figure.alt" alt="The vault holds knowledge, rules and state. An agent session reads from the vault and from a project repository, works with the operator deciding, and writes back. A project repository holds its own knowledge, rules, code and data, and the Repo Directory links the two.">
   </figure>
-</section>
-
-<section id="origin" class="part" aria-labelledby="origin-title">
-  <h2 id="origin-title" data-t="origin.title">What it is and where it comes from</h2>
-  <p data-t="origin.text">The template abstracts the structure of the author's own research vault and ships only synthetic notes.</p>
-  <ul class="links">
-    <li><a href="https://github.com/chpollin/second-brain-vault/blob/main/knowledge/paper.md" data-t="origin.paper">Manuscript “Second Brain as a Personal Research Environment for Working with AI Agents”</a></li>
-    <li><a href="https://github.com/DigitalHumanitiesCraft/Promptotyping">Promptotyping</a> <span data-t="origin.pt">for the knowledge/ folder of project repositories</span></li>
-    <li><a href="https://github.com/DigitalHumanitiesCraft/research-mission-control">Research Mission Control</a> <span data-t="origin.rmc">for directing several agents</span></li>
-    <li><a href="https://github.com/DigitalHumanitiesCraft/grounded-vault">Grounded Vault</a> <span data-t="origin.gv">for claims traceable to an exact source passage</span></li>
-  </ul>
-</section>
-
-<section id="terms" class="part" aria-labelledby="terms-title">
-  <h2 id="terms-title" data-t="terms.title">Terms</h2>
-  <dl class="terms">
-    <dt data-t="terms.vault">Vault</dt><dd data-t="terms.vaultDef">A folder of linked Markdown notes, shown by Obsidian.</dd>
-    <dt data-t="terms.operator">Operator</dt><dd data-t="terms.operatorDef">The person who keeps the vault and decides on rules and proposals.</dd>
-    <dt data-t="terms.session">Agent session</dt><dd data-t="terms.sessionDef">One conversation with Claude Code or Codex working in the folder.</dd>
-    <dt data-t="terms.knowledge">Knowledge</dt><dd data-t="terms.knowledgeDef">Notes with each statement in one place, reachable from HOME.</dd>
-    <dt data-t="terms.rules">Rules</dt><dd data-t="terms.rulesDef">CLAUDE.md and its twin AGENTS.md, read at session start, plus conventions.</dd>
-    <dt data-t="terms.skill">Skill</dt><dd data-t="terms.skillDef">A written procedure for recurring work. It installs no tools.</dd>
-    <dt data-t="terms.check">Check</dt><dd data-t="terms.checkDef">A script that refuses a commit against a hard rule.</dd>
-    <dt data-t="terms.state">State</dt><dd data-t="terms.stateDef">ACTIVE-WORK, the one place for current work and open questions.</dd>
-    <dt data-t="terms.overview">Project Overview and Repo Directory</dt><dd data-t="terms.overviewDef">A project's note in the vault and the table mapping it to its repository.</dd>
-    <dt><code>knowledge/</code></dt><dd data-t="terms.folderDef">A project's own requirements, decisions and journal.</dd>
-    <dt data-t="terms.handover">Handover</dt><dd data-t="terms.handoverDef">A finding from a repository session, entered by a vault session once accepted.</dd>
-  </dl>
-  <p class="more"><a href="https://github.com/chpollin/second-brain-vault/blob/main/CLAUDE.md" data-t="terms.more">Full rules in CLAUDE.md</a></p>
+  <div class="prose-intro">
+    <p data-t="intro.p1">The vault is a folder of linked Markdown notes that the operator, the person who keeps it, maintains with an AI agent in <a href="https://obsidian.md">Obsidian</a>. Its knowledge consists of concept, literature and project notes, each statement in one place and reachable from HOME. Its rules begin with <a href="https://github.com/chpollin/second-brain-vault/blob/main/CLAUDE.md">CLAUDE.md</a> and the generated AGENTS.md, and go on in conventions, <a href="https://github.com/chpollin/second-brain-vault/tree/main/.claude/skills">skills</a> for recurring work and checks that refuse a commit breaking a hard rule. Its state is ACTIVE-WORK, the one place for current work and the open questions to the operator.</p>
+    <p data-t="intro.p2">An agent session reads the rules first and then what the task needs, works by proposing with reasons while the operator decides, and writes each statement back into its one place. A project repository keeps its own knowledge in the folder <code>knowledge/</code>, as <a href="https://github.com/DigitalHumanitiesCraft/Promptotyping">Promptotyping</a> describes, and the Repo Directory links each Project Overview of the vault to it. A session in a repository reads the vault without writing to it and hands over a finding for the vault, which a vault session enters once it is accepted.</p>
+    <p data-t="intro.p3">The template abstracts the structure of the author's own research vault and contains only synthetic notes. The manuscript <a href="https://github.com/chpollin/second-brain-vault/blob/main/knowledge/paper.md">Second Brain as a Personal Research Environment for Working with AI Agents</a> develops the approach, <a href="https://github.com/DigitalHumanitiesCraft/research-mission-control">Research Mission Control</a> coordinates several such sessions, and <a href="https://github.com/DigitalHumanitiesCraft/grounded-vault">Grounded Vault</a> traces claims to an exact source passage.</p>
+  </div>
 </section>
 
 <section id="reuse" class="part" aria-labelledby="reuse-title">
   <h2 id="reuse-title" data-t="reuse.title">Reuse</h2>
-  <p><span data-t="reuse.needs">Needed are</span> <a href="https://obsidian.md">Obsidian</a>, <a href="https://code.claude.com/docs/en/setup">Claude Code</a> <span data-t="reuse.or">or</span> <a href="https://learn.chatgpt.com/docs/codex/cli">Codex</a> <span data-t="reuse.paid">with a paid plan or account</span>, <a href="https://git-scm.com/downloads">Git</a> <span data-t="reuse.python">and Python 3.11 or newer.</span></p>
+  <p data-t="reuse.needs">Needed are Obsidian, Claude Code or Codex with a paid plan or account, Git and Python 3.11 or newer.</p>
+  <div class="takeaway" role="group" aria-label="Files to take away" data-t-label="reuse.takeaway">
+    <a class="dh-btn dh-btn--primary" href="https://github.com/chpollin/second-brain-vault/archive/refs/heads/main.zip"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span data-t="reuse.zip">Template as ZIP</span></a>
+    <a class="dh-btn" href="https://github.com/chpollin/second-brain-vault/tree/main/.claude/skills"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg><span data-t="reuse.skills">Skills</span></a>
+    <a class="dh-btn" href="https://github.com/chpollin/second-brain-vault/tree/main/Vault%20Operations/Conventions"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg><span data-t="reuse.conventions">Conventions</span></a>
+    <a class="dh-btn" href="https://github.com/chpollin/second-brain-vault/blob/main/CLAUDE.md"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>CLAUDE.md</a>
+  </div>
   <ol class="steps">
-    <li><figure class="dh-code"><figcaption data-t="reuse.s1">Clone, build and check. It ends with hard: 0 and measured: 0.</figcaption><pre><code>git clone https://github.com/chpollin/second-brain-vault.git my-vault
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-terminal"/></svg><span data-t="reuse.s1">Clone, build and check. It ends with hard: 0 and measured: 0.</span></figcaption><pre><code>git clone https://github.com/chpollin/second-brain-vault.git my-vault
 cd my-vault
 python scripts/build_site.py
 python scripts/build_explorer.py
 python scripts/check_vault.py</code></pre></figure></li>
-    <li><figure class="dh-code"><figcaption data-t="reuse.s2">Switch on the commit check.</figcaption><pre><code>git config core.hooksPath scripts/hooks</code></pre></figure></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-terminal"/></svg><span data-t="reuse.s2">Switch on the commit check.</span></figcaption><pre><code>git config core.hooksPath scripts/hooks</code></pre></figure></li>
     <li data-t="reuse.s3">Open the folder in Obsidian as a vault and start the agent there.</li>
     <li><a href="https://github.com/chpollin/second-brain-vault#make-it-your-own" data-t="reuse.s4">Adapt field, project and CLAUDE.md as the README describes.</a></li>
   </ol>
@@ -109,22 +80,22 @@ python scripts/check_vault.py</code></pre></figure></li>
 
 <section id="example" class="part" aria-labelledby="example-title">
   <h2 id="example-title" data-t="example.title">A photo archive in seven prompts</h2>
-  <p data-t="example.text">On the invented sources of a photo archive in docs/example. The notes there are the reference.</p>
+  <p data-t="example.text">The prompts run in the clone from Reuse on the invented sources of a photo archive in docs/example, whose notes are the reference.</p>
   <ol class="steps demo">
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s1.name">Orient</strong></figcaption><pre><code data-t="example.s1.prompt">Read HOME and CLAUDE and tell me in ten lines how this vault is organised.</code></pre></figure>
-      <p class="yields" data-t="example.s1.yields">A short map of the vault.</p></li>
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s2.name">Bring in sources</strong></figcaption><pre><code data-t="example.s2.prompt">Copy the folder docs/example/Sources into this vault as Sources/. These are converted sources of a fictional photo archive, so do not change their text. Then run python scripts/build_site.py and python scripts/check_vault.py and show me the findings.</code></pre></figure>
-      <p class="yields" data-t="example.s2.yields">Four sources and a report with two unregistered tags and four unreachable notes.</p></li>
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s3.name">Agree the structure</strong></figcaption><pre><code data-t="example.s3.prompt">This vault will serve a team with two projects, Photo Archive and Oral History Collection, and one field, Data Management. Ask me up to three questions about gaps, then propose folders, Project Overviews and the tags to register. Create nothing yet.</code></pre></figure>
-      <p class="yields" data-t="example.s3.yields">Questions and a proposal.</p></li>
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s4.name">Build it</strong></figcaption><pre><code data-t="example.s4.prompt">Create the structure we agreed on: the folder Data Management with its overview page, the two Project Overviews under Projects/ with their entries in ACTIVE-WORK, and the tags data-management and source in TAG-TAXONOMY.md. Link the overview pages and Sources from HOME. Run both scripts again and commit when the check is clean.</code></pre></figure>
-      <p class="yields" data-t="example.s4.yields">The structure, a clean check, the first commit.</p></li>
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s5.name">Write notes</strong></figcaption><pre><code data-t="example.s5.prompt">With the skill vault-knowledge, turn Sources/Scan Protocol 2025.md and Sources/Project Report Photo Archive 2025.md into concept notes in Data Management, one per concept, each linked to its source and to the Photo Archive overview. Show me the list before writing.</code></pre></figure>
-      <p class="yields" data-t="example.s5.yields">A list for approval, then notes such as Archival Master.</p></li>
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s6.name">Decide with reasons</strong></figcaption><pre><code data-t="example.s6.prompt">Which file format should the Photo Archive keep its masters in? First look for what the vault already holds on this. Then propose a decision note with decision, grounds, rejected alternative and conditions, citing the notes it rests on. Do not file it before I accept.</code></pre></figure>
-      <p class="yields" data-t="example.s6.yields">A proposal to check against its sources, as in the <a href="explorer.html">decision view</a>.</p></li>
-    <li><figure class="dh-code"><figcaption><strong data-t="example.s7.name">Reuse later</strong></figcaption><pre><code data-t="example.s7.prompt">The Oral History Collection asks which format its audio masters should have. Find the photo decision, check whether its conditions hold here, and say what it can and cannot settle.</code></pre></figure>
-      <p class="yields" data-t="example.s7.yields">A comparison of conditions. Audio needs its own decision.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s1.name">Orient</strong></figcaption><pre><code data-t="example.s1.prompt">Read HOME and CLAUDE and tell me in ten lines how this vault is organised.</code></pre></figure>
+      <p class="yields" data-t="example.s1.yields">A ten-line map of the vault.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s2.name">Bring in sources</strong></figcaption><pre><code data-t="example.s2.prompt">Copy the folder docs/example/Sources into this vault as Sources/. These are converted sources of a fictional photo archive, so do not change their text. Then run python scripts/build_site.py and python scripts/check_vault.py and show me the findings.</code></pre></figure>
+      <p class="yields" data-t="example.s2.yields">Four sources and a report with two unregistered tags and four notes unreachable from HOME.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s3.name">Agree the structure</strong></figcaption><pre><code data-t="example.s3.prompt">This vault will serve a team with two projects, Photo Archive and Oral History Collection, and one field, Data Management. Ask me up to three questions about gaps, then propose folders, Project Overviews and the tags to register. Create nothing yet.</code></pre></figure>
+      <p class="yields" data-t="example.s3.yields">Questions and a proposal to accept or change.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s4.name">Build it</strong></figcaption><pre><code data-t="example.s4.prompt">Create the agreed structure with the folder Data Management and an overview page that lists the sources, the two Project Overviews under Projects/ with their entries in ACTIVE-WORK, and the tags data-management and source in TAG-TAXONOMY.md. Make every new note reachable from HOME. Run both scripts again and commit when the check reports hard: 0.</code></pre></figure>
+      <p class="yields" data-t="example.s4.yields">The structure, a clean check and a commit that the commit check lets through.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s5.name">Write notes</strong></figcaption><pre><code data-t="example.s5.prompt">With the skill vault-knowledge, turn Sources/Scan Protocol 2025.md and Sources/Project Report Photo Archive 2025.md into concept notes in Data Management, one per concept, each linked to its sources and to the Photo Archive overview. Show me the list before writing.</code></pre></figure>
+      <p class="yields" data-t="example.s5.yields">Notes such as Archival Master. The check lists them with fewer than three sources, as a work list that blocks nothing.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s6.name">Decide with reasons</strong></figcaption><pre><code data-t="example.s6.prompt">Which file format should the Photo Archive keep its masters in? First look for what the vault already holds on this. Then propose a decision note with decision, grounds, rejected alternative and conditions, cite the notes it rests on and mark every ground the vault does not support. Do not file it before I accept.</code></pre></figure>
+      <p class="yields" data-t="example.s6.yields">A proposal for uncompressed TIFF with its grounds, to compare with the reference <a href="explorer.html">decision view</a>.</p></li>
+    <li><figure class="dh-code"><figcaption><svg class="icon" aria-hidden="true"><use href="#i-prompt"/></svg><strong data-t="example.s7.name">Accept and reuse</strong></figcaption><pre><code data-t="example.s7.prompt">I accept the decision note. File it in Data Management and link it from the Photo Archive overview. The Oral History Collection then asks which format its audio masters should have. Find the decision, check whether its conditions hold, and say what it can and cannot settle.</code></pre></figure>
+      <p class="yields" data-t="example.s7.yields">The filed decision and a comparison. It covers still images only, so audio needs its own decision.</p></li>
   </ol>
 </section>
 

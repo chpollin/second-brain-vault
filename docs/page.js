@@ -1,28 +1,34 @@
 // The method page is complete in English in index.html and reads without JavaScript. This
-// module only switches to German (?lang=de or a remembered choice) and shows the language
-// link. Copy buttons come from the shared assets/dhcraft/dhcraft-copy.js, which reads the
-// language this module sets first.
+// module switches to German (?lang=de or a remembered choice), shows the language link and
+// wires the theme toggle. The page opens light; the inline prelude in index.html applies a
+// stored dark choice before first paint. Copy buttons come from the shared
+// assets/dhcraft/dhcraft-copy.js, which reads the language this module sets first.
 
 import { HTML_KEYS, PAGE_DE } from "./content.js";
 
-const STORE = "second-brain-vault-lang";
+const LANG_KEY = "second-brain-vault-lang";
+const THEME_KEY = "second-brain-vault-theme";
+
+function stored(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function store(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Storage can be blocked; the choice then holds for this page load only.
+  }
+}
 
 function currentLang() {
   const asked = new URLSearchParams(location.search).get("lang");
   if (asked === "de" || asked === "en") return asked;
-  try {
-    return localStorage.getItem(STORE) === "de" ? "de" : "en";
-  } catch {
-    return "en";
-  }
-}
-
-function remember(lang) {
-  try {
-    localStorage.setItem(STORE, lang);
-  } catch {
-    // Storage can be blocked; the choice then holds for this visit only.
-  }
+  return stored(LANG_KEY) === "de" ? "de" : "en";
 }
 
 /** Replace the English text of every marked element by its German entry. */
@@ -35,8 +41,10 @@ function translate() {
     else node.textContent = PAGE_DE[key];
   }
   for (const node of document.querySelectorAll("[data-t-label]")) {
-    const key = node.dataset.tLabel;
-    if (key in PAGE_DE) node.setAttribute("aria-label", PAGE_DE[key]);
+    if (node.dataset.tLabel in PAGE_DE) node.setAttribute("aria-label", PAGE_DE[node.dataset.tLabel]);
+  }
+  for (const node of document.querySelectorAll("[data-t-alt]")) {
+    if (node.dataset.tAlt in PAGE_DE) node.setAttribute("alt", PAGE_DE[node.dataset.tAlt]);
   }
 }
 
@@ -51,9 +59,27 @@ url.searchParams.set("lang", other);
 link.href = url.search + url.hash;
 link.hreflang = other;
 link.lang = other;
-link.textContent = other === "de" ? "Deutsch" : "English";
+link.textContent = other.toUpperCase();
 link.setAttribute("aria-label", other === "de" ? "Seite auf Deutsch anzeigen" : "Show this page in English");
 link.hidden = false;
-link.addEventListener("click", () => remember(other));
+link.addEventListener("click", () => store(LANG_KEY, other));
 // The explorer keeps the language.
 for (const anchor of document.querySelectorAll("a[href$='.html']")) anchor.href = `${anchor.getAttribute("href")}?lang=${lang}`;
+
+const toggle = document.getElementById("theme-toggle");
+const root = document.documentElement;
+function labelToggle() {
+  const dark = root.getAttribute("data-theme") === "dark";
+  const words = lang === "de" ? ["Zum hellen Farbschema wechseln", "Zum dunklen Farbschema wechseln"] : ["Switch to the light theme", "Switch to the dark theme"];
+  const text = dark ? words[0] : words[1];
+  toggle.querySelector(".visually-hidden").textContent = text;
+  toggle.title = text;
+}
+toggle.hidden = false;
+labelToggle();
+toggle.addEventListener("click", () => {
+  const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  store(THEME_KEY, next);
+  labelToggle();
+});
