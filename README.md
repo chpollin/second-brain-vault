@@ -42,7 +42,6 @@ These steps take a few minutes and end with two visible results, a clean check r
 
    ```sh
    python scripts/build_site.py
-   python scripts/build_graph.py
    python scripts/build_explorer.py
    python scripts/check_vault.py
    ```
@@ -175,13 +174,13 @@ second-brain-vault/
 
 ### Method page and knowledge explorer
 
-`docs/` holds the method page and a knowledge explorer over the synthetic example notes in `docs/example/`. Both read JSON files that the three `scripts/build_*.py` builders generate and that Git ignores, together with the versioned example episode `docs/episode.json`. To preview them locally, run the builders and serve the folder.
+`docs/` holds the method page and a knowledge explorer over the synthetic example notes in `docs/example/`. The page is static HTML. The explorer and the commit check read JSON files that `scripts/build_site.py` and `scripts/build_explorer.py` generate and that Git ignores. To preview them locally, run the builders and serve the folder.
 
 ```sh
 python -m http.server --directory docs
 ```
 
-Then open `http://localhost:8000`, `http://localhost:8000/?lang=de` and `http://localhost:8000/explorer.html`. The workflow `.github/workflows/pages.yml` builds the data, runs the checks and publishes `docs/` when `main` is pushed. It requires the repository's Pages source to be set to GitHub Actions. Removing the pages requires adapting their data checks, privacy test, navigation links and workflow before deleting the files.
+Then open `http://localhost:8000`, `http://localhost:8000/?lang=de` and `http://localhost:8000/explorer.html`, the decision view of the example, with the note browser `notes.html`. The workflow `.github/workflows/pages.yml` builds the data, runs the checks and publishes `docs/` when `main` is pushed. It requires the repository's Pages source to be set to GitHub Actions. Removing the pages requires adapting their data checks, privacy test, navigation links and workflow before deleting the files.
 
 ## What is deliberately left out
 
@@ -202,7 +201,7 @@ Each keeps its own specification in its own repository, and none is installed by
 
 ## Licence and citation
 
-Text and documentation are licensed under CC BY 4.0, code under MIT, as [LICENSE.md](LICENSE.md) states. The shared DHCraft files under `docs/assets/dhcraft/`, copied from [brand-assets](https://github.com/DigitalHumanitiesCraft/brand-assets), keep their own terms, which includes the DHCraft logo and the fonts under the SIL Open Font License.
+Text and documentation are licensed under CC BY 4.0, code under MIT, as [LICENSE.md](LICENSE.md) states. The scripts and stylesheets of the method page are MIT as well. The shared DHCraft files under `docs/assets/dhcraft/`, copied from [brand-assets](https://github.com/DigitalHumanitiesCraft/brand-assets), carry their own licence file: MIT for stylesheets and script, the DHCraft logo excluded, the fonts under the SIL Open Font License.
 
 To cite the template, name author, title, year and repository:
 

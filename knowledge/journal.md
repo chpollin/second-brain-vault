@@ -1,5 +1,9 @@
 # Journal
 
+## 2026-11-10 Method page as one static page in seven parts
+
+The owner found the first rebuild still too text-heavy and too structured and asked for one static page. The page now follows the seven parts of the DHCraft method sites, fixed in brand-assets `web/design.md` and shared with Promptotyping and Grounded Vault: title and abstract, a main figure with vault layers, agent session and project repository, origin, terms, reuse, a prompt demo on the synthetic photo archive, and limits with licence and citation. The playable example with stepper, focus graph, note card and reading panel, the graph builder and its test, the template contents section and the section navigation were removed. The decision view and the note browser remain as one link. The shared web files are MIT with the logo excluded, recorded in `LICENSE.md` and the copied licence file. Slide screenshots under `docs/images/` were regenerated. Details are in [design](design.md#decisions).
+
 ## 2026-11-10 Method page rebuilt on the shared DHCraft foundation
 
 Commissioned to make Second Brain Vault, Research Mission Control and Promptotyping reusable from one level, with finished frontends in one corporate design. The page now answers from its entry what the vault is, its layers, how it connects to project repositories and their `knowledge/` folders, what the template contains, how to start, its limits, the related methods and the citation. The diagram of vault and repositories is new and draws on Convention Knowledge Documents, the Repo Directory and `vault-orient`. The growing build graph, the folded reference and the page's own tokens and fonts were removed; the shared files from brand-assets now carry tokens, header, footer, buttons and code blocks. Slide screenshots at 1600 by 900 lie under `docs/images/`. Details and checks are in [design](design.md#decisions) and [design](design.md#evidence).
