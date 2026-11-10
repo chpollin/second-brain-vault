@@ -1,5 +1,11 @@
 # Journal
 
+## 2026-11-10 README, instructions and method page for outside readers
+
+Commissioned to make the template understandable and reusable for colleagues who know Git and Markdown but not the source owner's system. A self-trial from a fresh clone in a scratch folder ran the three builders, the check (`hard: 0`, `measured: 0`), the 28 Python tests, the fixture check with its two seeded findings, the commit hook refusing a note with an unregistered tag and the AGENTS.md generator. Opening the vault in Obsidian and an agent conversation were not executed.
+
+The README now follows purpose, uses, prerequisites, start, governance, layout, omissions, related methods, licence and citation. It explains agent and operator, the stale `docs/data.json` that blocks commits after every note change, the `python` name the hook calls, the disposable copy for the repair trial and the publication risk of the Pages workflow for a personal vault. `CLAUDE.md` defines the operator, states that rules change by the operator's decision and that agent reports count as unverified until checked, and names the places a new owner adapts first. `AGENTS.md` was regenerated. The specification drops the obsolete note on a third-party website exclusion, which the source owner removed on 2026-11-10, and records the agent terminology. The method page changes are recorded in [design](design.md#decisions). An independent fresh-context review of README and page was incorporated where its objections were supported by the files.
+
 
 ## 2026-11-09 Focused visual decision view
 

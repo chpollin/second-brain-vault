@@ -13,7 +13,7 @@ The method page in `docs/` explains Second Brain to readers without prior knowle
 
 The example runs through seven phases: ask, find, propose, decide, file it, test the result, reuse later. The phase "decide" names the separate judgements of checking sources, checking the reasoning and accepting. The phase "file it" carries the principle of one place per statement. The phase "test the result" shows the return of an artefact finding to project knowledge, the first of the two relationships in the manuscript, and "reuse later" the second.
 
-The seven build steps follow the operator's sequence of 2026-11-04: create a vault, bring sources into Markdown, think through the structure, talk it through with the assistant, let the assistant build it, work in knowledge, make it findable for the assistant. The template enters at step 5 as the model the assistant follows. Step 2 names the chain original, Docling, frozen Markdown, distillate, and points to [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) for statements that must be traceable to their source passage. Step 5 defines vault governance as the written rules that say how the vault is built, what goes where and how it may change.
+The seven build steps follow the operator's sequence of 2026-11-04: create a vault, bring sources into Markdown, think through the structure, talk it through with the agent, let the agent build it, work in knowledge, make it findable for the agent. The template enters at step 5, where the agent downloads it and copies its rules, checks and skills into the new vault. Step 2 names the chain original, Docling, frozen Markdown, distillate, and points to [Grounded Vault](https://github.com/DigitalHumanitiesCraft/grounded-vault) for statements that must be traceable to their source passage. Step 5 defines vault governance as the written rules that say how the vault is built, what goes where and how it may change.
 
 ## Hero example
 
@@ -56,7 +56,7 @@ The site follows the DHCraft corporate design loosely. Tokens come from the dhcr
 |---|---|
 | vault | Vault |
 | overview page, map of content | Übersichtsseite, Map of Content |
-| AI assistant | KI-Assistent |
+| AI agent, agent | KI-Agent, Agent |
 | control document | Steuerdokument |
 | procedure (skill) | Ablauf (Skill) |
 | vault governance | Vault-Governance |
@@ -92,3 +92,4 @@ A fresh model reviewer then read the built hero in three reader roles and agains
 - 2026-11-04: recorded agent sessions were dropped from the site because they ran under the owner's personal configuration. New recordings require a neutral configuration.
 - 2026-11-04: on the operator's instruction the combined focus graph and note card replaced the whole-vault hero graph. The episode staging of the graph module, the old stepper and the lab variants were removed.
 - 2026-11-08: the operator commissioned a knowledge explorer using the example data alongside the method page, with contextual reading and inspectable link evidence as the first design criteria. Source repositories and the local `vault-graph` clone are retained while the integration is examined.
+- 2026-11-10: following the source owner's terminology decision of that day, the page calls the LLM-driven program an agent (KI-Agent) instead of an assistant. Three statements were narrowed to what the template supports. Git keeps the committed states, parallel checking agents leave the decision on their findings to the reader, and the footer names passing checks and synthetic trials instead of general readiness. After an independent fresh-context review, step 5 has the agent copy the template's rules, checks and skills, give converted sources the required frontmatter and set up Git, because later steps and the reference depend on them. The tool line names Python for Docling as well.

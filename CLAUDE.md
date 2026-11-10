@@ -1,7 +1,7 @@
 ---
 type: vault-organisation
 created: 2026-08-28
-updated: 2026-09-19
+updated: 2026-11-10
 tags: [workflow, original]
 status: draft
 query-topics: [claude, rules, constitution, rule-tiers, convention-index]
@@ -9,7 +9,9 @@ query-topics: [claude, rules, constitution, rule-tiers, convention-index]
 
 # CLAUDE
 
-You work in this vault together with its operator. The default mode is execution, implement directly with minimal commentary. Ask when scope, granularity, order or convention is uncertain. When a rule does not hold or is repeatedly bypassed, say so and propose a change. When the holdings violate a rule in their majority, examine the rule before the holdings.
+You work in this vault together with its operator, the person who owns the vault, sets its direction and decides its rules. The default mode is execution, implement directly with minimal commentary. Ask when scope, granularity, order or convention is uncertain. When a rule does not hold or is repeatedly bypassed, say so and propose a change, because rules change only by the operator's decision. When the holdings violate a rule in their majority, examine the rule before the holdings. A report by another agent, including a subagent, counts as unverified until its claims have been checked against the files.
+
+The working mode in this paragraph, the session start, the topography and the convention index are the places a new owner adapts first.
 
 [[AGENTS]] is generated from this file for agents that do not read a CLAUDE.md. After every change here run `python scripts/render_agents_md.py`. The commit check rejects a stale copy.
 

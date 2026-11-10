@@ -29,7 +29,8 @@ Skills are executable procedures when an agent reads and follows them. A skill f
 - The checker reads rule values from their maintained documents and aborts when a required source is missing. Hard rules reject a commit, measured rules report findings, and heuristic rules require judgement.
 - Fixtures stay outside regular checks and run explicitly. Their expected defects remain part of the test contract.
 - Optional components can be removed only with their references and dependencies inspected. The [README](../README.md#start-smaller) gives the removal procedure. A separate core-and-packs architecture is unnecessary for the implemented template.
-- Source-specific exclusions remain in the owner's rules. The public template does not reproduce the original owner's prohibition concerning a particular third-party website.
+- The template carries no source-specific exclusion of particular websites. Source rules require reading a source's full text before citing it.
+- The template names the steering person the operator and the LLM-driven program the agent, following the source owner's terminology of 2026-11-10. Technical keys such as operator points keep their names.
 
 ## Explorer requirements
 
