@@ -6,13 +6,13 @@ These are expected behaviours for isolated synthetic trials. Their presence does
 
 Instruction: "In a synthetic repository, reconcile an outdated feature description with the actual code and record the correction."
 
-Expected behaviour: Read the action layer, index and handoff. Inspect the code, update the responsible document and one journal entry, and retain unrelated changes.
+Expected behaviour: Read the action layer, the index and the section Open of the journal. Inspect the code, update the responsible document and one journal entry, and retain unrelated changes.
 
-## 2 Process one received handoff
+## 2 Process one open point of the journal
 
-Instruction: "In that repository, inspect and resolve one verifiable handoff point."
+Instruction: "In that repository, inspect and resolve one verifiable point under `## Open` in the journal."
 
-Expected behaviour: Integrate or reject it with a reason. Remove only the resolved point and preserve unrelated open input. Use the canonical empty state only when none remains.
+Expected behaviour: Integrate or reject it with a reason and record the result in a journal entry. Remove only the resolved point and preserve the other open points. Write `Nothing open.` only when none remains. Leave the earlier entries unchanged, and create no handoff file.
 
 ## 3 Acceptance boundary
 

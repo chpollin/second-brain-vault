@@ -1,6 +1,6 @@
 ---
 name: project-knowledge
-description: Orients, distils, implements, hands off and compacts work in a repository whose maintained project knowledge in a knowledge folder guides agentic implementation. Fires on "Promptotyping", "set up the knowledge base", "refactor the knowledge folder", "work in the handoff", "journal entry", and in any repository with an action layer and a knowledge folder. Not as generic project management for unrelated repositories, not for vault knowledge documents, which is vault-knowledge, not for the operational state, which is active-work-report, not for prose rules, which is writing-style.
+description: Orients, distils, implements, hands off and compacts work in a repository whose maintained project knowledge in a knowledge folder guides agentic implementation. Fires on "Promptotyping", "set up the knowledge base", "refactor the knowledge folder", "work through what is open", "journal entry", and in any repository with an action layer and a knowledge folder. Not as generic project management for unrelated repositories, not for vault knowledge documents, which is vault-knowledge, not for the operational state, which is active-work-report, not for prose rules, which is writing-style.
 ---
 
 Reads and maintains the project knowledge needed for the current research or implementation task.
@@ -9,9 +9,9 @@ Reads and maintains the project knowledge needed for the current research or imp
 
 - `Vault Operations/Repo Directory.md` and its linked Project Overview when resolving a project or its conceptual context
 - The repository action layer, usually `AGENTS.md` or `CLAUDE.md`, which precedes the generic method specification
-- `knowledge/INDEX.md`, `knowledge/handoff.md`, and the Declarative and Action Documents relevant to the task
+- `knowledge/INDEX.md`, the section `## Open` at the beginning of `knowledge/journal.md`, and the Declarative and Action Documents relevant to the task
 - `knowledge/governance.md` when authority, evidence status, rights, publication or escalation affects the work
-- `knowledge/journal.md` only when provenance or the ground of a decision is needed
+- the entries of `knowledge/journal.md` only when provenance or the ground of a decision is needed
 - `Vault Operations/Conventions/Convention Knowledge Documents.md` for document functions, selective routing, ownership, cross-project transfer and access boundaries
 
 If a source cannot be read, report it and mark the result unverified.
@@ -20,8 +20,8 @@ If a source cannot be read, report it and mark the result unverified.
 
 1. Resolve the task's project and read selectively through the route in `Convention Knowledge Documents.md#Working from the knowledge base`. Check the actual tools and source access before relying on a planned read. Inspect the repository state and verify the relevant claims, sources and targets.
 2. For a read-only question, return the supported finding at its source scope. For a comparison or transfer, apply `Convention Knowledge Documents.md#Ownership and transfer` to each selected project. Preserve conflicting evidence and identify unchecked conditions.
-3. For authorised maintenance, identify the document responsible for each finding and update it under the convention. Preserve unrelated changes. The convention defines document functions, required entries and journal or handoff semantics.
-4. Resolve a handoff only after checking its source and current target. Integrate it or record a reasoned rejection, preserve the result in the journal, and remove only the resolved input under the convention.
+3. For authorised maintenance, identify the document responsible for each finding and update it under the convention. Preserve unrelated changes. The convention defines document functions, required entries and the semantics of the journal and its section Open.
+4. Resolve an open point only after checking its source and current target. Integrate it or record a reasoned rejection, preserve the result in a journal entry, and remove only the resolved point from `## Open` under the convention.
 5. Compact only when a document no longer performs its routing or provenance function. Apply the loss audit in `Convention Curation Round.md`, preserve a traceable baseline and keep current substance at its responsible location.
 
 ## Boundaries

@@ -4,6 +4,10 @@
 
 Nothing open.
 
+## 2026-11-14 Template follows the journal with Open
+
+The operator's decision of 2026-11-14, that a Promptotyping repository keeps no `knowledge/handoff.md` and that its journal opens with `## Open`, now also holds for what the template teaches. Convention Knowledge Documents no longer lists `handoff.md` among the required documents, its section on journal and handoff became the section Journal with the rule for `## Open` and the empty line `Nothing open.`, and the reading route and the action-layer pattern point to that section. The skill `project-knowledge` reads and resolves open points in the journal. Its evaluation case 2 was rewritten to process one point under `## Open` instead of a received handoff, and case 1 reads the section Open instead of the handoff. The skill evaluation of 2026-09-19 keeps its account of the handoff trial as a historical record.
+
 ## 2026-11-14 Handoff file dissolved into the journal
 
 By the operator's decision of 2026-11-14, Promptotyping repositories no longer keep `knowledge/handoff.md`, and the journal opens with what is open. The handoff file held no open point, so nothing was carried over, and the index now routes received input to this section. The template's Convention Knowledge Documents, the skill `project-knowledge` and its evaluation cases still describe `handoff.md` as part of every knowledge base; they change only with the operator's rule decision for the template.
