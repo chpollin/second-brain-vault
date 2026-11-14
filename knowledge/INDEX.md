@@ -1,6 +1,6 @@
 # Knowledge index
 
-Read [project](project.md) for the purpose of Second Brain and [handoff](handoff.md) for received input. Continue with the document that answers the current question.
+Read [project](project.md) for the purpose of Second Brain and the Open section at the beginning of the [journal](journal.md) for received input. Continue with the document that answers the current question.
 
 | Question | Document |
 |---|---|
@@ -10,7 +10,7 @@ Read [project](project.md) for the purpose of Second Brain and [handoff](handoff
 | How should inquiry, the work interface and knowledge revision connect? | [Research workflow](research-workflow.md) |
 | How do the method page and knowledge explorer support understanding and evidence-based reading? | [Design](design.md) |
 | Why does the current arrangement exist? | [Journal](journal.md) |
-| What input still needs integration? | [Handoff](handoff.md) |
+| What input still needs integration? | [Journal](journal.md), section Open |
 | What did the bounded skill trials establish? | [Skill evaluation](skill-evaluation.md) |
 | What argument and proposed study does the manuscript present? | [Paper](paper.md) |
 | How are real research episodes selected and examined? | [Evaluation](evaluation.md) |

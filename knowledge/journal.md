@@ -1,5 +1,13 @@
 # Journal
 
+## Open
+
+Nothing open.
+
+## 2026-11-14 Handoff file dissolved into the journal
+
+By the operator's decision of 2026-11-14, Promptotyping repositories no longer keep `knowledge/handoff.md`, and the journal opens with what is open. The handoff file held no open point, so nothing was carried over, and the index now routes received input to this section. The template's Convention Knowledge Documents, the skill `project-knowledge` and its evaluation cases still describe `handoff.md` as part of every knowledge base; they change only with the operator's rule decision for the template.
+
 ## 2026-11-11 Site data no longer built
 
 The method page no longer read `docs/data.json`, yet the workflow built and published it, and the commit check refused a commit whenever it was stale. Its generation left the workflow, `check_vault.py`, the README, the page prompts and the skills, and the privacy test now reads `docs/explorer.json`. `scripts/build_site.py` keeps only the in-memory file model whose task-trace tests still run, and its removal together with `tests/test_build_site.py` is left to the owner. The German figure and page text name the Repo-Verzeichnis, and both figures leave more space between arrowheads and boxes.
