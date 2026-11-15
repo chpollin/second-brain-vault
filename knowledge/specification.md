@@ -36,6 +36,10 @@ Skills are executable procedures when an agent reads and follows them. A skill f
 
 The explorer reads only `docs/example/`. Each resolved reference retains its direction, literal occurrence, source line and excerpt. Unresolved references preserve their reason, including references outside the example boundary, so they can be distinguished from missing notes. Connected components and isolated notes are structural review candidates. The interface follows the [task and interaction contract](design.md#knowledge-explorer), and the [review tasks](evaluation.md#knowledge-explorer-review) keep observed usability separate from technical correctness and operator acceptance.
 
+## Versions
+
+The template is versioned from 1.0.0 on. [CHANGELOG.md](../CHANGELOG.md) states per version which parts are stable and which may change, and `CITATION.cff`, `pyproject.toml` and the README citation carry the current version. A change that breaks a stable part raises the major version.
+
 ## Verification
 
 Run the following after a template change:
