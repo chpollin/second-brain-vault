@@ -37,6 +37,14 @@ def test_missing_rule_source_aborts(monkeypatch, tmp_path):
     raise AssertionError("a missing rule source must not end as a passed check")
 
 
+def test_unreadable_rule_source_exits_with_configuration_error(monkeypatch, tmp_path):
+    broken = tmp_path / "profiles.md"
+    broken.write_bytes(b"\xff\xfe not utf-8 \xff")
+    monkeypatch.setattr(check_vault, "PROFILES", broken)
+    monkeypatch.setattr(sys, "argv", ["check_vault.py"])
+    assert check_vault.main() == 2
+
+
 def test_hard_only_keeps_hard_findings_and_omits_measured_findings() -> None:
     full = check_vault.check(fixtures=True)
     hard_only = check_vault.check(fixtures=True, hard_only=True)

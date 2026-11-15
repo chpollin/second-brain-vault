@@ -14,9 +14,13 @@ Usage:
     python scripts/check_vault.py --fixtures   check only the fixture folder
     python scripts/check_vault.py --json       machine-readable result
 
-Exit codes: 0 no hard finding, 1 hard finding, 2 configuration error.
+--hard and --integrity exclude each other. --integrity runs no hard check and lists
+measured findings only.
+
+Exit codes: 0 no hard finding, 1 hard finding, 2 configuration or usage error.
 Design decisions: standard-library script pipeline, the frontmatter parser covers the
-flat subset the vault uses (scalars and inline lists) and is no YAML implementation.
+flat subset the vault uses (scalars, inline lists and block lists) and is no YAML
+implementation.
 """
 
 from __future__ import annotations
@@ -132,6 +136,9 @@ def registers() -> list[tuple[str, str]]:
     """A skill or convention that exists on disk must stand in the document that enumerates it,
     otherwise an agent never learns that it exists."""
     found = []
+    for name in ("VAULT-OPERATIONS.md", "CLAUDE.md"):
+        if not (VAULT / name).is_file():
+            raise ConfigError(f"rule source missing: {name}")
     register = (VAULT / "VAULT-OPERATIONS.md").read_text(encoding="utf-8")
     for skill in sorted((VAULT / ".claude" / "skills").glob("*/SKILL.md")):
         name = skill.parent.name
@@ -228,21 +235,24 @@ def check(fixtures: bool = False, hard_only: bool = False, integrity_only: bool 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("--hard", action="store_true")
-    parser.add_argument("--integrity", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--hard", action="store_true")
+    mode.add_argument("--integrity", action="store_true")
     parser.add_argument("--fixtures", action="store_true")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
     try:
         result = check(args.fixtures, args.hard, args.integrity)
-    except ConfigError as err:
+    except (ConfigError, OSError, UnicodeDecodeError) as err:
+        # An unreadable rule source is a configuration error, never a hard finding.
         print(f"configuration error: {err}", file=sys.stderr)
         return 2
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:
         print(f"{result['checked']} documents checked")
-        for tier in ("hard",) if args.hard else ("hard", "measured"):
+        tiers = ("hard",) if args.hard else ("measured",) if args.integrity else ("hard", "measured")
+        for tier in tiers:
             print(f"{tier}: {len(result[tier])}")
             for rel, message in result[tier]:
                 print(f"  {rel}: {message}")
