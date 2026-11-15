@@ -11,6 +11,7 @@ Usage:
 
 from __future__ import annotations
 
+import argparse
 import sys
 from pathlib import Path
 
@@ -46,7 +47,9 @@ def is_current() -> bool:
 
 
 if __name__ == "__main__":
-    if "--check" in sys.argv:
+    parser = argparse.ArgumentParser(description="Generate AGENTS.md from CLAUDE.md.")
+    parser.add_argument("--check", action="store_true", help="exit 1 when AGENTS.md is stale, write nothing")
+    if parser.parse_args().check:
         sys.exit(0 if is_current() else 1)
     TARGET.write_text(render(), encoding="utf-8", newline="\n")
     print("AGENTS.md written")
