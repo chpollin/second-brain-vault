@@ -4,7 +4,7 @@
 // one translation throughout; the term list stands in knowledge/design.md.
 
 // Entries that carry inline markup (a link, code) from this file only, never from data.
-export const HTML_KEYS = new Set(["intro.p1", "intro.p2", "intro.p3", "example.s6.yields", "limits.licence"]);
+export const HTML_KEYS = new Set(["intro.p1", "intro.p2", "intro.p3", "example.s6.yields", "limits.licence", "limits.data"]);
 
 const GH = "https://github.com/chpollin/second-brain-vault";
 
@@ -57,7 +57,7 @@ export const PAGE_DE = {
   "example.s7.yields": "Die abgelegte Entscheidung und einen Vergleich. Sie gilt nur für Standbilder, Audio braucht eine eigene Entscheidung.",
   "limits.title": "Grenzen, Lizenz und Zitation",
   "limits.benefit": "Die Prüfungen zeigen Stimmigkeit. Der Nutzen im Forschungsalltag ist noch nicht untersucht.",
-  "limits.data": "Der Agent schickt Anfragen und gelesene Dateien an seinen Anbieter. GitHub Pages würde den Volltext veröffentlichen und bleibt für einen persönlichen Vault aus.",
+  "limits.data": "Der Agent schickt Anfragen und gelesene Dateien an seinen Anbieter. Der Pages-Workflow veröffentlicht nur den Ordner <code>docs/</code> und nie die Notizen. Ein persönlicher Vault gehört trotzdem in ein privates Repository, weil ein öffentliches jede Notiz zeigt.",
   "limits.licence": `Texte und Dokumentation CC BY 4.0, Code MIT, die gemeinsamen DHCraft-Webdateien MIT, das DHCraft-Logo ausgenommen, wie die <a href="${GH}/blob/main/LICENSE.md">Lizenz</a> festhält.`,
   "footer.by": "Herausgegeben von",
   "footer.licence": "Texte CC BY 4.0, Code MIT, das DHCraft-Logo ausgenommen",

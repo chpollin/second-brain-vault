@@ -95,7 +95,7 @@ Report the operational state with the skill active-work-report.
 4. Write your own prose rules into the skill `writing-style`. A style skill for another language needs contrast examples in that language.
 5. Record every rule change with its reason in `Vault Operations/Decision Log.md`.
 6. Adapt this README and the files under `knowledge/` to the purpose of your vault, or remove them once nothing refers to them any more.
-7. Before you push a personal vault to GitHub, remove `docs/` and `.github/workflows/pages.yml` or leave GitHub Pages switched off. The workflow publishes the template's method page with its synthetic example, which describe the template rather than your vault.
+7. Push a personal vault only to a private repository, because a public repository shows every note to everyone. The Pages workflow publishes only the folder `docs/`, the template's method page with its synthetic example, and never your notes. Since that page describes the template and not your vault, remove `docs/` and `.github/workflows/pages.yml` or leave GitHub Pages switched off.
 
 In the template, operator means you, the person who owns the vault and decides its rules. Operator points are the questions the agent leaves for you in `ACTIVE-WORK.md`, each phrased so that you can answer it without opening another file.
 
