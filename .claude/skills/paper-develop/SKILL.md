@@ -1,6 +1,6 @@
 ---
 name: paper-develop
-description: Develops or revises the argument and prose of a compact scholarly exposé, abstract or short paper. Fires on "write the short paper", "revise the abstract", "kurzes Paper" and "Exposé" when a scholarly draft is requested. Source synthesis without manuscript development belongs to vault-distill, prose style alone to writing-style, and agentic workflow design to workflow-design. Does not submit or publish manuscripts.
+description: Develops or revises the argument and prose of a compact scholarly exposé, abstract or short paper. Fires on "write the short paper", "revise the abstract" and "draft the exposé" when a scholarly draft is requested. Source synthesis without manuscript development belongs to vault-distill, prose style alone to writing-style, and agentic workflow design to workflow-design. Does not submit or publish manuscripts.
 ---
 
 Develop a compact scholarly argument whose claims fit the available evidence and whose revisions preserve the author's accepted decisions.

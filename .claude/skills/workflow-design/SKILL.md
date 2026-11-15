@@ -1,6 +1,6 @@
 ---
 name: workflow-design
-description: Describes, reviews or designs agentic workflows with explicit checks, decision authority and expert feedback. Fires on "design the agent loop", "agentischen Workflow prüfen" and requests to design fachliche Rückkopplung in agentic work. Ordinary code or CI-workflow changes belong to the project's development procedure, manuscript revision to paper-develop and source synthesis to vault-distill. Does not deploy or change runtime permissions.
+description: Describes, reviews or designs agentic workflows with explicit checks, decision authority and expert feedback. Fires on "design the agent loop", "review this agentic workflow" and requests to design expert feedback in agentic work. Ordinary code or CI-workflow changes belong to the project's development procedure, manuscript revision to paper-develop and source synthesis to vault-distill. Does not deploy or change runtime permissions.
 ---
 
 Make the route from a task through its checks and decisions to result acceptance or workflow revision explicit and supported by evidence.
