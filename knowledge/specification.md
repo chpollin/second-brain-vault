@@ -38,7 +38,7 @@ The explorer reads only `docs/example/`. Each resolved reference retains its dir
 
 ## Versions
 
-The template is versioned from 1.0.0 on. [CHANGELOG.md](../CHANGELOG.md) states per version which parts are stable and which may change, and `CITATION.cff`, `pyproject.toml` and the README citation carry the current version. A change that breaks a stable part raises the major version.
+The template is versioned from 1.0.0 on. [CHANGELOG.md](../CHANGELOG.md) states per version which parts are stable and which may change, and `CITATION.cff`, `pyproject.toml`, the README citation and the citation on the method page carry the current version. A change that breaks a stable part raises the major version.
 
 ## Verification
 
