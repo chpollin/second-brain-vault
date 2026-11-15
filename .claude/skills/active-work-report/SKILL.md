@@ -11,7 +11,7 @@ Reports the operational state from its real sources and changes ACTIVE-WORK.md o
 - `Vault Operations/Conventions/Convention ACTIVE-WORK Fields.md` for the field contract, the field register, the status vocabulary, action-item formats, entry naming and the done-log rule
 - `.claude/rules/active-work.md` for the scope of the document
 - `Vault Operations/Done Log.md`, most recent entries, so completed work is not reported as open again
-- `Vault Operations/Repo Directory.md` for the mapping from `repo::` to a local path
+- `Vault Operations/Repo Directory.md` for the mapping from `repo::` to its repository. The directory holds no local paths, so ask the operator for a checkout that is not known in this session, and report a repository without a checkout as not checked.
 
 This skill does not repeat the field rules. If a source cannot be read, report it and mark the affected entry unverified.
 

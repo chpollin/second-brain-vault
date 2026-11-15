@@ -8,6 +8,10 @@ query-topics: [decision-log, rule-history, reasons]
 
 The history and the reasons of the rules, newest first. The rules themselves stand in [[CLAUDE]], in `.claude/rules/` and in the conventions. The decisions in force are registered in [[VAULT-OPERATIONS#Decisions in force]].
 
+## 2026-11-15 Rule sources aligned for the 1.0.0 release
+
+The release audit of 2026-11-15, commissioned on the owner's behalf, found rule sources that contradicted each other. New `type` and `status` values are registered only in the block of [[Convention Frontmatter Field Profiles]], which the check reads, and `.claude/rules/documents.md` points there instead of restating the lists. [[ACTIVE-WORK]] is the place for next steps of the vault, while open work of a project repository stands in its journal. A Project Overview carries no state column, because the state lives in ACTIVE-WORK. `category` and `project-type` take their values from one list in [[Convention ACTIVE-WORK Fields#Categories]], and the operational status lost a value that belonged to the author's business. The exit code 1 of the check means a hard finding only, and every failure to run exits with 2.
+
 ## 2026-11-10 Curation as the closing step of a session
 
 Following the owner's terminology for all his methods, the closing step of an agent session is called curation instead of writing back. Writing back names only the mechanical part. Curation records accepted knowledge at the level where it applies, corrects or removes statements that have become outdated or unwarranted, and keeps what holds for one project in that project. [[Convention Knowledge Documents#Working from the knowledge base]] step 4 and the gloss of `project-knowledge` in [[VAULT-OPERATIONS]] now use the term.

@@ -28,6 +28,7 @@ An entry is a fourth-level heading that links the Project Overview, followed by 
 | `state` | the present observable state | when active or waiting |
 | `goals` | what the undertaking is meant to achieve | when active or waiting |
 | `waiting-on` | a dependency on somebody else, stated as a state | when it exists |
+| `waiting-on-operator` | one question for the operator, in the form under Operator points | when one is open |
 | `milestone` | one fixed date of the operator's own, never the end of the project | when upcoming |
 
 ## Categories

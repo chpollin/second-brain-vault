@@ -35,7 +35,7 @@ query-topics: [vault-operations, skill-register, glossary, decisions, task-types
 |---|---|---|---|
 | vault-knowledge | on call | maintains knowledge documents without loss and keeps restatements in step, in the modes check, enrich, research, refactor and dissolve | [[Convention Curation Round]] |
 | vault-audit | on call | reports dead links, dead anchors and unreachable documents | `scripts/check_vault.py` |
-| vault-distill | on call | synthesises vault content into an outline, slide input or draft prose and edits nothing | [[HOME]] |
+| vault-distill | on call | synthesises vault content into an outline, slide input or draft prose and edits nothing | the MOCs of the topic, [[Repo Directory]] |
 | vault-orient | on call, outside the vault | opens the vault as a read-only knowledge source for a repository session | [[HOME]], [[Repo Directory]] |
 | project-knowledge | in a repository with a `knowledge/` folder | works from and curates the knowledge base of a repository | [[Convention Knowledge Documents]] |
 | active-work-report | on call | reports the operational state and proposes changes, writes only on instruction | [[Convention ACTIVE-WORK Fields]] |
@@ -77,6 +77,7 @@ Project knowledge base
 
 | Date | Decision | Reason and history |
 |---|---|---|
+| 2026-11-15 | One place for type registration, next steps by vault and repository, one category list, exit code 1 only for hard findings | [[Decision Log#2026-11-15 Rule sources aligned for the 1.0.0 release]] |
 | 2026-11-10 | The closing step of a session is curation: accepted knowledge at the level where it applies, outdated statements corrected or removed | [[Decision Log#2026-11-10 Curation as the closing step of a session]] |
 | 2026-09-20 | Project context follows explicit repository mappings and preserves the scope of transferred findings | [[Decision Log#2026-09-20 Research context across repositories]] |
 | 2026-09-19 | Persona initialisation uses a neutral template and stores personal drafts outside the public explorer | [[Decision Log#2026-09-19 Personal research persona initialisation]] |

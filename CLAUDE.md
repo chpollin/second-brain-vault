@@ -44,7 +44,7 @@ Container is the folder and states the domain. Class is the frontmatter `type` a
 
 ## One place per statement
 
-Every statement and every rule has one maintained place. A concept lives in its note, a rule in its convention, a next step in [[ACTIVE-WORK]], project knowledge in the project repository. Other places link to it or restate it in one sentence with a link. Whoever changes a statement walks the inbound links of its document and brings every restatement into step, because a document that keeps an earlier state misleads more than a missing one.
+Every statement and every rule has one maintained place. A concept lives in its note, a rule in its convention, a next step of the vault in [[ACTIVE-WORK]], project knowledge and open project work in the project repository. Other places link to it or restate it in one sentence with a link. Whoever changes a statement walks the inbound links of its document and brings every restatement into step, because a document that keeps an earlier state misleads more than a missing one.
 
 ## Document rules
 
@@ -60,7 +60,7 @@ Every rule lies on exactly one of three tiers. The tier says who enforces it and
 
 Hard rules are checked at commit and rejected on violation by `scripts/hooks/pre-commit`. They cover the required frontmatter core, the closed vocabularies of `type` and `status`, tags registered in [[TAG-TAXONOMY]], the ISO format of `created`, and a current [[AGENTS]].
 
-Measured rules are checkable but need judgement in the single case, so they do not block. `python scripts/check_vault.py` lists them on demand. They cover link and anchor integrity, reachability from [[HOME]], the standard structure and sources of concept notes, the first heading against the filename, and the number of tags. A finding is a work list.
+Measured rules are checkable but need judgement in the single case, so they do not block. `python scripts/check_vault.py` lists them on demand. They cover link and anchor integrity, reachability from [[HOME]], the sections Summary, Sources and Related and the number of sources of concept notes, the first heading against the filename, the number of tags, and the registers of skills and conventions. A finding is a work list.
 
 Heuristic rules are not machine-decidable and remain judgement in curation. They cover granularity, the right of a note to exist through a foreseeable use, and document length.
 

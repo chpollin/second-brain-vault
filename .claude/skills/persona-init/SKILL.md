@@ -1,6 +1,6 @@
 ---
 name: persona-init
-description: Builds or revises a source-grounded personal research persona through selective vault reading and a short dialogue. Fires on "initialise my persona", or "build my research persona". Produces a readable profile, a separate working agreement and claim provenance. Does not simulate an interview merely because a profile is being edited. General knowledge maintenance belongs to vault-knowledge.
+description: Builds or revises a source-grounded personal research persona through selective vault reading and a short dialogue. Fires on "initialise my persona" or "build my research persona". Produces a readable profile, a separate working agreement and claim provenance. Does not simulate an interview merely because a profile is being edited. General knowledge maintenance belongs to vault-knowledge.
 ---
 
 Builds a personal research profile from evidence and the owner's statements without importing a fictional identity from the template.
