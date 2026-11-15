@@ -3,7 +3,7 @@ type: knowledge
 created: 2026-09-19
 tags: [knowledge, workflow]
 status: draft
-query-topics: [convention-project-overview, project-hub, summary, project-type, agent-modus]
+query-topics: [convention-project-overview, project-hub, summary, project-type, agent-mode]
 ---
 
 # Convention Project Overview
@@ -25,7 +25,7 @@ A Project Overview is the slow hub of a project in the vault. It states what the
 
 ## Frontmatter
 
-`type: knowledge` with the tag `hub`. Two optional control fields tell an agent how to work. `project-type` names the kind of project with a value from the category list in [[Convention ACTIVE-WORK Fields#Categories]]. `agent-modus` says how far an agent may act on its own, `accompanied` when the operator decides every step, `autonomous` within the stated scope.
+`type: knowledge` with the tag `hub`. Two optional control fields tell an agent how to work. `project-type` names the kind of project with a value from the category list in [[Convention ACTIVE-WORK Fields#Categories]]. `agent-mode` says how far an agent may act on its own, `accompanied` when the operator decides every step, `autonomous` within the stated scope.
 
 ## What stays out
 

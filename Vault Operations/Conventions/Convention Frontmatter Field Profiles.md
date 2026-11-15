@@ -30,7 +30,7 @@ status_optional_for: [vault-organisation]
 
 | Type | Required beyond the core | Optional | Not allowed |
 |---|---|---|---|
-| knowledge | | `query-topics`, `aliases`, `updated`, `project-type`, `agent-modus` on a Project Overview | operational status |
+| knowledge | | `query-topics`, `aliases`, `updated`, `project-type`, `agent-mode` on a Project Overview | operational status |
 | concept | | `query-topics`, `aliases`, `updated` | |
 | literature | `author`, `year` | `doi`, `url`, `query-topics` | |
 | research | | `query-topics` | `updated`, a dated note is not revised |

@@ -1,7 +1,7 @@
 ---
 type: knowledge
 project-type: research
-agent-modus: accompanied
+agent-mode: accompanied
 created: 2026-08-28
 updated: 2026-09-19
 tags: [hub, example-domain]
