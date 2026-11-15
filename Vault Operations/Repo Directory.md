@@ -6,7 +6,7 @@ query-topics: [repo-directory, repository-mapping, local-path]
 ---
 # Repo Directory
 
-The source of truth for which repository belongs to which project. When a task names a repository, look it up here instead of searching the file system. Resolve its checkout from the operator's machine-local configuration and verify that the mapping matches the repository. Update the table when the maintained entry changes.
+The source of truth for which repository belongs to which project. When a task names a repository, look it up here instead of searching the file system. Ask the operator for the local checkout when the task needs one, since this public table holds no machine paths, and verify that the mapping matches the repository. Update the table when the maintained entry changes.
 
 | Project | Vault document | Repository | Knowledge entry |
 |---|---|---|---|

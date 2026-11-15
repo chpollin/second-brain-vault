@@ -1,6 +1,6 @@
 ---
 name: writing-style
-description: Carries the vault's full prose style rules and loads before any prose deliverable is produced or substantially revised, meaning papers, blog posts, knowledge documents, documentation, slide text, speaker notes, mail drafts, chat replies and operator reports. Fires on "writing style", "style rules", "prose rules", "text style". Holds the four core bans, the punctuation rules, the justification duty and the self-check before delivery. Does not govern vault document structure, frontmatter or tags, where the vault document rules apply, nor code style, which the language guidelines govern, nor the building of a deck, which follows once the text exists.
+description: Carries the vault's full prose style rules and loads before any prose deliverable is produced or substantially revised, meaning papers, blog posts, knowledge documents, documentation, slide text, speaker notes, mail drafts, chat replies and operator reports. Fires on "writing style", "style rules", "prose rules", "text style". Holds the four core bans, the punctuation rules, the justification duty and the self-check before delivery. Does not govern vault document structure, frontmatter or tags, where the vault document rules apply, nor code style, nor the building of a deck, which follows once the text exists.
 ---
 
 Every prose deliverable follows these rules, regardless of format, length or output type. Moving into a file, a report or an artefact suspends nothing.
@@ -66,7 +66,7 @@ No paragraph built towards a polished punchline, no obligatory closing platitude
 
 ### Further rules
 
-The prose rules of the vault's own instructions apply in full and are not repeated here. What follows goes beyond them.
+This skill is the one place for the vault's prose rules. Add your own rules here.
 
 - No emojis.
 - No short framing sentence at the start of a paragraph that only introduces the subject. The first sentence already carries content.

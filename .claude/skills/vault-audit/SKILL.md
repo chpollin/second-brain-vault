@@ -8,7 +8,7 @@ Reports integrity findings across the vault and repairs only within an explicitl
 ## Reads
 
 - `CLAUDE.md`, `TAG-TAXONOMY.md`, and the MOCs of the scope, as the basis for judging findings and for the drift check
-- `Vault Operations/Conventions/Convention Curation Round.md` for check order, verification and resolver rules, and known error classes
+- `Vault Operations/Conventions/Convention Curation Round.md` for the order of a round, the verification rules and the known error classes
 - `Vault Operations/Conventions/Convention Frontmatter Field Profiles.md` for the mandatory field core
 
 If a source cannot be read, report it and mark the result unverified.
