@@ -1,8 +1,8 @@
 # Changelog
 
-The template follows semantic versioning for the parts it declares stable below. A change that breaks one of them raises the major version.
+The template follows semantic versioning for the parts it declares stable below. A change that breaks one of them raises the major version. Each version also names its review state. `built` means that agents built it and the executable checks pass, `reviewed` that an independent agent with fresh context found no substantial issue, and `validated` that the owner accepted it for its stated purpose.
 
-## 1.0.0 (2026-11-15)
+## 1.0.0 (2026-11-15), reviewed
 
 First declared release. The template has been developed in this repository since 2026-09-19, and the history before this version is in Git and in `knowledge/journal.md`.
 
@@ -14,6 +14,14 @@ First declared release. The template has been developed in this repository since
 - The ACTIVE-WORK field names in `Vault Operations/Conventions/Convention ACTIVE-WORK Fields.md`.
 
 Skills, conventions, the method page and the knowledge explorer may change in minor versions as long as the stable parts keep working.
+
+### Review
+
+- Executable checks: `check_vault.py`, `build_explorer.py --check`, the Python test suite, ruff, the Node tests of the method page and `node --check` on every page script, all passing, and the Pages workflow passing on the pushed state.
+- A fresh-context agent cloned the template and followed Getting started steps 1 to 3, including a refused commit with a faulty note.
+- A second fresh-context agent read the rule sources against each other and against the check script.
+- A third compared the published method page with the repository and read the whole release diff, with no substantial finding left.
+- Not checked: opening the vault in Obsidian and a real working session with an agent. The owner's acceptance, which would make this version `validated`, is pending together with the tag.
 
 ### Supported
 
