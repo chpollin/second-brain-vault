@@ -52,7 +52,7 @@ These steps take a few minutes and end with two visible results, a clean check r
    git config core.hooksPath scripts/hooks
    ```
 
-4. Open the folder in Obsidian with "Open folder as vault" and start at `HOME.md`. Obsidian then creates a `.obsidian/` folder with its settings, which you may commit or add to `.gitignore`.
+4. Open the folder in Obsidian with "Open folder as vault" and start at `HOME.md`. Obsidian then creates a `.obsidian/` folder with its settings, which you may commit or add to `.gitignore`. Under Settings, Files and links, Excluded files, add `docs/` and `knowledge/`, because these folders hold the method page with its example notes and the documentation of the template, which would otherwise appear in search and graph next to your own notes.
 
 5. Start an agent session in the same folder. Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md`. Other agents need to be told to read one of the two files, which carry the same rules. Give it a first request.
 
