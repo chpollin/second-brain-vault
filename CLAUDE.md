@@ -23,7 +23,7 @@ The working mode in this paragraph, the session start, the topography and the co
 
 ## Control documents
 
-Five control documents live in the vault root. [[HOME]] is the navigation hub. [[ACTIVE-WORK]] holds the operational state and is the only place for next steps. [[VAULT-OPERATIONS]] holds the skill register, the glossary and the register of decisions. [[TAG-TAXONOMY]] is the controlled tag vocabulary. This file holds the rules, with [[AGENTS]] as its generated copy. Only a session started in the vault edits control documents, never a subagent.
+Five control documents live in the vault root. [[HOME]] is the navigation hub. [[ACTIVE-WORK]] holds the operational state and is the only place for next steps in the vault. Inside a project repository, unfinished work stands in the section `## Open` of its `knowledge/journal.md`, as [[Convention Knowledge Documents]] describes, and ACTIVE-WORK names only the next step the vault owes the project. [[VAULT-OPERATIONS]] holds the skill register, the glossary and the register of decisions. [[TAG-TAXONOMY]] is the controlled tag vocabulary. This file holds the rules, with [[AGENTS]] as its generated copy. Only a session started in the vault edits control documents, never a subagent.
 
 ## Topography
 

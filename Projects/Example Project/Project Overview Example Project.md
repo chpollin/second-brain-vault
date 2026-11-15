@@ -19,9 +19,9 @@ The second paragraph says which source of truth governs it, typically the `knowl
 
 ## Workstreams
 
-| Workstream | Result and check | State |
-|---|---|---|
-| Example workstream | placeholder deliverable, placeholder acceptance check | placeholder |
+| Workstream | Result and check |
+|---|---|
+| Example workstream | placeholder deliverable, placeholder acceptance check |
 
 ## Sources
 

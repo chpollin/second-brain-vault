@@ -20,8 +20,8 @@ An entry is a fourth-level heading that links the Project Overview, followed by 
 |---|---|---|
 | `project_id` | stable identifier, never derived from the visible name | always |
 | `folder` | vault folder of the undertaking | always |
-| `category` | kind of undertaking, from a closed list the vault defines | always |
-| `status` | `active`, `waiting`, `dormant`, `upcoming`, `offer-made` | always |
+| `category` | kind of undertaking, from the list under Categories | always |
+| `status` | `active`, `waiting`, `dormant`, `upcoming` | always |
 | `repo` | URL of the repository, or `no repository` | always |
 | `knowledge` | path of the knowledge index inside the repository | when a repository exists |
 | `updated` | date of the last change to the entry | always |
@@ -29,6 +29,15 @@ An entry is a fourth-level heading that links the Project Overview, followed by 
 | `goals` | what the undertaking is meant to achieve | when active or waiting |
 | `waiting-on` | a dependency on somebody else, stated as a state | when it exists |
 | `milestone` | one fixed date of the operator's own, never the end of the project | when upcoming |
+
+## Categories
+
+`category` in ACTIVE-WORK and `project-type` on a Project Overview take one value from this list. A vault that needs another kind of undertaking adds it here first.
+
+- `research`, an undertaking that produces findings or publications
+- `teaching`, a course, workshop or teaching material
+- `infrastructure`, a tool, service or data resource others use
+- `writing`, a text that is not tied to one research undertaking
 
 ## The state field
 

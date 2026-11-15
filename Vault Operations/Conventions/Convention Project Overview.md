@@ -19,13 +19,13 @@ A Project Overview is the slow hub of a project in the vault. It states what the
 ## Structure
 
 1. `## Summary`, exactly two paragraphs. The first says what the project is and what it delivers. The second says which source of truth governs it, typically the `knowledge/` folder of its repository.
-2. `## Workstreams`, a table of workstream, result with its check, and state, only where the project has several.
+2. `## Workstreams`, a table of workstream and result with its check, only where the project has several.
 3. `## Sources`, links to the live artefact, the repository, the data and the documentation.
 4. `## Related`, with [[HOME]] and the concept notes the project draws on.
 
 ## Frontmatter
 
-`type: knowledge` with the tag `hub`. Two optional control fields tell an agent how to work. `project-type` names the kind of project. `agent-modus` says how far an agent may act on its own, `accompanied` when the operator decides every step, `autonomous` within the stated scope.
+`type: knowledge` with the tag `hub`. Two optional control fields tell an agent how to work. `project-type` names the kind of project with a value from the category list in [[Convention ACTIVE-WORK Fields#Categories]]. `agent-modus` says how far an agent may act on its own, `accompanied` when the operator decides every step, `autonomous` within the stated scope.
 
 ## What stays out
 
