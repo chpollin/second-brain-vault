@@ -1,6 +1,6 @@
 # Licence of the web folder
 
-The stylesheets, the script and the documents in this folder (`dhcraft-tokens.css`, `dhcraft-components.css`, `dhcraft-copy.js`, `design.md`, `specimen.html`) are released under the MIT License.
+The stylesheets and the script in this folder (`dhcraft-tokens.css`, `dhcraft-components.css`, `dhcraft-copy.js`) are released under the MIT License.
 
 Copyright (c) 2026 Digital Humanities Craft OG
 

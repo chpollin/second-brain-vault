@@ -58,7 +58,7 @@ export const PAGE_DE = {
   "limits.title": "Grenzen, Lizenz und Zitation",
   "limits.benefit": "Die Prüfungen zeigen Stimmigkeit. Der Nutzen im Forschungsalltag ist noch nicht untersucht.",
   "limits.data": "Der Agent schickt Anfragen und gelesene Dateien an seinen Anbieter. Der Pages-Workflow veröffentlicht nur den Ordner <code>docs/</code> und nie die Notizen. Ein persönlicher Vault gehört trotzdem in ein privates Repository, weil ein öffentliches jede Notiz zeigt.",
-  "limits.licence": `Texte und Dokumentation CC BY 4.0, Code MIT, die gemeinsamen DHCraft-Webdateien MIT, das DHCraft-Logo ausgenommen, wie die <a href="${GH}/blob/main/LICENSE.md">Lizenz</a> festhält.`,
+  "limits.licence": `Texte, Dokumentation, Seiten und Abbildungen CC BY 4.0, Code MIT, die gemeinsamen DHCraft-Webdateien MIT, das DHCraft-Logo ausgenommen, wie die <a href="${GH}/blob/main/LICENSE.md">Lizenz</a> festhält.`,
   "footer.by": "Herausgegeben von",
   "footer.licence": "Texte CC BY 4.0, Code MIT, das DHCraft-Logo ausgenommen",
   "footer.source": "Quelle im",

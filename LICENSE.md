@@ -2,13 +2,13 @@
 
 Copyright (c) 2026 Christopher Pollin, Digital Humanities Craft OG
 
-## Text and documentation
+## Text, documentation, pages and figures
 
-Every Markdown document in this folder, including the rules, conventions and skills, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/. You may copy, adapt and redistribute it for any purpose as long as you give credit.
+Every Markdown document in this repository, including the rules, conventions and skills, the HTML pages under `docs/` and the figures under `docs/images/` are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/. You may copy, adapt and redistribute it for any purpose as long as you give credit.
 
 ## Code
 
-The files under `scripts/` and `tests/` and the scripts and stylesheets of the method page under `docs/` are licensed under the MIT License. The shared DHCraft files under `docs/assets/dhcraft/` carry their own licence file: MIT for the stylesheets and the script, the DHCraft mark excluded, the fonts under the SIL Open Font License.
+The files under `scripts/` and `tests/`, the hook under `scripts/hooks/` and the scripts and stylesheets of the method page under `docs/` are licensed under the MIT License. The shared DHCraft files under `docs/assets/dhcraft/` carry their own licence file: MIT for the stylesheets and the script, the DHCraft mark excluded, the fonts under the SIL Open Font License.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
