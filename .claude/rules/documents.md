@@ -15,14 +15,9 @@ Applies to every Markdown document in the vault. The machine-checked parts are r
 
 ## Frontmatter
 
-```yaml
-type: knowledge|literature|concept|research|specification|vault-organisation
-created: YYYY-MM-DD
-tags: [2 to 4 tags from TAG-TAXONOMY, lowercase-hyphenated]
-status: idea|draft|stub|complete|reviewed|released
-```
+Every document carries `type`, `created` as an ISO date `YYYY-MM-DD`, `tags` and, except where the profiles exempt a type, `status`. The closed vocabularies of `type` and `status`, the required fields and the number of tags are maintained in one place, the YAML block under Required core in [[Convention Frontmatter Field Profiles]], which `scripts/check_vault.py` reads. A convention that needs a new type registers it there. Tags come from [[TAG-TAXONOMY]] and are lowercase-hyphenated.
 
-The `type` vocabulary is closed. A convention that needs a new type registers it here. `knowledge` is the default for synthesised notes, `concept` only for the definition of a single term, `research` only for dated notes, `literature` for one read source.
+`knowledge` is the default type for synthesised notes, `concept` only for the definition of a single term, `research` only for dated notes, `literature` for one read source.
 
 `status` describes the maturity of the document. The operational status of a project is the inline field `status::` in ACTIVE-WORK with its own vocabulary.
 

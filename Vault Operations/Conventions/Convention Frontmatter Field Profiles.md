@@ -15,7 +15,7 @@ Consult when a document is created, when its `type` changes, or when a field is 
 
 ## Required core
 
-The block below is the single source for the hard check. `scripts/check_vault.py` reads it and hard-codes none of its values.
+The block below is the single source for the hard check. `scripts/check_vault.py` reads it and hard-codes none of its values. A convention that needs a new type or status value registers it in this block, and every other document that names the vocabularies points here.
 
 ```yaml
 required: [type, created, tags, status]
