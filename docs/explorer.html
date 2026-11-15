@@ -1,36 +1,37 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <script>try{if(localStorage.getItem("second-brain-vault-theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Warum TIFF? Second Brain Vault</title>
+<title>Why TIFF? Second Brain Vault</title>
 <link rel="icon" href="assets/favicon-32.png"><link rel="stylesheet" href="assets/dhcraft/dhcraft-tokens.css"><link rel="stylesheet" href="assets/dhcraft/dhcraft-components.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="decision.css">
 <script type="module" src="decision.js"></script>
 </head>
 <body class="decision-page">
-<header class="dh-head decision-head"><a class="dh-brand" href="index.html?lang=de"><img src="assets/dhcraft/dhcraft-mark-watercolor-128.png" width="112" height="128" alt="">Second Brain Vault</a><nav class="dh-nav" aria-label="Navigation"><ul><li><a href="index.html?lang=de">Methode</a></li><li><a href="notes.html?lang=de">Notizen</a></li></ul></nav></header>
+<a class="dh-skip" href="#argument" data-t="skip">Skip to the decision</a>
+<header class="dh-head decision-head"><a class="dh-brand" href="index.html" data-href="index.html"><img src="assets/dhcraft/dhcraft-mark-watercolor-128.png" width="112" height="128" alt="">Second Brain Vault</a><nav class="dh-nav" aria-label="Navigation"><ul><li><a href="index.html" data-href="index.html" data-t="nav.method">Method</a></li><li><a href="notes.html" data-href="notes.html" data-t="nav.notes">Notes</a></li></ul></nav></header>
 <main>
-<div class="decision-title"><h1>Warum TIFF?</h1><p>Bildformat-Entscheidung im Fotoarchiv</p></div>
-<div class="argument" id="argument" aria-label="Gründe, Entscheidung, Ableitung und Geltungsgrenze">
+<div class="decision-title"><h1 data-t="title">Why TIFF?</h1><p data-t="subtitle">Image format decision in the photo archive</p></div>
+<div class="argument" id="argument" aria-label="Grounds, decision, derivation and scope" data-t-label="argument">
 <svg class="connections" id="connections" aria-hidden="true"></svg>
-<section class="grounds" aria-label="Gründe">
-<div class="object ground" data-key="information"><button aria-expanded="false"><span>Information erhalten</span></button></div>
-<div class="object ground" data-key="format"><button aria-expanded="false"><span>Offen dokumentiert</span></button></div>
-<div class="object ground" data-key="scanner"><button aria-expanded="false"><svg class="scanner-icon" viewBox="0 0 40 32" aria-hidden="true"><path d="M4 15h32v12H4z M7 10h26l3 5H4z M9 21h18 M31 21h1"/></svg><span>Scanner liefert TIFF</span></button></div>
+<section class="grounds" aria-label="Grounds" data-t-label="grounds">
+<div class="object ground" data-key="information"><button aria-expanded="false"><span data-t="information">Preserve information</span></button></div>
+<div class="object ground" data-key="format"><button aria-expanded="false"><span data-t="format">Openly documented</span></button></div>
+<div class="object ground" data-key="scanner"><button aria-expanded="false"><svg class="scanner-icon" viewBox="0 0 40 32" aria-hidden="true"><path d="M4 15h32v12H4z M7 10h26l3 5H4z M9 21h18 M31 21h1"/></svg><span data-t="scanner">Scanner delivers TIFF</span></button></div>
 </section>
-<div class="relation-label grounds-label">begründen</div>
-<div class="object master" data-key="master"><button aria-expanded="false"><span class="object-role">Archivmaster</span><svg class="file-icon" viewBox="0 0 100 120" aria-hidden="true"><path d="M16 4h46l22 22v90H16z M62 4v24h22 M28 90l19-25 13 14 10-10 4 21z"/><circle cx="38" cy="48" r="7"/></svg><strong>TIFF</strong><span>unverändert bewahren</span></button></div>
-<div class="relation-label copy-label">ableiten →</div>
-<div class="object copy" data-key="copy"><button aria-expanded="false"><span class="object-role">Nutzungskopie</span><svg class="file-icon" viewBox="0 0 100 120" aria-hidden="true"><path d="M16 4h46l22 22v90H16z M62 4v24h22 M28 90l19-25 13 14 10-10 4 21z"/><circle cx="38" cy="48" r="7"/></svg><strong>JPEG</strong><span>ansehen und teilen</span></button></div>
-<div class="object alternative" data-key="alternative"><button aria-expanded="false"><span class="rejected-symbol" aria-hidden="true">×</span><span>Nur JPEG behalten</span><span class="object-role">verworfen</span></button></div>
-<div class="scope" aria-label="Geltungsbereich">
-<div class="object scope-photo" data-key="scope"><button aria-expanded="false"><span class="scope-mark" aria-hidden="true">✓</span><span>Gilt für Fotos</span></button></div>
+<div class="relation-label grounds-label" data-t="ground">ground</div>
+<div class="object master" data-key="master"><button aria-expanded="false"><span class="object-role" data-t="master">Archival master</span><svg class="file-icon" viewBox="0 0 100 120" aria-hidden="true"><path d="M16 4h46l22 22v90H16z M62 4v24h22 M28 90l19-25 13 14 10-10 4 21z"/><circle cx="38" cy="48" r="7"/></svg><strong>TIFF</strong><span data-t="master.do">keep unchanged</span></button></div>
+<div class="relation-label copy-label" data-t="derive">derive</div>
+<div class="object copy" data-key="copy"><button aria-expanded="false"><span class="object-role" data-t="copy">Access copy</span><svg class="file-icon" viewBox="0 0 100 120" aria-hidden="true"><path d="M16 4h46l22 22v90H16z M62 4v24h22 M28 90l19-25 13 14 10-10 4 21z"/><circle cx="38" cy="48" r="7"/></svg><strong>JPEG</strong><span data-t="copy.do">view and share</span></button></div>
+<div class="object alternative" data-key="alternative"><button aria-expanded="false"><span class="rejected-symbol" aria-hidden="true">×</span><span data-t="alternative">Keep only JPEG</span><span class="object-role" data-t="rejected">rejected</span></button></div>
+<div class="scope" aria-label="Scope" data-t-label="scope">
+<div class="object scope-photo" data-key="scope"><button aria-expanded="false"><span class="scope-mark" aria-hidden="true">✓</span><span data-t="photo">Applies to photographs</span></button></div>
 <div class="scope-boundary" aria-hidden="true"></div>
-<div class="object scope-audio" data-key="audio"><button aria-expanded="false"><svg class="audio-icon" viewBox="0 0 48 32" aria-hidden="true"><path d="M4 12v8 M12 5v22 M20 10v12 M28 2v28 M36 8v16 M44 12v8"/></svg><span>Audio braucht eine eigene Entscheidung</span></button></div>
+<div class="object scope-audio" data-key="audio"><button aria-expanded="false"><svg class="audio-icon" viewBox="0 0 48 32" aria-hidden="true"><path d="M4 12v8 M12 5v22 M20 10v12 M28 2v28 M36 8v16 M44 12v8"/></svg><span data-t="audio">Audio needs a decision of its own</span></button></div>
 </div>
 </div>
-<p class="source-note">Synthetisches Beispiel. Beleg durch Auswahl öffnen. Originalpassagen auf Englisch.</p>
-<p id="load-error" role="alert" hidden>Die Belege konnten nicht geladen werden. <a href="example/Data%20Management/Decision%20Image%20Master%20Format.md">Entscheidungsnotiz öffnen</a>.</p>
+<p class="source-note" data-t="note">Synthetic example. Select an object to open its evidence.</p>
+<p id="load-error" role="alert" hidden><span data-t="error">The evidence could not be loaded.</span> <a href="example/Data%20Management/Decision%20Image%20Master%20Format.md" data-t="error.link">Open the decision note</a>.</p>
 </main>
-<noscript><p><a href="example/Data%20Management/Decision%20Image%20Master%20Format.md">Entscheidung und Begründung lesen</a></p></noscript>
+<noscript><p><a href="example/Data%20Management/Decision%20Image%20Master%20Format.md">Read the decision and its grounds</a></p></noscript>
 </body></html>

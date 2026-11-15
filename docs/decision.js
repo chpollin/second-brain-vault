@@ -1,5 +1,23 @@
 // One curated argument, grounded in the synthetic source files. No relation inference.
 const root = document.querySelector('#argument');
+// The page is authored in English; ?lang=de swaps the authored strings. Source passages stay English.
+const de = new URLSearchParams(location.search).get('lang') === 'de';
+const DE = {
+  skip:'Zur Entscheidung', 'nav.method':'Methode', 'nav.notes':'Notizen', title:'Warum TIFF?', subtitle:'Bildformat-Entscheidung im Fotoarchiv',
+  argument:'Gründe, Entscheidung, Ableitung und Geltungsgrenze', grounds:'Gründe', information:'Information erhalten', format:'Offen dokumentiert',
+  scanner:'Scanner liefert TIFF', ground:'begründen', master:'Archivmaster', 'master.do':'unverändert bewahren', copy:'Nutzungskopie',
+  'copy.do':'ansehen und teilen', alternative:'Nur JPEG behalten', rejected:'verworfen', scope:'Geltungsbereich', photo:'Gilt für Fotos',
+  audio:'Audio braucht eine eigene Entscheidung', note:'Synthetisches Beispiel. Beleg durch Auswahl öffnen. Originalpassagen auf Englisch.',
+  derive:'ableiten', error:'Die Belege konnten nicht geladen werden.', 'error.link':'Entscheidungsnotiz öffnen'
+};
+const t = de ? {derive:'ableiten', evidence:'Originalbeleg', line:'Original, Zeile'} : {derive:'derive', evidence:'Original evidence', line:'Original, line'};
+if (de) {
+  document.documentElement.lang = 'de';
+  document.title = 'Warum TIFF? Second Brain Vault';
+  document.querySelectorAll('[data-t]').forEach(node => { node.textContent = DE[node.dataset.t]; });
+  document.querySelectorAll('[data-t-label]').forEach(node => node.setAttribute('aria-label', DE[node.dataset.tLabel]));
+  document.querySelectorAll('[data-href]').forEach(node => { node.href = node.dataset.href + '?lang=de'; });
+}
 const decision = 'example/Data Management/Decision Image Master Format.md';
 const specs = {
   information: [decision, 'An [[Archival Master]]'],
@@ -19,7 +37,7 @@ const svgNS = 'http://www.w3.org/2000/svg';
 function draw() {
   const svg = document.querySelector('#connections');
   svg.replaceChildren();
-  document.querySelector('.copy-label').textContent=root.clientWidth<768?'ableiten ↓':'ableiten';
+  document.querySelector('.copy-label').textContent=root.clientWidth<768?t.derive+' ↓':t.derive;
   const frame = root.getBoundingClientRect();
   svg.setAttribute('viewBox', `0 0 ${frame.width} ${frame.height}`);
   const defs = document.createElementNS(svgNS, 'defs');
@@ -46,10 +64,10 @@ function render(key) {
     const lines=note.text.split('\n'); const index=lines.findIndex(line=>line.includes(prefix));
     if(index<0) throw new Error('Required evidence passage missing');
     const object=root.querySelector(`[data-key="${active}"]`);
-    const evidence=document.createElement('div');evidence.className='evidence';evidence.id='selected-evidence';evidence.setAttribute('role','region');evidence.setAttribute('aria-label','Originalbeleg');
+    const evidence=document.createElement('div');evidence.className='evidence';evidence.id='selected-evidence';evidence.setAttribute('role','region');evidence.setAttribute('aria-label',t.evidence);
     const quote=document.createElement('blockquote');quote.lang='en';quote.textContent=lines[index].replace(/^[-*] /,'').replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(_,target,label)=>label||target);
     const link=document.createElement('a');link.href=id;link.textContent=note.title;
-    const line=document.createElement('span');line.className='line-label';line.textContent=`Original, Zeile ${index+1}`;
+    const line=document.createElement('span');line.className='line-label';line.textContent=`${t.line} ${index+1}`;
     evidence.append(quote,link,line);object.append(evidence);
     const button=object.querySelector('button');button.setAttribute('aria-expanded','true');button.setAttribute('aria-controls','selected-evidence');
   }
