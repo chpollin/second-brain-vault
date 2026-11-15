@@ -58,3 +58,9 @@ def test_unregistered_skill_and_convention_are_reported(monkeypatch, tmp_path):
         "skill 'new-skill' missing in the skill register",
         "'Convention New' missing in the convention index",
     ]
+
+
+def test_block_list_tags_are_read_like_inline_lists() -> None:
+    meta = check_vault.parse_flat_yaml("type: concept\ntags:\n  - alpha\n  - 'beta'\nstatus: draft")
+    assert meta["tags"] == ["alpha", "beta"]
+    assert meta["status"] == "draft"

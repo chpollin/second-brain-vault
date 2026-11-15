@@ -59,15 +59,24 @@ class ConfigError(Exception):
 
 def parse_flat_yaml(text: str) -> dict:
     data = {}
+    block = ""
     for line in text.splitlines():
+        # A block list item ("- tag") under a key with an empty value extends that key's list.
+        if block and line.lstrip().startswith("- "):
+            data[block] = [*(data[block] or []), line.lstrip()[2:].strip().strip("'\"")]
+            continue
+        block = ""
         if not line.strip() or line.lstrip().startswith("#") or ":" not in line:
             continue
         key, value = line.split(":", 1)
+        key = key.strip()
         value = value.strip()
+        if not value:
+            block = key
         if value.startswith("[") and value.endswith("]"):
-            data[key.strip()] = [v.strip().strip("'\"") for v in value[1:-1].split(",") if v.strip()]
+            data[key] = [v.strip().strip("'\"") for v in value[1:-1].split(",") if v.strip()]
         else:
-            data[key.strip()] = value.strip("'\"")
+            data[key] = value.strip("'\"")
     return data
 
 
