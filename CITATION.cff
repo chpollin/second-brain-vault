@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this template, please cite it as below."
+type: software
+title: "Second Brain Vault"
+abstract: "A template for an Obsidian vault maintained together with an AI agent, with rules, conventions, skills, checks and fixtures."
+authors:
+  - family-names: Pollin
+    given-names: Christopher
+    affiliation: "Digital Humanities Craft OG"
+version: 1.0.0
+date-released: 2026-11-15
+repository-code: "https://github.com/chpollin/second-brain-vault"
+url: "https://chpollin.github.io/second-brain-vault/"
+license:
+  - CC-BY-4.0
+  - MIT
+keywords:
+  - obsidian
+  - ai-agents
+  - knowledge-management
+  - digital-humanities

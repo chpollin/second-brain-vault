@@ -1,0 +1,22 @@
+# Changelog
+
+The template follows semantic versioning for the parts it declares stable below. A change that breaks one of them raises the major version.
+
+## 1.0.0 (2026-11-15)
+
+First declared release. The template has been developed in this repository since 2026-09-19, and the history before this version is in Git and in `knowledge/journal.md`.
+
+### Stable
+
+- The rule contract in `CLAUDE.md`, meaning the control documents, the four axes, one place per statement, the rule tiers and the convention index, with `AGENTS.md` generated from it by `scripts/render_agents_md.py`.
+- The command line of `scripts/check_vault.py` with the options `--hard`, `--integrity`, `--fixtures` and `--json`, and its exit codes, 0 for no hard finding, 1 for a hard finding and 2 for a missing or unreadable rule source.
+- The frontmatter vocabularies of `type` and `status` and the field profiles, maintained in the YAML block of `Vault Operations/Conventions/Convention Frontmatter Field Profiles.md`, and the tag vocabulary in `TAG-TAXONOMY.md`.
+- The ACTIVE-WORK field names in `Vault Operations/Conventions/Convention ACTIVE-WORK Fields.md`.
+
+Skills, conventions, the method page and the knowledge explorer may change in minor versions as long as the stable parts keep working.
+
+### Supported
+
+- Python 3.11 or newer for the checks, standard library only, with `pytest` for the test suite.
+- Node.js only for the tests of the method page.
+- Agents that read `CLAUDE.md` or `AGENTS.md` in the working folder. The template is written for and used with Claude Code and Codex.

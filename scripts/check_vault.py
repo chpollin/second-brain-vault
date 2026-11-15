@@ -45,7 +45,7 @@ SKIP_DIRS = {
     "tools",
     "evals",
 }
-SKIP_FILES = {"README.md", "LICENSE.md"}
+SKIP_FILES = {"README.md", "LICENSE.md", "CHANGELOG.md"}
 CONCEPT_SECTIONS = ["Summary", "Sources", "Related"]
 
 RE_LINK = re.compile(r"\[\[([^\]|#]*)(?:#([^\]|]*))?(?:\|[^\]]*)?\]\]")

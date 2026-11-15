@@ -199,8 +199,8 @@ Each keeps its own specification in its own repository, and none is installed by
 
 Text and documentation are licensed under CC BY 4.0, code under MIT, as [LICENSE.md](LICENSE.md) states. The scripts and stylesheets of the method page are MIT as well. The shared DHCraft files under `docs/assets/dhcraft/`, copied from [brand-assets](https://github.com/DigitalHumanitiesCraft/brand-assets), carry their own licence file: MIT for stylesheets and script, the DHCraft logo excluded, the fonts under the SIL Open Font License.
 
-To cite the template, name author, title, year and repository:
+To cite the template, name author, title, version, year and repository, as `CITATION.cff` also states. Changes between versions and what each version declares stable are in [CHANGELOG.md](CHANGELOG.md).
 
 ```text
-Pollin, C. (2026). Second Brain Vault [Obsidian vault template]. https://github.com/chpollin/second-brain-vault
+Pollin, C. (2026). Second Brain Vault (Version 1.0.0) [Obsidian vault template]. https://github.com/chpollin/second-brain-vault
 ```
