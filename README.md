@@ -91,13 +91,13 @@ Report the operational state with the skill active-work-report.
 
 ### Make it your own
 
-1. Replace `Example Domain/` by your own fields of knowledge and register one tag per field in `TAG-TAXONOMY.md`.
+1. Replace `Example Domain/` by your own fields of knowledge and register one tag per field in `TAG-TAXONOMY.md`. Give each field its own map of content and link it from `HOME.md` in place of `Example Domain MOC`, because the check reports every note that is not reachable from `HOME.md`.
 2. Replace the example project and its entry in `ACTIVE-WORK.md`, and record your repositories in `Vault Operations/Repo Directory.md`.
 3. Adjust `CLAUDE.md` to your way of working, then run `python scripts/render_agents_md.py` so that `AGENTS.md` follows. The places you will most likely change are the working mode in the first paragraph, the session start, the topography table and the convention index.
 4. Write your own prose rules into the skill `writing-style`. A style skill for another language needs contrast examples in that language.
 5. Record every rule change with its reason in `Vault Operations/Decision Log.md`.
 6. Adapt this README and the files under `knowledge/` to the purpose of your vault, or remove them once nothing refers to them any more.
-7. Push a personal vault only to a private repository, because a public repository shows every note to everyone. The Pages workflow publishes only the folder `docs/`, the template's method page with its synthetic example, and never your notes. Since that page describes the template and not your vault, remove `docs/` and `.github/workflows/pages.yml` or leave GitHub Pages switched off.
+7. Push a personal vault only to a private repository, because a public repository shows every note to everyone. The Pages workflow publishes only the folder `docs/`, the template's method page with its synthetic example, and never your notes. Since that page describes the template and not your vault, leave GitHub Pages switched off, or remove the pages as the section [Method page and knowledge explorer](#method-page-and-knowledge-explorer) describes, since their tests and builders refer to `docs/`.
 
 In the template, operator means you, the person who owns the vault and decides its rules. Operator points are the questions the agent leaves for you in `ACTIVE-WORK.md`, each phrased so that you can answer it without opening another file.
 
