@@ -8,7 +8,7 @@ const DE = {
   scanner:'Scanner liefert TIFF', ground:'begründen', master:'Archivmaster', 'master.do':'unverändert bewahren', copy:'Nutzungskopie',
   'copy.do':'ansehen und teilen', alternative:'Nur JPEG behalten', rejected:'verworfen', scope:'Geltungsbereich', photo:'Gilt für Fotos',
   audio:'Audio braucht eine eigene Entscheidung', note:'Synthetisches Beispiel. Beleg durch Auswahl öffnen. Originalpassagen auf Englisch.',
-  derive:'ableiten', error:'Die Belege konnten nicht geladen werden.', 'error.link':'Entscheidungsnotiz öffnen'
+  derive:'ableiten', error:'Die Belege konnten nicht geladen werden.', 'error.link':'Entscheidungsnotiz öffnen', imprint:'Impressum:'
 };
 const t = de ? {derive:'ableiten', evidence:'Originalbeleg', line:'Original, Zeile'} : {derive:'derive', evidence:'Original evidence', line:'Original, line'};
 if (de) {

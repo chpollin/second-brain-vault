@@ -63,4 +63,5 @@ export const PAGE_DE = {
   "footer.licence": "Texte CC BY 4.0, Code MIT, das DHCraft-Logo ausgenommen",
   "footer.source": "Quelle im",
   "footer.repo": "Repository",
+  "footer.imprint": "Impressum:",
 };
